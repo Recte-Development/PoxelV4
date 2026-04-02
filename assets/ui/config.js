@@ -6,6 +6,8 @@ export let config = {
         aimSpeed: 1,
         aimbotSorting: "Screen",
 
+        aimbotType: "Silent",
+
         drawFOV: false,
         fovCheck: false,
         aimbotFOV: 150,

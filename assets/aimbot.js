@@ -115,11 +115,12 @@ export function main(){
     let comp1 = new Component(target.ptr);
    const canvas = document.getElementById("espcanvas");
    // silent aim
-   new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths.Neck)).position);
-                                                                                // pls stop using the old struct gen wtf is wrong with you
-                                                                                // the params should automatically wrap strings
-    // regular aim, commented it out to test silent aim 
-   /*
+
+   switch (config.rage.aimbotType){
+    case "Silent":{
+        new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths.Neck)).position);
+    }
+    case "Mouse":{
     let screenPos = w2s(canvas, comp1.transform.Find(window.ctx.createMstr(humanBonePaths.Neck)).position);
 
     let smoothing = config.rage.aimSpeed;
@@ -133,6 +134,15 @@ export function main(){
         movementY: moveY,
         bubbles: true,
         composed: true
-    }));*/
+    }));
+    }
+   }
+
+   
+                                                                                // pls stop using the old struct gen wtf is wrong with you
+                                                                                // the params should automatically wrap strings
+    // regular aim, commented it out to test silent aim 
+   /*
+    */
     
 }

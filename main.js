@@ -115,6 +115,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(aimbot, "Enabled", config.rage, "aimbot")
 
       const aimbotSettings = ui.addSection(panel, "Aimbot Settings");
+      ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse"], config.rage, "aimbotType")
       ui.addSelectRow(aimbotSettings, "Sort Mode", ["Screen", "World"], config.rage, "aimbotSorting")
       ui.addSelectRow(aimbotSettings, "Aim Key", keyOptions, config.rage, "aimKey");
       ui.addSliderRow(aimbotSettings, "Aim Speed", config.rage, "aimSpeed", .01, 1, .01);
