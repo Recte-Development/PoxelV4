@@ -15,6 +15,9 @@ export let config = {
         fovColor: "#880000",
         fovThickness: 2,
 
+        keyCheck: false,
+        screenCheck: false,
+
         killAll: false,
 
         infAmmo: false,

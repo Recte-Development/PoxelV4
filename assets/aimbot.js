@@ -7,7 +7,7 @@ import {localPlayer, weaponCamera} from "./hooks/shooter";
 import { config } from "./ui/config";
 import { keysPressed, nullCheck, Vector3, buttonsPressed} from "./utils"
 import { humanBonePaths } from "./humanbodybones";
-import { w2s, onScreen } from "./render";
+import { w2s, onScreen, isTeam } from "./render";
 
 export function centerOfScreen(){
     
@@ -74,8 +74,8 @@ export function getTargets() {
         if (!screenPos) {
             console.log("screenPos null or screenPos.z <= 0")
             return;}
-
-        if (!onScreen(screenPos)) return;
+        
+        if (!onScreen(screenPos) && !config.rage.screenCheck) return;
 
         if (config.rage.fovCheck){
             if (Vector3.distance(centerOfScreen(), screenPos) > config.rage.aimbotFOV) return;
@@ -134,7 +134,7 @@ let lp = null
 
 export function main(){
     if (!config.rage.aimbot) return;
-    if (!(keysPressed["Key" + config.rage.aimKey] || keysPressed[config.rage.aimKey] || buttonsPressed[config.rage.aimKey])) return;
+    if (!(keysPressed["Key" + config.rage.aimKey] || keysPressed[config.rage.aimKey] || buttonsPressed[config.rage.aimKey]) && config.rage.keyCheck) return;
 
     if (!localPlayer) return;
     lp = localPlayer;

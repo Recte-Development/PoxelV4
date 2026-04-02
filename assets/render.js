@@ -110,7 +110,6 @@ export function isTeam(player) {
   if (!lp) return true;
   
   if (modes.includes(currentMode)) return false;
-  else console.log(currentMode)
 
 
   them = player.playerState.team.val();

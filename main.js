@@ -125,6 +125,8 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addSliderRow(aimbotSettings, "Aim Speed", config.rage, "aimSpeed", .01, 1, .01);
       ui.addToggleRow(aimbotSettings, "Draw FOV", config.rage, "drawFOV");
       ui.addToggleRow(aimbotSettings, "FOV Check", config.rage, "fovCheck");
+      ui.addToggleRow(aimbotSettings, "Screen Check", config.rage, "screenCheck");
+      ui.addToggleRow(aimbotSettings, "Aim Key Check", config.rage, "aimCheck");
       ui.addSliderRow(aimbotSettings, "FOV", config.rage, "aimbotFOV", 30, 300, 1)
       ui.addSliderRow(aimbotSettings, "FOV Thickness", config.rage, "fovThickness", 1, 10, 1)
       ui.addColorRow(aimbotSettings, "FOV Color", config.rage, "fovColor");
