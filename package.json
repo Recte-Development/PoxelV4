@@ -1,0 +1,24 @@
+{
+  "name": "recryzen",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "esbuild": "^0.25.8",
+    "js-confuser": "^2.0.0",
+    "vite": "^7.0.6"
+  },
+  "type": "module",
+  "dependencies": {
+    "@msgpack/msgpack": "^3.1.2",
+    "fs": "0.0.1-security",
+    "lil-gui": "^0.20.0",
+    "three": "^0.178.0"
+  }
+}
