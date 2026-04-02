@@ -24,6 +24,30 @@ export const keyOptions = [
   "P",
   "Backquote",
 ];
+export function randomRange(min, max, float = false) {
+    if (float) {
+        return Math.random() * (max - min) + min;
+    } else {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+}
+export function ChatBypass(str) {
+return str.split(' ').map(word => {
+      const positions = [];
+      for (let i = 0; i < 4; i++) {
+          positions.push(Math.floor(Math.random() * (word.length + 1)));
+      }
+      positions.sort((a, b) => a - b);
+      let result = '';
+      let lastIndex = 0;
+      for (let pos of positions) {
+          result += word.slice(lastIndex, pos) + '<b>';
+          lastIndex = pos;
+      }
+      result += word.slice(lastIndex);
+      return result;
+  }).join(' ');
+}
 
 export function strip(label) {
     let cleanLabel = label

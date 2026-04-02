@@ -1,9 +1,9 @@
 import { loadAndInitPlugin } from "./assets/injection.js";
 import { UiMain, allowTypingInLilGuiInputs } from "./assets/ui/uimain.js";
 import { config } from "./assets/ui/config.js";
-import { chatManager, shooterhooks } from "./assets/hooks/shooter.js";
+import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSessionId, currentMode } from "./assets/hooks/shooter.js";
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
-  RaycastHit, AFKManager, ChatUIManager,
+  RaycastHit, AFKManager, ChatUIManager, MovementController,
   Camera,
   Component,
   Ray,
@@ -39,9 +39,9 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       const settings = ui.addSection(panel, "Settings");
       ui.addToggleRow(settings, "Team Check", config.visuals, "teamCheck");
       ui.addButton(settings, "Test Button", "Execute", "Execute", ()=>{
-        
-
+        console.log(currentMode)
       });
+      
 
 
       const nametags = ui.addSection(panel, "Nametags");
@@ -98,6 +98,9 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
     ui.addTab("Misc", (panel)=>{
       const main = ui.addSection(panel, "Misc");
       ui.addToggleRow(main, "Anti-AFK", config.misc, "antiafk");
+      ui.addToggleRow(main, "Infinite Dash", config.misc, "infDash");
+      ui.addToggleRow(main, "Custom Dash Force", config.misc, "customDashForce");
+      ui.addSliderRow(main, "Dash Force", config.misc, "dashForce", 1, 75, 1);
 
       const chat = ui.addSection(panel, "Chat")
       ui.addToggleRow(chat, "Chat Spam", config.misc, "chatSpam");
@@ -169,6 +172,26 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addSliderRow(main, "FOV Size", config.visuals, "fovsize", 1, 1000, 1);
       ui.addColorRow(main, "FOV Color", config.visuals, "fovcolor");
       ui.addToggleRow(main, "FOV Rainbow", config.visuals, "fovrainbow");*/
+    });
+
+    ui.addTab("Combat", (panel) =>{
+
+      const weapons = ui.addSection(panel, "Weapons");
+      ui.addToggleRow(weapons, "Infinite Ammo", config.rage, "infAmmo")
+      ui.addToggleRow(weapons, "No Recoil", config.rage, "noRecoil")
+
+      ui.addToggleRow(weapons, "Fire Rate Modifier", config.rage, "customFireRate");
+      ui.addSliderRow(weapons, "Fire Rate", config.rage, "fireRate", 1, 300, 1)
+
+
+      ui.addToggleRow(weapons, "Hold To Shoot", config.rage, "holdToShoot");
+
+      const exploits = ui.addSection(panel, "Exploits");
+      ui.addToggleRow(exploits, "Kill All", config.rage, "killAll")
+      ui.addButton(exploits, "God Mode", "Execute", "Execute", ()=>{
+         new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+      });
+
     });
 
     ui.addTab("Credits", (panel) => {

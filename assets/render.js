@@ -96,17 +96,21 @@ public static bool OnScreen(Vector3 pos)
       return pos.x > 0.01f && pos.x < (float)(Screen.width - 5) && pos.y > 0.01f && pos.y < (float)(Screen.height - 5) && pos.z > 0f;
     }
 */
-export function onScreen(screenPos, canvas) {
+export function onScreen(screenPos) {
 
   return screenPos.x > 0.1 && screenPos.x < window.innerWidth - 5 && screenPos.y > 0.1 && screenPos.y < window.innerHeight - 5 && screenPos.z > 0;
 }
+
+const modes = ["FFA", "Megaheads", "Gun Gamble", "Rocket Arena"];
 
 export function isTeam(player) {
 
   if (!localPlayer) return true;
   const lp = localPlayer;
   if (!lp) return true;
-  if (currentMode == "FFA") return false;
+  
+  if (modes.includes(currentMode)) return false;
+  else console.log(currentMode)
 
 
   them = player.playerState.team.val();
@@ -208,7 +212,7 @@ export function esp() {
       const headScreen = w2s(canvas, headVec.createPtr());
       const footScreen = w2s(canvas, footWorldPos);
       if (!headScreen || !footScreen) return;
-      if (!onScreen(headScreen, canvas)) return;
+      if (!onScreen(headScreen)) return;
 
       const esp = new ESPThings(ctx2d, footScreen, headScreen);
 
@@ -219,8 +223,7 @@ export function esp() {
         let text = nickname;
         if (nametagsHealth) text += `\n[${health}hp]`;
         if (nametagsDistance && selfTransform) {
-          const dist = Vector3.readFrom(selfTransform.position)
-            .distance(Vector3.readFrom(compTransform.position));
+          const dist = Vector3.Distance(Vector3.readFrom(selfTransform.position), Vector3.readFrom(compTransform.position));
           text += `\n[${dist}m]`;
         }
         esp.DrawText(text, headScreen.x, headScreen.y + 2, 12, nametagsColor);

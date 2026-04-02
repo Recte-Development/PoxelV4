@@ -1,3 +1,236 @@
+export class MovementController {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get canDash() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "get_canDash", [this.ptr]).val() === 1; }
+    get CurrentMaxStableMoveSpeed() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "get_CurrentMaxStableMoveSpeed", [this.ptr]).val(); }
+    get IsAI() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "get_IsAI", [this.ptr]).val() === 1; }
+    get AirAccelerationSpeed() { return this.ptr.readField(0x6C, 'f32').val(); }
+    set AirAccelerationSpeed(v) { return this.ptr.writeField(0x6C, 'f32', v); }
+    get AllowJumpingWhenSliding() { return this.ptr.readField(0x74, 'i32').val() === 1; }
+    set AllowJumpingWhenSliding(v) { return this.ptr.writeField(0x74, 'i32', v); }
+    get CharacterGroundingReportEvent() { return this.ptr.readField(0x0, 'i32').val() === 1; }
+    set CharacterGroundingReportEvent(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get CrouchedCapsuleHeight() { return this.ptr.readField(0x98, 'f32').val(); }
+    set CrouchedCapsuleHeight(v) { return this.ptr.writeField(0x98, 'f32', v); }
+    get Drag() { return this.ptr.readField(0x70, 'f32').val(); }
+    set Drag(v) { return this.ptr.writeField(0x70, 'f32', v); }
+    get Gravity() { return new Vector3(this.ptr.readField(0x88, 'i32')); }
+    set Gravity(v) { return this.ptr.writeField(0x88, 'i32', v); }
+    get JumpPostGroundingGraceTime() { return this.ptr.readField(0x84, 'f32').val(); }
+    set JumpPostGroundingGraceTime(v) { return this.ptr.writeField(0x84, 'f32', v); }
+    get JumpPreGroundingGraceTime() { return this.ptr.readField(0x80, 'f32').val(); }
+    set JumpPreGroundingGraceTime(v) { return this.ptr.writeField(0x80, 'f32', v); }
+    get JumpScalableForwardSpeed() { return this.ptr.readField(0x7C, 'f32').val(); }
+    set JumpScalableForwardSpeed(v) { return this.ptr.writeField(0x7C, 'f32', v); }
+    get JumpUpSpeed() { return this.ptr.readField(0x78, 'f32').val(); }
+    set JumpUpSpeed(v) { return this.ptr.writeField(0x78, 'f32', v); }
+    get MaxAirMoveSpeed() { return this.ptr.readField(0x68, 'f32').val(); }
+    set MaxAirMoveSpeed(v) { return this.ptr.writeField(0x68, 'f32', v); }
+    get MaxStableMoveSpeed() { return this.ptr.readField(0x64, 'f32').val(); }
+    set MaxStableMoveSpeed(v) { return this.ptr.writeField(0x64, 'f32', v); }
+    get MeshRoot() { return new Transform(this.ptr.readField(0x94, 'i32')); }
+    set MeshRoot(v) { return this.ptr.writeField(0x94, 'i32', v); }
+    get Motor() { return new KinematicCharacterMotor(this.ptr.readField(0x5C, 'i32')); }
+    set Motor(v) { return this.ptr.writeField(0x5C, 'i32', v); }
+    get _internalVelocityAdd() { return new Vector3(this.ptr.readField(0x140, 'i32')); }
+    set _internalVelocityAdd(v) { return this.ptr.writeField(0x140, 'i32', v); }
+    get _isCrouching() { return this.ptr.readField(0x14D, 'i32').val() === 1; }
+    set _isCrouching(v) { return this.ptr.writeField(0x14D, 'i32', v); }
+    get _jumpConsumed() { return this.ptr.readField(0x134, 'i32').val() === 1; }
+    set _jumpConsumed(v) { return this.ptr.writeField(0x134, 'i32', v); }
+    get _jumpRequested() { return this.ptr.readField(0xBC, 'i32').val() === 1; }
+    set _jumpRequested(v) { return this.ptr.writeField(0xBC, 'i32', v); }
+    get _jumpedThisFrame() { return this.ptr.readField(0x135, 'i32').val() === 1; }
+    set _jumpedThisFrame(v) { return this.ptr.writeField(0x135, 'i32', v); }
+    get _moveInputVector() { return new Vector3(this.ptr.readField(0xA4, 'i32')); }
+    set _moveInputVector(v) { return this.ptr.writeField(0xA4, 'i32', v); }
+    get _probedColliders() { return JSArray(this.ptr.readField(0x9C, 'i32')); }
+    set _probedColliders(v) { return this.ptr.writeField(0x9C, 'i32', v); }
+    get _probedHits() { return JSArray(this.ptr.readField(0xA0, 'i32')); }
+    set _probedHits(v) { return this.ptr.writeField(0xA0, 'i32', v); }
+    get _rawMoveInputLocal() { return new Vector3(this.ptr.readField(0xB0, 'i32')); }
+    set _rawMoveInputLocal(v) { return this.ptr.writeField(0xB0, 'i32', v); }
+    get _shouldBeCrouching() { return this.ptr.readField(0x14C, 'i32').val() === 1; }
+    set _shouldBeCrouching(v) { return this.ptr.writeField(0x14C, 'i32', v); }
+    get _timeSinceJumpRequested() { return this.ptr.readField(0x138, 'f32').val(); }
+    set _timeSinceJumpRequested(v) { return this.ptr.writeField(0x138, 'f32', v); }
+    get _timeSinceLastAbleToJump() { return this.ptr.readField(0x13C, 'f32').val(); }
+    set _timeSinceLastAbleToJump(v) { return this.ptr.writeField(0x13C, 'f32', v); }
+    get _tmpTransientRot() { return new Quaternion(this.ptr.readField(0x168, 'i32')); }
+    set _tmpTransientRot(v) { return this.ptr.writeField(0x168, 'i32', v); }
+    get colyTeamMember() { return new ColyTeamMember(this.ptr.readField(0x10, 'i32')); }
+    set colyTeamMember(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get currentCustomKnockback() { return new Vector3(this.ptr.readField(0xCC, 'i32')); }
+    set currentCustomKnockback(v) { return this.ptr.writeField(0xCC, 'i32', v); }
+    get currentDashDuration() { return this.ptr.readField(0xE4, 'f32').val(); }
+    set currentDashDuration(v) { return this.ptr.writeField(0xE4, 'f32', v); }
+    get currentDashVelocity() { return new Vector3(this.ptr.readField(0xD8, 'i32')); }
+    set currentDashVelocity(v) { return this.ptr.writeField(0xD8, 'i32', v); }
+    get currentLadder() { return new BoxCollider(this.ptr.readField(0x104, 'i32')); }
+    set currentLadder(v) { return this.ptr.writeField(0x104, 'i32', v); }
+    get currentLadderTransform() { return new Transform(this.ptr.readField(0x108, 'i32')); }
+    set currentLadderTransform(v) { return this.ptr.writeField(0x108, 'i32', v); }
+    get currentYRot() { return this.ptr.readField(0x178, 'f32').val(); }
+    set currentYRot(v) { return this.ptr.writeField(0x178, 'f32', v); }
+    get dashForce() { return this.ptr.readField(0x50, 'f32').val(); }
+    set dashForce(v) { return this.ptr.writeField(0x50, 'f32', v); }
+    get dashMultiOverDuration() { return new AnimationCurve(this.ptr.readField(0x58, 'i32')); }
+    set dashMultiOverDuration(v) { return this.ptr.writeField(0x58, 'i32', v); }
+    get dashSlider() { return new NonSelectableSlider(this.ptr.readField(0x4C, 'i32')); }
+    set dashSlider(v) { return this.ptr.writeField(0x4C, 'i32', v); }
+    get initialMaxStableMoveSpeed() { return this.ptr.readField(0x60, 'f32').val(); }
+    set initialMaxStableMoveSpeed(v) { return this.ptr.writeField(0x60, 'f32', v); }
+    get isOnLadder() { return this.ptr.readField(0x100, 'i32').val() === 1; }
+    set isOnLadder(v) { return this.ptr.writeField(0x100, 'i32', v); }
+    get jumpPadOverrideForce() { return new Vector3(this.ptr.readField(0xC0, 'i32')); }
+    set jumpPadOverrideForce(v) { return this.ptr.writeField(0xC0, 'i32', v); }
+    get ladderAttachUngroundTime() { return this.ptr.readField(0xF8, 'f32').val(); }
+    set ladderAttachUngroundTime(v) { return this.ptr.writeField(0xF8, 'f32', v); }
+    get ladderBottomWorld() { return new Vector3(this.ptr.readField(0x128, 'i32')); }
+    set ladderBottomWorld(v) { return this.ptr.writeField(0x128, 'i32', v); }
+    get ladderCandidate() { return new BoxCollider(this.ptr.readField(0x10C, 'i32')); }
+    set ladderCandidate(v) { return this.ptr.writeField(0x10C, 'i32', v); }
+    get ladderClimbSpeed() { return this.ptr.readField(0xE8, 'f32').val(); }
+    set ladderClimbSpeed(v) { return this.ptr.writeField(0xE8, 'f32', v); }
+    get ladderDetachInputThreshold() { return this.ptr.readField(0xF0, 'f32').val(); }
+    set ladderDetachInputThreshold(v) { return this.ptr.writeField(0xF0, 'f32', v); }
+    get ladderEndEpsilon() { return this.ptr.readField(0xFC, 'f32').val(); }
+    set ladderEndEpsilon(v) { return this.ptr.writeField(0xFC, 'f32', v); }
+    get ladderPopOffSpeed() { return this.ptr.readField(0xF4, 'f32').val(); }
+    set ladderPopOffSpeed(v) { return this.ptr.writeField(0xF4, 'f32', v); }
+    get ladderStrafeSpeed() { return this.ptr.readField(0xEC, 'f32').val(); }
+    set ladderStrafeSpeed(v) { return this.ptr.writeField(0xEC, 'f32', v); }
+    get ladderTopWorld() { return new Vector3(this.ptr.readField(0x11C, 'i32')); }
+    set ladderTopWorld(v) { return this.ptr.writeField(0x11C, 'i32', v); }
+    get ladderUp() { return new Vector3(this.ptr.readField(0x110, 'i32')); }
+    set ladderUp(v) { return this.ptr.writeField(0x110, 'i32', v); }
+    get lastCharacterGroundingReport() { return new CharacterGroundingReport(this.ptr.readField(0x14, 'i32')); }
+    set lastCharacterGroundingReport(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get lastDashTime() { return this.ptr.readField(0x54, 'f32').val(); }
+    set lastDashTime(v) { return this.ptr.writeField(0x54, 'f32', v); }
+    get lastInnerNormal() { return new Vector3(this.ptr.readField(0x150, 'i32')); }
+    set lastInnerNormal(v) { return this.ptr.writeField(0x150, 'i32', v); }
+    get lastOuterNormal() { return new Vector3(this.ptr.readField(0x15C, 'i32')); }
+    set lastOuterNormal(v) { return this.ptr.writeField(0x15C, 'i32', v); }
+    AddVelocity(velocity) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "AddVelocity", [this.ptr, velocity]); }
+    AfterCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "AfterCharacterUpdate", [this.ptr, deltaTime]); }
+    ApplyDash(dir) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "ApplyDash", [this.ptr, dir]); }
+    ApplyKnockbackForce(knockbackDir, forceJump) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "ApplyKnockbackForce", [this.ptr, knockbackDir, forceJump]); }
+    Awake() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "Awake", [this.ptr]); }
+    BeforeCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "BeforeCharacterUpdate", [this.ptr, deltaTime]); }
+    CancelDash() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "CancelDash", [this.ptr]); }
+    EnterLadder(ladderCollider) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "EnterLadder", [this.ptr, ladderCollider]); }
+    ExitLadder() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "ExitLadder", [this.ptr]); }
+    GetCharacterBottomWorld() { return (()=>{
+					let structptr_8d7139 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetCharacterBottomWorld", [structptr_8d7139, this.ptr]);
+					return structptr_8d7139;
+				})(); }
+    GetCharacterTopWorld() { return (()=>{
+					let structptr_b96835 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetCharacterTopWorld", [structptr_b96835, this.ptr]);
+					return structptr_b96835;
+				})(); }
+    GetLadderOut() { return (()=>{
+					let structptr_25769a = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetLadderOut", [structptr_25769a, this.ptr]);
+					return structptr_25769a;
+				})(); }
+    GetLadderRight() { return (()=>{
+					let structptr_976ee1 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetLadderRight", [structptr_976ee1, this.ptr]);
+					return structptr_976ee1;
+				})(); }
+    IsAtLadderBottom() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "IsAtLadderBottom", [this.ptr]).val() === 1; }
+    IsAtLadderTop() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "IsAtLadderTop", [this.ptr]).val() === 1; }
+    IsOutsideLadderLateralBounds() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "IsOutsideLadderLateralBounds", [this.ptr]).val() === 1; }
+    JumpForce(jumpSpeed) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "JumpForce", [this.ptr, jumpSpeed]); }
+    OnDisable() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnDisable", [this.ptr]); }
+    OnDiscreteCollisionDetected(hitCollider) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnDiscreteCollisionDetected", [this.ptr, hitCollider]); }
+    OnEnable() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnEnable", [this.ptr]); }
+    OnGroundHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnGroundHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
+    OnLanded() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnLanded", [this.ptr]); }
+    OnLeaveStableGround() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnLeaveStableGround", [this.ptr]); }
+    OnMovementHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnMovementHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
+    OnTriggerEnter(other) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnTriggerEnter", [this.ptr, other]); }
+    OnTriggerExit(other) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "OnTriggerExit", [this.ptr, other]); }
+    PostGroundingUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "PostGroundingUpdate", [this.ptr, deltaTime]); }
+    ProcessHitStabilityReport(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "ProcessHitStabilityReport", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport]); }
+    SetInputs(isAi) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "SetInputs", [this.ptr, isAi]); }
+    Update() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "Update", [this.ptr]); }
+    UpdateRotation(currentRotation, deltaTime) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "UpdateRotation", [this.ptr, currentRotation, deltaTime]); }
+    UpdateVelocity(currentVelocity, deltaTime) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "UpdateVelocity", [this.ptr, currentVelocity, deltaTime]); }
+}
+
+export class Player {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get back() { return this.ptr.readField(0x2C, 'i32'); }
+    set back(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get crouching() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
+    set crouching(v) { return this.ptr.writeField(0x3C, 'i32', v); }
+    get currentKillStreak() { return this.ptr.readField(0x58, 'f32').val(); }
+    set currentKillStreak(v) { return this.ptr.writeField(0x58, 'f32', v); }
+    get dashing() { return this.ptr.readField(0x3B, 'i32').val() === 1; }
+    set dashing(v) { return this.ptr.writeField(0x3B, 'i32', v); }
+    get deaths() { return this.ptr.readField(0x26, 'i32'); }
+    set deaths(v) { return this.ptr.writeField(0x26, 'i32', v); }
+    get elo() { return this.ptr.readField(0x20, 'f32').val(); }
+    set elo(v) { return this.ptr.writeField(0x20, 'f32', v); }
+    get hat() { return this.ptr.readField(0x2A, 'i32'); }
+    set hat(v) { return this.ptr.writeField(0x2A, 'i32', v); }
+    get headshots() { return this.ptr.readField(0x60, 'f32').val(); }
+    set headshots(v) { return this.ptr.writeField(0x60, 'f32', v); }
+    get health() { return this.ptr.readField(0x38, 'i32'); }
+    set health(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get healthProtected() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set healthProtected(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get inventory() { return this.ptr.readField(0x44, 'i32'); }
+    set inventory(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get kills() { return this.ptr.readField(0x24, 'i32'); }
+    set kills(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get killsWithWeapon() { return this.ptr.readField(0x5C, 'f32').val(); }
+    set killsWithWeapon(v) { return this.ptr.writeField(0x5C, 'f32', v); }
+    get lastGotShot() { return new Shot(this.ptr.readField(0x54, 'i32')); }
+    set lastGotShot(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get lastShootTime() { return this.ptr.readField(0x6C, 'f32').val(); }
+    set lastShootTime(v) { return this.ptr.writeField(0x6C, 'f32', v); }
+    get lastShotTime() { return this.ptr.readField(0x68, 'f32').val(); }
+    set lastShotTime(v) { return this.ptr.writeField(0x68, 'f32', v); }
+    get localWeaponIndex() { return this.ptr.readField(0x3E, 'i32'); }
+    set localWeaponIndex(v) { return this.ptr.writeField(0x3E, 'i32', v); }
+    get maxKillStreak() { return this.ptr.readField(0x30, 'i32'); }
+    set maxKillStreak(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get nickname() { return this.ptr.readField(0x18, 'i32').mstr(); }
+    set nickname(v) { return this.ptr.writeField(0x18, 'i32', window.ctx.createMstr(v)); }
+    get party() { return this.ptr.readField(0x4C, 'i32').mstr(); }
+    set party(v) { return this.ptr.writeField(0x4C, 'i32', window.ctx.createMstr(v)); }
+    get playerId() { return this.ptr.readField(0x14, 'i32').mstr(); }
+    set playerId(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
+    get rigid() { return new ColyRigid(this.ptr.readField(0x34, 'i32')); }
+    set rigid(v) { return this.ptr.writeField(0x34, 'i32', v); }
+    get sceneLoaded() { return this.ptr.readField(0x3D, 'i32').val() === 1; }
+    set sceneLoaded(v) { return this.ptr.writeField(0x3D, 'i32', v); }
+    get score() { return this.ptr.readField(0x1C, 'i32'); }
+    set score(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get selectedGunSkins() { return this.ptr.readField(0x10, 'i32'); }
+    set selectedGunSkins(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get skin() { return this.ptr.readField(0x28, 'i32'); }
+    set skin(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get spawned() { return this.ptr.readField(0x3A, 'i32').val() === 1; }
+    set spawned(v) { return this.ptr.writeField(0x3A, 'i32', v); }
+    get startPlayTime() { return this.ptr.readField(0x64, 'f32').val(); }
+    set startPlayTime(v) { return this.ptr.writeField(0x64, 'f32', v); }
+    get team() { return this.ptr.readField(0x3F, 'i32'); }
+    set team(v) { return this.ptr.writeField(0x3F, 'i32', v); }
+    get user() { return new PublicUserData(this.ptr.readField(0x50, 'i32')); }
+    set user(v) { return this.ptr.writeField(0x50, 'i32', v); }
+    get userId() { return this.ptr.readField(0x48, 'i32').mstr(); }
+    set userId(v) { return this.ptr.writeField(0x48, 'i32', window.ctx.createMstr(v)); }
+    get weaponClass() { return this.ptr.readField(0x39, 'i32'); }
+    set weaponClass(v) { return this.ptr.writeField(0x39, 'i32', v); }
+    get weaponsCollected() { return this.ptr.readField(0x2E, 'i32'); }
+    set weaponsCollected(v) { return this.ptr.writeField(0x2E, 'i32', v); }
+}
+
 export class ColyShooter {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get currentGun() { return new Gun(window.ctx.call("ColyShooter", "get_currentGun", [this.ptr])); }
@@ -1689,6 +1922,904 @@ export class Quaternion {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Quaternion", "ToString_22068", [this.ptr, format, formatProvider]); }
 }
 
+export class Vector3 {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static get back() { return (()=>{
+					let structptr_51da6e = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_back", [structptr_51da6e, ]);
+					return structptr_51da6e;
+				})(); }
+    static get down() { return (()=>{
+					let structptr_8988c7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_down", [structptr_8988c7, ]);
+					return structptr_8988c7;
+				})(); }
+    static get forward() { return (()=>{
+					let structptr_bcc0b2 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_forward", [structptr_bcc0b2, ]);
+					return structptr_bcc0b2;
+				})(); }
+    get Item() { return window.ctx.call("UnityEngine.Vector3", "get_Item", [this.ptr, index]).val(); }
+    set Item(v) { window.ctx.call("UnityEngine.Vector3", "set_Item", [this.ptr, index, v]); }
+    static get left() { return (()=>{
+					let structptr_2a971f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_left", [structptr_2a971f, ]);
+					return structptr_2a971f;
+				})(); }
+    get magnitude() { return window.ctx.call("UnityEngine.Vector3", "get_magnitude", [this.ptr]).val(); }
+    get normalized() { return (()=>{
+					let structptr_9e25d7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_normalized", [structptr_9e25d7, this.ptr]);
+					return structptr_9e25d7;
+				})(); }
+    static get one() { return (()=>{
+					let structptr_1e6f0c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_one", [structptr_1e6f0c, ]);
+					return structptr_1e6f0c;
+				})(); }
+    static get right() { return (()=>{
+					let structptr_6f9e94 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_right", [structptr_6f9e94, ]);
+					return structptr_6f9e94;
+				})(); }
+    get sqrMagnitude() { return window.ctx.call("UnityEngine.Vector3", "get_sqrMagnitude", [this.ptr]).val(); }
+    static get up() { return (()=>{
+					let structptr_2e9bf6 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_up", [structptr_2e9bf6, ]);
+					return structptr_2e9bf6;
+				})(); }
+    static get zero() { return (()=>{
+					let structptr_5c8fe7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_zero", [structptr_5c8fe7, ]);
+					return structptr_5c8fe7;
+				})(); }
+    get backVector() { return new Vector3(this.ptr.readField(0x54, 'i32')); }
+    set backVector(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get downVector() { return new Vector3(this.ptr.readField(0x24, 'i32')); }
+    set downVector(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get forwardVector() { return new Vector3(this.ptr.readField(0x48, 'i32')); }
+    set forwardVector(v) { return this.ptr.writeField(0x48, 'i32', v); }
+    get leftVector() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
+    set leftVector(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get negativeInfinityVector() { return new Vector3(this.ptr.readField(0x6C, 'i32')); }
+    set negativeInfinityVector(v) { return this.ptr.writeField(0x6C, 'i32', v); }
+    get oneVector() { return new Vector3(this.ptr.readField(0xC, 'i32')); }
+    set oneVector(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get positiveInfinityVector() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
+    set positiveInfinityVector(v) { return this.ptr.writeField(0x60, 'i32', v); }
+    get rightVector() { return new Vector3(this.ptr.readField(0x3C, 'i32')); }
+    set rightVector(v) { return this.ptr.writeField(0x3C, 'i32', v); }
+    get upVector() { return new Vector3(this.ptr.readField(0x18, 'i32')); }
+    set upVector(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get x() { return this.ptr.readField(0x0, 'f32').val(); }
+    set x(v) { return this.ptr.writeField(0x0, 'f32', v); }
+    get y() { return this.ptr.readField(0x4, 'f32').val(); }
+    set y(v) { return this.ptr.writeField(0x4, 'f32', v); }
+    get z() { return this.ptr.readField(0x8, 'f32').val(); }
+    set z(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get zeroVector() { return new Vector3(this.ptr.readField(0x0, 'i32')); }
+    set zeroVector(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22005", [from, to]).val(); }
+    static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22006", [from, to]).val(); }
+    static ClampMagnitude(vector, maxLength) { return (()=>{
+					let structptr_ee22e3 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "ClampMagnitude", [structptr_ee22e3, vector, maxLength]);
+					return structptr_ee22e3;
+				})(); }
+    static Cross(lhs, rhs) { return (()=>{
+					let structptr_9e5914 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Cross", [structptr_9e5914, lhs, rhs]);
+					return structptr_9e5914;
+				})(); }
+    static Distance(a, b) { return window.ctx.call("UnityEngine.Vector3", "Distance", [a, b]).val(); }
+    static Dot_lhs_rhs(lhs, rhs) { return window.ctx.call("UnityEngine.Vector3", "Dot_22001", [lhs, rhs]).val(); }
+    static Dot_lhs_rhs(lhs, rhs) { return window.ctx.call("UnityEngine.Vector3", "Dot_22002", [lhs, rhs]).val(); }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21994", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21995", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21996", [this.ptr, other]).val() === 1; }
+    GetHashCode() { return window.ctx.call("UnityEngine.Vector3", "GetHashCode", [this.ptr]).val(); }
+    static Lerp(a, b, t) { return (()=>{
+					let structptr_f07f79 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Lerp", [structptr_f07f79, a, b, t]);
+					return structptr_f07f79;
+				})(); }
+    static Max_lhs_rhs(lhs, rhs) { return (()=>{
+					let structptr_209b4c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Max_22014", [structptr_209b4c, lhs, rhs]);
+					return structptr_209b4c;
+				})(); }
+    static Max_lhs_rhs(lhs, rhs) { return (()=>{
+					let structptr_dad67f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Max_22015", [structptr_dad67f, lhs, rhs]);
+					return structptr_dad67f;
+				})(); }
+    static Min_lhs_rhs(lhs, rhs) { return (()=>{
+					let structptr_14ec7a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Min_22012", [structptr_14ec7a, lhs, rhs]);
+					return structptr_14ec7a;
+				})(); }
+    static Min_lhs_rhs(lhs, rhs) { return (()=>{
+					let structptr_5eb29a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Min_22013", [structptr_5eb29a, lhs, rhs]);
+					return structptr_5eb29a;
+				})(); }
+    static MoveTowards(current, target, maxDistanceDelta) { return (()=>{
+					let structptr_3bfecd = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "MoveTowards", [structptr_3bfecd, current, target, maxDistanceDelta]);
+					return structptr_3bfecd;
+				})(); }
+    static Normalize_value(value) { return (()=>{
+					let structptr_d5cf42 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Normalize_21997", [structptr_d5cf42, value]);
+					return structptr_d5cf42;
+				})(); }
+    static Normalize_value(value) { return (()=>{
+					let structptr_4df623 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Normalize_21998", [structptr_4df623, value]);
+					return structptr_4df623;
+				})(); }
+    Normalize_pointer() { window.ctx.call("UnityEngine.Vector3", "Normalize_21999", [this.ptr]); }
+    static Project(vector, onNormal) { return (()=>{
+					let structptr_b00cbb = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Project", [structptr_b00cbb, vector, onNormal]);
+					return structptr_b00cbb;
+				})(); }
+    static ProjectOnPlane(vector, planeNormal) { return (()=>{
+					let structptr_94c162 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "ProjectOnPlane", [structptr_94c162, vector, planeNormal]);
+					return structptr_94c162;
+				})(); }
+    static Scale_a_b(a, b) { return (()=>{
+					let structptr_fa12b2 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Scale_21990", [structptr_fa12b2, a, b]);
+					return structptr_fa12b2;
+				})(); }
+    Scale_scale(scale) { window.ctx.call("UnityEngine.Vector3", "Scale_21991", [this.ptr, scale]); }
+    static SignedAngle(from, to, axis) { return window.ctx.call("UnityEngine.Vector3", "SignedAngle", [from, to, axis]).val(); }
+    static SmoothDamp_current_target_currentVelocity_smoothTime(current, target, currentVelocity, smoothTime) { return (()=>{
+					let structptr_e3f9ea = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_21984", [structptr_e3f9ea, current, target, currentVelocity, smoothTime]);
+					return structptr_e3f9ea;
+				})(); }
+    static SmoothDamp_current_target_currentVelocity_smoothTime_maxSpeed_deltaTime(current, target, currentVelocity, smoothTime, maxSpeed, deltaTime) { return (()=>{
+					let structptr_9f8a66 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_21985", [structptr_9f8a66, current, target, currentVelocity, smoothTime, maxSpeed, deltaTime]);
+					return structptr_9f8a66;
+				})(); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Vector3", "ToString_22032", [this.ptr]); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22033", [this.ptr, format, formatProvider]); }
+}
+
+export class Transform {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get childCount() { return window.ctx.call("UnityEngine.Transform", "get_childCount", [this.ptr]).val(); }
+    get constrainProportionsScale() { return window.ctx.call("UnityEngine.Transform", "get_constrainProportionsScale", [this.ptr]).val() === 1; }
+    set constrainProportionsScale(v) { window.ctx.call("UnityEngine.Transform", "set_constrainProportionsScale", [this.ptr, v]); }
+    get eulerAngles() { return (()=>{
+					let structptr_1efe3f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_eulerAngles", [structptr_1efe3f, this.ptr]);
+					return structptr_1efe3f;
+				})(); }
+    set eulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_eulerAngles", [this.ptr, v]); }
+    get forward() { return (()=>{
+					let structptr_914f03 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_forward", [structptr_914f03, this.ptr]);
+					return structptr_914f03;
+				})(); }
+    set forward(v) { window.ctx.call("UnityEngine.Transform", "set_forward", [this.ptr, v]); }
+    get hasChanged() { return window.ctx.call("UnityEngine.Transform", "get_hasChanged", [this.ptr]).val() === 1; }
+    set hasChanged(v) { window.ctx.call("UnityEngine.Transform", "set_hasChanged", [this.ptr, v]); }
+    get hierarchyCapacity() { return window.ctx.call("UnityEngine.Transform", "get_hierarchyCapacity", [this.ptr]).val(); }
+    set hierarchyCapacity(v) { window.ctx.call("UnityEngine.Transform", "set_hierarchyCapacity", [this.ptr, v]); }
+    get hierarchyCount() { return window.ctx.call("UnityEngine.Transform", "get_hierarchyCount", [this.ptr]).val(); }
+    get localEulerAngles() { return (()=>{
+					let structptr_e2bab5 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localEulerAngles", [structptr_e2bab5, this.ptr]);
+					return structptr_e2bab5;
+				})(); }
+    set localEulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_localEulerAngles", [this.ptr, v]); }
+    get localPosition() { return (()=>{
+					let structptr_6dc0ce = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localPosition", [structptr_6dc0ce, this.ptr]);
+					return structptr_6dc0ce;
+				})(); }
+    set localPosition(v) { window.ctx.call("UnityEngine.Transform", "set_localPosition", [this.ptr, v]); }
+    get localRotation() { return (()=>{
+					let structptr_000bb7 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Transform", "get_localRotation", [structptr_000bb7, this.ptr]);
+					return structptr_000bb7;
+				})(); }
+    set localRotation(v) { window.ctx.call("UnityEngine.Transform", "set_localRotation", [this.ptr, v]); }
+    get localScale() { return (()=>{
+					let structptr_35eaa9 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localScale", [structptr_35eaa9, this.ptr]);
+					return structptr_35eaa9;
+				})(); }
+    set localScale(v) { window.ctx.call("UnityEngine.Transform", "set_localScale", [this.ptr, v]); }
+    get localToWorldMatrix() { return (()=>{
+					let structptr_d7d40e = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix", [structptr_d7d40e, this.ptr]);
+					return structptr_d7d40e;
+				})(); }
+    get lossyScale() { return (()=>{
+					let structptr_67b89f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_lossyScale", [structptr_67b89f, this.ptr]);
+					return structptr_67b89f;
+				})(); }
+    get parent() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parent", [this.ptr])); }
+    set parent(v) { window.ctx.call("UnityEngine.Transform", "set_parent", [this.ptr, v]); }
+    get parentInternal() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parentInternal", [this.ptr])); }
+    set parentInternal(v) { window.ctx.call("UnityEngine.Transform", "set_parentInternal", [this.ptr, v]); }
+    get position() { return (()=>{
+					let structptr_69505c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_position", [structptr_69505c, this.ptr]);
+					return structptr_69505c;
+				})(); }
+    set position(v) { window.ctx.call("UnityEngine.Transform", "set_position", [this.ptr, v]); }
+    get right() { return (()=>{
+					let structptr_71befa = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_right", [structptr_71befa, this.ptr]);
+					return structptr_71befa;
+				})(); }
+    set right(v) { window.ctx.call("UnityEngine.Transform", "set_right", [this.ptr, v]); }
+    get root() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_root", [this.ptr])); }
+    get rotation() { return (()=>{
+					let structptr_cf201d = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Transform", "get_rotation", [structptr_cf201d, this.ptr]);
+					return structptr_cf201d;
+				})(); }
+    set rotation(v) { window.ctx.call("UnityEngine.Transform", "set_rotation", [this.ptr, v]); }
+    get rotationOrder() { return new RotationOrder(window.ctx.call("UnityEngine.Transform", "get_rotationOrder", [this.ptr])); }
+    set rotationOrder(v) { window.ctx.call("UnityEngine.Transform", "set_rotationOrder", [this.ptr, v]); }
+    get up() { return (()=>{
+					let structptr_528f77 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_up", [structptr_528f77, this.ptr]);
+					return structptr_528f77;
+				})(); }
+    set up(v) { window.ctx.call("UnityEngine.Transform", "set_up", [this.ptr, v]); }
+    get worldToLocalMatrix() { return (()=>{
+					let structptr_4cf540 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix", [structptr_4cf540, this.ptr]);
+					return structptr_4cf540;
+				})(); }
+    DetachChildren() { window.ctx.call("UnityEngine.Transform", "DetachChildren", [this.ptr]); }
+    static DetachChildren_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "DetachChildren_Injected", [_unity_self]); }
+    Find(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "Find", [this.ptr, n])); }
+    FindChild(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindChild", [this.ptr, n])); }
+    FindRelativeTransformWithPath(path, isActiveOnly) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath", [this.ptr, path, isActiveOnly])); }
+    static FindRelativeTransformWithPath_Injected(_unity_self, path, isActiveOnly) { return (()=>{
+					let structptr_9b9673 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath_Injected", [structptr_9b9673, _unity_self, path, isActiveOnly]);
+					return structptr_9b9673;
+				})(); }
+    GetChild(index) { return new Transform(window.ctx.call("UnityEngine.Transform", "GetChild", [this.ptr, index])); }
+    GetChildCount() { return window.ctx.call("UnityEngine.Transform", "GetChildCount", [this.ptr]).val(); }
+    static GetChildCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetChildCount_Injected", [_unity_self]).val(); }
+    static GetChild_Injected(_unity_self, index) { return (()=>{
+					let structptr_647a94 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetChild_Injected", [structptr_647a94, _unity_self, index]);
+					return structptr_647a94;
+				})(); }
+    GetEnumerator() { return window.ctx.call("UnityEngine.Transform", "GetEnumerator", [this.ptr]); }
+    GetLocalEulerAngles(order) { return (()=>{
+					let structptr_d250e0 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles", [structptr_d250e0, this.ptr, order]);
+					return structptr_d250e0;
+				})(); }
+    static GetLocalEulerAngles_Injected(_unity_self, order, ret) { window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles_Injected", [_unity_self, order, ret]); }
+    GetLocalPositionAndRotation(localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation", [this.ptr, localPosition, localRotation]); }
+    static GetLocalPositionAndRotation_Injected(_unity_self, localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation_Injected", [_unity_self, localPosition, localRotation]); }
+    GetParent() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetParent", [this.ptr])); }
+    static GetParent_Injected(_unity_self) { return (()=>{
+					let structptr_bccac2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetParent_Injected", [structptr_bccac2, _unity_self]);
+					return structptr_bccac2;
+				})(); }
+    GetPositionAndRotation(position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation", [this.ptr, position, rotation]); }
+    static GetPositionAndRotation_Injected(_unity_self, position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation_Injected", [_unity_self, position, rotation]); }
+    GetRoot() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetRoot", [this.ptr])); }
+    static GetRoot_Injected(_unity_self) { return (()=>{
+					let structptr_b8a5ed = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetRoot_Injected", [structptr_b8a5ed, _unity_self]);
+					return structptr_b8a5ed;
+				})(); }
+    GetRotationOrderInternal() { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal", [this.ptr]).val(); }
+    static GetRotationOrderInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal_Injected", [_unity_self]).val(); }
+    GetSiblingIndex() { return window.ctx.call("UnityEngine.Transform", "GetSiblingIndex", [this.ptr]).val(); }
+    static GetSiblingIndex_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetSiblingIndex_Injected", [_unity_self]).val(); }
+    Internal_LookAt(worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt", [this.ptr, worldPosition, worldUp]); }
+    static Internal_LookAt_Injected(_unity_self, worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt_Injected", [_unity_self, worldPosition, worldUp]); }
+    InverseTransformDirection_direction(direction) { return (()=>{
+					let structptr_17ce12 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_2792", [structptr_17ce12, this.ptr, direction]);
+					return structptr_17ce12;
+				})(); }
+    InverseTransformDirection_x_y_z(x, y, z) { return (()=>{
+					let structptr_008ab1 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_22938", [structptr_008ab1, this.ptr, x, y, z]);
+					return structptr_008ab1;
+				})(); }
+    static InverseTransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_Injected", [_unity_self, direction, ret]); }
+    InverseTransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirections_22940", [this.ptr, directions, transformedDirections]); }
+    InverseTransformDirections_directions(directions) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirections_22941", [this.ptr, directions]); }
+    InverseTransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
+    static InverseTransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
+    InverseTransformPoint_position(position) { return (()=>{
+					let structptr_cfa8ea = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_22957", [structptr_cfa8ea, this.ptr, position]);
+					return structptr_cfa8ea;
+				})(); }
+    InverseTransformPoint_x_y_z(x, y, z) { return (()=>{
+					let structptr_421a3a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_22958", [structptr_421a3a, this.ptr, x, y, z]);
+					return structptr_421a3a;
+				})(); }
+    static InverseTransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_Injected", [_unity_self, position, ret]); }
+    InverseTransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoints_22960", [this.ptr, positions, transformedPositions]); }
+    InverseTransformPoints_positions(positions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoints_22961", [this.ptr, positions]); }
+    InverseTransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal", [this.ptr, positions, transformedPositions]); }
+    static InverseTransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
+    InverseTransformVector_vector(vector) { return (()=>{
+					let structptr_3db5a6 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_22947", [structptr_3db5a6, this.ptr, vector]);
+					return structptr_3db5a6;
+				})(); }
+    InverseTransformVector_x_y_z(x, y, z) { return (()=>{
+					let structptr_1efc62 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_22948", [structptr_1efc62, this.ptr, x, y, z]);
+					return structptr_1efc62;
+				})(); }
+    static InverseTransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformVector_Injected", [_unity_self, vector, ret]); }
+    InverseTransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectors_22950", [this.ptr, vectors, transformedVectors]); }
+    InverseTransformVectors_vectors(vectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectors_22951", [this.ptr, vectors]); }
+    InverseTransformVectorsInternal(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectorsInternal", [this.ptr, vectors, transformedVectors]); }
+    static InverseTransformVectorsInternal_Injected(_unity_self, vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectorsInternal_Injected", [_unity_self, vectors, transformedVectors]); }
+    IsChildOf(parent) { return window.ctx.call("UnityEngine.Transform", "IsChildOf", [this.ptr, parent]).val() === 1; }
+    static IsChildOf_Injected(_unity_self, parent) { return window.ctx.call("UnityEngine.Transform", "IsChildOf_Injected", [_unity_self, parent]).val() === 1; }
+    IsConstrainProportionsScale() { return window.ctx.call("UnityEngine.Transform", "IsConstrainProportionsScale", [this.ptr]).val() === 1; }
+    static IsConstrainProportionsScale_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "IsConstrainProportionsScale_Injected", [_unity_self]).val() === 1; }
+    IsNonUniformScaleTransform() { return window.ctx.call("UnityEngine.Transform", "IsNonUniformScaleTransform", [this.ptr]).val() === 1; }
+    static IsNonUniformScaleTransform_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "IsNonUniformScaleTransform_Injected", [_unity_self]).val() === 1; }
+    LookAt_target_worldUp(target, worldUp) { window.ctx.call("UnityEngine.Transform", "LookAt_22929", [this.ptr, target, worldUp]); }
+    LookAt_target(target) { window.ctx.call("UnityEngine.Transform", "LookAt_22930", [this.ptr, target]); }
+    LookAt_worldPosition_worldUp(worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "LookAt_22931", [this.ptr, worldPosition, worldUp]); }
+    LookAt_worldPosition(worldPosition) { window.ctx.call("UnityEngine.Transform", "LookAt_2731", [this.ptr, worldPosition]); }
+    MoveAfterSibling(transform, notifyEditorAndMarkDirty) { window.ctx.call("UnityEngine.Transform", "MoveAfterSibling", [this.ptr, transform, notifyEditorAndMarkDirty]); }
+    static MoveAfterSibling_Injected(_unity_self, transform, notifyEditorAndMarkDirty) { window.ctx.call("UnityEngine.Transform", "MoveAfterSibling_Injected", [_unity_self, transform, notifyEditorAndMarkDirty]); }
+    Rotate_eulers_relativeTo(eulers, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22921", [this.ptr, eulers, relativeTo]); }
+    Rotate_eulers(eulers) { window.ctx.call("UnityEngine.Transform", "Rotate_22922", [this.ptr, eulers]); }
+    Rotate_xAngle_yAngle_zAngle_relativeTo(xAngle, yAngle, zAngle, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22923", [this.ptr, xAngle, yAngle, zAngle, relativeTo]); }
+    Rotate_xAngle_yAngle_zAngle(xAngle, yAngle, zAngle) { window.ctx.call("UnityEngine.Transform", "Rotate_22924", [this.ptr, xAngle, yAngle, zAngle]); }
+    Rotate_axis_angle_relativeTo(axis, angle, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22926", [this.ptr, axis, angle, relativeTo]); }
+    Rotate_axis_angle(axis, angle) { window.ctx.call("UnityEngine.Transform", "Rotate_22927", [this.ptr, axis, angle]); }
+    RotateAround_point_axis_angle(point, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_22928", [this.ptr, point, axis, angle]); }
+    RotateAround_axis_angle(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_22978", [this.ptr, axis, angle]); }
+    RotateAroundInternal(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundInternal", [this.ptr, axis, angle]); }
+    static RotateAroundInternal_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundInternal_Injected", [_unity_self, axis, angle]); }
+    RotateAroundLocal(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundLocal", [this.ptr, axis, angle]); }
+    static RotateAroundLocal_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundLocal_Injected", [_unity_self, axis, angle]); }
+    static RotateAround_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_Injected", [_unity_self, axis, angle]); }
+    SendTransformChangedScale() { window.ctx.call("UnityEngine.Transform", "SendTransformChangedScale", [this.ptr]); }
+    static SendTransformChangedScale_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SendTransformChangedScale_Injected", [_unity_self]); }
+    SetAsFirstSibling() { window.ctx.call("UnityEngine.Transform", "SetAsFirstSibling", [this.ptr]); }
+    static SetAsFirstSibling_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SetAsFirstSibling_Injected", [_unity_self]); }
+    SetAsLastSibling() { window.ctx.call("UnityEngine.Transform", "SetAsLastSibling", [this.ptr]); }
+    static SetAsLastSibling_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SetAsLastSibling_Injected", [_unity_self]); }
+    SetConstrainProportionsScale(isLinked) { window.ctx.call("UnityEngine.Transform", "SetConstrainProportionsScale", [this.ptr, isLinked]); }
+    static SetConstrainProportionsScale_Injected(_unity_self, isLinked) { window.ctx.call("UnityEngine.Transform", "SetConstrainProportionsScale_Injected", [_unity_self, isLinked]); }
+    SetLocalEulerAngles(euler, order) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerAngles", [this.ptr, euler, order]); }
+    static SetLocalEulerAngles_Injected(_unity_self, euler, order) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerAngles_Injected", [_unity_self, euler, order]); }
+    SetLocalEulerHint(euler) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerHint", [this.ptr, euler]); }
+    static SetLocalEulerHint_Injected(_unity_self, euler) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerHint_Injected", [_unity_self, euler]); }
+    SetLocalPositionAndRotation(localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "SetLocalPositionAndRotation", [this.ptr, localPosition, localRotation]); }
+    static SetLocalPositionAndRotation_Injected(_unity_self, localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "SetLocalPositionAndRotation_Injected", [_unity_self, localPosition, localRotation]); }
+    SetParent_p(p) { window.ctx.call("UnityEngine.Transform", "SetParent_2139", [this.ptr, p]); }
+    SetParent_parent_worldPositionStays(parent, worldPositionStays) { window.ctx.call("UnityEngine.Transform", "SetParent_22909", [this.ptr, parent, worldPositionStays]); }
+    static SetParent_Injected(_unity_self, parent, worldPositionStays) { window.ctx.call("UnityEngine.Transform", "SetParent_Injected", [_unity_self, parent, worldPositionStays]); }
+    SetPositionAndRotation(position, rotation) { window.ctx.call("UnityEngine.Transform", "SetPositionAndRotation", [this.ptr, position, rotation]); }
+    static SetPositionAndRotation_Injected(_unity_self, position, rotation) { window.ctx.call("UnityEngine.Transform", "SetPositionAndRotation_Injected", [_unity_self, position, rotation]); }
+    SetRotationOrderInternal(rotationOrder) { window.ctx.call("UnityEngine.Transform", "SetRotationOrderInternal", [this.ptr, rotationOrder]); }
+    static SetRotationOrderInternal_Injected(_unity_self, rotationOrder) { window.ctx.call("UnityEngine.Transform", "SetRotationOrderInternal_Injected", [_unity_self, rotationOrder]); }
+    SetSiblingIndex(index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex", [this.ptr, index]); }
+    static SetSiblingIndex_Injected(_unity_self, index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex_Injected", [_unity_self, index]); }
+    TransformDirection_direction(direction) { return (()=>{
+					let structptr_1abe30 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformDirection_22933", [structptr_1abe30, this.ptr, direction]);
+					return structptr_1abe30;
+				})(); }
+    TransformDirection_x_y_z(x, y, z) { return (()=>{
+					let structptr_aba7c1 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformDirection_22934", [structptr_aba7c1, this.ptr, x, y, z]);
+					return structptr_aba7c1;
+				})(); }
+    static TransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "TransformDirection_Injected", [_unity_self, direction, ret]); }
+    TransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirections_22936", [this.ptr, directions, transformedDirections]); }
+    TransformDirections_directions(directions) { window.ctx.call("UnityEngine.Transform", "TransformDirections_22937", [this.ptr, directions]); }
+    TransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
+    static TransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
+    TransformPoint_position(position) { return (()=>{
+					let structptr_113c3e = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformPoint_22952", [structptr_113c3e, this.ptr, position]);
+					return structptr_113c3e;
+				})(); }
+    TransformPoint_x_y_z(x, y, z) { return (()=>{
+					let structptr_a7f2a9 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformPoint_22953", [structptr_a7f2a9, this.ptr, x, y, z]);
+					return structptr_a7f2a9;
+				})(); }
+    static TransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "TransformPoint_Injected", [_unity_self, position, ret]); }
+    TransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPoints_22955", [this.ptr, positions, transformedPositions]); }
+    TransformPoints_positions(positions) { window.ctx.call("UnityEngine.Transform", "TransformPoints_22956", [this.ptr, positions]); }
+    TransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal", [this.ptr, positions, transformedPositions]); }
+    static TransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
+    TransformVector_vector(vector) { return (()=>{
+					let structptr_3caccd = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformVector_22942", [structptr_3caccd, this.ptr, vector]);
+					return structptr_3caccd;
+				})(); }
+    TransformVector_x_y_z(x, y, z) { return (()=>{
+					let structptr_63dd53 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformVector_22943", [structptr_63dd53, this.ptr, x, y, z]);
+					return structptr_63dd53;
+				})(); }
+    static TransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "TransformVector_Injected", [_unity_self, vector, ret]); }
+    TransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectors_22945", [this.ptr, vectors, transformedVectors]); }
+    TransformVectors_vectors(vectors) { window.ctx.call("UnityEngine.Transform", "TransformVectors_22946", [this.ptr, vectors]); }
+    TransformVectorsInternal(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectorsInternal", [this.ptr, vectors, transformedVectors]); }
+    static TransformVectorsInternal_Injected(_unity_self, vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectorsInternal_Injected", [_unity_self, vectors, transformedVectors]); }
+    Translate_translation_relativeTo(translation, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22915", [this.ptr, translation, relativeTo]); }
+    Translate_translation(translation) { window.ctx.call("UnityEngine.Transform", "Translate_22916", [this.ptr, translation]); }
+    Translate_x_y_z_relativeTo(x, y, z, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22917", [this.ptr, x, y, z, relativeTo]); }
+    Translate_x_y_z(x, y, z) { window.ctx.call("UnityEngine.Transform", "Translate_22918", [this.ptr, x, y, z]); }
+    Translate_translation_relativeTo(translation, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22919", [this.ptr, translation, relativeTo]); }
+    Translate_x_y_z_relativeTo(x, y, z, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22920", [this.ptr, x, y, z, relativeTo]); }
+    static get_childCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "get_childCount_Injected", [_unity_self]).val(); }
+    static get_hasChanged_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "get_hasChanged_Injected", [_unity_self]).val() === 1; }
+    static get_localPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localPosition_Injected", [_unity_self, ret]); }
+    static get_localRotation_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localRotation_Injected", [_unity_self, ret]); }
+    static get_localScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localScale_Injected", [_unity_self, ret]); }
+    static get_localToWorldMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix_Injected", [_unity_self, ret]); }
+    static get_lossyScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_lossyScale_Injected", [_unity_self, ret]); }
+    static get_position_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_position_Injected", [_unity_self, ret]); }
+    static get_rotation_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_rotation_Injected", [_unity_self, ret]); }
+    static get_worldToLocalMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix_Injected", [_unity_self, ret]); }
+    internal_getHierarchyCapacity() { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCapacity", [this.ptr]).val(); }
+    static internal_getHierarchyCapacity_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCapacity_Injected", [_unity_self]).val(); }
+    internal_getHierarchyCount() { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCount", [this.ptr]).val(); }
+    static internal_getHierarchyCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCount_Injected", [_unity_self]).val(); }
+    internal_setHierarchyCapacity(value) { window.ctx.call("UnityEngine.Transform", "internal_setHierarchyCapacity", [this.ptr, value]); }
+    static internal_setHierarchyCapacity_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "internal_setHierarchyCapacity_Injected", [_unity_self, value]); }
+    static set_hasChanged_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_hasChanged_Injected", [_unity_self, value]); }
+    static set_localPosition_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localPosition_Injected", [_unity_self, value]); }
+    static set_localRotation_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localRotation_Injected", [_unity_self, value]); }
+    static set_localScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localScale_Injected", [_unity_self, value]); }
+    static set_position_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_position_Injected", [_unity_self, value]); }
+    static set_rotation_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_rotation_Injected", [_unity_self, value]); }
+}
+
+export class KinematicCharacterMotor {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get AttachedRigidbody() { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbody", [this.ptr])); }
+    get AttachedRigidbodyVelocity() { return (()=>{
+					let structptr_116af0 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbodyVelocity", [structptr_116af0, this.ptr]);
+					return structptr_116af0;
+				})(); }
+    get CharacterForward() { return (()=>{
+					let structptr_0538ea = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterForward", [structptr_0538ea, this.ptr]);
+					return structptr_0538ea;
+				})(); }
+    get CharacterRight() { return (()=>{
+					let structptr_ca8f01 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterRight", [structptr_ca8f01, this.ptr]);
+					return structptr_ca8f01;
+				})(); }
+    get CharacterTransformToCapsuleBottom() { return (()=>{
+					let structptr_c9683b = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottom", [structptr_c9683b, this.ptr]);
+					return structptr_c9683b;
+				})(); }
+    get CharacterTransformToCapsuleBottomHemi() { return (()=>{
+					let structptr_53332f = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottomHemi", [structptr_53332f, this.ptr]);
+					return structptr_53332f;
+				})(); }
+    get CharacterTransformToCapsuleCenter() { return (()=>{
+					let structptr_36c2c9 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleCenter", [structptr_36c2c9, this.ptr]);
+					return structptr_36c2c9;
+				})(); }
+    get CharacterTransformToCapsuleTop() { return (()=>{
+					let structptr_00ce8a = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTop", [structptr_00ce8a, this.ptr]);
+					return structptr_00ce8a;
+				})(); }
+    get CharacterTransformToCapsuleTopHemi() { return (()=>{
+					let structptr_7507ae = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTopHemi", [structptr_7507ae, this.ptr]);
+					return structptr_7507ae;
+				})(); }
+    get CharacterUp() { return (()=>{
+					let structptr_ea77ad = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterUp", [structptr_ea77ad, this.ptr]);
+					return structptr_ea77ad;
+				})(); }
+    get InitialSimulationPosition() { return (()=>{
+					let structptr_31fb51 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationPosition", [structptr_31fb51, this.ptr]);
+					return structptr_31fb51;
+				})(); }
+    get InitialSimulationRotation() { return (()=>{
+					let structptr_4ca915 = window.ctx.malloc(16);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationRotation", [structptr_4ca915, this.ptr]);
+					return structptr_4ca915;
+				})(); }
+    get Overlaps() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Overlaps", [this.ptr]); }
+    get OverlapsCount() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_OverlapsCount", [this.ptr]).val(); }
+    get Transform() { return new Transform(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Transform", [this.ptr])); }
+    get TransientPosition() { return (()=>{
+					let structptr_a57663 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientPosition", [structptr_a57663, this.ptr]);
+					return structptr_a57663;
+				})(); }
+    get TransientRotation() { return (()=>{
+					let structptr_6e0c45 = window.ctx.malloc(16);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientRotation", [structptr_6e0c45, this.ptr]);
+					return structptr_6e0c45;
+				})(); }
+    set TransientRotation(v) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "set_TransientRotation", [this.ptr, v]); }
+    get Velocity() { return (()=>{
+					let structptr_7196cc = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Velocity", [structptr_7196cc, this.ptr]);
+					return structptr_7196cc;
+				})(); }
+    get AllowSteppingWithoutStableGrounding() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
+    set AllowSteppingWithoutStableGrounding(v) { return this.ptr.writeField(0x3C, 'i32', v); }
+    get AttachedRigidbodyOverride() { return new Rigidbody(this.ptr.readField(0x1AC, 'i32')); }
+    set AttachedRigidbodyOverride(v) { return this.ptr.writeField(0x1AC, 'i32', v); }
+    get BaseVelocity() { return new Vector3(this.ptr.readField(0x1B0, 'i32')); }
+    set BaseVelocity(v) { return this.ptr.writeField(0x1B0, 'i32', v); }
+    get Capsule() { return new CapsuleCollider(this.ptr.readField(0x10, 'i32')); }
+    set Capsule(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get CapsuleHeight() { return this.ptr.readField(0x18, 'f32').val(); }
+    set CapsuleHeight(v) { return this.ptr.writeField(0x18, 'f32', v); }
+    get CapsulePhysicsMaterial() { return new PhysicsMaterial(this.ptr.readField(0x20, 'i32')); }
+    set CapsulePhysicsMaterial(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get CapsuleRadius() { return this.ptr.readField(0x14, 'f32').val(); }
+    set CapsuleRadius(v) { return this.ptr.writeField(0x14, 'f32', v); }
+    get CapsuleYOffset() { return this.ptr.readField(0x1C, 'f32').val(); }
+    set CapsuleYOffset(v) { return this.ptr.writeField(0x1C, 'f32', v); }
+    get CharacterController() { return new ICharacterController(this.ptr.readField(0x184, 'i32')); }
+    set CharacterController(v) { return this.ptr.writeField(0x184, 'i32', v); }
+    get CheckMovementInitialOverlaps() { return this.ptr.readField(0x78, 'i32').val() === 1; }
+    set CheckMovementInitialOverlaps(v) { return this.ptr.writeField(0x78, 'i32', v); }
+    get CollidableLayers() { return new LayerMask(this.ptr.readField(0xDC, 'i32')); }
+    set CollidableLayers(v) { return this.ptr.writeField(0xDC, 'i32', v); }
+    get DiscreteCollisionEvents() { return this.ptr.readField(0x30, 'i32').val() === 1; }
+    set DiscreteCollisionEvents(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get GroundDetectionExtraDistance() { return this.ptr.readField(0x24, 'f32').val(); }
+    set GroundDetectionExtraDistance(v) { return this.ptr.writeField(0x24, 'f32', v); }
+    get GroundingStatus() { return new CharacterGroundingReport(this.ptr.readField(0x7C, 'i32')); }
+    set GroundingStatus(v) { return this.ptr.writeField(0x7C, 'i32', v); }
+    get HasPlanarConstraint() { return this.ptr.readField(0x61, 'i32').val() === 1; }
+    set HasPlanarConstraint(v) { return this.ptr.writeField(0x61, 'i32', v); }
+    get IndexInCharacterSystem() { return this.ptr.readField(0x18C, 'i32').val(); }
+    set IndexInCharacterSystem(v) { return this.ptr.writeField(0x18C, 'i32', v); }
+    get InitialTickPosition() { return new Vector3(this.ptr.readField(0x190, 'i32')); }
+    set InitialTickPosition(v) { return this.ptr.writeField(0x190, 'i32', v); }
+    get InitialTickRotation() { return new Quaternion(this.ptr.readField(0x19C, 'i32')); }
+    set InitialTickRotation(v) { return this.ptr.writeField(0x19C, 'i32', v); }
+    get InteractiveRigidbodyHandling() { return this.ptr.readField(0x54, 'i32').val() === 1; }
+    set InteractiveRigidbodyHandling(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get KillRemainingMovementWhenExceedMaxMovementIterations() { return this.ptr.readField(0x7A, 'i32').val() === 1; }
+    set KillRemainingMovementWhenExceedMaxMovementIterations(v) { return this.ptr.writeField(0x7A, 'i32', v); }
+    get KillVelocityWhenExceedMaxMovementIterations() { return this.ptr.readField(0x79, 'i32').val() === 1; }
+    set KillVelocityWhenExceedMaxMovementIterations(v) { return this.ptr.writeField(0x79, 'i32', v); }
+    get LastGroundingStatus() { return new CharacterTransientGroundingReport(this.ptr.readField(0xB4, 'i32')); }
+    set LastGroundingStatus(v) { return this.ptr.writeField(0xB4, 'i32', v); }
+    get LastMovementIterationFoundAnyGround() { return this.ptr.readField(0x188, 'i32').val() === 1; }
+    set LastMovementIterationFoundAnyGround(v) { return this.ptr.writeField(0x188, 'i32', v); }
+    get LedgeAndDenivelationHandling() { return this.ptr.readField(0x44, 'i32').val() === 1; }
+    set LedgeAndDenivelationHandling(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get MaxDecollisionIterations() { return this.ptr.readField(0x74, 'i32').val(); }
+    set MaxDecollisionIterations(v) { return this.ptr.writeField(0x74, 'i32', v); }
+    get MaxMovementIterations() { return this.ptr.readField(0x70, 'i32').val(); }
+    set MaxMovementIterations(v) { return this.ptr.writeField(0x70, 'i32', v); }
+    get MaxStableDenivelationAngle() { return this.ptr.readField(0x50, 'f32').val(); }
+    set MaxStableDenivelationAngle(v) { return this.ptr.writeField(0x50, 'f32', v); }
+    get MaxStableDistanceFromLedge() { return this.ptr.readField(0x48, 'f32').val(); }
+    set MaxStableDistanceFromLedge(v) { return this.ptr.writeField(0x48, 'f32', v); }
+    get MaxStableSlopeAngle() { return this.ptr.readField(0x28, 'f32').val(); }
+    set MaxStableSlopeAngle(v) { return this.ptr.writeField(0x28, 'f32', v); }
+    get MaxStepHeight() { return this.ptr.readField(0x38, 'f32').val(); }
+    set MaxStepHeight(v) { return this.ptr.writeField(0x38, 'f32', v); }
+    get MaxVelocityForLedgeSnap() { return this.ptr.readField(0x4C, 'f32').val(); }
+    set MaxVelocityForLedgeSnap(v) { return this.ptr.writeField(0x4C, 'f32', v); }
+    get MinRequiredStepDepth() { return this.ptr.readField(0x40, 'f32').val(); }
+    set MinRequiredStepDepth(v) { return this.ptr.writeField(0x40, 'f32', v); }
+    get PlanarConstraintAxis() { return new Vector3(this.ptr.readField(0x64, 'i32')); }
+    set PlanarConstraintAxis(v) { return this.ptr.writeField(0x64, 'i32', v); }
+    get PreserveAttachedRigidbodyMomentum() { return this.ptr.readField(0x60, 'i32').val() === 1; }
+    set PreserveAttachedRigidbodyMomentum(v) { return this.ptr.writeField(0x60, 'i32', v); }
+    get RigidbodyInteractionType() { return new RigidbodyInteractionType(this.ptr.readField(0x58, 'i32')); }
+    set RigidbodyInteractionType(v) { return this.ptr.writeField(0x58, 'i32', v); }
+    get SimulatedCharacterMass() { return this.ptr.readField(0x5C, 'f32').val(); }
+    set SimulatedCharacterMass(v) { return this.ptr.writeField(0x5C, 'f32', v); }
+    get StableGroundLayers() { return new LayerMask(this.ptr.readField(0x2C, 'i32')); }
+    set StableGroundLayers(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get StepHandling() { return new StepHandlingMethod(this.ptr.readField(0x34, 'i32')); }
+    set StepHandling(v) { return this.ptr.writeField(0x34, 'i32', v); }
+    get _attachedRigidbody() { return new Rigidbody(this.ptr.readField(0x130, 'i32')); }
+    set _attachedRigidbody(v) { return this.ptr.writeField(0x130, 'i32', v); }
+    get _attachedRigidbodyVelocity() { return new Vector3(this.ptr.readField(0x170, 'i32')); }
+    set _attachedRigidbodyVelocity(v) { return this.ptr.writeField(0x170, 'i32', v); }
+    get _cachedWorldForward() { return new Vector3(this.ptr.readField(0x208, 'i32')); }
+    set _cachedWorldForward(v) { return this.ptr.writeField(0x208, 'i32', v); }
+    get _cachedWorldRight() { return new Vector3(this.ptr.readField(0x214, 'i32')); }
+    set _cachedWorldRight(v) { return this.ptr.writeField(0x214, 'i32', v); }
+    get _cachedWorldUp() { return new Vector3(this.ptr.readField(0x1FC, 'i32')); }
+    set _cachedWorldUp(v) { return this.ptr.writeField(0x1FC, 'i32', v); }
+    get _cachedZeroVector() { return new Vector3(this.ptr.readField(0x220, 'i32')); }
+    set _cachedZeroVector(v) { return this.ptr.writeField(0x220, 'i32', v); }
+    get _characterForward() { return new Vector3(this.ptr.readField(0xFC, 'i32')); }
+    set _characterForward(v) { return this.ptr.writeField(0xFC, 'i32', v); }
+    get _characterRight() { return new Vector3(this.ptr.readField(0x108, 'i32')); }
+    set _characterRight(v) { return this.ptr.writeField(0x108, 'i32', v); }
+    get _characterTransformToCapsuleBottom() { return new Vector3(this.ptr.readField(0x140, 'i32')); }
+    set _characterTransformToCapsuleBottom(v) { return this.ptr.writeField(0x140, 'i32', v); }
+    get _characterTransformToCapsuleBottomHemi() { return new Vector3(this.ptr.readField(0x158, 'i32')); }
+    set _characterTransformToCapsuleBottomHemi(v) { return this.ptr.writeField(0x158, 'i32', v); }
+    get _characterTransformToCapsuleCenter() { return new Vector3(this.ptr.readField(0x134, 'i32')); }
+    set _characterTransformToCapsuleCenter(v) { return this.ptr.writeField(0x134, 'i32', v); }
+    get _characterTransformToCapsuleTop() { return new Vector3(this.ptr.readField(0x14C, 'i32')); }
+    set _characterTransformToCapsuleTop(v) { return this.ptr.writeField(0x14C, 'i32', v); }
+    get _characterTransformToCapsuleTopHemi() { return new Vector3(this.ptr.readField(0x164, 'i32')); }
+    set _characterTransformToCapsuleTopHemi(v) { return this.ptr.writeField(0x164, 'i32', v); }
+    get _characterUp() { return new Vector3(this.ptr.readField(0xF0, 'i32')); }
+    set _characterUp(v) { return this.ptr.writeField(0xF0, 'i32', v); }
+    get _initialSimulationPosition() { return new Vector3(this.ptr.readField(0x114, 'i32')); }
+    set _initialSimulationPosition(v) { return this.ptr.writeField(0x114, 'i32', v); }
+    get _initialSimulationRotation() { return new Quaternion(this.ptr.readField(0x120, 'i32')); }
+    set _initialSimulationRotation(v) { return this.ptr.writeField(0x120, 'i32', v); }
+    get _internalCharacterHits() { return JSArray(this.ptr.readField(0x1BC, 'i32')); }
+    set _internalCharacterHits(v) { return this.ptr.writeField(0x1BC, 'i32', v); }
+    get _internalProbedColliders() { return JSArray(this.ptr.readField(0x1C0, 'i32')); }
+    set _internalProbedColliders(v) { return this.ptr.writeField(0x1C0, 'i32', v); }
+    get _internalRigidbodyProjectionHits() { return JSArray(this.ptr.readField(0x1C8, 'i32')); }
+    set _internalRigidbodyProjectionHits(v) { return this.ptr.writeField(0x1C8, 'i32', v); }
+    get _isMovingFromAttachedRigidbody() { return this.ptr.readField(0x1F4, 'i32').val() === 1; }
+    set _isMovingFromAttachedRigidbody(v) { return this.ptr.writeField(0x1F4, 'i32', v); }
+    get _lastAttachedRigidbody() { return new Rigidbody(this.ptr.readField(0x1CC, 'i32')); }
+    set _lastAttachedRigidbody(v) { return this.ptr.writeField(0x1CC, 'i32', v); }
+    get _lastSolvedOverlapNormal() { return new Vector3(this.ptr.readField(0x1E4, 'i32')); }
+    set _lastSolvedOverlapNormal(v) { return this.ptr.writeField(0x1E4, 'i32', v); }
+    get _lastSolvedOverlapNormalDirty() { return this.ptr.readField(0x1E0, 'i32').val() === 1; }
+    set _lastSolvedOverlapNormalDirty(v) { return this.ptr.writeField(0x1E0, 'i32', v); }
+    get _movePositionDirty() { return this.ptr.readField(0x1D2, 'i32').val() === 1; }
+    set _movePositionDirty(v) { return this.ptr.writeField(0x1D2, 'i32', v); }
+    get _movePositionTarget() { return new Vector3(this.ptr.readField(0x1D4, 'i32')); }
+    set _movePositionTarget(v) { return this.ptr.writeField(0x1D4, 'i32', v); }
+    get _mustUnground() { return this.ptr.readField(0x1F5, 'i32').val() === 1; }
+    set _mustUnground(v) { return this.ptr.writeField(0x1F5, 'i32', v); }
+    get _mustUngroundTimeCounter() { return this.ptr.readField(0x1F8, 'f32').val(); }
+    set _mustUngroundTimeCounter(v) { return this.ptr.writeField(0x1F8, 'f32', v); }
+    get _overlaps() { return JSArray(this.ptr.readField(0x180, 'i32')); }
+    set _overlaps(v) { return this.ptr.writeField(0x180, 'i32', v); }
+    get _overlapsCount() { return this.ptr.readField(0x17C, 'i32').val(); }
+    set _overlapsCount(v) { return this.ptr.writeField(0x17C, 'i32', v); }
+    get _rigidbodiesPushedThisMove() { return this.ptr.readField(0x1C4, 'i32'); }
+    set _rigidbodiesPushedThisMove(v) { return this.ptr.writeField(0x1C4, 'i32', v); }
+    get _rigidbodyProjectionHitCount() { return this.ptr.readField(0x1F0, 'i32').val(); }
+    set _rigidbodyProjectionHitCount(v) { return this.ptr.writeField(0x1F0, 'i32', v); }
+    get _solveGrounding() { return this.ptr.readField(0x1D1, 'i32').val() === 1; }
+    set _solveGrounding(v) { return this.ptr.writeField(0x1D1, 'i32', v); }
+    get _solveMovementCollisions() { return this.ptr.readField(0x1D0, 'i32').val() === 1; }
+    set _solveMovementCollisions(v) { return this.ptr.writeField(0x1D0, 'i32', v); }
+    get _transform() { return new Transform(this.ptr.readField(0xE0, 'i32')); }
+    set _transform(v) { return this.ptr.writeField(0xE0, 'i32', v); }
+    get _transientPosition() { return new Vector3(this.ptr.readField(0xE4, 'i32')); }
+    set _transientPosition(v) { return this.ptr.writeField(0xE4, 'i32', v); }
+    get _transientRotation() { return new Quaternion(this.ptr.readField(0x22C, 'i32')); }
+    set _transientRotation(v) { return this.ptr.writeField(0x22C, 'i32', v); }
+    ApplyState(state, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ApplyState", [this.ptr, state, bypassInterpolation]); }
+    Awake() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Awake", [this.ptr]); }
+    CharacterCollisionsOverlap(position, rotation, overlappedColliders, inflate, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsOverlap", [this.ptr, position, rotation, overlappedColliders, inflate, acceptOnlyStableGroundLayer]).val(); }
+    CharacterCollisionsRaycast(position, direction, distance, closestHit, hits, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsRaycast", [this.ptr, position, direction, distance, closestHit, hits, acceptOnlyStableGroundLayer]).val(); }
+    CharacterCollisionsSweep(position, rotation, direction, distance, closestHit, hits, inflate, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsSweep", [this.ptr, position, rotation, direction, distance, closestHit, hits, inflate, acceptOnlyStableGroundLayer]).val(); }
+    CharacterGroundSweep(position, rotation, direction, distance, closestHit) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterGroundSweep", [this.ptr, position, rotation, direction, distance, closestHit]).val() === 1; }
+    CharacterOverlap(position, rotation, overlappedColliders, layers, triggerInteraction, inflate) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterOverlap", [this.ptr, position, rotation, overlappedColliders, layers, triggerInteraction, inflate]).val(); }
+    CharacterSweep(position, rotation, direction, distance, closestHit, hits, layers, triggerInteraction, inflate) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterSweep", [this.ptr, position, rotation, direction, distance, closestHit, hits, layers, triggerInteraction, inflate]).val(); }
+    CheckIfColliderValidForCollisions(coll) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CheckIfColliderValidForCollisions", [this.ptr, coll]).val() === 1; }
+    CheckStepValidity(nbStepHits, characterPosition, characterRotation, innerHitDirection, stepCheckStartPos, hitCollider) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CheckStepValidity", [this.ptr, nbStepHits, characterPosition, characterRotation, innerHitDirection, stepCheckStartPos, hitCollider]).val() === 1; }
+    ComputeCollisionResolutionForHitBody(hitNormal, characterVelocity, bodyVelocity, characterToBodyMassRatio, velocityChangeOnCharacter, velocityChangeOnBody) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ComputeCollisionResolutionForHitBody", [this.ptr, hitNormal, characterVelocity, bodyVelocity, characterToBodyMassRatio, velocityChangeOnCharacter, velocityChangeOnBody]); }
+    DetectSteps(characterPosition, characterRotation, hitPoint, innerHitDirection, stabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "DetectSteps", [this.ptr, characterPosition, characterRotation, hitPoint, innerHitDirection, stabilityReport]); }
+    EvaluateCrease(currentCharacterVelocity, previousCharacterVelocity, currentHitNormal, previousHitNormal, currentHitIsStable, previousHitIsStable, characterIsStable, isValidCrease, creaseDirection) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "EvaluateCrease", [this.ptr, currentCharacterVelocity, previousCharacterVelocity, currentHitNormal, previousHitNormal, currentHitIsStable, previousHitIsStable, characterIsStable, isValidCrease, creaseDirection]); }
+    EvaluateHitStability(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "EvaluateHitStability", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport]); }
+    ForceUnground(time) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ForceUnground", [this.ptr, time]); }
+    GetDirectionTangentToSurface(direction, surfaceNormal) { return (()=>{
+					let structptr_883d9f = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetDirectionTangentToSurface", [structptr_883d9f, this.ptr, direction, surfaceNormal]);
+					return structptr_883d9f;
+				})(); }
+    GetInteractiveRigidbody(onCollider) { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetInteractiveRigidbody", [this.ptr, onCollider])); }
+    GetObstructionNormal(hitNormal, stableOnHit) { return (()=>{
+					let structptr_5a599c = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetObstructionNormal", [structptr_5a599c, this.ptr, hitNormal, stableOnHit]);
+					return structptr_5a599c;
+				})(); }
+    GetState() { return (()=>{
+					let structptr_e3b5bf = window.ctx.malloc(50);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetState", [structptr_e3b5bf, this.ptr]);
+					return structptr_e3b5bf;
+				})(); }
+    GetVelocityForMovePosition(fromPosition, toPosition, deltaTime) { return (()=>{
+					let structptr_447643 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityForMovePosition", [structptr_447643, this.ptr, fromPosition, toPosition, deltaTime]);
+					return structptr_447643;
+				})(); }
+    GetVelocityFromMovement(movement, deltaTime) { return (()=>{
+					let structptr_9d11a8 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromMovement", [structptr_9d11a8, this.ptr, movement, deltaTime]);
+					return structptr_9d11a8;
+				})(); }
+    GetVelocityFromRigidbodyMovement(interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromRigidbodyMovement", [this.ptr, interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity]); }
+    HandleRemoveComponent() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleRemoveComponent", [this.ptr]); }
+    HandleSimulatedRigidbodyInteraction(processedVelocity, hit, deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleSimulatedRigidbodyInteraction", [this.ptr, processedVelocity, hit, deltaTime]); }
+    HandleVelocityProjection(velocity, obstructionNormal, stableOnHit) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleVelocityProjection", [this.ptr, velocity, obstructionNormal, stableOnHit]); }
+    InternalCharacterMove(transientVelocity, deltaTime) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalCharacterMove", [this.ptr, transientVelocity, deltaTime]).val() === 1; }
+    InternalHandleVelocityProjection(stableOnHit, hitNormal, obstructionNormal, originalDirection, sweepState, previousHitIsStable, previousVelocity, previousObstructionNormal, transientVelocity, remainingMovementMagnitude, remainingMovementDirection) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalHandleVelocityProjection", [this.ptr, stableOnHit, hitNormal, obstructionNormal, originalDirection, sweepState, previousHitIsStable, previousVelocity, previousObstructionNormal, transientVelocity, remainingMovementMagnitude, remainingMovementDirection]); }
+    InternalIsColliderValidForCollisions(coll) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalIsColliderValidForCollisions", [this.ptr, coll]).val() === 1; }
+    IsStableOnNormal(normal) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "IsStableOnNormal", [this.ptr, normal]).val() === 1; }
+    IsStableWithSpecialCases(stabilityReport, velocity) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "IsStableWithSpecialCases", [this.ptr, stabilityReport, velocity]).val() === 1; }
+    MoveCharacter(toPosition) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "MoveCharacter", [this.ptr, toPosition]); }
+    MustUnground() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "MustUnground", [this.ptr]).val() === 1; }
+    OnDisable() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnEnable", [this.ptr]); }
+    OnValidate() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnValidate", [this.ptr]); }
+    ProbeGround(probingPosition, atRotation, probingDistance, groundingReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ProbeGround", [this.ptr, probingPosition, atRotation, probingDistance, groundingReport]); }
+    ProcessVelocityForRigidbodyHits(processedVelocity, deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ProcessVelocityForRigidbodyHits", [this.ptr, processedVelocity, deltaTime]); }
+    Reset() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Reset", [this.ptr]); }
+    RestrictVectorToPlane(vector, toPlane) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "RestrictVectorToPlane", [this.ptr, vector, toPlane]); }
+    SetCapsuleCollisionsActivation(collisionsActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetCapsuleCollisionsActivation", [this.ptr, collisionsActive]); }
+    SetCapsuleDimensions(radius, height, yOffset) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetCapsuleDimensions", [this.ptr, radius, height, yOffset]); }
+    SetGroundSolvingActivation(stabilitySolvingActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetGroundSolvingActivation", [this.ptr, stabilitySolvingActive]); }
+    SetMovementCollisionsSolvingActivation(movementCollisionsSolvingActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetMovementCollisionsSolvingActivation", [this.ptr, movementCollisionsSolvingActive]); }
+    SetPosition(position, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetPosition", [this.ptr, position, bypassInterpolation]); }
+    SetPositionAndRotation(position, rotation, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetPositionAndRotation", [this.ptr, position, rotation, bypassInterpolation]); }
+    SetTransientPosition(newPos) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetTransientPosition", [this.ptr, newPos]); }
+    StoreRigidbodyHit(hitRigidbody, hitVelocity, hitPoint, obstructionNormal, hitStabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "StoreRigidbodyHit", [this.ptr, hitRigidbody, hitVelocity, hitPoint, obstructionNormal, hitStabilityReport]); }
+    Update() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Update", [this.ptr]); }
+    UpdatePhase1(deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "UpdatePhase1", [this.ptr, deltaTime]); }
+    UpdatePhase2(deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "UpdatePhase2", [this.ptr, deltaTime]); }
+    ValidateData() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ValidateData", [this.ptr]); }
+}
+
+export class BoxCollider {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get center() { return (()=>{
+					let structptr_7e8c8c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.BoxCollider", "get_center", [structptr_7e8c8c, this.ptr]);
+					return structptr_7e8c8c;
+				})(); }
+    set center(v) { window.ctx.call("UnityEngine.BoxCollider", "set_center", [this.ptr, v]); }
+    get size() { return (()=>{
+					let structptr_40730d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.BoxCollider", "get_size", [structptr_40730d, this.ptr]);
+					return structptr_40730d;
+				})(); }
+    set size(v) { window.ctx.call("UnityEngine.BoxCollider", "set_size", [this.ptr, v]); }
+    static get_center_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.BoxCollider", "get_center_Injected", [_unity_self, ret]); }
+    static get_size_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.BoxCollider", "get_size_Injected", [_unity_self, ret]); }
+    static set_center_Injected(_unity_self, value) { window.ctx.call("UnityEngine.BoxCollider", "set_center_Injected", [_unity_self, value]); }
+    static set_size_Injected(_unity_self, value) { window.ctx.call("UnityEngine.BoxCollider", "set_size_Injected", [_unity_self, value]); }
+}
+
+export class AnimationCurve {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get Item() { return (()=>{
+					let structptr_d1b7d7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AnimationCurve", "get_Item", [structptr_d1b7d7, this.ptr, index]);
+					return structptr_d1b7d7;
+				})(); }
+    get length() { return window.ctx.call("UnityEngine.AnimationCurve", "get_length", [this.ptr]).val(); }
+    get m_Ptr() { return this.ptr.readField(0x8, 'i32'); }
+    set m_Ptr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get m_RequiresNativeCleanup() { return this.ptr.readField(0xC, 'i32').val() === 1; }
+    set m_RequiresNativeCleanup(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    static EaseInOut(timeStart, valueStart, timeEnd, valueEnd) { return new AnimationCurve(window.ctx.call("UnityEngine.AnimationCurve", "EaseInOut", [timeStart, valueStart, timeEnd, valueEnd])); }
+    Equals_o(o) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18848", [this.ptr, o]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18849", [this.ptr, other]).val() === 1; }
+    Evaluate(time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate", [this.ptr, time]).val(); }
+    static Evaluate_Injected(_unity_self, time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate_Injected", [_unity_self, time]).val(); }
+    Finalize() { window.ctx.call("UnityEngine.AnimationCurve", "Finalize", [this.ptr]); }
+    GetHashCode() { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode", [this.ptr]).val(); }
+    static GetHashCode_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode_Injected", [_unity_self]).val(); }
+    GetKey(index) { return (()=>{
+					let structptr_bc5e28 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AnimationCurve", "GetKey", [structptr_bc5e28, this.ptr, index]);
+					return structptr_bc5e28;
+				})(); }
+    static GetKey_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.AnimationCurve", "GetKey_Injected", [_unity_self, index, ret]); }
+    static Internal_Create(keys) { return (()=>{
+					let structptr_7d432b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create", [structptr_7d432b, keys]);
+					return structptr_7d432b;
+				})(); }
+    static Internal_Create_Injected(keys) { return (()=>{
+					let structptr_e0f381 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create_Injected", [structptr_e0f381, keys]);
+					return structptr_e0f381;
+				})(); }
+    static Internal_Destroy(ptr) { window.ctx.call("UnityEngine.AnimationCurve", "Internal_Destroy", [ptr]); }
+    Internal_Equals(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals", [this.ptr, other]).val() === 1; }
+    static Internal_Equals_Injected(_unity_self, other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals_Injected", [_unity_self, other]).val() === 1; }
+    static get_length_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "get_length_Injected", [_unity_self]).val(); }
+}
+
+export class NonSelectableSlider {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get value() { return window.ctx.call("NonSelectableSlider", "get_value", [this.ptr]).val(); }
+    set value(v) { window.ctx.call("NonSelectableSlider", "set_value", [this.ptr, v]); }
+    get _value() { return this.ptr.readField(0x10, 'f32').val(); }
+    set _value(v) { return this.ptr.writeField(0x10, 'f32', v); }
+    get fill() { return new RectTransform(this.ptr.readField(0x14, 'i32')); }
+    set fill(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    OnEnable() { window.ctx.call("NonSelectableSlider", "OnEnable", [this.ptr]); }
+    UpdateFill() { window.ctx.call("NonSelectableSlider", "UpdateFill", [this.ptr]); }
+}
+
+export class CharacterGroundingReport {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get FoundAnyGround() { return this.ptr.readField(0x0, 'i32').val() === 1; }
+    set FoundAnyGround(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get GroundCollider() { return new Collider(this.ptr.readField(0x28, 'i32')); }
+    set GroundCollider(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get GroundNormal() { return new Vector3(this.ptr.readField(0x4, 'i32')); }
+    set GroundNormal(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get GroundPoint() { return new Vector3(this.ptr.readField(0x2C, 'i32')); }
+    set GroundPoint(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get InnerGroundNormal() { return new Vector3(this.ptr.readField(0x10, 'i32')); }
+    set InnerGroundNormal(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get IsStableOnGround() { return this.ptr.readField(0x1, 'i32').val() === 1; }
+    set IsStableOnGround(v) { return this.ptr.writeField(0x1, 'i32', v); }
+    get OuterGroundNormal() { return new Vector3(this.ptr.readField(0x1C, 'i32')); }
+    set OuterGroundNormal(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get SnappingPrevented() { return this.ptr.readField(0x2, 'i32').val() === 1; }
+    set SnappingPrevented(v) { return this.ptr.writeField(0x2, 'i32', v); }
+    CopyFrom(transientGroundingReport) { window.ctx.call("KinematicCharacterController.CharacterGroundingReport", "CopyFrom", [this.ptr, transientGroundingReport]); }
+}
+
+export class Shot {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get byId() { return this.ptr.readField(0x10, 'i32').mstr(); }
+    set byId(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
+    get gunId() { return this.ptr.readField(0x14, 'i32'); }
+    set gunId(v) { return this.ptr.writeField(0x14, 'i32', v); }
+}
+
+export class ColyRigid {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get air() { return this.ptr.readField(0x18, 'i32').val() === 1; }
+    set air(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get neck() { return this.ptr.readField(0x19, 'i32'); }
+    set neck(v) { return this.ptr.writeField(0x19, 'i32', v); }
+    get position() { return new ColyVector3(this.ptr.readField(0x10, 'i32')); }
+    set position(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get rotationY() { return this.ptr.readField(0x14, 'f32').val(); }
+    set rotationY(v) { return this.ptr.writeField(0x14, 'f32', v); }
+}
+
+export class PublicUserData {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get createdAt() { return this.ptr.readField(0x18, 'i32').mstr(); }
+    set createdAt(v) { return this.ptr.writeField(0x18, 'i32', window.ctx.createMstr(v)); }
+    get pfp() { return this.ptr.readField(0x14, 'i32').mstr(); }
+    set pfp(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
+    get username() { return this.ptr.readField(0x10, 'i32').mstr(); }
+    set username(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
+}
+
 export class GameObject {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get active() { return window.ctx.call("UnityEngine.GameObject", "get_active", [this.ptr]).val() === 1; }
@@ -2443,313 +3574,6 @@ export class Animator {
     static set_writeDefaultValuesOnDisable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Animator", "set_writeDefaultValuesOnDisable_Injected", [_unity_self, value]); }
 }
 
-export class Transform {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get childCount() { return window.ctx.call("UnityEngine.Transform", "get_childCount", [this.ptr]).val(); }
-    get constrainProportionsScale() { return window.ctx.call("UnityEngine.Transform", "get_constrainProportionsScale", [this.ptr]).val() === 1; }
-    set constrainProportionsScale(v) { window.ctx.call("UnityEngine.Transform", "set_constrainProportionsScale", [this.ptr, v]); }
-    get eulerAngles() { return (()=>{
-					let structptr_1efe3f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_eulerAngles", [structptr_1efe3f, this.ptr]);
-					return structptr_1efe3f;
-				})(); }
-    set eulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_eulerAngles", [this.ptr, v]); }
-    get forward() { return (()=>{
-					let structptr_914f03 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_forward", [structptr_914f03, this.ptr]);
-					return structptr_914f03;
-				})(); }
-    set forward(v) { window.ctx.call("UnityEngine.Transform", "set_forward", [this.ptr, v]); }
-    get hasChanged() { return window.ctx.call("UnityEngine.Transform", "get_hasChanged", [this.ptr]).val() === 1; }
-    set hasChanged(v) { window.ctx.call("UnityEngine.Transform", "set_hasChanged", [this.ptr, v]); }
-    get hierarchyCapacity() { return window.ctx.call("UnityEngine.Transform", "get_hierarchyCapacity", [this.ptr]).val(); }
-    set hierarchyCapacity(v) { window.ctx.call("UnityEngine.Transform", "set_hierarchyCapacity", [this.ptr, v]); }
-    get hierarchyCount() { return window.ctx.call("UnityEngine.Transform", "get_hierarchyCount", [this.ptr]).val(); }
-    get localEulerAngles() { return (()=>{
-					let structptr_e2bab5 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localEulerAngles", [structptr_e2bab5, this.ptr]);
-					return structptr_e2bab5;
-				})(); }
-    set localEulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_localEulerAngles", [this.ptr, v]); }
-    get localPosition() { return (()=>{
-					let structptr_6dc0ce = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localPosition", [structptr_6dc0ce, this.ptr]);
-					return structptr_6dc0ce;
-				})(); }
-    set localPosition(v) { window.ctx.call("UnityEngine.Transform", "set_localPosition", [this.ptr, v]); }
-    get localRotation() { return (()=>{
-					let structptr_000bb7 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Transform", "get_localRotation", [structptr_000bb7, this.ptr]);
-					return structptr_000bb7;
-				})(); }
-    set localRotation(v) { window.ctx.call("UnityEngine.Transform", "set_localRotation", [this.ptr, v]); }
-    get localScale() { return (()=>{
-					let structptr_35eaa9 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localScale", [structptr_35eaa9, this.ptr]);
-					return structptr_35eaa9;
-				})(); }
-    set localScale(v) { window.ctx.call("UnityEngine.Transform", "set_localScale", [this.ptr, v]); }
-    get localToWorldMatrix() { return (()=>{
-					let structptr_d7d40e = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix", [structptr_d7d40e, this.ptr]);
-					return structptr_d7d40e;
-				})(); }
-    get lossyScale() { return (()=>{
-					let structptr_67b89f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_lossyScale", [structptr_67b89f, this.ptr]);
-					return structptr_67b89f;
-				})(); }
-    get parent() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parent", [this.ptr])); }
-    set parent(v) { window.ctx.call("UnityEngine.Transform", "set_parent", [this.ptr, v]); }
-    get parentInternal() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parentInternal", [this.ptr])); }
-    set parentInternal(v) { window.ctx.call("UnityEngine.Transform", "set_parentInternal", [this.ptr, v]); }
-    get position() { return (()=>{
-					let structptr_69505c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_position", [structptr_69505c, this.ptr]);
-					return structptr_69505c;
-				})(); }
-    set position(v) { window.ctx.call("UnityEngine.Transform", "set_position", [this.ptr, v]); }
-    get right() { return (()=>{
-					let structptr_71befa = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_right", [structptr_71befa, this.ptr]);
-					return structptr_71befa;
-				})(); }
-    set right(v) { window.ctx.call("UnityEngine.Transform", "set_right", [this.ptr, v]); }
-    get root() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_root", [this.ptr])); }
-    get rotation() { return (()=>{
-					let structptr_cf201d = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Transform", "get_rotation", [structptr_cf201d, this.ptr]);
-					return structptr_cf201d;
-				})(); }
-    set rotation(v) { window.ctx.call("UnityEngine.Transform", "set_rotation", [this.ptr, v]); }
-    get rotationOrder() { return new RotationOrder(window.ctx.call("UnityEngine.Transform", "get_rotationOrder", [this.ptr])); }
-    set rotationOrder(v) { window.ctx.call("UnityEngine.Transform", "set_rotationOrder", [this.ptr, v]); }
-    get up() { return (()=>{
-					let structptr_528f77 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_up", [structptr_528f77, this.ptr]);
-					return structptr_528f77;
-				})(); }
-    set up(v) { window.ctx.call("UnityEngine.Transform", "set_up", [this.ptr, v]); }
-    get worldToLocalMatrix() { return (()=>{
-					let structptr_4cf540 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix", [structptr_4cf540, this.ptr]);
-					return structptr_4cf540;
-				})(); }
-    DetachChildren() { window.ctx.call("UnityEngine.Transform", "DetachChildren", [this.ptr]); }
-    static DetachChildren_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "DetachChildren_Injected", [_unity_self]); }
-    Find(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "Find", [this.ptr, n])); }
-    FindChild(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindChild", [this.ptr, n])); }
-    FindRelativeTransformWithPath(path, isActiveOnly) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath", [this.ptr, path, isActiveOnly])); }
-    static FindRelativeTransformWithPath_Injected(_unity_self, path, isActiveOnly) { return (()=>{
-					let structptr_9b9673 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath_Injected", [structptr_9b9673, _unity_self, path, isActiveOnly]);
-					return structptr_9b9673;
-				})(); }
-    GetChild(index) { return new Transform(window.ctx.call("UnityEngine.Transform", "GetChild", [this.ptr, index])); }
-    GetChildCount() { return window.ctx.call("UnityEngine.Transform", "GetChildCount", [this.ptr]).val(); }
-    static GetChildCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetChildCount_Injected", [_unity_self]).val(); }
-    static GetChild_Injected(_unity_self, index) { return (()=>{
-					let structptr_647a94 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetChild_Injected", [structptr_647a94, _unity_self, index]);
-					return structptr_647a94;
-				})(); }
-    GetEnumerator() { return window.ctx.call("UnityEngine.Transform", "GetEnumerator", [this.ptr]); }
-    GetLocalEulerAngles(order) { return (()=>{
-					let structptr_d250e0 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles", [structptr_d250e0, this.ptr, order]);
-					return structptr_d250e0;
-				})(); }
-    static GetLocalEulerAngles_Injected(_unity_self, order, ret) { window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles_Injected", [_unity_self, order, ret]); }
-    GetLocalPositionAndRotation(localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation", [this.ptr, localPosition, localRotation]); }
-    static GetLocalPositionAndRotation_Injected(_unity_self, localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation_Injected", [_unity_self, localPosition, localRotation]); }
-    GetParent() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetParent", [this.ptr])); }
-    static GetParent_Injected(_unity_self) { return (()=>{
-					let structptr_bccac2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetParent_Injected", [structptr_bccac2, _unity_self]);
-					return structptr_bccac2;
-				})(); }
-    GetPositionAndRotation(position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation", [this.ptr, position, rotation]); }
-    static GetPositionAndRotation_Injected(_unity_self, position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation_Injected", [_unity_self, position, rotation]); }
-    GetRoot() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetRoot", [this.ptr])); }
-    static GetRoot_Injected(_unity_self) { return (()=>{
-					let structptr_b8a5ed = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetRoot_Injected", [structptr_b8a5ed, _unity_self]);
-					return structptr_b8a5ed;
-				})(); }
-    GetRotationOrderInternal() { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal", [this.ptr]).val(); }
-    static GetRotationOrderInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal_Injected", [_unity_self]).val(); }
-    GetSiblingIndex() { return window.ctx.call("UnityEngine.Transform", "GetSiblingIndex", [this.ptr]).val(); }
-    static GetSiblingIndex_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetSiblingIndex_Injected", [_unity_self]).val(); }
-    Internal_LookAt(worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt", [this.ptr, worldPosition, worldUp]); }
-    static Internal_LookAt_Injected(_unity_self, worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt_Injected", [_unity_self, worldPosition, worldUp]); }
-    InverseTransformDirection_direction(direction) { return (()=>{
-					let structptr_17ce12 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_2792", [structptr_17ce12, this.ptr, direction]);
-					return structptr_17ce12;
-				})(); }
-    InverseTransformDirection_x_y_z(x, y, z) { return (()=>{
-					let structptr_008ab1 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_22938", [structptr_008ab1, this.ptr, x, y, z]);
-					return structptr_008ab1;
-				})(); }
-    static InverseTransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_Injected", [_unity_self, direction, ret]); }
-    InverseTransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirections_22940", [this.ptr, directions, transformedDirections]); }
-    InverseTransformDirections_directions(directions) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirections_22941", [this.ptr, directions]); }
-    InverseTransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
-    static InverseTransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
-    InverseTransformPoint_position(position) { return (()=>{
-					let structptr_cfa8ea = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_22957", [structptr_cfa8ea, this.ptr, position]);
-					return structptr_cfa8ea;
-				})(); }
-    InverseTransformPoint_x_y_z(x, y, z) { return (()=>{
-					let structptr_421a3a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_22958", [structptr_421a3a, this.ptr, x, y, z]);
-					return structptr_421a3a;
-				})(); }
-    static InverseTransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_Injected", [_unity_self, position, ret]); }
-    InverseTransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoints_22960", [this.ptr, positions, transformedPositions]); }
-    InverseTransformPoints_positions(positions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoints_22961", [this.ptr, positions]); }
-    InverseTransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal", [this.ptr, positions, transformedPositions]); }
-    static InverseTransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
-    InverseTransformVector_vector(vector) { return (()=>{
-					let structptr_3db5a6 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_22947", [structptr_3db5a6, this.ptr, vector]);
-					return structptr_3db5a6;
-				})(); }
-    InverseTransformVector_x_y_z(x, y, z) { return (()=>{
-					let structptr_1efc62 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_22948", [structptr_1efc62, this.ptr, x, y, z]);
-					return structptr_1efc62;
-				})(); }
-    static InverseTransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformVector_Injected", [_unity_self, vector, ret]); }
-    InverseTransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectors_22950", [this.ptr, vectors, transformedVectors]); }
-    InverseTransformVectors_vectors(vectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectors_22951", [this.ptr, vectors]); }
-    InverseTransformVectorsInternal(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectorsInternal", [this.ptr, vectors, transformedVectors]); }
-    static InverseTransformVectorsInternal_Injected(_unity_self, vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectorsInternal_Injected", [_unity_self, vectors, transformedVectors]); }
-    IsChildOf(parent) { return window.ctx.call("UnityEngine.Transform", "IsChildOf", [this.ptr, parent]).val() === 1; }
-    static IsChildOf_Injected(_unity_self, parent) { return window.ctx.call("UnityEngine.Transform", "IsChildOf_Injected", [_unity_self, parent]).val() === 1; }
-    IsConstrainProportionsScale() { return window.ctx.call("UnityEngine.Transform", "IsConstrainProportionsScale", [this.ptr]).val() === 1; }
-    static IsConstrainProportionsScale_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "IsConstrainProportionsScale_Injected", [_unity_self]).val() === 1; }
-    IsNonUniformScaleTransform() { return window.ctx.call("UnityEngine.Transform", "IsNonUniformScaleTransform", [this.ptr]).val() === 1; }
-    static IsNonUniformScaleTransform_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "IsNonUniformScaleTransform_Injected", [_unity_self]).val() === 1; }
-    LookAt_target_worldUp(target, worldUp) { window.ctx.call("UnityEngine.Transform", "LookAt_22929", [this.ptr, target, worldUp]); }
-    LookAt_target(target) { window.ctx.call("UnityEngine.Transform", "LookAt_22930", [this.ptr, target]); }
-    LookAt_worldPosition_worldUp(worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "LookAt_22931", [this.ptr, worldPosition, worldUp]); }
-    LookAt_worldPosition(worldPosition) { window.ctx.call("UnityEngine.Transform", "LookAt_2731", [this.ptr, worldPosition]); }
-    MoveAfterSibling(transform, notifyEditorAndMarkDirty) { window.ctx.call("UnityEngine.Transform", "MoveAfterSibling", [this.ptr, transform, notifyEditorAndMarkDirty]); }
-    static MoveAfterSibling_Injected(_unity_self, transform, notifyEditorAndMarkDirty) { window.ctx.call("UnityEngine.Transform", "MoveAfterSibling_Injected", [_unity_self, transform, notifyEditorAndMarkDirty]); }
-    Rotate_eulers_relativeTo(eulers, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22921", [this.ptr, eulers, relativeTo]); }
-    Rotate_eulers(eulers) { window.ctx.call("UnityEngine.Transform", "Rotate_22922", [this.ptr, eulers]); }
-    Rotate_xAngle_yAngle_zAngle_relativeTo(xAngle, yAngle, zAngle, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22923", [this.ptr, xAngle, yAngle, zAngle, relativeTo]); }
-    Rotate_xAngle_yAngle_zAngle(xAngle, yAngle, zAngle) { window.ctx.call("UnityEngine.Transform", "Rotate_22924", [this.ptr, xAngle, yAngle, zAngle]); }
-    Rotate_axis_angle_relativeTo(axis, angle, relativeTo) { window.ctx.call("UnityEngine.Transform", "Rotate_22926", [this.ptr, axis, angle, relativeTo]); }
-    Rotate_axis_angle(axis, angle) { window.ctx.call("UnityEngine.Transform", "Rotate_22927", [this.ptr, axis, angle]); }
-    RotateAround_point_axis_angle(point, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_22928", [this.ptr, point, axis, angle]); }
-    RotateAround_axis_angle(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_22978", [this.ptr, axis, angle]); }
-    RotateAroundInternal(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundInternal", [this.ptr, axis, angle]); }
-    static RotateAroundInternal_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundInternal_Injected", [_unity_self, axis, angle]); }
-    RotateAroundLocal(axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundLocal", [this.ptr, axis, angle]); }
-    static RotateAroundLocal_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAroundLocal_Injected", [_unity_self, axis, angle]); }
-    static RotateAround_Injected(_unity_self, axis, angle) { window.ctx.call("UnityEngine.Transform", "RotateAround_Injected", [_unity_self, axis, angle]); }
-    SendTransformChangedScale() { window.ctx.call("UnityEngine.Transform", "SendTransformChangedScale", [this.ptr]); }
-    static SendTransformChangedScale_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SendTransformChangedScale_Injected", [_unity_self]); }
-    SetAsFirstSibling() { window.ctx.call("UnityEngine.Transform", "SetAsFirstSibling", [this.ptr]); }
-    static SetAsFirstSibling_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SetAsFirstSibling_Injected", [_unity_self]); }
-    SetAsLastSibling() { window.ctx.call("UnityEngine.Transform", "SetAsLastSibling", [this.ptr]); }
-    static SetAsLastSibling_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "SetAsLastSibling_Injected", [_unity_self]); }
-    SetConstrainProportionsScale(isLinked) { window.ctx.call("UnityEngine.Transform", "SetConstrainProportionsScale", [this.ptr, isLinked]); }
-    static SetConstrainProportionsScale_Injected(_unity_self, isLinked) { window.ctx.call("UnityEngine.Transform", "SetConstrainProportionsScale_Injected", [_unity_self, isLinked]); }
-    SetLocalEulerAngles(euler, order) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerAngles", [this.ptr, euler, order]); }
-    static SetLocalEulerAngles_Injected(_unity_self, euler, order) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerAngles_Injected", [_unity_self, euler, order]); }
-    SetLocalEulerHint(euler) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerHint", [this.ptr, euler]); }
-    static SetLocalEulerHint_Injected(_unity_self, euler) { window.ctx.call("UnityEngine.Transform", "SetLocalEulerHint_Injected", [_unity_self, euler]); }
-    SetLocalPositionAndRotation(localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "SetLocalPositionAndRotation", [this.ptr, localPosition, localRotation]); }
-    static SetLocalPositionAndRotation_Injected(_unity_self, localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "SetLocalPositionAndRotation_Injected", [_unity_self, localPosition, localRotation]); }
-    SetParent_p(p) { window.ctx.call("UnityEngine.Transform", "SetParent_2139", [this.ptr, p]); }
-    SetParent_parent_worldPositionStays(parent, worldPositionStays) { window.ctx.call("UnityEngine.Transform", "SetParent_22909", [this.ptr, parent, worldPositionStays]); }
-    static SetParent_Injected(_unity_self, parent, worldPositionStays) { window.ctx.call("UnityEngine.Transform", "SetParent_Injected", [_unity_self, parent, worldPositionStays]); }
-    SetPositionAndRotation(position, rotation) { window.ctx.call("UnityEngine.Transform", "SetPositionAndRotation", [this.ptr, position, rotation]); }
-    static SetPositionAndRotation_Injected(_unity_self, position, rotation) { window.ctx.call("UnityEngine.Transform", "SetPositionAndRotation_Injected", [_unity_self, position, rotation]); }
-    SetRotationOrderInternal(rotationOrder) { window.ctx.call("UnityEngine.Transform", "SetRotationOrderInternal", [this.ptr, rotationOrder]); }
-    static SetRotationOrderInternal_Injected(_unity_self, rotationOrder) { window.ctx.call("UnityEngine.Transform", "SetRotationOrderInternal_Injected", [_unity_self, rotationOrder]); }
-    SetSiblingIndex(index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex", [this.ptr, index]); }
-    static SetSiblingIndex_Injected(_unity_self, index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex_Injected", [_unity_self, index]); }
-    TransformDirection_direction(direction) { return (()=>{
-					let structptr_1abe30 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformDirection_22933", [structptr_1abe30, this.ptr, direction]);
-					return structptr_1abe30;
-				})(); }
-    TransformDirection_x_y_z(x, y, z) { return (()=>{
-					let structptr_aba7c1 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformDirection_22934", [structptr_aba7c1, this.ptr, x, y, z]);
-					return structptr_aba7c1;
-				})(); }
-    static TransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "TransformDirection_Injected", [_unity_self, direction, ret]); }
-    TransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirections_22936", [this.ptr, directions, transformedDirections]); }
-    TransformDirections_directions(directions) { window.ctx.call("UnityEngine.Transform", "TransformDirections_22937", [this.ptr, directions]); }
-    TransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
-    static TransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
-    TransformPoint_position(position) { return (()=>{
-					let structptr_113c3e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformPoint_22952", [structptr_113c3e, this.ptr, position]);
-					return structptr_113c3e;
-				})(); }
-    TransformPoint_x_y_z(x, y, z) { return (()=>{
-					let structptr_a7f2a9 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformPoint_22953", [structptr_a7f2a9, this.ptr, x, y, z]);
-					return structptr_a7f2a9;
-				})(); }
-    static TransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "TransformPoint_Injected", [_unity_self, position, ret]); }
-    TransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPoints_22955", [this.ptr, positions, transformedPositions]); }
-    TransformPoints_positions(positions) { window.ctx.call("UnityEngine.Transform", "TransformPoints_22956", [this.ptr, positions]); }
-    TransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal", [this.ptr, positions, transformedPositions]); }
-    static TransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
-    TransformVector_vector(vector) { return (()=>{
-					let structptr_3caccd = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformVector_22942", [structptr_3caccd, this.ptr, vector]);
-					return structptr_3caccd;
-				})(); }
-    TransformVector_x_y_z(x, y, z) { return (()=>{
-					let structptr_63dd53 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformVector_22943", [structptr_63dd53, this.ptr, x, y, z]);
-					return structptr_63dd53;
-				})(); }
-    static TransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "TransformVector_Injected", [_unity_self, vector, ret]); }
-    TransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectors_22945", [this.ptr, vectors, transformedVectors]); }
-    TransformVectors_vectors(vectors) { window.ctx.call("UnityEngine.Transform", "TransformVectors_22946", [this.ptr, vectors]); }
-    TransformVectorsInternal(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectorsInternal", [this.ptr, vectors, transformedVectors]); }
-    static TransformVectorsInternal_Injected(_unity_self, vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectorsInternal_Injected", [_unity_self, vectors, transformedVectors]); }
-    Translate_translation_relativeTo(translation, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22915", [this.ptr, translation, relativeTo]); }
-    Translate_translation(translation) { window.ctx.call("UnityEngine.Transform", "Translate_22916", [this.ptr, translation]); }
-    Translate_x_y_z_relativeTo(x, y, z, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22917", [this.ptr, x, y, z, relativeTo]); }
-    Translate_x_y_z(x, y, z) { window.ctx.call("UnityEngine.Transform", "Translate_22918", [this.ptr, x, y, z]); }
-    Translate_translation_relativeTo(translation, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22919", [this.ptr, translation, relativeTo]); }
-    Translate_x_y_z_relativeTo(x, y, z, relativeTo) { window.ctx.call("UnityEngine.Transform", "Translate_22920", [this.ptr, x, y, z, relativeTo]); }
-    static get_childCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "get_childCount_Injected", [_unity_self]).val(); }
-    static get_hasChanged_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "get_hasChanged_Injected", [_unity_self]).val() === 1; }
-    static get_localPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localPosition_Injected", [_unity_self, ret]); }
-    static get_localRotation_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localRotation_Injected", [_unity_self, ret]); }
-    static get_localScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localScale_Injected", [_unity_self, ret]); }
-    static get_localToWorldMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix_Injected", [_unity_self, ret]); }
-    static get_lossyScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_lossyScale_Injected", [_unity_self, ret]); }
-    static get_position_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_position_Injected", [_unity_self, ret]); }
-    static get_rotation_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_rotation_Injected", [_unity_self, ret]); }
-    static get_worldToLocalMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix_Injected", [_unity_self, ret]); }
-    internal_getHierarchyCapacity() { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCapacity", [this.ptr]).val(); }
-    static internal_getHierarchyCapacity_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCapacity_Injected", [_unity_self]).val(); }
-    internal_getHierarchyCount() { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCount", [this.ptr]).val(); }
-    static internal_getHierarchyCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "internal_getHierarchyCount_Injected", [_unity_self]).val(); }
-    internal_setHierarchyCapacity(value) { window.ctx.call("UnityEngine.Transform", "internal_setHierarchyCapacity", [this.ptr, value]); }
-    static internal_setHierarchyCapacity_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "internal_setHierarchyCapacity_Injected", [_unity_self, value]); }
-    static set_hasChanged_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_hasChanged_Injected", [_unity_self, value]); }
-    static set_localPosition_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localPosition_Injected", [_unity_self, value]); }
-    static set_localRotation_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localRotation_Injected", [_unity_self, value]); }
-    static set_localScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_localScale_Injected", [_unity_self, value]); }
-    static set_position_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_position_Injected", [_unity_self, value]); }
-    static set_rotation_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Transform", "set_rotation_Injected", [_unity_self, value]); }
-}
-
 export class Image {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get activeSprite() { return new Sprite(window.ctx.call("UnityEngine.UI.Image", "get_activeSprite", [this.ptr])); }
@@ -3009,244 +3833,6 @@ export class Spring {
 
 export class KeyCode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class Vector3 {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    static get back() { return (()=>{
-					let structptr_51da6e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_back", [structptr_51da6e, ]);
-					return structptr_51da6e;
-				})(); }
-    static get down() { return (()=>{
-					let structptr_8988c7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_down", [structptr_8988c7, ]);
-					return structptr_8988c7;
-				})(); }
-    static get forward() { return (()=>{
-					let structptr_bcc0b2 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_forward", [structptr_bcc0b2, ]);
-					return structptr_bcc0b2;
-				})(); }
-    get Item() { return window.ctx.call("UnityEngine.Vector3", "get_Item", [this.ptr, index]).val(); }
-    set Item(v) { window.ctx.call("UnityEngine.Vector3", "set_Item", [this.ptr, index, v]); }
-    static get left() { return (()=>{
-					let structptr_2a971f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_left", [structptr_2a971f, ]);
-					return structptr_2a971f;
-				})(); }
-    get magnitude() { return window.ctx.call("UnityEngine.Vector3", "get_magnitude", [this.ptr]).val(); }
-    get normalized() { return (()=>{
-					let structptr_9e25d7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_normalized", [structptr_9e25d7, this.ptr]);
-					return structptr_9e25d7;
-				})(); }
-    static get one() { return (()=>{
-					let structptr_1e6f0c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_one", [structptr_1e6f0c, ]);
-					return structptr_1e6f0c;
-				})(); }
-    static get right() { return (()=>{
-					let structptr_6f9e94 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_right", [structptr_6f9e94, ]);
-					return structptr_6f9e94;
-				})(); }
-    get sqrMagnitude() { return window.ctx.call("UnityEngine.Vector3", "get_sqrMagnitude", [this.ptr]).val(); }
-    static get up() { return (()=>{
-					let structptr_2e9bf6 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_up", [structptr_2e9bf6, ]);
-					return structptr_2e9bf6;
-				})(); }
-    static get zero() { return (()=>{
-					let structptr_5c8fe7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_zero", [structptr_5c8fe7, ]);
-					return structptr_5c8fe7;
-				})(); }
-    get backVector() { return new Vector3(this.ptr.readField(0x54, 'i32')); }
-    set backVector(v) { return this.ptr.writeField(0x54, 'i32', v); }
-    get downVector() { return new Vector3(this.ptr.readField(0x24, 'i32')); }
-    set downVector(v) { return this.ptr.writeField(0x24, 'i32', v); }
-    get forwardVector() { return new Vector3(this.ptr.readField(0x48, 'i32')); }
-    set forwardVector(v) { return this.ptr.writeField(0x48, 'i32', v); }
-    get leftVector() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
-    set leftVector(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get negativeInfinityVector() { return new Vector3(this.ptr.readField(0x6C, 'i32')); }
-    set negativeInfinityVector(v) { return this.ptr.writeField(0x6C, 'i32', v); }
-    get oneVector() { return new Vector3(this.ptr.readField(0xC, 'i32')); }
-    set oneVector(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    get positiveInfinityVector() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
-    set positiveInfinityVector(v) { return this.ptr.writeField(0x60, 'i32', v); }
-    get rightVector() { return new Vector3(this.ptr.readField(0x3C, 'i32')); }
-    set rightVector(v) { return this.ptr.writeField(0x3C, 'i32', v); }
-    get upVector() { return new Vector3(this.ptr.readField(0x18, 'i32')); }
-    set upVector(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get x() { return this.ptr.readField(0x0, 'f32').val(); }
-    set x(v) { return this.ptr.writeField(0x0, 'f32', v); }
-    get y() { return this.ptr.readField(0x4, 'f32').val(); }
-    set y(v) { return this.ptr.writeField(0x4, 'f32', v); }
-    get z() { return this.ptr.readField(0x8, 'f32').val(); }
-    set z(v) { return this.ptr.writeField(0x8, 'f32', v); }
-    get zeroVector() { return new Vector3(this.ptr.readField(0x0, 'i32')); }
-    set zeroVector(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22005", [from, to]).val(); }
-    static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22006", [from, to]).val(); }
-    static ClampMagnitude(vector, maxLength) { return (()=>{
-					let structptr_ee22e3 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "ClampMagnitude", [structptr_ee22e3, vector, maxLength]);
-					return structptr_ee22e3;
-				})(); }
-    static Cross(lhs, rhs) { return (()=>{
-					let structptr_9e5914 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Cross", [structptr_9e5914, lhs, rhs]);
-					return structptr_9e5914;
-				})(); }
-    static Distance(a, b) { return window.ctx.call("UnityEngine.Vector3", "Distance", [a, b]).val(); }
-    static Dot_lhs_rhs(lhs, rhs) { return window.ctx.call("UnityEngine.Vector3", "Dot_22001", [lhs, rhs]).val(); }
-    static Dot_lhs_rhs(lhs, rhs) { return window.ctx.call("UnityEngine.Vector3", "Dot_22002", [lhs, rhs]).val(); }
-    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21994", [this.ptr, other]).val() === 1; }
-    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21995", [this.ptr, other]).val() === 1; }
-    Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_21996", [this.ptr, other]).val() === 1; }
-    GetHashCode() { return window.ctx.call("UnityEngine.Vector3", "GetHashCode", [this.ptr]).val(); }
-    static Lerp(a, b, t) { return (()=>{
-					let structptr_f07f79 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Lerp", [structptr_f07f79, a, b, t]);
-					return structptr_f07f79;
-				})(); }
-    static Max_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_209b4c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Max_22014", [structptr_209b4c, lhs, rhs]);
-					return structptr_209b4c;
-				})(); }
-    static Max_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_dad67f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Max_22015", [structptr_dad67f, lhs, rhs]);
-					return structptr_dad67f;
-				})(); }
-    static Min_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_14ec7a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Min_22012", [structptr_14ec7a, lhs, rhs]);
-					return structptr_14ec7a;
-				})(); }
-    static Min_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_5eb29a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Min_22013", [structptr_5eb29a, lhs, rhs]);
-					return structptr_5eb29a;
-				})(); }
-    static MoveTowards(current, target, maxDistanceDelta) { return (()=>{
-					let structptr_3bfecd = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "MoveTowards", [structptr_3bfecd, current, target, maxDistanceDelta]);
-					return structptr_3bfecd;
-				})(); }
-    static Normalize_value(value) { return (()=>{
-					let structptr_d5cf42 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Normalize_21997", [structptr_d5cf42, value]);
-					return structptr_d5cf42;
-				})(); }
-    static Normalize_value(value) { return (()=>{
-					let structptr_4df623 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Normalize_21998", [structptr_4df623, value]);
-					return structptr_4df623;
-				})(); }
-    Normalize_pointer() { window.ctx.call("UnityEngine.Vector3", "Normalize_21999", [this.ptr]); }
-    static Project(vector, onNormal) { return (()=>{
-					let structptr_b00cbb = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Project", [structptr_b00cbb, vector, onNormal]);
-					return structptr_b00cbb;
-				})(); }
-    static ProjectOnPlane(vector, planeNormal) { return (()=>{
-					let structptr_94c162 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "ProjectOnPlane", [structptr_94c162, vector, planeNormal]);
-					return structptr_94c162;
-				})(); }
-    static Scale_a_b(a, b) { return (()=>{
-					let structptr_fa12b2 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Scale_21990", [structptr_fa12b2, a, b]);
-					return structptr_fa12b2;
-				})(); }
-    Scale_scale(scale) { window.ctx.call("UnityEngine.Vector3", "Scale_21991", [this.ptr, scale]); }
-    static SignedAngle(from, to, axis) { return window.ctx.call("UnityEngine.Vector3", "SignedAngle", [from, to, axis]).val(); }
-    static SmoothDamp_current_target_currentVelocity_smoothTime(current, target, currentVelocity, smoothTime) { return (()=>{
-					let structptr_e3f9ea = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_21984", [structptr_e3f9ea, current, target, currentVelocity, smoothTime]);
-					return structptr_e3f9ea;
-				})(); }
-    static SmoothDamp_current_target_currentVelocity_smoothTime_maxSpeed_deltaTime(current, target, currentVelocity, smoothTime, maxSpeed, deltaTime) { return (()=>{
-					let structptr_9f8a66 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_21985", [structptr_9f8a66, current, target, currentVelocity, smoothTime, maxSpeed, deltaTime]);
-					return structptr_9f8a66;
-				})(); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Vector3", "ToString_22032", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22033", [this.ptr, format, formatProvider]); }
-}
-
-export class Player {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get back() { return this.ptr.readField(0x2C, 'i32'); }
-    set back(v) { return this.ptr.writeField(0x2C, 'i32', v); }
-    get crouching() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
-    set crouching(v) { return this.ptr.writeField(0x3C, 'i32', v); }
-    get currentKillStreak() { return this.ptr.readField(0x58, 'f32').val(); }
-    set currentKillStreak(v) { return this.ptr.writeField(0x58, 'f32', v); }
-    get dashing() { return this.ptr.readField(0x3B, 'i32').val() === 1; }
-    set dashing(v) { return this.ptr.writeField(0x3B, 'i32', v); }
-    get deaths() { return this.ptr.readField(0x26, 'i32'); }
-    set deaths(v) { return this.ptr.writeField(0x26, 'i32', v); }
-    get elo() { return this.ptr.readField(0x20, 'f32').val(); }
-    set elo(v) { return this.ptr.writeField(0x20, 'f32', v); }
-    get hat() { return this.ptr.readField(0x2A, 'i32'); }
-    set hat(v) { return this.ptr.writeField(0x2A, 'i32', v); }
-    get headshots() { return this.ptr.readField(0x60, 'f32').val(); }
-    set headshots(v) { return this.ptr.writeField(0x60, 'f32', v); }
-    get health() { return this.ptr.readField(0x38, 'i32'); }
-    set health(v) { return this.ptr.writeField(0x38, 'i32', v); }
-    get healthProtected() { return this.ptr.readField(0x40, 'i32').val() === 1; }
-    set healthProtected(v) { return this.ptr.writeField(0x40, 'i32', v); }
-    get inventory() { return this.ptr.readField(0x44, 'i32'); }
-    set inventory(v) { return this.ptr.writeField(0x44, 'i32', v); }
-    get kills() { return this.ptr.readField(0x24, 'i32'); }
-    set kills(v) { return this.ptr.writeField(0x24, 'i32', v); }
-    get killsWithWeapon() { return this.ptr.readField(0x5C, 'f32').val(); }
-    set killsWithWeapon(v) { return this.ptr.writeField(0x5C, 'f32', v); }
-    get lastGotShot() { return new Shot(this.ptr.readField(0x54, 'i32')); }
-    set lastGotShot(v) { return this.ptr.writeField(0x54, 'i32', v); }
-    get lastShootTime() { return this.ptr.readField(0x6C, 'f32').val(); }
-    set lastShootTime(v) { return this.ptr.writeField(0x6C, 'f32', v); }
-    get lastShotTime() { return this.ptr.readField(0x68, 'f32').val(); }
-    set lastShotTime(v) { return this.ptr.writeField(0x68, 'f32', v); }
-    get localWeaponIndex() { return this.ptr.readField(0x3E, 'i32'); }
-    set localWeaponIndex(v) { return this.ptr.writeField(0x3E, 'i32', v); }
-    get maxKillStreak() { return this.ptr.readField(0x30, 'i32'); }
-    set maxKillStreak(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get nickname() { return this.ptr.readField(0x18, 'i32').mstr(); }
-    set nickname(v) { return this.ptr.writeField(0x18, 'i32', window.ctx.createMstr(v)); }
-    get party() { return this.ptr.readField(0x4C, 'i32').mstr(); }
-    set party(v) { return this.ptr.writeField(0x4C, 'i32', window.ctx.createMstr(v)); }
-    get playerId() { return this.ptr.readField(0x14, 'i32').mstr(); }
-    set playerId(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
-    get rigid() { return new ColyRigid(this.ptr.readField(0x34, 'i32')); }
-    set rigid(v) { return this.ptr.writeField(0x34, 'i32', v); }
-    get sceneLoaded() { return this.ptr.readField(0x3D, 'i32').val() === 1; }
-    set sceneLoaded(v) { return this.ptr.writeField(0x3D, 'i32', v); }
-    get score() { return this.ptr.readField(0x1C, 'i32'); }
-    set score(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get selectedGunSkins() { return this.ptr.readField(0x10, 'i32'); }
-    set selectedGunSkins(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get skin() { return this.ptr.readField(0x28, 'i32'); }
-    set skin(v) { return this.ptr.writeField(0x28, 'i32', v); }
-    get spawned() { return this.ptr.readField(0x3A, 'i32').val() === 1; }
-    set spawned(v) { return this.ptr.writeField(0x3A, 'i32', v); }
-    get startPlayTime() { return this.ptr.readField(0x64, 'f32').val(); }
-    set startPlayTime(v) { return this.ptr.writeField(0x64, 'f32', v); }
-    get team() { return this.ptr.readField(0x3F, 'i32'); }
-    set team(v) { return this.ptr.writeField(0x3F, 'i32', v); }
-    get user() { return new PublicUserData(this.ptr.readField(0x50, 'i32')); }
-    set user(v) { return this.ptr.writeField(0x50, 'i32', v); }
-    get userId() { return this.ptr.readField(0x48, 'i32').mstr(); }
-    set userId(v) { return this.ptr.writeField(0x48, 'i32', window.ctx.createMstr(v)); }
-    get weaponClass() { return this.ptr.readField(0x39, 'i32'); }
-    set weaponClass(v) { return this.ptr.writeField(0x39, 'i32', v); }
-    get weaponsCollected() { return this.ptr.readField(0x2E, 'i32'); }
-    set weaponsCollected(v) { return this.ptr.writeField(0x2E, 'i32', v); }
 }
 
 export class ColyAI {
@@ -4049,48 +4635,6 @@ export class Tween {
     Startup() { return window.ctx.call("DG.Tweening.Tween", "Startup", [this.ptr]).val() === 1; }
     UpdateDelay(elapsed) { return window.ctx.call("DG.Tweening.Tween", "UpdateDelay", [this.ptr, elapsed]).val(); }
     Validate() { return window.ctx.call("DG.Tweening.Tween", "Validate", [this.ptr]).val() === 1; }
-}
-
-export class AnimationCurve {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get Item() { return (()=>{
-					let structptr_d1b7d7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "get_Item", [structptr_d1b7d7, this.ptr, index]);
-					return structptr_d1b7d7;
-				})(); }
-    get length() { return window.ctx.call("UnityEngine.AnimationCurve", "get_length", [this.ptr]).val(); }
-    get m_Ptr() { return this.ptr.readField(0x8, 'i32'); }
-    set m_Ptr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    get m_RequiresNativeCleanup() { return this.ptr.readField(0xC, 'i32').val() === 1; }
-    set m_RequiresNativeCleanup(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    static EaseInOut(timeStart, valueStart, timeEnd, valueEnd) { return new AnimationCurve(window.ctx.call("UnityEngine.AnimationCurve", "EaseInOut", [timeStart, valueStart, timeEnd, valueEnd])); }
-    Equals_o(o) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18848", [this.ptr, o]).val() === 1; }
-    Equals_other(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18849", [this.ptr, other]).val() === 1; }
-    Evaluate(time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate", [this.ptr, time]).val(); }
-    static Evaluate_Injected(_unity_self, time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate_Injected", [_unity_self, time]).val(); }
-    Finalize() { window.ctx.call("UnityEngine.AnimationCurve", "Finalize", [this.ptr]); }
-    GetHashCode() { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode", [this.ptr]).val(); }
-    static GetHashCode_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode_Injected", [_unity_self]).val(); }
-    GetKey(index) { return (()=>{
-					let structptr_bc5e28 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "GetKey", [structptr_bc5e28, this.ptr, index]);
-					return structptr_bc5e28;
-				})(); }
-    static GetKey_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.AnimationCurve", "GetKey_Injected", [_unity_self, index, ret]); }
-    static Internal_Create(keys) { return (()=>{
-					let structptr_7d432b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create", [structptr_7d432b, keys]);
-					return structptr_7d432b;
-				})(); }
-    static Internal_Create_Injected(keys) { return (()=>{
-					let structptr_e0f381 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create_Injected", [structptr_e0f381, keys]);
-					return structptr_e0f381;
-				})(); }
-    static Internal_Destroy(ptr) { window.ctx.call("UnityEngine.AnimationCurve", "Internal_Destroy", [ptr]); }
-    Internal_Equals(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals", [this.ptr, other]).val() === 1; }
-    static Internal_Equals_Injected(_unity_self, other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals_Injected", [_unity_self, other]).val() === 1; }
-    static get_length_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "get_length_Injected", [_unity_self]).val(); }
 }
 
 export class Coroutine {
@@ -5674,6 +6218,191 @@ export class TransparencySortMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
+export class RotationOrder {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class CapsuleCollider {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get center() { return (()=>{
+					let structptr_bc7853 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.CapsuleCollider", "get_center", [structptr_bc7853, this.ptr]);
+					return structptr_bc7853;
+				})(); }
+    set center(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_center", [this.ptr, v]); }
+    get direction() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_direction", [this.ptr]).val(); }
+    set direction(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_direction", [this.ptr, v]); }
+    get height() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_height", [this.ptr]).val(); }
+    set height(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_height", [this.ptr, v]); }
+    get radius() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_radius", [this.ptr]).val(); }
+    set radius(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_radius", [this.ptr, v]); }
+    static get_center_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.CapsuleCollider", "get_center_Injected", [_unity_self, ret]); }
+    static get_direction_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_direction_Injected", [_unity_self]).val(); }
+    static get_height_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_height_Injected", [_unity_self]).val(); }
+    static get_radius_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_radius_Injected", [_unity_self]).val(); }
+    static set_center_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_center_Injected", [_unity_self, value]); }
+    static set_direction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_direction_Injected", [_unity_self, value]); }
+    static set_height_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_height_Injected", [_unity_self, value]); }
+    static set_radius_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_radius_Injected", [_unity_self, value]); }
+}
+
+export class PhysicsMaterial {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static Internal_CreateDynamicsMaterial(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial", [mat, name]); }
+    static Internal_CreateDynamicsMaterial_Injected(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial_Injected", [mat, name]); }
+}
+
+export class ICharacterController {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    AfterCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "AfterCharacterUpdate", [this.ptr, deltaTime]); }
+    BeforeCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "BeforeCharacterUpdate", [this.ptr, deltaTime]); }
+    OnDiscreteCollisionDetected(hitCollider) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnDiscreteCollisionDetected", [this.ptr, hitCollider]); }
+    OnGroundHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnGroundHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
+    OnMovementHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnMovementHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
+    PostGroundingUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "PostGroundingUpdate", [this.ptr, deltaTime]); }
+    ProcessHitStabilityReport(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "ProcessHitStabilityReport", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport]); }
+    UpdateRotation(currentRotation, deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "UpdateRotation", [this.ptr, currentRotation, deltaTime]); }
+    UpdateVelocity(currentVelocity, deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "UpdateVelocity", [this.ptr, currentVelocity, deltaTime]); }
+}
+
+export class CharacterTransientGroundingReport {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get FoundAnyGround() { return this.ptr.readField(0x0, 'i32').val() === 1; }
+    set FoundAnyGround(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get GroundNormal() { return new Vector3(this.ptr.readField(0x4, 'i32')); }
+    set GroundNormal(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get InnerGroundNormal() { return new Vector3(this.ptr.readField(0x10, 'i32')); }
+    set InnerGroundNormal(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get IsStableOnGround() { return this.ptr.readField(0x1, 'i32').val() === 1; }
+    set IsStableOnGround(v) { return this.ptr.writeField(0x1, 'i32', v); }
+    get OuterGroundNormal() { return new Vector3(this.ptr.readField(0x1C, 'i32')); }
+    set OuterGroundNormal(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get SnappingPrevented() { return this.ptr.readField(0x2, 'i32').val() === 1; }
+    set SnappingPrevented(v) { return this.ptr.writeField(0x2, 'i32', v); }
+    CopyFrom(groundingReport) { window.ctx.call("KinematicCharacterController.CharacterTransientGroundingReport", "CopyFrom", [this.ptr, groundingReport]); }
+}
+
+export class RigidbodyInteractionType {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class StepHandlingMethod {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class RectTransform {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get anchoredPosition() { return (()=>{
+					let structptr_408a2f = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition", [structptr_408a2f, this.ptr]);
+					return structptr_408a2f;
+				})(); }
+    set anchoredPosition(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition", [this.ptr, v]); }
+    get anchoredPosition3D() { return (()=>{
+					let structptr_57736d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition3D", [structptr_57736d, this.ptr]);
+					return structptr_57736d;
+				})(); }
+    set anchoredPosition3D(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition3D", [this.ptr, v]); }
+    get anchorMax() { return (()=>{
+					let structptr_aead16 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchorMax", [structptr_aead16, this.ptr]);
+					return structptr_aead16;
+				})(); }
+    set anchorMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMax", [this.ptr, v]); }
+    get anchorMin() { return (()=>{
+					let structptr_589dfd = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchorMin", [structptr_589dfd, this.ptr]);
+					return structptr_589dfd;
+				})(); }
+    set anchorMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMin", [this.ptr, v]); }
+    get drivenByObject() { return new Object(window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject", [this.ptr])); }
+    set drivenByObject(v) { window.ctx.call("UnityEngine.RectTransform", "set_drivenByObject", [this.ptr, v]); }
+    get drivenProperties() { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties", [this.ptr])); }
+    set drivenProperties(v) { window.ctx.call("UnityEngine.RectTransform", "set_drivenProperties", [this.ptr, v]); }
+    get offsetMax() { return (()=>{
+					let structptr_d1f77e = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_offsetMax", [structptr_d1f77e, this.ptr]);
+					return structptr_d1f77e;
+				})(); }
+    set offsetMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMax", [this.ptr, v]); }
+    get offsetMin() { return (()=>{
+					let structptr_775885 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_offsetMin", [structptr_775885, this.ptr]);
+					return structptr_775885;
+				})(); }
+    set offsetMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMin", [this.ptr, v]); }
+    get pivot() { return (()=>{
+					let structptr_5aa6f1 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_pivot", [structptr_5aa6f1, this.ptr]);
+					return structptr_5aa6f1;
+				})(); }
+    set pivot(v) { window.ctx.call("UnityEngine.RectTransform", "set_pivot", [this.ptr, v]); }
+    get rect() { return (()=>{
+					let structptr_63cfd3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "get_rect", [structptr_63cfd3, this.ptr]);
+					return structptr_63cfd3;
+				})(); }
+    get sendChildDimensionsChange() { return window.ctx.call("UnityEngine.RectTransform", "get_sendChildDimensionsChange", [this.ptr]).val() === 1; }
+    set sendChildDimensionsChange(v) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange", [this.ptr, v]); }
+    get sizeDelta() { return (()=>{
+					let structptr_e7ab6a = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta", [structptr_e7ab6a, this.ptr]);
+					return structptr_e7ab6a;
+				})(); }
+    set sizeDelta(v) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta", [this.ptr, v]); }
+    get reapplyDrivenProperties() { return this.ptr.readField(0x0, 'i32'); }
+    set reapplyDrivenProperties(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    ForceUpdateRectTransforms() { window.ctx.call("UnityEngine.RectTransform", "ForceUpdateRectTransforms", [this.ptr]); }
+    static ForceUpdateRectTransforms_Injected(_unity_self) { window.ctx.call("UnityEngine.RectTransform", "ForceUpdateRectTransforms_Injected", [_unity_self]); }
+    GetLocalCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetLocalCorners", [this.ptr, fourCornersArray]); }
+    GetParentSize() { return (()=>{
+					let structptr_d37f06 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "GetParentSize", [structptr_d37f06, this.ptr]);
+					return structptr_d37f06;
+				})(); }
+    GetRectInParentSpace() { return (()=>{
+					let structptr_bb0fa4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "GetRectInParentSpace", [structptr_bb0fa4, this.ptr]);
+					return structptr_bb0fa4;
+				})(); }
+    GetWorldCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetWorldCorners", [this.ptr, fourCornersArray]); }
+    static SendReapplyDrivenProperties(driven) { window.ctx.call("UnityEngine.RectTransform", "SendReapplyDrivenProperties", [driven]); }
+    SetInsetAndSizeFromParentEdge(edge, inset, size) { window.ctx.call("UnityEngine.RectTransform", "SetInsetAndSizeFromParentEdge", [this.ptr, edge, inset, size]); }
+    SetSizeWithCurrentAnchors(axis, size) { window.ctx.call("UnityEngine.RectTransform", "SetSizeWithCurrentAnchors", [this.ptr, axis, size]); }
+    static get_anchorMax_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchorMax_Injected", [_unity_self, ret]); }
+    static get_anchorMin_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchorMin_Injected", [_unity_self, ret]); }
+    static get_anchoredPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition_Injected", [_unity_self, ret]); }
+    static get_drivenByObject_Injected(_unity_self) { return (()=>{
+					let structptr_f42c9d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject_Injected", [structptr_f42c9d, _unity_self]);
+					return structptr_f42c9d;
+				})(); }
+    static get_drivenProperties_Injected(_unity_self) { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties_Injected", [_unity_self])); }
+    static get_pivot_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_pivot_Injected", [_unity_self, ret]); }
+    static get_rect_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_rect_Injected", [_unity_self, ret]); }
+    static get_sendChildDimensionsChange_Injected(_unity_self) { return window.ctx.call("UnityEngine.RectTransform", "get_sendChildDimensionsChange_Injected", [_unity_self]).val() === 1; }
+    static get_sizeDelta_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta_Injected", [_unity_self, ret]); }
+    static set_anchorMax_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMax_Injected", [_unity_self, value]); }
+    static set_anchorMin_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMin_Injected", [_unity_self, value]); }
+    static set_anchoredPosition_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition_Injected", [_unity_self, value]); }
+    static set_drivenByObject_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_drivenByObject_Injected", [_unity_self, value]); }
+    static set_drivenProperties_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_drivenProperties_Injected", [_unity_self, value]); }
+    static set_pivot_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_pivot_Injected", [_unity_self, value]); }
+    static set_sendChildDimensionsChange_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange_Injected", [_unity_self, value]); }
+    static set_sizeDelta_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta_Injected", [_unity_self, value]); }
+}
+
+export class ColyVector3 {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get x() { return this.ptr.readField(0x10, 'f32').val(); }
+    set x(v) { return this.ptr.writeField(0x10, 'f32', v); }
+    get y() { return this.ptr.readField(0x14, 'f32').val(); }
+    set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
+    get z() { return this.ptr.readField(0x18, 'f32').val(); }
+    set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
+}
+
 export class Avatar {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get isHuman() { return window.ctx.call("UnityEngine.Avatar", "get_isHuman", [this.ptr]).val() === 1; }
@@ -5722,10 +6451,6 @@ export class AnimatorControllerParameter {
     set m_Type(v) { return this.ptr.writeField(0xC, 'i32', v); }
     Equals(o) { return window.ctx.call("UnityEngine.AnimatorControllerParameter", "Equals", [this.ptr, o]).val() === 1; }
     GetHashCode() { return window.ctx.call("UnityEngine.AnimatorControllerParameter", "GetHashCode", [this.ptr]).val(); }
-}
-
-export class RotationOrder {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
 export class Texture {
@@ -5838,304 +6563,6 @@ export class InterpolationMethod {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
-export class KinematicCharacterMotor {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get AttachedRigidbody() { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbody", [this.ptr])); }
-    get AttachedRigidbodyVelocity() { return (()=>{
-					let structptr_116af0 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbodyVelocity", [structptr_116af0, this.ptr]);
-					return structptr_116af0;
-				})(); }
-    get CharacterForward() { return (()=>{
-					let structptr_0538ea = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterForward", [structptr_0538ea, this.ptr]);
-					return structptr_0538ea;
-				})(); }
-    get CharacterRight() { return (()=>{
-					let structptr_ca8f01 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterRight", [structptr_ca8f01, this.ptr]);
-					return structptr_ca8f01;
-				})(); }
-    get CharacterTransformToCapsuleBottom() { return (()=>{
-					let structptr_c9683b = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottom", [structptr_c9683b, this.ptr]);
-					return structptr_c9683b;
-				})(); }
-    get CharacterTransformToCapsuleBottomHemi() { return (()=>{
-					let structptr_53332f = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottomHemi", [structptr_53332f, this.ptr]);
-					return structptr_53332f;
-				})(); }
-    get CharacterTransformToCapsuleCenter() { return (()=>{
-					let structptr_36c2c9 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleCenter", [structptr_36c2c9, this.ptr]);
-					return structptr_36c2c9;
-				})(); }
-    get CharacterTransformToCapsuleTop() { return (()=>{
-					let structptr_00ce8a = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTop", [structptr_00ce8a, this.ptr]);
-					return structptr_00ce8a;
-				})(); }
-    get CharacterTransformToCapsuleTopHemi() { return (()=>{
-					let structptr_7507ae = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTopHemi", [structptr_7507ae, this.ptr]);
-					return structptr_7507ae;
-				})(); }
-    get CharacterUp() { return (()=>{
-					let structptr_ea77ad = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterUp", [structptr_ea77ad, this.ptr]);
-					return structptr_ea77ad;
-				})(); }
-    get InitialSimulationPosition() { return (()=>{
-					let structptr_31fb51 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationPosition", [structptr_31fb51, this.ptr]);
-					return structptr_31fb51;
-				})(); }
-    get InitialSimulationRotation() { return (()=>{
-					let structptr_4ca915 = window.ctx.malloc(16);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationRotation", [structptr_4ca915, this.ptr]);
-					return structptr_4ca915;
-				})(); }
-    get Overlaps() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Overlaps", [this.ptr]); }
-    get OverlapsCount() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_OverlapsCount", [this.ptr]).val(); }
-    get Transform() { return new Transform(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Transform", [this.ptr])); }
-    get TransientPosition() { return (()=>{
-					let structptr_a57663 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientPosition", [structptr_a57663, this.ptr]);
-					return structptr_a57663;
-				})(); }
-    get TransientRotation() { return (()=>{
-					let structptr_6e0c45 = window.ctx.malloc(16);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientRotation", [structptr_6e0c45, this.ptr]);
-					return structptr_6e0c45;
-				})(); }
-    set TransientRotation(v) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "set_TransientRotation", [this.ptr, v]); }
-    get Velocity() { return (()=>{
-					let structptr_7196cc = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Velocity", [structptr_7196cc, this.ptr]);
-					return structptr_7196cc;
-				})(); }
-    get AllowSteppingWithoutStableGrounding() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
-    set AllowSteppingWithoutStableGrounding(v) { return this.ptr.writeField(0x3C, 'i32', v); }
-    get AttachedRigidbodyOverride() { return new Rigidbody(this.ptr.readField(0x1AC, 'i32')); }
-    set AttachedRigidbodyOverride(v) { return this.ptr.writeField(0x1AC, 'i32', v); }
-    get BaseVelocity() { return new Vector3(this.ptr.readField(0x1B0, 'i32')); }
-    set BaseVelocity(v) { return this.ptr.writeField(0x1B0, 'i32', v); }
-    get Capsule() { return new CapsuleCollider(this.ptr.readField(0x10, 'i32')); }
-    set Capsule(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get CapsuleHeight() { return this.ptr.readField(0x18, 'f32').val(); }
-    set CapsuleHeight(v) { return this.ptr.writeField(0x18, 'f32', v); }
-    get CapsulePhysicsMaterial() { return new PhysicsMaterial(this.ptr.readField(0x20, 'i32')); }
-    set CapsulePhysicsMaterial(v) { return this.ptr.writeField(0x20, 'i32', v); }
-    get CapsuleRadius() { return this.ptr.readField(0x14, 'f32').val(); }
-    set CapsuleRadius(v) { return this.ptr.writeField(0x14, 'f32', v); }
-    get CapsuleYOffset() { return this.ptr.readField(0x1C, 'f32').val(); }
-    set CapsuleYOffset(v) { return this.ptr.writeField(0x1C, 'f32', v); }
-    get CharacterController() { return new ICharacterController(this.ptr.readField(0x184, 'i32')); }
-    set CharacterController(v) { return this.ptr.writeField(0x184, 'i32', v); }
-    get CheckMovementInitialOverlaps() { return this.ptr.readField(0x78, 'i32').val() === 1; }
-    set CheckMovementInitialOverlaps(v) { return this.ptr.writeField(0x78, 'i32', v); }
-    get CollidableLayers() { return new LayerMask(this.ptr.readField(0xDC, 'i32')); }
-    set CollidableLayers(v) { return this.ptr.writeField(0xDC, 'i32', v); }
-    get DiscreteCollisionEvents() { return this.ptr.readField(0x30, 'i32').val() === 1; }
-    set DiscreteCollisionEvents(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get GroundDetectionExtraDistance() { return this.ptr.readField(0x24, 'f32').val(); }
-    set GroundDetectionExtraDistance(v) { return this.ptr.writeField(0x24, 'f32', v); }
-    get GroundingStatus() { return new CharacterGroundingReport(this.ptr.readField(0x7C, 'i32')); }
-    set GroundingStatus(v) { return this.ptr.writeField(0x7C, 'i32', v); }
-    get HasPlanarConstraint() { return this.ptr.readField(0x61, 'i32').val() === 1; }
-    set HasPlanarConstraint(v) { return this.ptr.writeField(0x61, 'i32', v); }
-    get IndexInCharacterSystem() { return this.ptr.readField(0x18C, 'i32').val(); }
-    set IndexInCharacterSystem(v) { return this.ptr.writeField(0x18C, 'i32', v); }
-    get InitialTickPosition() { return new Vector3(this.ptr.readField(0x190, 'i32')); }
-    set InitialTickPosition(v) { return this.ptr.writeField(0x190, 'i32', v); }
-    get InitialTickRotation() { return new Quaternion(this.ptr.readField(0x19C, 'i32')); }
-    set InitialTickRotation(v) { return this.ptr.writeField(0x19C, 'i32', v); }
-    get InteractiveRigidbodyHandling() { return this.ptr.readField(0x54, 'i32').val() === 1; }
-    set InteractiveRigidbodyHandling(v) { return this.ptr.writeField(0x54, 'i32', v); }
-    get KillRemainingMovementWhenExceedMaxMovementIterations() { return this.ptr.readField(0x7A, 'i32').val() === 1; }
-    set KillRemainingMovementWhenExceedMaxMovementIterations(v) { return this.ptr.writeField(0x7A, 'i32', v); }
-    get KillVelocityWhenExceedMaxMovementIterations() { return this.ptr.readField(0x79, 'i32').val() === 1; }
-    set KillVelocityWhenExceedMaxMovementIterations(v) { return this.ptr.writeField(0x79, 'i32', v); }
-    get LastGroundingStatus() { return new CharacterTransientGroundingReport(this.ptr.readField(0xB4, 'i32')); }
-    set LastGroundingStatus(v) { return this.ptr.writeField(0xB4, 'i32', v); }
-    get LastMovementIterationFoundAnyGround() { return this.ptr.readField(0x188, 'i32').val() === 1; }
-    set LastMovementIterationFoundAnyGround(v) { return this.ptr.writeField(0x188, 'i32', v); }
-    get LedgeAndDenivelationHandling() { return this.ptr.readField(0x44, 'i32').val() === 1; }
-    set LedgeAndDenivelationHandling(v) { return this.ptr.writeField(0x44, 'i32', v); }
-    get MaxDecollisionIterations() { return this.ptr.readField(0x74, 'i32').val(); }
-    set MaxDecollisionIterations(v) { return this.ptr.writeField(0x74, 'i32', v); }
-    get MaxMovementIterations() { return this.ptr.readField(0x70, 'i32').val(); }
-    set MaxMovementIterations(v) { return this.ptr.writeField(0x70, 'i32', v); }
-    get MaxStableDenivelationAngle() { return this.ptr.readField(0x50, 'f32').val(); }
-    set MaxStableDenivelationAngle(v) { return this.ptr.writeField(0x50, 'f32', v); }
-    get MaxStableDistanceFromLedge() { return this.ptr.readField(0x48, 'f32').val(); }
-    set MaxStableDistanceFromLedge(v) { return this.ptr.writeField(0x48, 'f32', v); }
-    get MaxStableSlopeAngle() { return this.ptr.readField(0x28, 'f32').val(); }
-    set MaxStableSlopeAngle(v) { return this.ptr.writeField(0x28, 'f32', v); }
-    get MaxStepHeight() { return this.ptr.readField(0x38, 'f32').val(); }
-    set MaxStepHeight(v) { return this.ptr.writeField(0x38, 'f32', v); }
-    get MaxVelocityForLedgeSnap() { return this.ptr.readField(0x4C, 'f32').val(); }
-    set MaxVelocityForLedgeSnap(v) { return this.ptr.writeField(0x4C, 'f32', v); }
-    get MinRequiredStepDepth() { return this.ptr.readField(0x40, 'f32').val(); }
-    set MinRequiredStepDepth(v) { return this.ptr.writeField(0x40, 'f32', v); }
-    get PlanarConstraintAxis() { return new Vector3(this.ptr.readField(0x64, 'i32')); }
-    set PlanarConstraintAxis(v) { return this.ptr.writeField(0x64, 'i32', v); }
-    get PreserveAttachedRigidbodyMomentum() { return this.ptr.readField(0x60, 'i32').val() === 1; }
-    set PreserveAttachedRigidbodyMomentum(v) { return this.ptr.writeField(0x60, 'i32', v); }
-    get RigidbodyInteractionType() { return new RigidbodyInteractionType(this.ptr.readField(0x58, 'i32')); }
-    set RigidbodyInteractionType(v) { return this.ptr.writeField(0x58, 'i32', v); }
-    get SimulatedCharacterMass() { return this.ptr.readField(0x5C, 'f32').val(); }
-    set SimulatedCharacterMass(v) { return this.ptr.writeField(0x5C, 'f32', v); }
-    get StableGroundLayers() { return new LayerMask(this.ptr.readField(0x2C, 'i32')); }
-    set StableGroundLayers(v) { return this.ptr.writeField(0x2C, 'i32', v); }
-    get StepHandling() { return new StepHandlingMethod(this.ptr.readField(0x34, 'i32')); }
-    set StepHandling(v) { return this.ptr.writeField(0x34, 'i32', v); }
-    get _attachedRigidbody() { return new Rigidbody(this.ptr.readField(0x130, 'i32')); }
-    set _attachedRigidbody(v) { return this.ptr.writeField(0x130, 'i32', v); }
-    get _attachedRigidbodyVelocity() { return new Vector3(this.ptr.readField(0x170, 'i32')); }
-    set _attachedRigidbodyVelocity(v) { return this.ptr.writeField(0x170, 'i32', v); }
-    get _cachedWorldForward() { return new Vector3(this.ptr.readField(0x208, 'i32')); }
-    set _cachedWorldForward(v) { return this.ptr.writeField(0x208, 'i32', v); }
-    get _cachedWorldRight() { return new Vector3(this.ptr.readField(0x214, 'i32')); }
-    set _cachedWorldRight(v) { return this.ptr.writeField(0x214, 'i32', v); }
-    get _cachedWorldUp() { return new Vector3(this.ptr.readField(0x1FC, 'i32')); }
-    set _cachedWorldUp(v) { return this.ptr.writeField(0x1FC, 'i32', v); }
-    get _cachedZeroVector() { return new Vector3(this.ptr.readField(0x220, 'i32')); }
-    set _cachedZeroVector(v) { return this.ptr.writeField(0x220, 'i32', v); }
-    get _characterForward() { return new Vector3(this.ptr.readField(0xFC, 'i32')); }
-    set _characterForward(v) { return this.ptr.writeField(0xFC, 'i32', v); }
-    get _characterRight() { return new Vector3(this.ptr.readField(0x108, 'i32')); }
-    set _characterRight(v) { return this.ptr.writeField(0x108, 'i32', v); }
-    get _characterTransformToCapsuleBottom() { return new Vector3(this.ptr.readField(0x140, 'i32')); }
-    set _characterTransformToCapsuleBottom(v) { return this.ptr.writeField(0x140, 'i32', v); }
-    get _characterTransformToCapsuleBottomHemi() { return new Vector3(this.ptr.readField(0x158, 'i32')); }
-    set _characterTransformToCapsuleBottomHemi(v) { return this.ptr.writeField(0x158, 'i32', v); }
-    get _characterTransformToCapsuleCenter() { return new Vector3(this.ptr.readField(0x134, 'i32')); }
-    set _characterTransformToCapsuleCenter(v) { return this.ptr.writeField(0x134, 'i32', v); }
-    get _characterTransformToCapsuleTop() { return new Vector3(this.ptr.readField(0x14C, 'i32')); }
-    set _characterTransformToCapsuleTop(v) { return this.ptr.writeField(0x14C, 'i32', v); }
-    get _characterTransformToCapsuleTopHemi() { return new Vector3(this.ptr.readField(0x164, 'i32')); }
-    set _characterTransformToCapsuleTopHemi(v) { return this.ptr.writeField(0x164, 'i32', v); }
-    get _characterUp() { return new Vector3(this.ptr.readField(0xF0, 'i32')); }
-    set _characterUp(v) { return this.ptr.writeField(0xF0, 'i32', v); }
-    get _initialSimulationPosition() { return new Vector3(this.ptr.readField(0x114, 'i32')); }
-    set _initialSimulationPosition(v) { return this.ptr.writeField(0x114, 'i32', v); }
-    get _initialSimulationRotation() { return new Quaternion(this.ptr.readField(0x120, 'i32')); }
-    set _initialSimulationRotation(v) { return this.ptr.writeField(0x120, 'i32', v); }
-    get _internalCharacterHits() { return JSArray(this.ptr.readField(0x1BC, 'i32')); }
-    set _internalCharacterHits(v) { return this.ptr.writeField(0x1BC, 'i32', v); }
-    get _internalProbedColliders() { return JSArray(this.ptr.readField(0x1C0, 'i32')); }
-    set _internalProbedColliders(v) { return this.ptr.writeField(0x1C0, 'i32', v); }
-    get _internalRigidbodyProjectionHits() { return JSArray(this.ptr.readField(0x1C8, 'i32')); }
-    set _internalRigidbodyProjectionHits(v) { return this.ptr.writeField(0x1C8, 'i32', v); }
-    get _isMovingFromAttachedRigidbody() { return this.ptr.readField(0x1F4, 'i32').val() === 1; }
-    set _isMovingFromAttachedRigidbody(v) { return this.ptr.writeField(0x1F4, 'i32', v); }
-    get _lastAttachedRigidbody() { return new Rigidbody(this.ptr.readField(0x1CC, 'i32')); }
-    set _lastAttachedRigidbody(v) { return this.ptr.writeField(0x1CC, 'i32', v); }
-    get _lastSolvedOverlapNormal() { return new Vector3(this.ptr.readField(0x1E4, 'i32')); }
-    set _lastSolvedOverlapNormal(v) { return this.ptr.writeField(0x1E4, 'i32', v); }
-    get _lastSolvedOverlapNormalDirty() { return this.ptr.readField(0x1E0, 'i32').val() === 1; }
-    set _lastSolvedOverlapNormalDirty(v) { return this.ptr.writeField(0x1E0, 'i32', v); }
-    get _movePositionDirty() { return this.ptr.readField(0x1D2, 'i32').val() === 1; }
-    set _movePositionDirty(v) { return this.ptr.writeField(0x1D2, 'i32', v); }
-    get _movePositionTarget() { return new Vector3(this.ptr.readField(0x1D4, 'i32')); }
-    set _movePositionTarget(v) { return this.ptr.writeField(0x1D4, 'i32', v); }
-    get _mustUnground() { return this.ptr.readField(0x1F5, 'i32').val() === 1; }
-    set _mustUnground(v) { return this.ptr.writeField(0x1F5, 'i32', v); }
-    get _mustUngroundTimeCounter() { return this.ptr.readField(0x1F8, 'f32').val(); }
-    set _mustUngroundTimeCounter(v) { return this.ptr.writeField(0x1F8, 'f32', v); }
-    get _overlaps() { return JSArray(this.ptr.readField(0x180, 'i32')); }
-    set _overlaps(v) { return this.ptr.writeField(0x180, 'i32', v); }
-    get _overlapsCount() { return this.ptr.readField(0x17C, 'i32').val(); }
-    set _overlapsCount(v) { return this.ptr.writeField(0x17C, 'i32', v); }
-    get _rigidbodiesPushedThisMove() { return this.ptr.readField(0x1C4, 'i32'); }
-    set _rigidbodiesPushedThisMove(v) { return this.ptr.writeField(0x1C4, 'i32', v); }
-    get _rigidbodyProjectionHitCount() { return this.ptr.readField(0x1F0, 'i32').val(); }
-    set _rigidbodyProjectionHitCount(v) { return this.ptr.writeField(0x1F0, 'i32', v); }
-    get _solveGrounding() { return this.ptr.readField(0x1D1, 'i32').val() === 1; }
-    set _solveGrounding(v) { return this.ptr.writeField(0x1D1, 'i32', v); }
-    get _solveMovementCollisions() { return this.ptr.readField(0x1D0, 'i32').val() === 1; }
-    set _solveMovementCollisions(v) { return this.ptr.writeField(0x1D0, 'i32', v); }
-    get _transform() { return new Transform(this.ptr.readField(0xE0, 'i32')); }
-    set _transform(v) { return this.ptr.writeField(0xE0, 'i32', v); }
-    get _transientPosition() { return new Vector3(this.ptr.readField(0xE4, 'i32')); }
-    set _transientPosition(v) { return this.ptr.writeField(0xE4, 'i32', v); }
-    get _transientRotation() { return new Quaternion(this.ptr.readField(0x22C, 'i32')); }
-    set _transientRotation(v) { return this.ptr.writeField(0x22C, 'i32', v); }
-    ApplyState(state, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ApplyState", [this.ptr, state, bypassInterpolation]); }
-    Awake() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Awake", [this.ptr]); }
-    CharacterCollisionsOverlap(position, rotation, overlappedColliders, inflate, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsOverlap", [this.ptr, position, rotation, overlappedColliders, inflate, acceptOnlyStableGroundLayer]).val(); }
-    CharacterCollisionsRaycast(position, direction, distance, closestHit, hits, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsRaycast", [this.ptr, position, direction, distance, closestHit, hits, acceptOnlyStableGroundLayer]).val(); }
-    CharacterCollisionsSweep(position, rotation, direction, distance, closestHit, hits, inflate, acceptOnlyStableGroundLayer) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterCollisionsSweep", [this.ptr, position, rotation, direction, distance, closestHit, hits, inflate, acceptOnlyStableGroundLayer]).val(); }
-    CharacterGroundSweep(position, rotation, direction, distance, closestHit) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterGroundSweep", [this.ptr, position, rotation, direction, distance, closestHit]).val() === 1; }
-    CharacterOverlap(position, rotation, overlappedColliders, layers, triggerInteraction, inflate) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterOverlap", [this.ptr, position, rotation, overlappedColliders, layers, triggerInteraction, inflate]).val(); }
-    CharacterSweep(position, rotation, direction, distance, closestHit, hits, layers, triggerInteraction, inflate) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CharacterSweep", [this.ptr, position, rotation, direction, distance, closestHit, hits, layers, triggerInteraction, inflate]).val(); }
-    CheckIfColliderValidForCollisions(coll) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CheckIfColliderValidForCollisions", [this.ptr, coll]).val() === 1; }
-    CheckStepValidity(nbStepHits, characterPosition, characterRotation, innerHitDirection, stepCheckStartPos, hitCollider) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "CheckStepValidity", [this.ptr, nbStepHits, characterPosition, characterRotation, innerHitDirection, stepCheckStartPos, hitCollider]).val() === 1; }
-    ComputeCollisionResolutionForHitBody(hitNormal, characterVelocity, bodyVelocity, characterToBodyMassRatio, velocityChangeOnCharacter, velocityChangeOnBody) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ComputeCollisionResolutionForHitBody", [this.ptr, hitNormal, characterVelocity, bodyVelocity, characterToBodyMassRatio, velocityChangeOnCharacter, velocityChangeOnBody]); }
-    DetectSteps(characterPosition, characterRotation, hitPoint, innerHitDirection, stabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "DetectSteps", [this.ptr, characterPosition, characterRotation, hitPoint, innerHitDirection, stabilityReport]); }
-    EvaluateCrease(currentCharacterVelocity, previousCharacterVelocity, currentHitNormal, previousHitNormal, currentHitIsStable, previousHitIsStable, characterIsStable, isValidCrease, creaseDirection) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "EvaluateCrease", [this.ptr, currentCharacterVelocity, previousCharacterVelocity, currentHitNormal, previousHitNormal, currentHitIsStable, previousHitIsStable, characterIsStable, isValidCrease, creaseDirection]); }
-    EvaluateHitStability(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "EvaluateHitStability", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport]); }
-    ForceUnground(time) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ForceUnground", [this.ptr, time]); }
-    GetDirectionTangentToSurface(direction, surfaceNormal) { return (()=>{
-					let structptr_883d9f = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetDirectionTangentToSurface", [structptr_883d9f, this.ptr, direction, surfaceNormal]);
-					return structptr_883d9f;
-				})(); }
-    GetInteractiveRigidbody(onCollider) { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetInteractiveRigidbody", [this.ptr, onCollider])); }
-    GetObstructionNormal(hitNormal, stableOnHit) { return (()=>{
-					let structptr_5a599c = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetObstructionNormal", [structptr_5a599c, this.ptr, hitNormal, stableOnHit]);
-					return structptr_5a599c;
-				})(); }
-    GetState() { return (()=>{
-					let structptr_e3b5bf = window.ctx.malloc(50);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetState", [structptr_e3b5bf, this.ptr]);
-					return structptr_e3b5bf;
-				})(); }
-    GetVelocityForMovePosition(fromPosition, toPosition, deltaTime) { return (()=>{
-					let structptr_447643 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityForMovePosition", [structptr_447643, this.ptr, fromPosition, toPosition, deltaTime]);
-					return structptr_447643;
-				})(); }
-    GetVelocityFromMovement(movement, deltaTime) { return (()=>{
-					let structptr_9d11a8 = window.ctx.malloc(12);
-					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromMovement", [structptr_9d11a8, this.ptr, movement, deltaTime]);
-					return structptr_9d11a8;
-				})(); }
-    GetVelocityFromRigidbodyMovement(interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromRigidbodyMovement", [this.ptr, interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity]); }
-    HandleRemoveComponent() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleRemoveComponent", [this.ptr]); }
-    HandleSimulatedRigidbodyInteraction(processedVelocity, hit, deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleSimulatedRigidbodyInteraction", [this.ptr, processedVelocity, hit, deltaTime]); }
-    HandleVelocityProjection(velocity, obstructionNormal, stableOnHit) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleVelocityProjection", [this.ptr, velocity, obstructionNormal, stableOnHit]); }
-    InternalCharacterMove(transientVelocity, deltaTime) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalCharacterMove", [this.ptr, transientVelocity, deltaTime]).val() === 1; }
-    InternalHandleVelocityProjection(stableOnHit, hitNormal, obstructionNormal, originalDirection, sweepState, previousHitIsStable, previousVelocity, previousObstructionNormal, transientVelocity, remainingMovementMagnitude, remainingMovementDirection) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalHandleVelocityProjection", [this.ptr, stableOnHit, hitNormal, obstructionNormal, originalDirection, sweepState, previousHitIsStable, previousVelocity, previousObstructionNormal, transientVelocity, remainingMovementMagnitude, remainingMovementDirection]); }
-    InternalIsColliderValidForCollisions(coll) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "InternalIsColliderValidForCollisions", [this.ptr, coll]).val() === 1; }
-    IsStableOnNormal(normal) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "IsStableOnNormal", [this.ptr, normal]).val() === 1; }
-    IsStableWithSpecialCases(stabilityReport, velocity) { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "IsStableWithSpecialCases", [this.ptr, stabilityReport, velocity]).val() === 1; }
-    MoveCharacter(toPosition) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "MoveCharacter", [this.ptr, toPosition]); }
-    MustUnground() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "MustUnground", [this.ptr]).val() === 1; }
-    OnDisable() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnDisable", [this.ptr]); }
-    OnEnable() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnEnable", [this.ptr]); }
-    OnValidate() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "OnValidate", [this.ptr]); }
-    ProbeGround(probingPosition, atRotation, probingDistance, groundingReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ProbeGround", [this.ptr, probingPosition, atRotation, probingDistance, groundingReport]); }
-    ProcessVelocityForRigidbodyHits(processedVelocity, deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ProcessVelocityForRigidbodyHits", [this.ptr, processedVelocity, deltaTime]); }
-    Reset() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Reset", [this.ptr]); }
-    RestrictVectorToPlane(vector, toPlane) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "RestrictVectorToPlane", [this.ptr, vector, toPlane]); }
-    SetCapsuleCollisionsActivation(collisionsActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetCapsuleCollisionsActivation", [this.ptr, collisionsActive]); }
-    SetCapsuleDimensions(radius, height, yOffset) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetCapsuleDimensions", [this.ptr, radius, height, yOffset]); }
-    SetGroundSolvingActivation(stabilitySolvingActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetGroundSolvingActivation", [this.ptr, stabilitySolvingActive]); }
-    SetMovementCollisionsSolvingActivation(movementCollisionsSolvingActive) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetMovementCollisionsSolvingActivation", [this.ptr, movementCollisionsSolvingActive]); }
-    SetPosition(position, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetPosition", [this.ptr, position, bypassInterpolation]); }
-    SetPositionAndRotation(position, rotation, bypassInterpolation) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetPositionAndRotation", [this.ptr, position, rotation, bypassInterpolation]); }
-    SetTransientPosition(newPos) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "SetTransientPosition", [this.ptr, newPos]); }
-    StoreRigidbodyHit(hitRigidbody, hitVelocity, hitPoint, obstructionNormal, hitStabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "StoreRigidbodyHit", [this.ptr, hitRigidbody, hitVelocity, hitPoint, obstructionNormal, hitStabilityReport]); }
-    Update() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "Update", [this.ptr]); }
-    UpdatePhase1(deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "UpdatePhase1", [this.ptr, deltaTime]); }
-    UpdatePhase2(deltaTime) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "UpdatePhase2", [this.ptr, deltaTime]); }
-    ValidateData() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ValidateData", [this.ptr]); }
-}
-
 export class Shaker {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get GlobalShakers() { return this.ptr.readField(0x0, 'i32'); }
@@ -6154,46 +6581,6 @@ export class Shaker {
     static ShakeAllSeparate(shakeData, shakeInstances, seed) { window.ctx.call("MilkShake.Shaker", "ShakeAllSeparate", [shakeData, shakeInstances, seed]); }
     ShakeFromPoint(point, maxDistance, shakeData, seed) { return new ShakeInstance(window.ctx.call("MilkShake.Shaker", "ShakeFromPoint", [this.ptr, point, maxDistance, shakeData, seed])); }
     Update() { window.ctx.call("MilkShake.Shaker", "Update", [this.ptr]); }
-}
-
-export class Shot {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get byId() { return this.ptr.readField(0x10, 'i32').mstr(); }
-    set byId(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
-    get gunId() { return this.ptr.readField(0x14, 'i32'); }
-    set gunId(v) { return this.ptr.writeField(0x14, 'i32', v); }
-}
-
-export class ColyRigid {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get air() { return this.ptr.readField(0x18, 'i32').val() === 1; }
-    set air(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get neck() { return this.ptr.readField(0x19, 'i32'); }
-    set neck(v) { return this.ptr.writeField(0x19, 'i32', v); }
-    get position() { return new ColyVector3(this.ptr.readField(0x10, 'i32')); }
-    set position(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get rotationY() { return this.ptr.readField(0x14, 'f32').val(); }
-    set rotationY(v) { return this.ptr.writeField(0x14, 'f32', v); }
-}
-
-export class PublicUserData {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get createdAt() { return this.ptr.readField(0x18, 'i32').mstr(); }
-    set createdAt(v) { return this.ptr.writeField(0x18, 'i32', window.ctx.createMstr(v)); }
-    get pfp() { return this.ptr.readField(0x14, 'i32').mstr(); }
-    set pfp(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
-    get username() { return this.ptr.readField(0x10, 'i32').mstr(); }
-    set username(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
-}
-
-export class ColyVector3 {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get x() { return this.ptr.readField(0x10, 'f32').val(); }
-    set x(v) { return this.ptr.writeField(0x10, 'f32', v); }
-    get y() { return this.ptr.readField(0x14, 'f32').val(); }
-    set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
-    get z() { return this.ptr.readField(0x18, 'f32').val(); }
-    set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
 }
 
 export class TrailRenderer {
@@ -7239,109 +7626,6 @@ export class ContactPair {
     GetContactPoint_Internal(index) { return window.ctx.call("UnityEngine.ContactPair", "GetContactPoint_Internal", [this.ptr, index]); }
 }
 
-export class RectTransform {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get anchoredPosition() { return (()=>{
-					let structptr_408a2f = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition", [structptr_408a2f, this.ptr]);
-					return structptr_408a2f;
-				})(); }
-    set anchoredPosition(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition", [this.ptr, v]); }
-    get anchoredPosition3D() { return (()=>{
-					let structptr_57736d = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition3D", [structptr_57736d, this.ptr]);
-					return structptr_57736d;
-				})(); }
-    set anchoredPosition3D(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition3D", [this.ptr, v]); }
-    get anchorMax() { return (()=>{
-					let structptr_aead16 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchorMax", [structptr_aead16, this.ptr]);
-					return structptr_aead16;
-				})(); }
-    set anchorMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMax", [this.ptr, v]); }
-    get anchorMin() { return (()=>{
-					let structptr_589dfd = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchorMin", [structptr_589dfd, this.ptr]);
-					return structptr_589dfd;
-				})(); }
-    set anchorMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMin", [this.ptr, v]); }
-    get drivenByObject() { return new Object(window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject", [this.ptr])); }
-    set drivenByObject(v) { window.ctx.call("UnityEngine.RectTransform", "set_drivenByObject", [this.ptr, v]); }
-    get drivenProperties() { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties", [this.ptr])); }
-    set drivenProperties(v) { window.ctx.call("UnityEngine.RectTransform", "set_drivenProperties", [this.ptr, v]); }
-    get offsetMax() { return (()=>{
-					let structptr_d1f77e = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_offsetMax", [structptr_d1f77e, this.ptr]);
-					return structptr_d1f77e;
-				})(); }
-    set offsetMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMax", [this.ptr, v]); }
-    get offsetMin() { return (()=>{
-					let structptr_775885 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_offsetMin", [structptr_775885, this.ptr]);
-					return structptr_775885;
-				})(); }
-    set offsetMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMin", [this.ptr, v]); }
-    get pivot() { return (()=>{
-					let structptr_5aa6f1 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_pivot", [structptr_5aa6f1, this.ptr]);
-					return structptr_5aa6f1;
-				})(); }
-    set pivot(v) { window.ctx.call("UnityEngine.RectTransform", "set_pivot", [this.ptr, v]); }
-    get rect() { return (()=>{
-					let structptr_63cfd3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "get_rect", [structptr_63cfd3, this.ptr]);
-					return structptr_63cfd3;
-				})(); }
-    get sendChildDimensionsChange() { return window.ctx.call("UnityEngine.RectTransform", "get_sendChildDimensionsChange", [this.ptr]).val() === 1; }
-    set sendChildDimensionsChange(v) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange", [this.ptr, v]); }
-    get sizeDelta() { return (()=>{
-					let structptr_e7ab6a = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta", [structptr_e7ab6a, this.ptr]);
-					return structptr_e7ab6a;
-				})(); }
-    set sizeDelta(v) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta", [this.ptr, v]); }
-    get reapplyDrivenProperties() { return this.ptr.readField(0x0, 'i32'); }
-    set reapplyDrivenProperties(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    ForceUpdateRectTransforms() { window.ctx.call("UnityEngine.RectTransform", "ForceUpdateRectTransforms", [this.ptr]); }
-    static ForceUpdateRectTransforms_Injected(_unity_self) { window.ctx.call("UnityEngine.RectTransform", "ForceUpdateRectTransforms_Injected", [_unity_self]); }
-    GetLocalCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetLocalCorners", [this.ptr, fourCornersArray]); }
-    GetParentSize() { return (()=>{
-					let structptr_d37f06 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "GetParentSize", [structptr_d37f06, this.ptr]);
-					return structptr_d37f06;
-				})(); }
-    GetRectInParentSpace() { return (()=>{
-					let structptr_bb0fa4 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "GetRectInParentSpace", [structptr_bb0fa4, this.ptr]);
-					return structptr_bb0fa4;
-				})(); }
-    GetWorldCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetWorldCorners", [this.ptr, fourCornersArray]); }
-    static SendReapplyDrivenProperties(driven) { window.ctx.call("UnityEngine.RectTransform", "SendReapplyDrivenProperties", [driven]); }
-    SetInsetAndSizeFromParentEdge(edge, inset, size) { window.ctx.call("UnityEngine.RectTransform", "SetInsetAndSizeFromParentEdge", [this.ptr, edge, inset, size]); }
-    SetSizeWithCurrentAnchors(axis, size) { window.ctx.call("UnityEngine.RectTransform", "SetSizeWithCurrentAnchors", [this.ptr, axis, size]); }
-    static get_anchorMax_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchorMax_Injected", [_unity_self, ret]); }
-    static get_anchorMin_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchorMin_Injected", [_unity_self, ret]); }
-    static get_anchoredPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition_Injected", [_unity_self, ret]); }
-    static get_drivenByObject_Injected(_unity_self) { return (()=>{
-					let structptr_f42c9d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject_Injected", [structptr_f42c9d, _unity_self]);
-					return structptr_f42c9d;
-				})(); }
-    static get_drivenProperties_Injected(_unity_self) { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties_Injected", [_unity_self])); }
-    static get_pivot_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_pivot_Injected", [_unity_self, ret]); }
-    static get_rect_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_rect_Injected", [_unity_self, ret]); }
-    static get_sendChildDimensionsChange_Injected(_unity_self) { return window.ctx.call("UnityEngine.RectTransform", "get_sendChildDimensionsChange_Injected", [_unity_self]).val() === 1; }
-    static get_sizeDelta_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta_Injected", [_unity_self, ret]); }
-    static set_anchorMax_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMax_Injected", [_unity_self, value]); }
-    static set_anchorMin_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMin_Injected", [_unity_self, value]); }
-    static set_anchoredPosition_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition_Injected", [_unity_self, value]); }
-    static set_drivenByObject_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_drivenByObject_Injected", [_unity_self, value]); }
-    static set_drivenProperties_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_drivenProperties_Injected", [_unity_self, value]); }
-    static set_pivot_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_pivot_Injected", [_unity_self, value]); }
-    static set_sendChildDimensionsChange_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange_Injected", [_unity_self, value]); }
-    static set_sizeDelta_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta_Injected", [_unity_self, value]); }
-}
-
 export class CollisionDetectionMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
@@ -7701,6 +7985,10 @@ export class Shader {
     static set_maximumLOD_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Shader", "set_maximumLOD_Injected", [_unity_self, value]); }
 }
 
+export class DrivenTransformProperties {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class AnimatorControllerParameterType {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
@@ -7710,95 +7998,6 @@ export class TextureWrapMode {
 }
 
 export class TextureColorSpace {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class CapsuleCollider {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get center() { return (()=>{
-					let structptr_bc7853 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.CapsuleCollider", "get_center", [structptr_bc7853, this.ptr]);
-					return structptr_bc7853;
-				})(); }
-    set center(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_center", [this.ptr, v]); }
-    get direction() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_direction", [this.ptr]).val(); }
-    set direction(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_direction", [this.ptr, v]); }
-    get height() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_height", [this.ptr]).val(); }
-    set height(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_height", [this.ptr, v]); }
-    get radius() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_radius", [this.ptr]).val(); }
-    set radius(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_radius", [this.ptr, v]); }
-    static get_center_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.CapsuleCollider", "get_center_Injected", [_unity_self, ret]); }
-    static get_direction_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_direction_Injected", [_unity_self]).val(); }
-    static get_height_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_height_Injected", [_unity_self]).val(); }
-    static get_radius_Injected(_unity_self) { return window.ctx.call("UnityEngine.CapsuleCollider", "get_radius_Injected", [_unity_self]).val(); }
-    static set_center_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_center_Injected", [_unity_self, value]); }
-    static set_direction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_direction_Injected", [_unity_self, value]); }
-    static set_height_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_height_Injected", [_unity_self, value]); }
-    static set_radius_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CapsuleCollider", "set_radius_Injected", [_unity_self, value]); }
-}
-
-export class PhysicsMaterial {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    static Internal_CreateDynamicsMaterial(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial", [mat, name]); }
-    static Internal_CreateDynamicsMaterial_Injected(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial_Injected", [mat, name]); }
-}
-
-export class ICharacterController {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    AfterCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "AfterCharacterUpdate", [this.ptr, deltaTime]); }
-    BeforeCharacterUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "BeforeCharacterUpdate", [this.ptr, deltaTime]); }
-    OnDiscreteCollisionDetected(hitCollider) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnDiscreteCollisionDetected", [this.ptr, hitCollider]); }
-    OnGroundHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnGroundHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
-    OnMovementHit(hitCollider, hitNormal, hitPoint, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "OnMovementHit", [this.ptr, hitCollider, hitNormal, hitPoint, hitStabilityReport]); }
-    PostGroundingUpdate(deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "PostGroundingUpdate", [this.ptr, deltaTime]); }
-    ProcessHitStabilityReport(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport) { window.ctx.call("KinematicCharacterController.ICharacterController", "ProcessHitStabilityReport", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, hitStabilityReport]); }
-    UpdateRotation(currentRotation, deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "UpdateRotation", [this.ptr, currentRotation, deltaTime]); }
-    UpdateVelocity(currentVelocity, deltaTime) { window.ctx.call("KinematicCharacterController.ICharacterController", "UpdateVelocity", [this.ptr, currentVelocity, deltaTime]); }
-}
-
-export class CharacterGroundingReport {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get FoundAnyGround() { return this.ptr.readField(0x0, 'i32').val() === 1; }
-    set FoundAnyGround(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get GroundCollider() { return new Collider(this.ptr.readField(0x28, 'i32')); }
-    set GroundCollider(v) { return this.ptr.writeField(0x28, 'i32', v); }
-    get GroundNormal() { return new Vector3(this.ptr.readField(0x4, 'i32')); }
-    set GroundNormal(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get GroundPoint() { return new Vector3(this.ptr.readField(0x2C, 'i32')); }
-    set GroundPoint(v) { return this.ptr.writeField(0x2C, 'i32', v); }
-    get InnerGroundNormal() { return new Vector3(this.ptr.readField(0x10, 'i32')); }
-    set InnerGroundNormal(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get IsStableOnGround() { return this.ptr.readField(0x1, 'i32').val() === 1; }
-    set IsStableOnGround(v) { return this.ptr.writeField(0x1, 'i32', v); }
-    get OuterGroundNormal() { return new Vector3(this.ptr.readField(0x1C, 'i32')); }
-    set OuterGroundNormal(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get SnappingPrevented() { return this.ptr.readField(0x2, 'i32').val() === 1; }
-    set SnappingPrevented(v) { return this.ptr.writeField(0x2, 'i32', v); }
-    CopyFrom(transientGroundingReport) { window.ctx.call("KinematicCharacterController.CharacterGroundingReport", "CopyFrom", [this.ptr, transientGroundingReport]); }
-}
-
-export class CharacterTransientGroundingReport {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get FoundAnyGround() { return this.ptr.readField(0x0, 'i32').val() === 1; }
-    set FoundAnyGround(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get GroundNormal() { return new Vector3(this.ptr.readField(0x4, 'i32')); }
-    set GroundNormal(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get InnerGroundNormal() { return new Vector3(this.ptr.readField(0x10, 'i32')); }
-    set InnerGroundNormal(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get IsStableOnGround() { return this.ptr.readField(0x1, 'i32').val() === 1; }
-    set IsStableOnGround(v) { return this.ptr.writeField(0x1, 'i32', v); }
-    get OuterGroundNormal() { return new Vector3(this.ptr.readField(0x1C, 'i32')); }
-    set OuterGroundNormal(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get SnappingPrevented() { return this.ptr.readField(0x2, 'i32').val() === 1; }
-    set SnappingPrevented(v) { return this.ptr.writeField(0x2, 'i32', v); }
-    CopyFrom(groundingReport) { window.ctx.call("KinematicCharacterController.CharacterTransientGroundingReport", "CopyFrom", [this.ptr, groundingReport]); }
-}
-
-export class RigidbodyInteractionType {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class StepHandlingMethod {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
@@ -7905,10 +8104,6 @@ export class CollisionPairEventFlags {
 }
 
 export class CollisionPairFlags {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class DrivenTransformProperties {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 

@@ -14,15 +14,28 @@ export let config = {
         aimbotFOV: 150,
         fovColor: "#880000",
         fovThickness: 2,
+
+        killAll: false,
+
+        infAmmo: false,
+        noRecoil: false,
+        customFireRate: false,
+        fireRate: 60,
+        holdToShoot: true,
+
     },
     misc: {
-        antiafk: false,
+        antiafk: true,
 
         chatSpam: false,
-        chatSpamMessage: "recte.cc owns this shitty game"
+        chatSpamMessage: "recte.cc owns this shitty game",
+
+        infDash: false,
+        customDashForce: false,
+        dashForce: 3
     },
     visuals: {
-        teamCheck: false,
+        teamCheck: true,
 
         nametags: true,
         nametagsHealth: false,
