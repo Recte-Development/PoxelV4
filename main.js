@@ -1,7 +1,7 @@
 import { loadAndInitPlugin } from "./assets/injection.js";
 import { UiMain, allowTypingInLilGuiInputs } from "./assets/ui/uimain.js";
 import { config } from "./assets/ui/config.js";
-import { chatManager, shooterhooks, currentRoom } from "./assets/hooks/shooter.js";
+import { chatManager, shooterhooks } from "./assets/hooks/shooter.js";
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
   RaycastHit, AFKManager, ChatUIManager,
   Camera,
@@ -38,8 +38,8 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
     ui.addTab("Visuals", (panel)=>{
       const settings = ui.addSection(panel, "Settings");
       ui.addToggleRow(settings, "Team Check", config.visuals, "teamCheck");
-      ui.addButton(settings, "Execute", "Execute", "Execute", ()=>{
-        console.log(GameModeManager.GetGameModeFromSbyte(new MyRoomState(currentRoom).mode.val()).id.ptr.val())
+      ui.addButton(settings, "Test Button", "Execute", "Execute", ()=>{
+        
 
       });
 
@@ -116,6 +116,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
 
       const aimbotSettings = ui.addSection(panel, "Aimbot Settings");
       ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse"], config.rage, "aimbotType")
+      ui.addSelectRow(aimbotSettings, "Aim Bone", ["Neck", "Chest", "Hips"], config.rage, "aimBone")
       ui.addSelectRow(aimbotSettings, "Sort Mode", ["Screen", "World"], config.rage, "aimbotSorting")
       ui.addSelectRow(aimbotSettings, "Aim Key", keyOptions, config.rage, "aimKey");
       ui.addSliderRow(aimbotSettings, "Aim Speed", config.rage, "aimSpeed", .01, 1, .01);
@@ -123,7 +124,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(aimbotSettings, "FOV Check", config.rage, "fovCheck");
       ui.addSliderRow(aimbotSettings, "FOV", config.rage, "aimbotFOV", 30, 300, 1)
       ui.addSliderRow(aimbotSettings, "FOV Thickness", config.rage, "fovThickness", 1, 10, 1)
-      ui.addColorRow(aimbotSettings, "fovColor", config.rage, "fovColor");
+      ui.addColorRow(aimbotSettings, "FOV Color", config.rage, "fovColor");
       
 /*
         drawFOV: false,

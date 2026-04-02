@@ -7,6 +7,7 @@ export let config = {
         aimbotSorting: "Screen",
 
         aimbotType: "Silent",
+        aimBone: "Neck", 
 
         drawFOV: false,
         fovCheck: false,

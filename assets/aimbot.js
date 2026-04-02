@@ -3,7 +3,7 @@ import {
     Transform
 } from "../structs";
 import {Players} from "../main";
-import {localPlayer, specCam, weaponCamera} from "./hooks/shooter";
+import {localPlayer, weaponCamera} from "./hooks/shooter";
 import { config } from "./ui/config";
 import { keysPressed, nullCheck, Vector3, buttonsPressed} from "./utils"
 import { humanBonePaths } from "./humanbodybones";
@@ -13,6 +13,14 @@ export function centerOfScreen(){
     
     const canvas = document.getElementById("espcanvas");
     return new Vector3(canvas.width / 2, canvas.height / 2, 0)
+}
+
+function compareTo(a, b) {
+  if (a < b) return -1;
+  if (a > b) return 1;
+  if (a === b) return 0;
+  if (!isNaN(a)) return 1;
+  return !isNaN(b) ? -1 : 0;
 }
 
 export function getTargets() {
@@ -55,7 +63,7 @@ export function getTargets() {
         }
 
         //console.log(trans)
-        const worldPos = trans.Find(window.ctx.createMstr(humanBonePaths.Neck)).position;
+        const worldPos = trans.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position;
         if (!worldPos) {
             console.log("worldPos null")
             return;}
@@ -71,23 +79,49 @@ export function getTargets() {
             if (Vector3.distance(centerOfScreen(), screenPos) > config.rage.aimbotFOV) return;
         }
         result.push(shooter);
+    });
 
         switch (sortingMode) {
         case "Screen": // Closest to crosshair
-            result.sort((a, b) =>
-                Vector3.distance(Vector3.readFrom(w2s(canvas, Vector3.readFrom(new Component(a).position))), Vector3.readFrom(screenCenter)) -
-                Vector3.distance(Vector3.readFrom(w2s(canvas, Vector3.readFrom(new Component(b).position))), Vector3.readFrom(screenCenter))
+            result.sort((a, b) =>{
+                let comp1 = new Component(a.ptr);
+                let comp2 = new Component(b.ptr);
+
+                let screenPos1 = Vector3.readFrom(w2s(canvas, Vector3.readFrom(comp1.transform.position)));
+                let screenPos2 = Vector3.readFrom(w2s(canvas, Vector3.readFrom(comp2.transform.position)));
+
+                let center = screenCenter;
+
+                let dist1 = Vector3.distance(center, screenPos1);
+                let dist2 = Vector3.distance(center, screenPos2);
+
+                return compareTo(dist1, dist2)
+            }
+
+                
             );
             break;
 
         case "World": // Closest in world
             result.sort((a, b) =>
-                Vector3.distance(Vector3.readFrom(new Component(a).position), Vector3.readFrom(localPos)) -
-                Vector3.distance(Vector3.readFrom(new Component(b).position), Vector3.readFrom(localPos))
+                {
+                let comp1 = new Component(a.ptr);
+                let comp2 = new Component(b.ptr);
+
+                let worldPos1 = Vector3.readFrom(comp1.transform.position);
+                let worldPos2 = Vector3.readFrom(comp2.transform.position);
+
+                let center = screenCenter;
+
+                let dist1 = Vector3.distance(localPos, worldPos1);
+                let dist2 = Vector3.distance(localPos, worldPos2);
+
+                return compareTo(dist1, dist2)
+            }
             );
             break;
     }
-    });
+    
 
     
 
@@ -109,40 +143,48 @@ export function main(){
 
     const target = targets[0]
     let behave = new ColyBehaviour(target.ptr);
-    console.log(`Targetting: ${behave.colyView.Nickname.mstr()}`)
 
     let comp = new Component(lp.ptr);
     let comp1 = new Component(target.ptr);
    const canvas = document.getElementById("espcanvas");
-   // silent aim
+    switch (config.rage.aimbotType)
+    {
+        // Mostly made for testing
+        case "Magic": {
+            var wc = new Component(weaponCamera).transform;
 
-   switch (config.rage.aimbotType){
-    case "Silent":{
-        new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths.Neck)).position);
-    }
-    case "Mouse":{
-    let screenPos = w2s(canvas, comp1.transform.Find(window.ctx.createMstr(humanBonePaths.Neck)).position);
+            trans = comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone]));
 
-    let smoothing = config.rage.aimSpeed;
-    let moveX = (screenPos.x - centerOfScreen().x) * smoothing;
-    let moveY = (screenPos.y - centerOfScreen().y) * smoothing;
+            wc.position = trans;
+            wc.position.y += 2;
 
-    document.dispatchEvent(new MouseEvent("mousemove", {
-        clientX: centerOfScreen().x,
-        clientY: centerOfScreen().y,
-        movementX: moveX,
-        movementY: moveY,
-        bubbles: true,
-        composed: true
-    }));
-    }
+            wc.LookAt_worldPosition(trans);
+            break;
+        }
+        case "Silent": {
+            new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+            break;
+        }
+        case "Mouse": {
+            let screenPos = w2s(canvas, comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+
+            let smoothing = config.rage.aimSpeed;
+            let moveX = (screenPos.x - centerOfScreen().x) * smoothing;
+            let moveY = (screenPos.y - centerOfScreen().y) * smoothing;
+
+            document.dispatchEvent(new MouseEvent("mousemove", {
+                clientX: centerOfScreen().x,
+                clientY: centerOfScreen().y,
+                movementX: moveX,
+                movementY: moveY,
+                bubbles: true,
+                composed: true
+            }));
+            break;
+        }
    }
 
    
-                                                                                // pls stop using the old struct gen wtf is wrong with you
-                                                                                // the params should automatically wrap strings
-    // regular aim, commented it out to test silent aim 
-   /*
-    */
+   
     
 }

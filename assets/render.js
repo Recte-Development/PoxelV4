@@ -143,13 +143,14 @@ export function esp() {
 
   const ctx2d = canvas.getContext("2d");
   ctx2d.clearRect(0, 0, canvas.width, canvas.height);
-  if (!localPlayer) return;
+  
 
   if (!window.unityInstance) return;
 
   if (config.rage.drawFOV) {
     ESPThings.DrawFOV(ctx2d, config.rage.aimbotFOV, config.rage.fovColor, config.rage.fovThickness)
   }
+  if (!localPlayer) return;
 
   const anyVisuals = config.visuals.nametags || config.visuals.tracers ||
     config.visuals.boxes || config.visuals.filledBoxes ||

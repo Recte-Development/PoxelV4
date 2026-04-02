@@ -4,11 +4,9 @@ import { keysPressed, LocalArray, Quaternion, Vector3 } from "../utils.js";
 import { Players } from "../../main.js";
 import { } from "../render.js";
 import { main, getTargets } from "../aimbot.js";
-export let specCam = null;
 export let currentMode = null;
 export let localPlayer = null;
 export let chatManager = null;
-export let currentRoom = null;
 export let weaponCamera = null;
 
 export function shooterhooks() {
@@ -66,13 +64,7 @@ export function shooterhooks() {
         }, (ptr) => {
             if (config.misc.antiafk) new AFKManager(ptr).ResetInactivityTimer();
         });
-        window.ctx.hookPrefix({
-            typeName: "Spectator",
-            methodName: "Update",
-            params: ['i32', 'i32']
-        }, (ptr) => {
-            specCam = new Spectator(ptr).spectatorCamera.ptr
-        });
+        
 
         window.ctx.hookPrefix({
             typeName: "AimManager",
@@ -107,7 +99,7 @@ export function shooterhooks() {
 
         })
 
-        window.ctx.hookPrefix({
+        /*window.ctx.hookPrefix({
             typeName: "Gun",
             methodName: "Shoot",
             params: ['i32', 'i32', 'i32', 'i32', 'i32', 'i32']
@@ -117,17 +109,7 @@ export function shooterhooks() {
 
             //console.log(manager.current.shortName)
 
-        })
-
-
-        window.ctx.hookPrefix({
-            typeName: "AFKManager",
-            methodName: "OnRoomChanged",
-            params: ['i32', 'i32', 'i32']
-        }, (ptr, newRoom) => {
-            currentRoom = newRoom
-        })
-
+        })*/
 
         /*
         // this stops you from joining matches somehow :shrug:
