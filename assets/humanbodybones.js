@@ -37,7 +37,8 @@ export const boneLinks = [
     { from: humanBonePaths.Hips,       to: humanBonePaths.Spine },
     { from: humanBonePaths.Spine,      to: humanBonePaths.Chest },
     { from: humanBonePaths.Chest,      to: humanBonePaths.Neck },
-    { from: humanBonePaths.Neck,       to: humanBonePaths.Head },
+    //{ from: humanBonePaths.Neck,       to: humanBonePaths.Head },
+    // head doesn't exist?
 
     // Right arm
     { from: humanBonePaths.Chest,         to: humanBonePaths.RightUpperArm },

@@ -217,7 +217,6 @@ export function esp() {
         const nickname = strip(colyView.Nickname.mstr());
 
         let text = nickname;
-        text += ` | ${playerState.team.val()} | `
         if (nametagsHealth) text += `\n[${health}hp]`;
         if (nametagsDistance && selfTransform) {
           const dist = Vector3.readFrom(selfTransform.position)

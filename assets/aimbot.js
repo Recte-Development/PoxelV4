@@ -51,6 +51,8 @@ export function getTargets() {
             return;
         }
 
+        if (isTeam(behaviour)) return;
+
         const comp = new Component(player.ptr);
         if(!comp && nullCheck(comp.transform)) {
             console.log("component null")
