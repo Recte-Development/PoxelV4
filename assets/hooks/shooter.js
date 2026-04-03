@@ -59,7 +59,6 @@ export function shooterhooks() {
             if (config.misc.infDash) mc.lastDashTime = 0;
             if (config.misc.customDashForce){
                 if (!defaultDashForce) defaultDashForce = mc.dashForce;
-                console.log(defaultDashForce)
                 mc.dashForce = config.misc.dashForce;
             }
             else{

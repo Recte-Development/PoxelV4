@@ -134,7 +134,11 @@ let lp = null
 
 export function main(){
     if (!config.rage.aimbot) return;
-    if (!(keysPressed["Key" + config.rage.aimKey] || keysPressed[config.rage.aimKey] || buttonsPressed[config.rage.aimKey]) && config.rage.keyCheck) return;
+    let keyboardMatch = keysPressed["Key" + config.rage.aimKey] || keysPressed[config.rage.aimKey];
+    let mouseMatch = buttonsPressed[config.rage.aimKey];
+    let isPressed = (keyboardMatch || mouseMatch);
+
+    if (config.rage.keyCheck && !isPressed) return null;
 
     if (!localPlayer) return;
     lp = localPlayer;
@@ -157,8 +161,11 @@ export function main(){
 
             trans = comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone]));
 
-            wc.position = trans;
+            wc.position = trans.position;
             wc.position.y += 2;
+
+            lp.currentGun.transform.position = trans.position;
+            lp.currentGun.transform.position.y += 2;
 
             wc.LookAt_worldPosition(trans);
             break;

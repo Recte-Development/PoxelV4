@@ -118,7 +118,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(aimbot, "Enabled", config.rage, "aimbot")
 
       const aimbotSettings = ui.addSection(panel, "Aimbot Settings");
-      ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse"], config.rage, "aimbotType")
+      ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse", "Magic"], config.rage, "aimbotType")
       ui.addSelectRow(aimbotSettings, "Aim Bone", ["Neck", "Chest", "Hips"], config.rage, "aimBone")
       ui.addSelectRow(aimbotSettings, "Sort Mode", ["Screen", "World"], config.rage, "aimbotSorting")
       ui.addSelectRow(aimbotSettings, "Aim Key", keyOptions, config.rage, "aimKey");
@@ -126,7 +126,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(aimbotSettings, "Draw FOV", config.rage, "drawFOV");
       ui.addToggleRow(aimbotSettings, "FOV Check", config.rage, "fovCheck");
       ui.addToggleRow(aimbotSettings, "Screen Check", config.rage, "screenCheck");
-      ui.addToggleRow(aimbotSettings, "Aim Key Check", config.rage, "aimCheck");
+      ui.addToggleRow(aimbotSettings, "Aim Key Check", config.rage, "keyCheck");
       ui.addSliderRow(aimbotSettings, "FOV", config.rage, "aimbotFOV", 30, 300, 1)
       ui.addSliderRow(aimbotSettings, "FOV Thickness", config.rage, "fovThickness", 1, 10, 1)
       ui.addColorRow(aimbotSettings, "FOV Color", config.rage, "fovColor");
