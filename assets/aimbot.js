@@ -15,119 +15,57 @@ export function centerOfScreen(){
     return new Vector3(canvas.width / 2, canvas.height / 2, 0)
 }
 
-function compareTo(a, b) {
-  if (a < b) return -1;
-  if (a > b) return 1;
-  if (a === b) return 0;
-  if (!isNaN(a)) return 1;
-  return !isNaN(b) ? -1 : 0;
-}
 
 export function getTargets() {
     if (!Players || Players.size === 0) return [];
 
-    const screenCenter = centerOfScreen();
-    const sortingMode = config.aimbotSorting;
-    
-    let selftransform = new Component(localPlayer.ptr)
-    //console.log('comp',selftransform)
-    selftransform = selftransform.transform
-    if (!selftransform ) {
-        console.log("som wrong")
-        return []};
-    if (!selftransform.position){
-        console.log("selftransform.position invalid")
-        return [];
-    }
-    const localPos = selftransform.position;
-
-    const result = [];
-
     const canvas = document.getElementById("espcanvas");
-    Players.forEach((player, key) => {
-        shooter = new ColyShooter(player.ptr);
-        const behaviour = new ColyBehaviour(player.ptr);
-        if (!shooter || behaviour.playerState.health < 1 ) {
-            return;
-        }
+    if (!canvas) return [];
 
-        if (isTeam(behaviour)) return;
+    const screenCenterX = canvas.width / 2;
+    const screenCenterY = canvas.height / 2;
+    const sortingMode = config.rage.aimbotSorting;
+    const boneKey = window.ctx.createMstr(humanBonePaths[config.rage.aimBone]);
 
-        const comp = new Component(player.ptr);
-        if(!comp && nullCheck(comp.transform)) {
-            console.log("component null")
-            return;
-        }
-        const trans = comp.transform;
-        if (!trans){
-            console.log("transform null")
-            return;
-        }
+    const selfTransform = new Component(localPlayer.ptr).transform;
+    if (!selfTransform) return [];
+    const localPos = Vector3.readFrom(selfTransform.position);
 
-        //console.log(trans)
-        const worldPos = trans.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position;
-        if (!worldPos) {
-            console.log("worldPos null")
-            return;}
+    const entries = [];
 
-        const screenPos = w2s(canvas, worldPos);
-        if (!screenPos) {
-            console.log("screenPos null or screenPos.z <= 0")
-            return;}
-        
-        if (!onScreen(screenPos) && !config.rage.screenCheck) return;
+    Players.forEach((player) => {
+        try {
+            const behaviour = new ColyBehaviour(player.ptr);
+            if (nullCheck(behaviour.colyView)) return;
+            if (behaviour.playerState.health < 1) return;
+            if (isTeam(behaviour)) return;
 
-        if (config.rage.fovCheck){
-            if (Vector3.distance(centerOfScreen(), screenPos) > config.rage.aimbotFOV) return;
-        }
-        result.push(shooter);
+            const trans = new Component(player.ptr).transform;
+            if (!trans) return;
+
+            const worldPos = trans.Find(boneKey).position;
+            if (!worldPos) return;
+
+            const screenPos = w2s(canvas, worldPos);
+            if (!onScreen(screenPos) && !config.rage.screenCheck) return;
+
+            const screenDist = Math.hypot(screenPos.x - screenCenterX, screenPos.y - screenCenterY);
+            if (config.rage.fovCheck && screenDist > config.rage.aimbotFOV) return;
+
+            const wp = Vector3.readFrom(worldPos);
+            const worldDist = Math.hypot(wp.x - localPos.x, wp.y - localPos.y, wp.z - localPos.z);
+
+            entries.push({ ptr: player.ptr, screenDist, worldDist });
+        } catch {}
     });
 
-        switch (sortingMode) {
-        case "Screen": // Closest to crosshair
-            result.sort((a, b) =>{
-                let comp1 = new Component(a.ptr);
-                let comp2 = new Component(b.ptr);
-
-                let screenPos1 = Vector3.readFrom(w2s(canvas, Vector3.readFrom(comp1.transform.position)));
-                let screenPos2 = Vector3.readFrom(w2s(canvas, Vector3.readFrom(comp2.transform.position)));
-
-                let center = screenCenter;
-
-                let dist1 = Vector3.distance(center, screenPos1);
-                let dist2 = Vector3.distance(center, screenPos2);
-
-                return compareTo(dist1, dist2)
-            }
-
-                
-            );
-            break;
-
-        case "World": // Closest in world
-            result.sort((a, b) =>
-                {
-                let comp1 = new Component(a.ptr);
-                let comp2 = new Component(b.ptr);
-
-                let worldPos1 = Vector3.readFrom(comp1.transform.position);
-                let worldPos2 = Vector3.readFrom(comp2.transform.position);
-
-                let center = screenCenter;
-
-                let dist1 = Vector3.distance(localPos, worldPos1);
-                let dist2 = Vector3.distance(localPos, worldPos2);
-
-                return compareTo(dist1, dist2)
-            }
-            );
-            break;
+    if (sortingMode === "Screen") {
+        entries.sort((a, b) => a.screenDist - b.screenDist);
+    } else if (sortingMode === "World") {
+        entries.sort((a, b) => a.worldDist - b.worldDist);
     }
-    
 
-    
-
-    return result;
+    return entries.map(e => new ColyShooter(e.ptr));
 }
 
 let lp = null
@@ -164,8 +102,8 @@ export function main(){
             wc.position = trans.position;
             wc.position.y += 2;
 
-            lp.currentGun.transform.position = trans.position;
-            lp.currentGun.transform.position.y += 2;
+            wc.transform.position = trans.position;
+            wc.transform.position.y += 2;
 
             wc.LookAt_worldPosition(trans);
             break;

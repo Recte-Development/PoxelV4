@@ -25,18 +25,38 @@ export let onscreen = [];
 export let closestplayer = null;
 export let closestdist = Infinity;
 
+let _cam = null;
+let _camPos = null;
+let _camFwd = null;
+let _ctx2d = null;
+let _espCanvas = null;
+let _headBuf = null;
+
+export function refreshCamera() {
+  try {
+    const cam = Camera.main;
+    const camTransform = new Component(cam.ptr).transform;
+    _cam = cam;
+    _camPos = Vector3.readFrom(camTransform.position);
+    _camFwd = Vector3.readFrom(camTransform.forward);
+  } catch {
+    _cam = null;
+  }
+}
 
 export function w2s(canvas, worldpoint) {
   try {
-    let p1 = Camera.main.WorldToScreenPoint_position(worldpoint);
-    let p2 = Camera.main.ScreenToViewportPoint(p1);
-    var yea = Vector3.readFrom(p2);
+    if (!_cam) return Vector3.zero;
+    const wp = Vector3.readFrom(worldpoint);
+    const dot = (wp.x - _camPos.x) * _camFwd.x + (wp.y - _camPos.y) * _camFwd.y + (wp.z - _camPos.z) * _camFwd.z;
+    if (dot <= 0) return Vector3.zero;
+    const yea = Vector3.readFrom(_cam.WorldToViewportPoint_position(worldpoint));
     yea.x *= window.innerWidth;
     yea.y *= window.innerHeight;
     yea.y = canvas.height - yea.y;
+    yea.z = dot;
     return yea;
-  }
-  catch {
+  } catch {
     return Vector3.zero;
   }
 }
@@ -122,7 +142,6 @@ export function isTeam(player) {
 }
 
 export function esp() {
-  
   const { nametags, nametagsHealth, nametagsDistance, nametagsColor,
     tracers, tracerTo, tracerFrom, tracerColor, tracerThickness,
     boxes, boxType, boxThickness, boxColor,
@@ -144,45 +163,55 @@ export function esp() {
   if (canvas.width !== window.innerWidth) canvas.width = window.innerWidth;
   if (canvas.height !== window.innerHeight) canvas.height = window.innerHeight;
 
-  const ctx2d = canvas.getContext("2d");
+  // Cache ctx2d — getContext on the same canvas always returns the same object
+  // but the lookup itself has overhead, so skip it when canvas hasn't changed
+  if (canvas !== _espCanvas) {
+    _espCanvas = canvas;
+    _ctx2d = canvas.getContext("2d");
+  }
+  const ctx2d = _ctx2d;
   ctx2d.clearRect(0, 0, canvas.width, canvas.height);
-  
 
   if (!window.unityInstance) return;
 
+  refreshCamera();
+
   if (config.rage.drawFOV) {
-    ESPThings.DrawFOV(ctx2d, config.rage.aimbotFOV, config.rage.fovColor, config.rage.fovThickness)
+    ESPThings.DrawFOV(ctx2d, config.rage.aimbotFOV, config.rage.fovColor, config.rage.fovThickness);
   }
   if (!localPlayer) return;
 
-  const anyVisuals = config.visuals.nametags || config.visuals.tracers ||
-    config.visuals.boxes || config.visuals.filledBoxes ||
-    config.visuals.skeleton;
+  const anyVisuals = nametags || tracers || boxes || filledBoxes || skeleton;
   if (!anyVisuals) return;
 
-  // Cache local transform once
-  const selfComp = new Component(localPlayer.ptr);
-  const selfTransform = selfComp?.transform;
-
-  // Cache config flags once
-
+  // Cache self position once for distance labels
+  const selfTransform = new Component(localPlayer.ptr).transform;
+  const selfPos = (nametagsDistance && selfTransform)
+    ? Vector3.readFrom(selfTransform.position) : null;
 
   // Pre-compute tracer origin once
   let tracerOrigin = null;
   if (tracers) {
     switch (tracerFrom) {
-      case "Center": tracerOrigin = new Vector3(canvas.width / 2, canvas.height / 2, 0); break;
+      case "Center":        tracerOrigin = new Vector3(canvas.width / 2, canvas.height / 2, 0); break;
       case "Bottom Center": tracerOrigin = new Vector3(canvas.width / 2, canvas.height, 0); break;
-      case "Top Center": tracerOrigin = new Vector3(canvas.width / 2, 0, 0); break;
-      case "Top Left": tracerOrigin = new Vector3(0, 0, 0); break;
-      case "Top Right": tracerOrigin = new Vector3(canvas.width, 0, 0); break;
-      case "Bottom Left": tracerOrigin = new Vector3(0, canvas.height, 0); break;
-      case "Bottom Right": tracerOrigin = new Vector3(canvas.width, canvas.height, 0); break;
+      case "Top Center":    tracerOrigin = new Vector3(canvas.width / 2, 0, 0); break;
+      case "Top Left":      tracerOrigin = new Vector3(0, 0, 0); break;
+      case "Top Right":     tracerOrigin = new Vector3(canvas.width, 0, 0); break;
+      case "Bottom Left":   tracerOrigin = new Vector3(0, canvas.height, 0); break;
+      case "Bottom Right":  tracerOrigin = new Vector3(canvas.width, canvas.height, 0); break;
     }
   }
 
-  // Cache bone path mstrs to avoid recreating strings every frame
+  // Pre-compute all mstrs once per frame, not per player
   const neckMstr = window.ctx.createMstr(humanBonePaths.Neck);
+  const boneLinkMstrs = skeleton ? boneLinks.map(({ from, to }) => ({
+    from: window.ctx.createMstr(from),
+    to: window.ctx.createMstr(to),
+  })) : null;
+
+  // Lazy-init reusable head position buffer (avoids per-player malloc)
+  if (!_headBuf) _headBuf = window.ctx.malloc(0xc);
 
   Players.forEach((player) => {
     try {
@@ -190,15 +219,11 @@ export function esp() {
       if (nullCheck(behaviour.colyView)) return;
 
       const { colyView, playerState } = behaviour;
-      if (teamCheck && isTeam(behaviour)) {
-        //console.log(`Hiding: ${strip(colyView.Nickname.mstr())}`)
-        return;
-      }
+      if (teamCheck && isTeam(behaviour)) return;
 
-      const component = new Component(player.ptr);
-      if (nullCheck(component) || nullCheck(component.transform)) return;
-
-      const compTransform = component.transform;
+      // Get transform once — avoids calling get_transform twice
+      const compTransform = new Component(player.ptr).transform;
+      if (nullCheck(compTransform)) return;
 
       const headWorldPos = compTransform.Find(neckMstr).position;
       const headVec = Vector3.readFrom(headWorldPos);
@@ -208,54 +233,51 @@ export function esp() {
       const footWorldPos = compTransform.position;
       if (!footWorldPos) return;
 
-      const headScreen = w2s(canvas, headVec.createPtr());
+      // Write into reusable buffer instead of allocating a new ptr each frame
+      headVec.writeTo(_headBuf);
+      const headScreen = w2s(canvas, _headBuf);
       const footScreen = w2s(canvas, footWorldPos);
-      if (!headScreen || !footScreen) return;
       if (!onScreen(headScreen)) return;
 
-      const esp = new ESPThings(ctx2d, footScreen, headScreen);
+      const espObj = new ESPThings(ctx2d, footScreen, headScreen);
 
       if (nametags) {
         const health = playerState.health.val() - 65536;
-        const nickname = strip(colyView.Nickname.mstr());
-
-        let text = nickname;
+        let text = strip(colyView.Nickname.mstr());
         if (nametagsHealth) text += `\n[${health}hp]`;
-        if (nametagsDistance && selfTransform) {
-          const dist = Vector3.Distance(Vector3.readFrom(selfTransform.position), Vector3.readFrom(compTransform.position));
-          text += `\n[${dist}m]`;
+        if (selfPos) {
+          const fp = Vector3.readFrom(footWorldPos);
+          text += `\n[${Math.round(Math.hypot(fp.x - selfPos.x, fp.y - selfPos.y, fp.z - selfPos.z))}m]`;
         }
-        esp.DrawText(text, headScreen.x, headScreen.y + 2, 12, nametagsColor);
+        espObj.DrawText(text, headScreen.x, headScreen.y + 2, 12, nametagsColor);
       }
 
       if (tracers && tracerOrigin) {
         const tracerTo2 = tracerTo === "Feet"
           ? new Vector3(headScreen.x, footScreen.y, 0)
           : headScreen;
-        esp.DrawLine(tracerOrigin, tracerTo2, tracerColor, tracerThickness);
+        espObj.DrawLine(tracerOrigin, tracerTo2, tracerColor, tracerThickness);
       }
 
       if (boxes) {
         boxType === "Outline"
-          ? esp.DrawBox(boxThickness, boxColor)
-          : esp.DrawCornerBox(boxColor, boxThickness, false);
+          ? espObj.DrawBox(boxThickness, boxColor)
+          : espObj.DrawCornerBox(boxColor, boxThickness, false);
       }
 
-      if (filledBoxes) esp.DrawFilledBox(filledBoxColor);
+      if (filledBoxes) espObj.DrawFilledBox(filledBoxColor);
 
       if (skeleton) {
-        for (const { from, to } of boneLinks) {
+        for (const { from, to } of boneLinkMstrs) {
           try {
-            const fromPos = w2s(canvas, compTransform.Find(window.ctx.createMstr(from)).position);
-            const toPos = w2s(canvas, compTransform.Find(window.ctx.createMstr(to)).position);
-            if (fromPos && toPos) esp.DrawLine(fromPos, toPos, skeletonColor, skeletonThickness);
-          } catch { }
+            const fromPos = w2s(canvas, compTransform.Find(from).position);
+            const toPos = w2s(canvas, compTransform.Find(to).position);
+            if (fromPos && toPos) espObj.DrawLine(fromPos, toPos, skeletonColor, skeletonThickness);
+          } catch {}
         }
       }
 
-    } catch (err) {
-      console.error(err);
-    }
+    } catch {}
   });
 
   onscreen.length = 0;
