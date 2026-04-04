@@ -4,7 +4,7 @@ import { config } from "./assets/ui/config.js";
 import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSessionId, currentMode } from "./assets/hooks/shooter.js";
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
   RaycastHit, AFKManager, ChatUIManager, MovementController,
-  Camera,
+  Camera, Time,Input, 
   Component,
   Ray,
   Quaternion, } from "./structs.js"
@@ -101,6 +101,9 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(main, "Infinite Dash", config.misc, "infDash");
       ui.addToggleRow(main, "Custom Dash Force", config.misc, "customDashForce");
       ui.addSliderRow(main, "Dash Force", config.misc, "dashForce", 1, 75, 1);
+
+      ui.addToggleRow(main, "Flight", config.misc, "flight");
+      ui.addSliderRow(main, "Flight Speed", config.misc, "flightSpeed", 1, 75, 1);
 
       const chat = ui.addSection(panel, "Chat")
       ui.addToggleRow(chat, "Chat Spam", config.misc, "chatSpam");

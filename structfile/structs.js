@@ -8931,6 +8931,10 @@ export class TextUserCustomDataTracker {
     SetText(str) { window.ctx.call("TextUserCustomDataTracker", "SetText", [this.ptr, str]); }
     Start() { window.ctx.call("TextUserCustomDataTracker", "Start", [this.ptr]); }
 }
+export class Time {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static get unscaledDeltaTime() {return window.ctx.call("UnityEngine.Time", "get_unscaledDeltaTime", []).val()}
+}
 
 export class TimeFormatter {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }

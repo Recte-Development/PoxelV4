@@ -35,7 +35,10 @@ export let config = {
 
         infDash: false,
         customDashForce: false,
-        dashForce: 3
+        dashForce: 3,
+
+        flight: false,
+        flightSpeed: 15,
     },
     visuals: {
         teamCheck: true,

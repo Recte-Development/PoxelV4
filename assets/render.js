@@ -3,7 +3,7 @@ import {
   Physics,
   RaycastHit,
   Camera,
-  Component,
+  Component, Time,
   Ray,
   Quaternion, GameObject, Transform, MyRoomState,
 
@@ -18,7 +18,7 @@ import {
 } from "./utils";
 import { config } from "./ui/config";
 import { humanBonePaths, boneLinks } from "./humanbodybones";
-import { localPlayer, gameModeManager, currentRoom, currentMode } from "./hooks/shooter";
+import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode } from "./hooks/shooter";
 
 window.offset = 2;
 export let onscreen = [];
@@ -141,6 +141,38 @@ export function isTeam(player) {
   return me == them;
 }
 
+function flight(playerPtr){
+    try{
+    let player = new ColyShooter(playerPtr);
+
+    let flightSpeed = config.misc.flightSpeed;
+    let camTransform = new Component(Camera.main.ptr).transform;
+
+    let speed = flightSpeed * Time.unscaledDeltaTime;
+
+    let dir = new Vector3(0, 0, 0);
+    
+    if (keysPressed["W"]) dir += Vector3.readFrom(camTransform.forward);
+    if (keysPressed["A"]) dir += Vector3.readFrom(camTransform.right);
+
+    if (keysPressed["S"]) dir -= Vector3.readFrom(camTransform.forward);
+    if (keysPressed["D"]) dir -= Vector3.readFrom(camTransform.right);
+
+    
+    if (keysPressed["Space"]) dir += Vector3.readFrom(camTransform.up);
+    if (keysPressed["C"]) dir -= Vector3.readFrom(camTransform.up);
+
+    if (dir != Vector3.zero) {
+        let norm = dir.normalize()
+        const pos = Vector3.readFrom(new Component(playerPtr).transform.localPosition);
+        pos.add(norm.x * speed, norm.y * speed, norm.z * speed);
+        new Component(playerPtr).transform.localPosition = pos.createPtr();
+    }}
+    catch (err){
+        console.log(err)
+    }
+}
+
 export function esp() {
   const { nametags, nametagsHealth, nametagsDistance, nametagsColor,
     tracers, tracerTo, tracerFrom, tracerColor, tracerThickness,
@@ -180,6 +212,8 @@ export function esp() {
     ESPThings.DrawFOV(ctx2d, config.rage.aimbotFOV, config.rage.fovColor, config.rage.fovThickness);
   }
   if (!localPlayer) return;
+
+  if (config.misc.flight && new ColyBehaviour(localPlayer.ptr).colyView.isMine) flight(localPlayerPtr)
 
   const anyVisuals = nametags || tracers || boxes || filledBoxes || skeleton;
   if (!anyVisuals) return;

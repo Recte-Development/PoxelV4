@@ -1,4 +1,4 @@
-import { MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager } from "../../structs.js";
+import { Camera, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Quaternion, Vector3, nullCheck, ChatBypass, randomRange } from "../utils.js";
 import { Players } from "../../main.js";
@@ -10,6 +10,8 @@ export let localPlayerPtr = null;
 export let localPlayerSessionId = null;
 export let chatManager = null;
 export let weaponCamera = null;
+
+
 
 export function shooterhooks() {
     /*window.ctx.hookPrefix({
@@ -45,6 +47,8 @@ export function shooterhooks() {
             }
 
             if (config.rage.killAll && !player.isMine) shooter.CommitSuicide();
+
+            
                 
         });
 
