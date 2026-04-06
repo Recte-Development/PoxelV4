@@ -1,4 +1,4 @@
-import { Camera, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager } from "../../structs.js";
+import { SettingsManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Quaternion, Vector3, nullCheck, ChatBypass, randomRange } from "../utils.js";
 import { Players } from "../../main.js";
@@ -10,6 +10,7 @@ export let localPlayerPtr = null;
 export let localPlayerSessionId = null;
 export let chatManager = null;
 export let weaponCamera = null;
+export let settingsConfig = null;
 
 
 
@@ -73,16 +74,12 @@ export function shooterhooks() {
                 
         });
         window.ctx.hookPrefix({
-            typeName: "ColyShooter",
-            methodName: "OnNetworkSpawned",
+            typeName: "MuzzleFlash",
+            methodName: "Play",
             params: ['i32', 'i32', 'i32']
-        }, (ptr, spawnInfo) => {
-            let player = new ColyBehaviour(ptr).colyView; // this no error
-            if (!player.isMine) return;
-            
-           
-
-                
+        }, (ptr, muzzleFlashSetParentNullTemp) => {
+            return !config.misc.noflash
+          
         });
 
         
@@ -117,8 +114,21 @@ export function shooterhooks() {
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
-            weaponCamera = new AimManager(ptr).weaponCamera.ptr
+            am = new AimManager(ptr);
+            weaponCamera = am.weaponCamera.ptr
+            
         });
+
+        /*window.ctx.hookPrefix({
+            typeName: "UnityEngine.Camera",
+            methodName: "set_fieldOfView",
+            params: ['i32', "f32", 'i32']
+        }, (ptr, _value) => {
+            if (config.misc.customFOV) {
+                Camera.set_fieldOfView_Injected(ptr, config.misc.customFOVAmount);
+                return false;
+            }
+        });*/
 
 
         window.ctx.hookPrefix({
@@ -183,6 +193,12 @@ export function shooterhooks() {
                 }
             }
 
+            //if (config.rage.fastSwitch) inst.aimFOVWorld = 40;
+            if (config.rage.fastSwitch) inst.afterSwitchDontAllowShootFor = 0;
+            if (config.rage.noHands) new GameObject(inst.handsModel.ptr).SetActive(false)
+            if (config.rage.noGun) new GameObject(inst.gunGfx.ptr).SetActive(false)
+            if (config.misc.aimingViewModel) inst.aimFOVWeapon = config.misc.aimingViewModelFOV
+
             inst.holdToShoot = config.rage.holdToShoot;
         });
 
@@ -193,49 +209,6 @@ export function shooterhooks() {
         }, (ptr) =>{
             return !config.rage.noRecoil
         });
-
-        /*window.ctx.hookPrefix({
-            typeName: "Gun",
-            methodName: "Shoot",
-            params: ['i32', 'i32', 'i32', 'i32', 'i32', 'i32']
-        }, (ptr, shotid, at, hittype, animationName) => {
-            console.log("Shot: ", Vector3.readFrom(at))
-            //console.log(new GameTimer(ptr).mode)
-
-            //console.log(manager.current.shortName)
-
-        })*/
-
-        /*
-        // this stops you from joining matches somehow :shrug:
-        window.ctx.hookPrefix({
-            typeName: "ColyShooter",
-            methodName: "SendRPCShoot",
-            params: ['i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32']
-        }, (ptr, targetSessionId, hitPos, hitType, damage, shotId, isSuicide) =>{
-            if (new ColyShooter(ptr) != localPlayer) return;
-            console.log("shot called")
-            
-        })
-        */
-
-        /*
-        let gun = new Gun(ptr);
-        if (gun.shooter == localPlayer) {
-            const targets = getTargets();
-            if (targets.length == 0) return;
-        
-        
-            const target = targets[0]
-            let behave = new ColyBehaviour(target.ptr);
-            console.log(`Targetting: ${behave.colyView.Nickname.mstr()}`)
-        
-            let comp1 = new Component(target.ptr);
-            at = comp1.transform.position
-            
-        }*/
-
-
     }
     catch (error) {
         console.log(error)

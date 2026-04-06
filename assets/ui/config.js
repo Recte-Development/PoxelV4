@@ -26,6 +26,11 @@ export let config = {
         fireRate: 60,
         holdToShoot: true,
 
+        fastSwitch: true,
+        noHands: false,
+        noGun: false,
+
+
     },
     misc: {
         antiafk: true,
@@ -39,6 +44,14 @@ export let config = {
 
         flight: false,
         flightSpeed: 15,
+
+        noflash: false,
+
+        aimingViewModel: false,
+        aimingViewModelFOV: 60,
+
+        customFOV: false,
+        customFOVAmount: 120,
     },
     visuals: {
         teamCheck: true,

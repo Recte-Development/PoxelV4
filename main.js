@@ -5,7 +5,7 @@ import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSess
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
   RaycastHit, AFKManager, ChatUIManager, MovementController,
   Camera, Time,Input, 
-  Component,
+  Component, SettingsManager, SettingsConfiguration,
   Ray,
   Quaternion, } from "./structs.js"
 import {
@@ -39,7 +39,8 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       const settings = ui.addSection(panel, "Settings");
       ui.addToggleRow(settings, "Team Check", config.visuals, "teamCheck");
       ui.addButton(settings, "Test Button", "Execute", "Execute", ()=>{
-        console.log(currentMode)
+        SettingsManager.SetFloat(window.ctx.createMstr("weaponFOV"), 120)
+
       });
       
 
@@ -98,12 +99,27 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
     ui.addTab("Misc", (panel)=>{
       const main = ui.addSection(panel, "Misc");
       ui.addToggleRow(main, "Anti-AFK", config.misc, "antiafk");
+      ui.addToggleRow(main, "No Muzzle Flash", config.misc, "noflash");
       ui.addToggleRow(main, "Infinite Dash", config.misc, "infDash");
       ui.addToggleRow(main, "Custom Dash Force", config.misc, "customDashForce");
       ui.addSliderRow(main, "Dash Force", config.misc, "dashForce", 1, 75, 1);
+      
+      ui.addToggleRow(main, "Aim View Model", config.misc, "aimingViewModel");
+      ui.addSliderRow(main, "Aim View Model FOV", config.misc, "aimingViewModelFOV", 0, 3, .1);
+      
+      ui.addToggleRow(main, "Custom FOV", config.misc, "customFOV");
+      ui.addSliderRow(main, "Custom FOV Amount", config.misc, "customFOVAmount", 1, 180, 1);
 
       ui.addToggleRow(main, "Flight", config.misc, "flight");
       ui.addSliderRow(main, "Flight Speed", config.misc, "flightSpeed", 1, 75, 1);
+
+      /*
+      speed: false,
+       speedAmount: 10,
+       jumpHeight: false,
+       jumpHeightAmount: 16,
+       slopeAngle: false,
+       slopeAngleAmount: 16,*/
 
       const chat = ui.addSection(panel, "Chat")
       ui.addToggleRow(chat, "Chat Spam", config.misc, "chatSpam");
@@ -190,6 +206,9 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
 
 
       ui.addToggleRow(weapons, "Hold To Shoot", config.rage, "holdToShoot");
+      ui.addToggleRow(weapons, "No Hands", config.rage, "noHands");
+      ui.addToggleRow(weapons, "No Gun", config.rage, "noGun");
+      ui.addToggleRow(weapons, "Fast Switch", config.rage, "fastSwitch");
 
       const exploits = ui.addSection(panel, "Exploits");
       ui.addToggleRow(exploits, "Kill All", config.rage, "killAll")

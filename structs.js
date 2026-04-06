@@ -1,3 +1,114 @@
+export class SettingsManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get OnSettingsChanged() { return this.ptr.readField(0x0, 'i32'); }
+    set OnSettingsChanged(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get settings() { return new SettingsConfiguration(this.ptr.readField(0x4, 'i32')); }
+    set settings(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    static ExportSettings() { return window.ctx.call("SettingsManager", "ExportSettings", []); }
+    static GetSettings() { return new SettingsConfiguration(window.ctx.call("SettingsManager", "GetSettings", [])); }
+    static ImportSettings(json) { window.ctx.call("SettingsManager", "ImportSettings", [json]); }
+    static SaveSettings() { window.ctx.call("SettingsManager", "SaveSettings", []); }
+    static SetBool(settingName, value) { window.ctx.call("SettingsManager", "SetBool", [settingName, value]); }
+    static SetFloat(settingName, value) { window.ctx.call("SettingsManager", "SetFloat", [settingName, value]); }
+    static SetInt(settingName, value) { window.ctx.call("SettingsManager", "SetInt", [settingName, value]); }
+}
+
+export class SettingsConfiguration {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get EnableMuzzleFlash() { return this.ptr.readField(0x20, 'i32').val() === 1; }
+    set EnableMuzzleFlash(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get EnableUIAnimations() { return this.ptr.readField(0x28, 'i32').val() === 1; }
+    set EnableUIAnimations(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get HUDscale() { return this.ptr.readField(0x2C, 'f32').val(); }
+    set HUDscale(v) { return this.ptr.writeField(0x2C, 'f32', v); }
+    get MouseSensitivity() { return this.ptr.readField(0x24, 'f32').val(); }
+    set MouseSensitivity(v) { return this.ptr.writeField(0x24, 'f32', v); }
+    get ResolutionScale() { return this.ptr.readField(0x30, 'f32').val(); }
+    set ResolutionScale(v) { return this.ptr.writeField(0x30, 'f32', v); }
+    get ToggleAim() { return this.ptr.readField(0x21, 'i32').val() === 1; }
+    set ToggleAim(v) { return this.ptr.writeField(0x21, 'i32', v); }
+    get aimSensitivity() { return this.ptr.readField(0x3C, 'f32').val(); }
+    set aimSensitivity(v) { return this.ptr.writeField(0x3C, 'f32', v); }
+    get allowFrameCap() { return this.ptr.readField(0x34, 'i32').val() === 1; }
+    set allowFrameCap(v) { return this.ptr.writeField(0x34, 'i32', v); }
+    get antiAliasingLevel() { return this.ptr.readField(0x68, 'i32').val(); }
+    set antiAliasingLevel(v) { return this.ptr.writeField(0x68, 'i32', v); }
+    get autoPickupWeapons() { return this.ptr.readField(0x7B, 'i32').val() === 1; }
+    set autoPickupWeapons(v) { return this.ptr.writeField(0x7B, 'i32', v); }
+    get autoSpin() { return this.ptr.readField(0x78, 'i32').val() === 1; }
+    set autoSpin(v) { return this.ptr.writeField(0x78, 'i32', v); }
+    get baseFOV() { return this.ptr.readField(0x18, 'f32').val(); }
+    set baseFOV(v) { return this.ptr.writeField(0x18, 'f32', v); }
+    get bulletShells() { return this.ptr.readField(0x7D, 'i32').val() === 1; }
+    set bulletShells(v) { return this.ptr.writeField(0x7D, 'i32', v); }
+    get cameraAnimation() { return this.ptr.readField(0x14, 'i32').val() === 1; }
+    set cameraAnimation(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get crosshairThickness() { return this.ptr.readField(0x48, 'f32').val(); }
+    set crosshairThickness(v) { return this.ptr.writeField(0x48, 'f32', v); }
+    get dynamicCrosshair() { return this.ptr.readField(0x4C, 'i32').val() === 1; }
+    set dynamicCrosshair(v) { return this.ptr.writeField(0x4C, 'i32', v); }
+    get enableShadows() { return this.ptr.readField(0x54, 'i32').val() === 1; }
+    set enableShadows(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get fastSpin() { return this.ptr.readField(0x77, 'i32').val() === 1; }
+    set fastSpin(v) { return this.ptr.writeField(0x77, 'i32', v); }
+    get frameCap() { return this.ptr.readField(0x38, 'i32').val(); }
+    set frameCap(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get graphicsPreset() { return this.ptr.readField(0x50, 'i32').val(); }
+    set graphicsPreset(v) { return this.ptr.writeField(0x50, 'i32', v); }
+    get handsHeight() { return this.ptr.readField(0x10, 'f32').val(); }
+    set handsHeight(v) { return this.ptr.writeField(0x10, 'f32', v); }
+    get hitmarkerNumbers() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set hitmarkerNumbers(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get invertMouseY() { return this.ptr.readField(0x64, 'i32').val() === 1; }
+    set invertMouseY(v) { return this.ptr.writeField(0x64, 'i32', v); }
+    get language() { return this.ptr.readField(0x70, 'i32').val(); }
+    set language(v) { return this.ptr.writeField(0x70, 'i32', v); }
+    get masterVolume() { return this.ptr.readField(0x58, 'f32').val(); }
+    set masterVolume(v) { return this.ptr.writeField(0x58, 'f32', v); }
+    get musicVolume() { return this.ptr.readField(0x5C, 'f32').val(); }
+    set musicVolume(v) { return this.ptr.writeField(0x5C, 'f32', v); }
+    get preferFullscreen() { return this.ptr.readField(0x65, 'i32').val() === 1; }
+    set preferFullscreen(v) { return this.ptr.writeField(0x65, 'i32', v); }
+    get sfxVolume() { return this.ptr.readField(0x60, 'f32').val(); }
+    set sfxVolume(v) { return this.ptr.writeField(0x60, 'f32', v); }
+    get showAccurateFPSCounter() { return this.ptr.readField(0x66, 'i32').val() === 1; }
+    set showAccurateFPSCounter(v) { return this.ptr.writeField(0x66, 'i32', v); }
+    get showAmmoUI() { return this.ptr.readField(0x74, 'i32').val() === 1; }
+    set showAmmoUI(v) { return this.ptr.writeField(0x74, 'i32', v); }
+    get showChat() { return this.ptr.readField(0x43, 'i32').val() === 1; }
+    set showChat(v) { return this.ptr.writeField(0x43, 'i32', v); }
+    get showCrosshairCenterDot() { return this.ptr.readField(0x44, 'i32').val() === 1; }
+    set showCrosshairCenterDot(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get showHealthUI() { return this.ptr.readField(0x76, 'i32').val() === 1; }
+    set showHealthUI(v) { return this.ptr.writeField(0x76, 'i32', v); }
+    get showItemIdOnClick() { return this.ptr.readField(0x7C, 'i32').val() === 1; }
+    set showItemIdOnClick(v) { return this.ptr.writeField(0x7C, 'i32', v); }
+    get showMovementSpeed() { return this.ptr.readField(0x41, 'i32').val() === 1; }
+    set showMovementSpeed(v) { return this.ptr.writeField(0x41, 'i32', v); }
+    get showSpeedLines() { return this.ptr.readField(0x4D, 'i32').val() === 1; }
+    set showSpeedLines(v) { return this.ptr.writeField(0x4D, 'i32', v); }
+    get showSpinResult() { return this.ptr.readField(0x79, 'i32').val() === 1; }
+    set showSpinResult(v) { return this.ptr.writeField(0x79, 'i32', v); }
+    get showStats() { return this.ptr.readField(0x42, 'i32').val() === 1; }
+    set showStats(v) { return this.ptr.writeField(0x42, 'i32', v); }
+    get showWeaponsUI() { return this.ptr.readField(0x75, 'i32').val() === 1; }
+    set showWeaponsUI(v) { return this.ptr.writeField(0x75, 'i32', v); }
+    get streamerMode() { return this.ptr.readField(0x7A, 'i32').val() === 1; }
+    set streamerMode(v) { return this.ptr.writeField(0x7A, 'i32', v); }
+    get textureQuality() { return this.ptr.readField(0x6C, 'i32').val(); }
+    set textureQuality(v) { return this.ptr.writeField(0x6C, 'i32', v); }
+    get vSync() { return this.ptr.readField(0x67, 'i32').val() === 1; }
+    set vSync(v) { return this.ptr.writeField(0x67, 'i32', v); }
+    get weaponBobbling() { return this.ptr.readField(0x8, 'f32').val(); }
+    set weaponBobbling(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get weaponFOV() { return this.ptr.readField(0x1C, 'f32').val(); }
+    set weaponFOV(v) { return this.ptr.writeField(0x1C, 'f32', v); }
+    get weaponLeaning() { return this.ptr.readField(0xC, 'f32').val(); }
+    set weaponLeaning(v) { return this.ptr.writeField(0xC, 'f32', v); }
+    static FromString(json) { return new SettingsConfiguration(window.ctx.call("SettingsConfiguration", "FromString", [json])); }
+    ToString() { return window.ctx.call("SettingsConfiguration", "ToString", [this.ptr]); }
+}
+
 export class Camera {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get activeTexture() { return new RenderTexture(window.ctx.call("UnityEngine.Camera", "get_activeTexture", [this.ptr])); }
@@ -587,6 +698,222 @@ export class Camera {
     static set_useOcclusionCulling_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Camera", "set_useOcclusionCulling_Injected", [_unity_self, value]); }
     static set_usePhysicalProperties_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Camera", "set_usePhysicalProperties_Injected", [_unity_self, value]); }
     static set_worldToCameraMatrix_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Camera", "set_worldToCameraMatrix_Injected", [_unity_self, value]); }
+}
+
+export class GameObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get active() { return window.ctx.call("UnityEngine.GameObject", "get_active", [this.ptr]).val() === 1; }
+    set active(v) { window.ctx.call("UnityEngine.GameObject", "set_active", [this.ptr, v]); }
+    get activeInHierarchy() { return window.ctx.call("UnityEngine.GameObject", "get_activeInHierarchy", [this.ptr]).val() === 1; }
+    get activeSelf() { return window.ctx.call("UnityEngine.GameObject", "get_activeSelf", [this.ptr]).val() === 1; }
+    get gameObject() { return new GameObject(window.ctx.call("UnityEngine.GameObject", "get_gameObject", [this.ptr])); }
+    get isStatic() { return window.ctx.call("UnityEngine.GameObject", "get_isStatic", [this.ptr]).val() === 1; }
+    set isStatic(v) { window.ctx.call("UnityEngine.GameObject", "set_isStatic", [this.ptr, v]); }
+    get isStaticBatchable() { return window.ctx.call("UnityEngine.GameObject", "get_isStaticBatchable", [this.ptr]).val() === 1; }
+    get layer() { return window.ctx.call("UnityEngine.GameObject", "get_layer", [this.ptr]).val(); }
+    set layer(v) { window.ctx.call("UnityEngine.GameObject", "set_layer", [this.ptr, v]); }
+    get scene() { return (()=>{
+					let structptr_bd81a0 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_scene", [structptr_bd81a0, this.ptr]);
+					return structptr_bd81a0;
+				})(); }
+    get sceneCullingMask() { return window.ctx.call("UnityEngine.GameObject", "get_sceneCullingMask", [this.ptr]).val(); }
+    get tag() { return window.ctx.call("UnityEngine.GameObject", "get_tag", [this.ptr]); }
+    set tag(v) { window.ctx.call("UnityEngine.GameObject", "set_tag", [this.ptr, v]); }
+    get transform() { return new Transform(window.ctx.call("UnityEngine.GameObject", "get_transform", [this.ptr])); }
+    get transformHandle() { return (()=>{
+					let structptr_d3cbf7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_transformHandle", [structptr_d3cbf7, this.ptr]);
+					return structptr_d3cbf7;
+				})(); }
+    AddComponent_componentType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponent_22450", [this.ptr, componentType])); }
+    AddComponent() { return window.ctx.call("UnityEngine.GameObject", "AddComponent", [this.ptr]); }
+    AddComponentInternal(className) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponentInternal", [this.ptr, className])); }
+    static AddComponentInternal_Injected(_unity_self, className) { return (()=>{
+					let structptr_8e985c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "AddComponentInternal_Injected", [structptr_8e985c, _unity_self, className]);
+					return structptr_8e985c;
+				})(); }
+    BroadcastMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22447", [this.ptr, methodName, options]); }
+    BroadcastMessage_methodName_parameter_options(methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22476", [this.ptr, methodName, parameter, options]); }
+    BroadcastMessage_methodName_parameter(methodName, parameter) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22477", [this.ptr, methodName, parameter]); }
+    BroadcastMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22478", [this.ptr, methodName]); }
+    static BroadcastMessage_Injected(_unity_self, methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_Injected", [_unity_self, methodName, parameter, options]); }
+    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22464", [this.ptr, tag]).val() === 1; }
+    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22465", [this.ptr, tag]).val() === 1; }
+    CompareTagHandle_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal", [this.ptr, tag]).val() === 1; }
+    static CompareTagHandle_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal_Injected", [_unity_self, tag]).val() === 1; }
+    CompareTag_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal", [this.ptr, tag]).val() === 1; }
+    static CompareTag_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal_Injected", [_unity_self, tag]).val() === 1; }
+    static CreatePrimitive(type) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "CreatePrimitive", [type])); }
+    static CreatePrimitive_Injected(type) { return (()=>{
+					let structptr_6b4626 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "CreatePrimitive_Injected", [structptr_6b4626, type]);
+					return structptr_6b4626;
+				})(); }
+    static Find(name) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "Find", [name])); }
+    static FindGameObjectWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag", [tag])); }
+    static FindGameObjectWithTag_Injected(tag) { return (()=>{
+					let structptr_4e2fb3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag_Injected", [structptr_4e2fb3, tag]);
+					return structptr_4e2fb3;
+				})(); }
+    static FindGameObjectsWithTag_tag_results(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22444", [tag, results]); }
+    static FindGameObjectsWithTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22469", [tag]); }
+    static FindGameObjectsWithTagForListInternal(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal", [tag, results]); }
+    static FindGameObjectsWithTagForListInternal_Injected(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal_Injected", [tag, results]); }
+    static FindGameObjectsWithTag_Injected(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_Injected", [tag]); }
+    static FindWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindWithTag", [tag])); }
+    static Find_Injected(name) { return (()=>{
+					let structptr_2ba912 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "Find_Injected", [structptr_2ba912, name]);
+					return structptr_2ba912;
+				})(); }
+    GetComponent() { return window.ctx.call("UnityEngine.GameObject", "GetComponent", [this.ptr]); }
+    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22423", [this.ptr, type])); }
+    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22427", [this.ptr, type])); }
+    GetComponentAtIndex_index(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex_22453", [this.ptr, index])); }
+    GetComponentAtIndex(index) { return window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex", [this.ptr, index]); }
+    GetComponentByName(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByName", [this.ptr, type])); }
+    GetComponentByNameWithCase(type, caseSensitive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase", [this.ptr, type, caseSensitive])); }
+    static GetComponentByNameWithCase_Injected(_unity_self, type, caseSensitive) { return (()=>{
+					let structptr_05f8c8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase_Injected", [structptr_05f8c8, _unity_self, type, caseSensitive]);
+					return structptr_05f8c8;
+				})(); }
+    static GetComponentByName_Injected(_unity_self, type) { return (()=>{
+					let structptr_2f40a2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentByName_Injected", [structptr_2f40a2, _unity_self, type]);
+					return structptr_2f40a2;
+				})(); }
+    GetComponentCount() { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount", [this.ptr]).val(); }
+    static GetComponentCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount_Injected", [_unity_self]).val(); }
+    GetComponentFastPath(type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "GetComponentFastPath", [this.ptr, type, oneFurtherThanResultValue]); }
+    static GetComponentFastPath_Injected(_unity_self, type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "GetComponentFastPath_Injected", [_unity_self, type, oneFurtherThanResultValue]); }
+    GetComponentInChildren_type_includeInactive(type, includeInactive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_22428", [this.ptr, type, includeInactive])); }
+    GetComponentInChildren_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_22429", [this.ptr, type])); }
+    GetComponentInChildren() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr]); }
+    GetComponentInChildren(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr, includeInactive]); }
+    static GetComponentInChildren_Injected(_unity_self, type, includeInactive) { return (()=>{
+					let structptr_477475 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_Injected", [structptr_477475, _unity_self, type, includeInactive]);
+					return structptr_477475;
+				})(); }
+    GetComponentInParent_type_includeInactive(type, includeInactive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22430", [this.ptr, type, includeInactive])); }
+    GetComponentInParent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22431", [this.ptr, type])); }
+    GetComponentInParent() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr]); }
+    GetComponentInParent(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr, includeInactive]); }
+    static GetComponentInParent_Injected(_unity_self, type, includeInactive) { return (()=>{
+					let structptr_e27955 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_Injected", [structptr_e27955, _unity_self, type, includeInactive]);
+					return structptr_e27955;
+				})(); }
+    GetComponentIndex(component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex", [this.ptr, component]).val(); }
+    static GetComponentIndex_Injected(_unity_self, component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex_Injected", [_unity_self, component]).val(); }
+    static GetComponent_Injected(_unity_self, type) { return (()=>{
+					let structptr_92d4d0 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponent_Injected", [structptr_92d4d0, _unity_self, type]);
+					return structptr_92d4d0;
+				})(); }
+    GetComponents_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponents_22433", [this.ptr, type]); }
+    GetComponents() { return window.ctx.call("UnityEngine.GameObject", "GetComponents", [this.ptr]); }
+    GetComponents_type_results(type, results) { window.ctx.call("UnityEngine.GameObject", "GetComponents_22434", [this.ptr, type, results]); }
+    GetComponents(results) { window.ctx.call("UnityEngine.GameObject", "GetComponents", [this.ptr, results]); }
+    GetComponentsInChildren_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren_22435", [this.ptr, type]); }
+    GetComponentsInChildren_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren_22436", [this.ptr, type, includeInactive]); }
+    GetComponentsInChildren(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, includeInactive]); }
+    GetComponentsInChildren(includeInactive, results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, includeInactive, results]); }
+    GetComponentsInChildren() { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr]); }
+    GetComponentsInChildren(results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, results]); }
+    GetComponentsInParent_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent_22437", [this.ptr, type]); }
+    GetComponentsInParent_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent_22438", [this.ptr, type, includeInactive]); }
+    GetComponentsInParent(includeInactive, results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr, includeInactive, results]); }
+    GetComponentsInParent(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr, includeInactive]); }
+    GetComponentsInParent() { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr]); }
+    GetComponentsInternal(type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal", [this.ptr, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList]); }
+    static GetComponentsInternal_Injected(_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal_Injected", [_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList]); }
+    static GetScene_instanceID(instanceID) { return (()=>{
+					let structptr_d3250d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetScene_22492", [structptr_d3250d, instanceID]);
+					return structptr_d3250d;
+				})(); }
+    static GetScene_entityId(entityId) { return (()=>{
+					let structptr_ce104c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetScene_22494", [structptr_ce104c, entityId]);
+					return structptr_ce104c;
+				})(); }
+    static GetSceneInternal(entityId) { return (()=>{
+					let structptr_29c038 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetSceneInternal", [structptr_29c038, entityId]);
+					return structptr_29c038;
+				})(); }
+    static GetSceneInternal_Injected(entityId, ret) { window.ctx.call("UnityEngine.GameObject", "GetSceneInternal_Injected", [entityId, ret]); }
+    static InstantiateGameObjects_sourceInstanceID_newInstanceIDs_newTransformInstanceIDs_count_destinationScene(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22489", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
+    static InstantiateGameObjects_sourceInstanceID_count_newInstanceIDs_newTransformInstanceIDs_destinationScene(sourceInstanceID, count, newInstanceIDs, newTransformInstanceIDs, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22490", [sourceInstanceID, count, newInstanceIDs, newTransformInstanceIDs, destinationScene]); }
+    static InstantiateGameObjects_sourceEntityId_count_newEntityIds_newTransformEntityIds_destinationScene(sourceEntityId, count, newEntityIds, newTransformEntityIds, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22491", [sourceEntityId, count, newEntityIds, newTransformEntityIds, destinationScene]); }
+    static InstantiateGameObjects_Injected(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_Injected", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
+    Internal_AddComponentWithType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType", [this.ptr, componentType])); }
+    static Internal_AddComponentWithType_Injected(_unity_self, componentType) { return (()=>{
+					let structptr_2d8782 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType_Injected", [structptr_2d8782, _unity_self, componentType]);
+					return structptr_2d8782;
+				})(); }
+    static Internal_CreateGameObject(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject", [self, name]); }
+    static Internal_CreateGameObject_Injected(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject_Injected", [self, name]); }
+    QueryComponentAtIndex(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex", [this.ptr, index])); }
+    static QueryComponentAtIndex_Injected(_unity_self, index) { return (()=>{
+					let structptr_7253cc = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex_Injected", [structptr_7253cc, _unity_self, index]);
+					return structptr_7253cc;
+				})(); }
+    SendMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22446", [this.ptr, methodName, options]); }
+    SendMessage_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22473", [this.ptr, methodName, value, options]); }
+    SendMessage_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22474", [this.ptr, methodName, value]); }
+    SendMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22475", [this.ptr, methodName]); }
+    SendMessageUpwards_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22445", [this.ptr, methodName, options]); }
+    SendMessageUpwards_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22470", [this.ptr, methodName, value, options]); }
+    SendMessageUpwards_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22471", [this.ptr, methodName, value]); }
+    SendMessageUpwards_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22472", [this.ptr, methodName]); }
+    static SendMessageUpwards_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_Injected", [_unity_self, methodName, value, options]); }
+    static SendMessage_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_Injected", [_unity_self, methodName, value, options]); }
+    SetActive(value) { window.ctx.call("UnityEngine.GameObject", "SetActive", [this.ptr, value]); }
+    SetActiveRecursively(state) { window.ctx.call("UnityEngine.GameObject", "SetActiveRecursively", [this.ptr, state]); }
+    static SetActiveRecursively_Injected(_unity_self, state) { window.ctx.call("UnityEngine.GameObject", "SetActiveRecursively_Injected", [_unity_self, state]); }
+    static SetActive_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "SetActive_Injected", [_unity_self, value]); }
+    static SetGameObjectsActive_instanceIds_instanceCount_active(instanceIds, instanceCount, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22484", [instanceIds, instanceCount, active]); }
+    static SetGameObjectsActive_instanceIDs_active(instanceIDs, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22485", [instanceIDs, active]); }
+    static SetGameObjectsActive_entityIds_active(entityIds, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22486", [entityIds, active]); }
+    static SetGameObjectsActive_instanceIDs_active(instanceIDs, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22487", [instanceIDs, active]); }
+    static SetGameObjectsActive_entityIds_active(entityIds, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22488", [entityIds, active]); }
+    TryGetComponent(component) { return window.ctx.call("UnityEngine.GameObject", "TryGetComponent", [this.ptr, component]).val() === 1; }
+    TryGetComponent_type_component(type, component) { return window.ctx.call("UnityEngine.GameObject", "TryGetComponent_22439", [this.ptr, type, component]).val() === 1; }
+    TryGetComponentFastPath(type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "TryGetComponentFastPath", [this.ptr, type, oneFurtherThanResultValue]); }
+    static TryGetComponentFastPath_Injected(_unity_self, type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "TryGetComponentFastPath_Injected", [_unity_self, type, oneFurtherThanResultValue]); }
+    TryGetComponentInternal(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal", [this.ptr, type])); }
+    static TryGetComponentInternal_Injected(_unity_self, type) { return (()=>{
+					let structptr_798115 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal_Injected", [structptr_798115, _unity_self, type]);
+					return structptr_798115;
+				})(); }
+    static get_activeInHierarchy_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeInHierarchy_Injected", [_unity_self]).val() === 1; }
+    static get_activeSelf_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeSelf_Injected", [_unity_self]).val() === 1; }
+    static get_active_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_active_Injected", [_unity_self]).val() === 1; }
+    static get_isStaticBatchable_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_isStaticBatchable_Injected", [_unity_self]).val() === 1; }
+    static get_isStatic_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_isStatic_Injected", [_unity_self]).val() === 1; }
+    static get_layer_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_layer_Injected", [_unity_self]).val(); }
+    static get_sceneCullingMask_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_sceneCullingMask_Injected", [_unity_self]).val(); }
+    static get_scene_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_scene_Injected", [_unity_self, ret]); }
+    static get_tag_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_tag_Injected", [_unity_self, ret]); }
+    static get_transformHandle_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_transformHandle_Injected", [_unity_self, ret]); }
+    static get_transform_Injected(_unity_self) { return (()=>{
+					let structptr_afbcb6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_transform_Injected", [structptr_afbcb6, _unity_self]);
+					return structptr_afbcb6;
+				})(); }
+    static set_active_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_active_Injected", [_unity_self, value]); }
+    static set_isStatic_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_isStatic_Injected", [_unity_self, value]); }
+    static set_layer_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_layer_Injected", [_unity_self, value]); }
+    static set_tag_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_tag_Injected", [_unity_self, value]); }
 }
 
 export class Input {
@@ -3556,222 +3883,6 @@ export class PublicUserData {
     set pfp(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
     get username() { return this.ptr.readField(0x10, 'i32').mstr(); }
     set username(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
-}
-
-export class GameObject {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get active() { return window.ctx.call("UnityEngine.GameObject", "get_active", [this.ptr]).val() === 1; }
-    set active(v) { window.ctx.call("UnityEngine.GameObject", "set_active", [this.ptr, v]); }
-    get activeInHierarchy() { return window.ctx.call("UnityEngine.GameObject", "get_activeInHierarchy", [this.ptr]).val() === 1; }
-    get activeSelf() { return window.ctx.call("UnityEngine.GameObject", "get_activeSelf", [this.ptr]).val() === 1; }
-    get gameObject() { return new GameObject(window.ctx.call("UnityEngine.GameObject", "get_gameObject", [this.ptr])); }
-    get isStatic() { return window.ctx.call("UnityEngine.GameObject", "get_isStatic", [this.ptr]).val() === 1; }
-    set isStatic(v) { window.ctx.call("UnityEngine.GameObject", "set_isStatic", [this.ptr, v]); }
-    get isStaticBatchable() { return window.ctx.call("UnityEngine.GameObject", "get_isStaticBatchable", [this.ptr]).val() === 1; }
-    get layer() { return window.ctx.call("UnityEngine.GameObject", "get_layer", [this.ptr]).val(); }
-    set layer(v) { window.ctx.call("UnityEngine.GameObject", "set_layer", [this.ptr, v]); }
-    get scene() { return (()=>{
-					let structptr_bd81a0 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_scene", [structptr_bd81a0, this.ptr]);
-					return structptr_bd81a0;
-				})(); }
-    get sceneCullingMask() { return window.ctx.call("UnityEngine.GameObject", "get_sceneCullingMask", [this.ptr]).val(); }
-    get tag() { return window.ctx.call("UnityEngine.GameObject", "get_tag", [this.ptr]); }
-    set tag(v) { window.ctx.call("UnityEngine.GameObject", "set_tag", [this.ptr, v]); }
-    get transform() { return new Transform(window.ctx.call("UnityEngine.GameObject", "get_transform", [this.ptr])); }
-    get transformHandle() { return (()=>{
-					let structptr_d3cbf7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_transformHandle", [structptr_d3cbf7, this.ptr]);
-					return structptr_d3cbf7;
-				})(); }
-    AddComponent_componentType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponent_22450", [this.ptr, componentType])); }
-    AddComponent() { return window.ctx.call("UnityEngine.GameObject", "AddComponent", [this.ptr]); }
-    AddComponentInternal(className) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponentInternal", [this.ptr, className])); }
-    static AddComponentInternal_Injected(_unity_self, className) { return (()=>{
-					let structptr_8e985c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "AddComponentInternal_Injected", [structptr_8e985c, _unity_self, className]);
-					return structptr_8e985c;
-				})(); }
-    BroadcastMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22447", [this.ptr, methodName, options]); }
-    BroadcastMessage_methodName_parameter_options(methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22476", [this.ptr, methodName, parameter, options]); }
-    BroadcastMessage_methodName_parameter(methodName, parameter) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22477", [this.ptr, methodName, parameter]); }
-    BroadcastMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22478", [this.ptr, methodName]); }
-    static BroadcastMessage_Injected(_unity_self, methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_Injected", [_unity_self, methodName, parameter, options]); }
-    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22464", [this.ptr, tag]).val() === 1; }
-    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22465", [this.ptr, tag]).val() === 1; }
-    CompareTagHandle_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal", [this.ptr, tag]).val() === 1; }
-    static CompareTagHandle_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal_Injected", [_unity_self, tag]).val() === 1; }
-    CompareTag_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal", [this.ptr, tag]).val() === 1; }
-    static CompareTag_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal_Injected", [_unity_self, tag]).val() === 1; }
-    static CreatePrimitive(type) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "CreatePrimitive", [type])); }
-    static CreatePrimitive_Injected(type) { return (()=>{
-					let structptr_6b4626 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "CreatePrimitive_Injected", [structptr_6b4626, type]);
-					return structptr_6b4626;
-				})(); }
-    static Find(name) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "Find", [name])); }
-    static FindGameObjectWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag", [tag])); }
-    static FindGameObjectWithTag_Injected(tag) { return (()=>{
-					let structptr_4e2fb3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag_Injected", [structptr_4e2fb3, tag]);
-					return structptr_4e2fb3;
-				})(); }
-    static FindGameObjectsWithTag_tag_results(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22444", [tag, results]); }
-    static FindGameObjectsWithTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22469", [tag]); }
-    static FindGameObjectsWithTagForListInternal(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal", [tag, results]); }
-    static FindGameObjectsWithTagForListInternal_Injected(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal_Injected", [tag, results]); }
-    static FindGameObjectsWithTag_Injected(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_Injected", [tag]); }
-    static FindWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindWithTag", [tag])); }
-    static Find_Injected(name) { return (()=>{
-					let structptr_2ba912 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "Find_Injected", [structptr_2ba912, name]);
-					return structptr_2ba912;
-				})(); }
-    GetComponent() { return window.ctx.call("UnityEngine.GameObject", "GetComponent", [this.ptr]); }
-    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22423", [this.ptr, type])); }
-    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22427", [this.ptr, type])); }
-    GetComponentAtIndex_index(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex_22453", [this.ptr, index])); }
-    GetComponentAtIndex(index) { return window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex", [this.ptr, index]); }
-    GetComponentByName(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByName", [this.ptr, type])); }
-    GetComponentByNameWithCase(type, caseSensitive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase", [this.ptr, type, caseSensitive])); }
-    static GetComponentByNameWithCase_Injected(_unity_self, type, caseSensitive) { return (()=>{
-					let structptr_05f8c8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase_Injected", [structptr_05f8c8, _unity_self, type, caseSensitive]);
-					return structptr_05f8c8;
-				})(); }
-    static GetComponentByName_Injected(_unity_self, type) { return (()=>{
-					let structptr_2f40a2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentByName_Injected", [structptr_2f40a2, _unity_self, type]);
-					return structptr_2f40a2;
-				})(); }
-    GetComponentCount() { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount", [this.ptr]).val(); }
-    static GetComponentCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount_Injected", [_unity_self]).val(); }
-    GetComponentFastPath(type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "GetComponentFastPath", [this.ptr, type, oneFurtherThanResultValue]); }
-    static GetComponentFastPath_Injected(_unity_self, type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "GetComponentFastPath_Injected", [_unity_self, type, oneFurtherThanResultValue]); }
-    GetComponentInChildren_type_includeInactive(type, includeInactive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_22428", [this.ptr, type, includeInactive])); }
-    GetComponentInChildren_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_22429", [this.ptr, type])); }
-    GetComponentInChildren() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr]); }
-    GetComponentInChildren(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr, includeInactive]); }
-    static GetComponentInChildren_Injected(_unity_self, type, includeInactive) { return (()=>{
-					let structptr_477475 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_Injected", [structptr_477475, _unity_self, type, includeInactive]);
-					return structptr_477475;
-				})(); }
-    GetComponentInParent_type_includeInactive(type, includeInactive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22430", [this.ptr, type, includeInactive])); }
-    GetComponentInParent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22431", [this.ptr, type])); }
-    GetComponentInParent() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr]); }
-    GetComponentInParent(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr, includeInactive]); }
-    static GetComponentInParent_Injected(_unity_self, type, includeInactive) { return (()=>{
-					let structptr_e27955 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_Injected", [structptr_e27955, _unity_self, type, includeInactive]);
-					return structptr_e27955;
-				})(); }
-    GetComponentIndex(component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex", [this.ptr, component]).val(); }
-    static GetComponentIndex_Injected(_unity_self, component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex_Injected", [_unity_self, component]).val(); }
-    static GetComponent_Injected(_unity_self, type) { return (()=>{
-					let structptr_92d4d0 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponent_Injected", [structptr_92d4d0, _unity_self, type]);
-					return structptr_92d4d0;
-				})(); }
-    GetComponents_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponents_22433", [this.ptr, type]); }
-    GetComponents() { return window.ctx.call("UnityEngine.GameObject", "GetComponents", [this.ptr]); }
-    GetComponents_type_results(type, results) { window.ctx.call("UnityEngine.GameObject", "GetComponents_22434", [this.ptr, type, results]); }
-    GetComponents(results) { window.ctx.call("UnityEngine.GameObject", "GetComponents", [this.ptr, results]); }
-    GetComponentsInChildren_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren_22435", [this.ptr, type]); }
-    GetComponentsInChildren_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren_22436", [this.ptr, type, includeInactive]); }
-    GetComponentsInChildren(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, includeInactive]); }
-    GetComponentsInChildren(includeInactive, results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, includeInactive, results]); }
-    GetComponentsInChildren() { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr]); }
-    GetComponentsInChildren(results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInChildren", [this.ptr, results]); }
-    GetComponentsInParent_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent_22437", [this.ptr, type]); }
-    GetComponentsInParent_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent_22438", [this.ptr, type, includeInactive]); }
-    GetComponentsInParent(includeInactive, results) { window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr, includeInactive, results]); }
-    GetComponentsInParent(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr, includeInactive]); }
-    GetComponentsInParent() { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInParent", [this.ptr]); }
-    GetComponentsInternal(type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal", [this.ptr, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList]); }
-    static GetComponentsInternal_Injected(_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal_Injected", [_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList]); }
-    static GetScene_instanceID(instanceID) { return (()=>{
-					let structptr_d3250d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetScene_22492", [structptr_d3250d, instanceID]);
-					return structptr_d3250d;
-				})(); }
-    static GetScene_entityId(entityId) { return (()=>{
-					let structptr_ce104c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetScene_22494", [structptr_ce104c, entityId]);
-					return structptr_ce104c;
-				})(); }
-    static GetSceneInternal(entityId) { return (()=>{
-					let structptr_29c038 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetSceneInternal", [structptr_29c038, entityId]);
-					return structptr_29c038;
-				})(); }
-    static GetSceneInternal_Injected(entityId, ret) { window.ctx.call("UnityEngine.GameObject", "GetSceneInternal_Injected", [entityId, ret]); }
-    static InstantiateGameObjects_sourceInstanceID_newInstanceIDs_newTransformInstanceIDs_count_destinationScene(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22489", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
-    static InstantiateGameObjects_sourceInstanceID_count_newInstanceIDs_newTransformInstanceIDs_destinationScene(sourceInstanceID, count, newInstanceIDs, newTransformInstanceIDs, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22490", [sourceInstanceID, count, newInstanceIDs, newTransformInstanceIDs, destinationScene]); }
-    static InstantiateGameObjects_sourceEntityId_count_newEntityIds_newTransformEntityIds_destinationScene(sourceEntityId, count, newEntityIds, newTransformEntityIds, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22491", [sourceEntityId, count, newEntityIds, newTransformEntityIds, destinationScene]); }
-    static InstantiateGameObjects_Injected(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_Injected", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
-    Internal_AddComponentWithType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType", [this.ptr, componentType])); }
-    static Internal_AddComponentWithType_Injected(_unity_self, componentType) { return (()=>{
-					let structptr_2d8782 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType_Injected", [structptr_2d8782, _unity_self, componentType]);
-					return structptr_2d8782;
-				})(); }
-    static Internal_CreateGameObject(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject", [self, name]); }
-    static Internal_CreateGameObject_Injected(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject_Injected", [self, name]); }
-    QueryComponentAtIndex(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex", [this.ptr, index])); }
-    static QueryComponentAtIndex_Injected(_unity_self, index) { return (()=>{
-					let structptr_7253cc = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex_Injected", [structptr_7253cc, _unity_self, index]);
-					return structptr_7253cc;
-				})(); }
-    SendMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22446", [this.ptr, methodName, options]); }
-    SendMessage_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22473", [this.ptr, methodName, value, options]); }
-    SendMessage_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22474", [this.ptr, methodName, value]); }
-    SendMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22475", [this.ptr, methodName]); }
-    SendMessageUpwards_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22445", [this.ptr, methodName, options]); }
-    SendMessageUpwards_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22470", [this.ptr, methodName, value, options]); }
-    SendMessageUpwards_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22471", [this.ptr, methodName, value]); }
-    SendMessageUpwards_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22472", [this.ptr, methodName]); }
-    static SendMessageUpwards_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_Injected", [_unity_self, methodName, value, options]); }
-    static SendMessage_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_Injected", [_unity_self, methodName, value, options]); }
-    SetActive(value) { window.ctx.call("UnityEngine.GameObject", "SetActive", [this.ptr, value]); }
-    SetActiveRecursively(state) { window.ctx.call("UnityEngine.GameObject", "SetActiveRecursively", [this.ptr, state]); }
-    static SetActiveRecursively_Injected(_unity_self, state) { window.ctx.call("UnityEngine.GameObject", "SetActiveRecursively_Injected", [_unity_self, state]); }
-    static SetActive_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "SetActive_Injected", [_unity_self, value]); }
-    static SetGameObjectsActive_instanceIds_instanceCount_active(instanceIds, instanceCount, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22484", [instanceIds, instanceCount, active]); }
-    static SetGameObjectsActive_instanceIDs_active(instanceIDs, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22485", [instanceIDs, active]); }
-    static SetGameObjectsActive_entityIds_active(entityIds, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22486", [entityIds, active]); }
-    static SetGameObjectsActive_instanceIDs_active(instanceIDs, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22487", [instanceIDs, active]); }
-    static SetGameObjectsActive_entityIds_active(entityIds, active) { window.ctx.call("UnityEngine.GameObject", "SetGameObjectsActive_22488", [entityIds, active]); }
-    TryGetComponent(component) { return window.ctx.call("UnityEngine.GameObject", "TryGetComponent", [this.ptr, component]).val() === 1; }
-    TryGetComponent_type_component(type, component) { return window.ctx.call("UnityEngine.GameObject", "TryGetComponent_22439", [this.ptr, type, component]).val() === 1; }
-    TryGetComponentFastPath(type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "TryGetComponentFastPath", [this.ptr, type, oneFurtherThanResultValue]); }
-    static TryGetComponentFastPath_Injected(_unity_self, type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "TryGetComponentFastPath_Injected", [_unity_self, type, oneFurtherThanResultValue]); }
-    TryGetComponentInternal(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal", [this.ptr, type])); }
-    static TryGetComponentInternal_Injected(_unity_self, type) { return (()=>{
-					let structptr_798115 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal_Injected", [structptr_798115, _unity_self, type]);
-					return structptr_798115;
-				})(); }
-    static get_activeInHierarchy_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeInHierarchy_Injected", [_unity_self]).val() === 1; }
-    static get_activeSelf_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeSelf_Injected", [_unity_self]).val() === 1; }
-    static get_active_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_active_Injected", [_unity_self]).val() === 1; }
-    static get_isStaticBatchable_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_isStaticBatchable_Injected", [_unity_self]).val() === 1; }
-    static get_isStatic_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_isStatic_Injected", [_unity_self]).val() === 1; }
-    static get_layer_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_layer_Injected", [_unity_self]).val(); }
-    static get_sceneCullingMask_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_sceneCullingMask_Injected", [_unity_self]).val(); }
-    static get_scene_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_scene_Injected", [_unity_self, ret]); }
-    static get_tag_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_tag_Injected", [_unity_self, ret]); }
-    static get_transformHandle_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_transformHandle_Injected", [_unity_self, ret]); }
-    static get_transform_Injected(_unity_self) { return (()=>{
-					let structptr_afbcb6 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_transform_Injected", [structptr_afbcb6, _unity_self]);
-					return structptr_afbcb6;
-				})(); }
-    static set_active_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_active_Injected", [_unity_self, value]); }
-    static set_isStatic_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_isStatic_Injected", [_unity_self, value]); }
-    static set_layer_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_layer_Injected", [_unity_self, value]); }
-    static set_tag_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_tag_Injected", [_unity_self, value]); }
 }
 
 export class Animator {
