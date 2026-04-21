@@ -5,46 +5,59 @@ const TARGET_DIR = "./";
 const MASTER_STRUCTS = "./structfile/structs.js";
 const OUTPUT_FILE = "structs.js";
 
+const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "build", "structfile"]);
 
 function getJSFiles(dir) {
     const result = [];
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (SKIP_DIRS.has(entry.name)) continue;
         const full = path.join(dir, entry.name);
         if (entry.isDirectory()) {
             result.push(...getJSFiles(full));
-        } else if (entry.isFile() && entry.name.endsWith(".js") && entry.name !== OUTPUT_FILE) {
+        } else if (
+            entry.isFile() &&
+            entry.name.endsWith(".js") &&
+            entry.name !== OUTPUT_FILE &&
+            entry.name !== "structsetter.js" &&
+            entry.name !== "build.js"
+        ) {
             result.push(full);
         }
     }
     return result;
 }
 
+// Match imports from both `structs` and `structs.js` (with or without extension)
+const IMPORT_REGEX = /import\s+\{([^}]*)\}\s+from\s+['"][^'"]*\/?structs(?:\.js)?['"];?/g;
+
 function findStructImports(filePath) {
     const content = fs.readFileSync(filePath, "utf8");
-    const regex = /import\s+\{([^}]*)\}\s+from\s+['"][^'"]*\/?structs\.js['"];?/g;
-
     const results = new Set();
     let match;
-
-    while ((match = regex.exec(content)) !== null) {
-        const names = match[1].split(",").map(n => n.trim()).filter(Boolean);
-        names.forEach(n => results.add(n));
+    IMPORT_REGEX.lastIndex = 0;
+    while ((match = IMPORT_REGEX.exec(content)) !== null) {
+        for (const name of match[1].split(",")) {
+            const trimmed = name.trim();
+            if (trimmed) results.add(trimmed);
+        }
     }
-
     return results;
 }
 
-function extractClassCode(masterContent, className) {
-    const regex = new RegExp(
-        `export\\s+class\\s+${className}\\s*\\{[\\s\\S]*?\\n\\}`,
-        "g"
-    );
-    return regex.exec(masterContent)?.[0] || null;
+// Scan master file once — O(n) instead of O(n * classes)
+function buildClassMap(content) {
+    const map = new Map();
+    const regex = /export\s+class\s+(\w+)\s*\{[\s\S]*?\n\}/g;
+    let m;
+    while ((m = regex.exec(content)) !== null) {
+        map.set(m[1], m[0]);
+    }
+    return map;
 }
 
 function findClassDependencies(classCode) {
-    const regex = /new\s+([A-Z][A-Za-z0-9_]*)\s*\(/g;
     const deps = new Set();
+    const regex = /new\s+([A-Z][A-Za-z0-9_]*)\s*\(/g;
     let match;
     while ((match = regex.exec(classCode)) !== null) {
         deps.add(match[1]);
@@ -52,38 +65,33 @@ function findClassDependencies(classCode) {
     return deps;
 }
 
-function resolveAllClasses(masterContent, needed) {
-    let added = true;
-
-    while (added) {
-        added = false;
-
-        for (const className of [...needed]) {
-            const classCode = extractClassCode(masterContent, className);
-            if (!classCode) continue;
-
-            const deps = findClassDependencies(classCode);
-            for (const dep of deps) {
-                if (!needed.has(dep)) {
-                    needed.add(dep);
-                    added = true;
-                }
+// BFS — each class processed exactly once instead of re-scanning on each iteration
+function resolveAllClasses(classMap, needed) {
+    const queue = [...needed];
+    while (queue.length > 0) {
+        const className = queue.shift();
+        const classCode = classMap.get(className);
+        if (!classCode) continue;
+        for (const dep of findClassDependencies(classCode)) {
+            if (!needed.has(dep)) {
+                needed.add(dep);
+                queue.push(dep);
             }
         }
     }
-
-    return needed;
 }
 
 export function buildStructsFile() {
+    const t0 = performance.now();
     console.log("Scanning project for struct usage…");
 
     const jsFiles = getJSFiles(TARGET_DIR);
     const needed = new Set();
 
     for (const file of jsFiles) {
-        const imports = findStructImports(file);
-        imports.forEach(i => needed.add(i));
+        for (const name of findStructImports(file)) {
+            needed.add(name);
+        }
     }
 
     if (needed.size === 0) {
@@ -91,33 +99,29 @@ export function buildStructsFile() {
         return;
     }
 
-    console.log("Initial classes used:", [...needed]);
+    console.log(`Found ${needed.size} imported classes across ${jsFiles.length} files`);
 
     const masterContent = fs.readFileSync(MASTER_STRUCTS, "utf8");
+    const classMap = buildClassMap(masterContent);
 
-    resolveAllClasses(masterContent, needed);
+    console.log(`Parsed ${classMap.size} classes from master file`);
 
-    console.log("Final class list (with dependencies):", [...needed]);
+    resolveAllClasses(classMap, needed);
 
-    let output = "";
+    console.log(`Resolved ${needed.size} total classes (with dependencies)`);
+
+    const parts = [];
     for (const className of needed) {
-        const code = extractClassCode(masterContent, className);
+        const code = classMap.get(className);
         if (code) {
-            output += code + "\n\n";
+            parts.push(code);
         } else {
-            console.warn(`WARNING: Class "${className}" not found in master structs file. Ignoring its instantiations.`);
-            output = stripUnknownClassInstantiations(output, className);
+            console.warn(`WARNING: "${className}" not found in master structs — skipping`);
         }
     }
 
     const outputPath = path.join(TARGET_DIR, OUTPUT_FILE);
-    fs.writeFileSync(outputPath, output.trim() + "\n", "utf8");
+    fs.writeFileSync(outputPath, parts.join("\n\n") + "\n", "utf8");
 
-    console.log(`structs.js successfully generated at: ${outputPath}`);
+    console.log(`structs.js written (${parts.length} classes) in ${(performance.now() - t0).toFixed(0)}ms`);
 }
-
-function stripUnknownClassInstantiations(content, className) {
-    const regex = new RegExp(`new\\s+${className}\\s*\\(([^)]*)\\)`, "g");
-    return content.replace(regex, "$1");
-}
-

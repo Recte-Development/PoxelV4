@@ -6,8 +6,9 @@ import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBe
   RaycastHit, AFKManager, ChatUIManager, MovementController,
   Camera, Time,Input, 
   Component, SettingsManager, SettingsConfiguration,
-  Ray,
-  Quaternion, } from "./structs.js"
+  Ray, CharacterCamera, Weapon,
+  Quaternion,
+  ColyTransform, } from "./structs.js"
 import {
   keysPressed,
   randomFloatBetween,
@@ -38,10 +39,16 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
     ui.addTab("Visuals", (panel)=>{
       const settings = ui.addSection(panel, "Settings");
       ui.addToggleRow(settings, "Team Check", config.visuals, "teamCheck");
-      ui.addButton(settings, "Test Button", "Execute", "Execute", ()=>{
-        SettingsManager.SetFloat(window.ctx.createMstr("weaponFOV"), 120)
 
+      ui.addButton(settings, "Test", "Execute", "Execute", ()=>{
+        try{
+        let cT = new ColyTransform(new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.ptr);
+        console.log(cT)
+        cT.SendPositionUpdate(new Component(Players.values().next().value.ptr).transform.position, QuaternionUtils.random().createPtr(), 0);
+        }
+        catch (error) {console.error(error)}
       });
+      
       
 
 
@@ -99,6 +106,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
     ui.addTab("Misc", (panel)=>{
       const main = ui.addSection(panel, "Misc");
       ui.addToggleRow(main, "Anti-AFK", config.misc, "antiafk");
+      ui.addToggleRow(main, "Never Suicide", config.misc, "neverSuicide");
       ui.addToggleRow(main, "No Muzzle Flash", config.misc, "noflash");
       ui.addToggleRow(main, "Infinite Dash", config.misc, "infDash");
       ui.addToggleRow(main, "Custom Dash Force", config.misc, "customDashForce");
@@ -112,6 +120,9 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
 
       ui.addToggleRow(main, "Flight", config.misc, "flight");
       ui.addSliderRow(main, "Flight Speed", config.misc, "flightSpeed", 1, 75, 1);
+
+      ui.addToggleRow(main, "Third Person", config.misc, "thirdPerson");
+      ui.addSliderRow(main, "Camera Distance", config.misc, "thirdPersonDist", 1, 10, 0.5);
 
       /*
       speed: false,
@@ -137,7 +148,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addToggleRow(aimbot, "Enabled", config.rage, "aimbot")
 
       const aimbotSettings = ui.addSection(panel, "Aimbot Settings");
-      ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse", "Magic"], config.rage, "aimbotType")
+      ui.addSelectRow(aimbotSettings, "Aimbot Type", ["Silent", "Mouse", "Magic", "Internal"], config.rage, "aimbotType")
       ui.addSelectRow(aimbotSettings, "Aim Bone", ["Neck", "Chest", "Hips"], config.rage, "aimBone")
       ui.addSelectRow(aimbotSettings, "Sort Mode", ["Screen", "World"], config.rage, "aimbotSorting")
       ui.addSelectRow(aimbotSettings, "Aim Key", keyOptions, config.rage, "aimKey");
@@ -149,6 +160,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       ui.addSliderRow(aimbotSettings, "FOV", config.rage, "aimbotFOV", 30, 300, 1)
       ui.addSliderRow(aimbotSettings, "FOV Thickness", config.rage, "fovThickness", 1, 10, 1)
       ui.addColorRow(aimbotSettings, "FOV Color", config.rage, "fovColor");
+
       
 /*
         drawFOV: false,
@@ -187,6 +199,10 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
         config.rage,
         "aimbone",
       );
+wallBang: false,
+        randomHit: false,
+        oneShot: false,
+        damage: 0,
 
       ui.addToggleRow(main, "FOV", config.visuals, "fov");
       ui.addToggleRow(main, "FOV Circle", config.rage, "fovcirlce");
@@ -200,6 +216,10 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
       const weapons = ui.addSection(panel, "Weapons");
       ui.addToggleRow(weapons, "Infinite Ammo", config.rage, "infAmmo")
       ui.addToggleRow(weapons, "No Recoil", config.rage, "noRecoil")
+      ui.addToggleRow(weapons, "Wall Bang", config.rage, "wallBang")
+      ui.addToggleRow(weapons, "Bullets Hit Random", config.rage, "randomHit")
+      ui.addToggleRow(weapons, "One Shot Kill", config.rage, "oneShot")
+      ui.addSliderRow(weapons, "Custom Damage", config.rage, "damage", 0, 300, 1)
 
       ui.addToggleRow(weapons, "Fire Rate Modifier", config.rage, "customFireRate");
       ui.addSliderRow(weapons, "Fire Rate", config.rage, "fireRate", 1, 300, 1)
@@ -212,8 +232,13 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
 
       const exploits = ui.addSection(panel, "Exploits");
       ui.addToggleRow(exploits, "Kill All", config.rage, "killAll")
-      ui.addButton(exploits, "God Mode", "Execute", "Execute", ()=>{
+      ui.addButton(exploits, "God Mode (Self)", "Execute", "Execute", ()=>{
          new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+      });
+      ui.addButton(exploits, "God Mode (All)", "Execute", "Execute", ()=>{
+        Players.forEach((player) =>{
+            new ColyShooter(player.ptr).SendRPCShoot(ctx.createMstr(new ColyBehaviour(player).colyView.sessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+        })
       });
 
     });

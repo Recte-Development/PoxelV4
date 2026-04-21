@@ -3,7 +3,7 @@ import {
   Physics,
   RaycastHit,
   Camera,
-  Component, Time,
+  Component,
   Ray,
   Quaternion, GameObject, Transform, MyRoomState,
 
@@ -39,17 +39,17 @@ export function refreshCamera() {
     _cam = cam;
     _camPos = Vector3.readFrom(camTransform.position);
     _camFwd = Vector3.readFrom(camTransform.forward);
-  } catch {
+  } catch (e) {
     _cam = null;
   }
 }
 
 export function w2s(canvas, worldpoint) {
   try {
-    if (!_cam) return Vector3.zero;
+    if (!_cam) return new Vector3(0, 0, 0);
     const wp = Vector3.readFrom(worldpoint);
     const dot = (wp.x - _camPos.x) * _camFwd.x + (wp.y - _camPos.y) * _camFwd.y + (wp.z - _camPos.z) * _camFwd.z;
-    if (dot <= 0) return Vector3.zero;
+    if (dot <= 0) return new Vector3(0, 0, 0);
     const yea = Vector3.readFrom(_cam.WorldToViewportPoint_position(worldpoint));
     yea.x *= window.innerWidth;
     yea.y *= window.innerHeight;
@@ -141,37 +141,7 @@ export function isTeam(player) {
   return me == them;
 }
 
-function flight(playerPtr){
-    try{
-    let player = new ColyShooter(playerPtr);
 
-    let flightSpeed = config.misc.flightSpeed;
-    let camTransform = new Component(Camera.main.ptr).transform;
-
-    let speed = flightSpeed * Time.unscaledDeltaTime;
-
-    let dir = new Vector3(0, 0, 0);
-    
-    if (keysPressed["W"]) dir += Vector3.readFrom(camTransform.forward);
-    if (keysPressed["A"]) dir += Vector3.readFrom(camTransform.right);
-
-    if (keysPressed["S"]) dir -= Vector3.readFrom(camTransform.forward);
-    if (keysPressed["D"]) dir -= Vector3.readFrom(camTransform.right);
-
-    
-    if (keysPressed["Space"]) dir += Vector3.readFrom(camTransform.up);
-    if (keysPressed["C"]) dir -= Vector3.readFrom(camTransform.up);
-
-    if (dir != Vector3.zero) {
-        let norm = dir.normalize()
-        const pos = Vector3.readFrom(new Component(playerPtr).transform.localPosition);
-        pos.add(norm.x * speed, norm.y * speed, norm.z * speed);
-        new Component(playerPtr).transform.localPosition = pos.createPtr();
-    }}
-    catch (err){
-        console.log(err)
-    }
-}
 
 export function esp() {
   const { nametags, nametagsHealth, nametagsDistance, nametagsColor,
@@ -213,7 +183,6 @@ export function esp() {
   }
   if (!localPlayer) return;
 
-  if (config.misc.flight && new ColyBehaviour(localPlayer.ptr).colyView.isMine) flight(localPlayerPtr)
 
   const anyVisuals = nametags || tracers || boxes || filledBoxes || skeleton;
   if (!anyVisuals) return;
@@ -246,7 +215,6 @@ export function esp() {
 
   // Lazy-init reusable head position buffer (avoids per-player malloc)
   if (!_headBuf) _headBuf = window.ctx.malloc(0xc);
-
   Players.forEach((player) => {
     try {
       const behaviour = new ColyBehaviour(player.ptr);
@@ -311,7 +279,7 @@ export function esp() {
         }
       }
 
-    } catch {}
+    } catch (err){ console.log(err)}
   });
 
   onscreen.length = 0;
@@ -321,12 +289,12 @@ function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
-function lerpAngle(a, b, t) {
+export function lerpAngle(a, b, t) {
   const delta = normalizeAngle(b - a);
   return normalizeAngle(a + delta * t);
 }
 
-function normalizeAngle(a) {
+export function normalizeAngle(a) {
   a %= 360;
   if (a > 180) a -= 360;
   if (a < -180) a += 360;

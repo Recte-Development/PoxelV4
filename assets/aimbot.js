@@ -1,13 +1,13 @@
 import {
     ColyShooter, ColyBehaviour, Component, Camera,
-    Transform
+    Transform, CharacterCamera
 } from "../structs";
 import {Players} from "../main";
-import {localPlayer, weaponCamera} from "./hooks/shooter";
+import {localPlayer, weaponCamera, movementcontroller, charcam} from "./hooks/shooter";
 import { config } from "./ui/config";
 import { keysPressed, nullCheck, Vector3, buttonsPressed} from "./utils"
 import { humanBonePaths } from "./humanbodybones";
-import { w2s, onScreen, isTeam } from "./render";
+import { w2s, onScreen, isTeam, lerpAngle, normalizeAngle } from "./render";
 
 export function centerOfScreen(){
     
@@ -94,18 +94,33 @@ export function main(){
     switch (config.rage.aimbotType)
     {
         // Mostly made for testing
-        case "Magic": {
-            var wc = new Component(weaponCamera).transform;
+        case "Internal": {
+            let aimoffset = 0;
+            switch (config.rage.aimBone) {
+                case "Chest": aimoffset = -0.6; break;
+                case "Hips":  aimoffset = -1.1; break;
+            }
 
-            trans = comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone]));
+            const selfPos   = Vector3.readFrom(comp.transform.position);
+            const targetPos = Vector3.readFrom(comp1.transform.position);
 
-            wc.position = trans.position;
-            wc.position.y += 2;
+            const dx = targetPos.x - selfPos.x;
+            const dy = (targetPos.y + aimoffset) - selfPos.y;
+            const dz = targetPos.z - selfPos.z;
 
-            wc.transform.position = trans.position;
-            wc.transform.position.y += 2;
+            const targetYrot = normalizeAngle(Math.atan2(dx, dz) * (180 / Math.PI));
+            const targetXrot = Math.max(-90, Math.min(90, Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)) * (180 / Math.PI)));
 
-            wc.LookAt_worldPosition(trans);
+            const charcamInst = new CharacterCamera(charcam);
+            const currentY = normalizeAngle(movementcontroller.currentYRot);
+            const currentX = normalizeAngle(-charcamInst.xRot);
+
+            const yrot = lerpAngle(currentY, targetYrot, config.rage.aimSpeed);
+            const xrot = -lerpAngle(currentX, targetXrot, config.rage.aimSpeed);
+
+            movementcontroller.currentYRot = yrot;
+            charcamInst.xRot = xrot;
+
             break;
         }
         case "Silent": {

@@ -280,7 +280,52 @@ export class Obscured2 {
     return new DataView(buf).getInt32(0, true);
   }
 }
+export class Quaternion {
+    constructor(x = 0, y = 0, z = 0, w = 0) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
+    static zero() {
+        return new Quaternion(0, 0, 0, 0);
+    }
+    static readFrom(ptr) {
+        return new Quaternion(
+            ptr.readField(0x0, 'f32').val(),
+            ptr.readField(0x4, 'f32').val(),
+            ptr.readField(0x8, 'f32').val(),
+            ptr.readField(0xC, 'f32').val()
+        );
+    }
+    writeTo(ptr) {
+        ptr.writeField(0x0, 'f32', this.x);
+        ptr.writeField(0x4, 'f32', this.y);
+        ptr.writeField(0x8, 'f32', this.z);
+        ptr.writeField(0xC, 'f32', this.w);
+    }
+    createPtr() {
+        const ptr = ctx.malloc(0x10);
+        this.writeTo(ptr);
+        return ptr;
+    }
+    static Euler(xDeg = 0, yDeg = 0, zDeg = 0) {
+        const radX = xDeg * (Math.PI / 180);
+        const radY = yDeg * (Math.PI / 180);
+        const radZ = zDeg * (Math.PI / 180);
 
+        const cx = Math.cos(radX/2), sx = Math.sin(radX/2);
+        const cy = Math.cos(radY/2), sy = Math.sin(radY/2);
+        const cz = Math.cos(radZ/2), sz = Math.sin(radZ/2);
+
+        const w = cx*cy*cz + sx*sy*sz;
+        const x = sx*cy*cz - cx*sy*sz;
+        const y = cx*sy*cz + sx*cy*sz;
+        const z = cx*cy*sz - sx*sy*cz;
+
+        return new Quaternion(x, y, z, w);
+    }
+}
 export class QuaternionUtils {
   constructor(x = 0, y = 0, z = 0, w = 0) {
     this.x = x;

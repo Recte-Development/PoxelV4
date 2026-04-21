@@ -1,9 +1,10 @@
-import { SettingsManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager } from "../../structs.js";
+import { Weapon, SettingsManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion } from "../../structs.js";
 import { config } from "../ui/config.js";
-import { keysPressed, LocalArray, Quaternion, Vector3, nullCheck, ChatBypass, randomRange } from "../utils.js";
+import { keysPressed, LocalArray, Vector3, nullCheck, ChatBypass, randomRange, QuaternionUtils } from "../utils.js";
 import { Players } from "../../main.js";
 import { } from "../render.js";
 import { main, getTargets } from "../aimbot.js";
+import { humanBonePaths } from "../humanbodybones.js";
 export let currentMode = null;
 export let localPlayer = null;
 export let localPlayerPtr = null;
@@ -11,7 +12,44 @@ export let localPlayerSessionId = null;
 export let chatManager = null;
 export let weaponCamera = null;
 export let settingsConfig = null;
+let ignoreNextShoot = false;
+export let movementcontroller = null;
+export let charcam = null;
 
+let _tpDeltaX = 0;
+let _tpDeltaY = 0;
+let _tpWasActive = false;
+let _gfxGameObject = null;
+let _gfxPlayerPtr = null;
+
+function _getGfxGameObject() {
+    if (_gfxGameObject && _gfxPlayerPtr === localPlayer?.ptr) return _gfxGameObject;
+    _gfxGameObject = null;
+    _gfxPlayerPtr = null;
+    if (!localPlayer) return null;
+    try {
+        const playerTrans = new Component(localPlayer.ptr).transform;
+        const gfxTrans = playerTrans.Find(window.ctx.createMstr("Global/Root/gfx"));
+        if (nullCheck(gfxTrans)) return null;
+        _gfxGameObject = new Component(gfxTrans.ptr).gameObject;
+        _gfxPlayerPtr = localPlayer.ptr;
+    } catch (e) {
+        console.warn("getGfxGameObject:", e);
+    }
+    return _gfxGameObject;
+}
+
+function _setPlayerModelVisible(visible) {
+    const go = _getGfxGameObject();
+    if (go) go.SetActive(visible);
+}
+
+function _normalizeAngle(a) {
+    a %= 360;
+    if (a > 180) a -= 360;
+    if (a < -180) a += 360;
+    return a;
+}
 
 
 export function shooterhooks() {
@@ -26,8 +64,82 @@ export function shooterhooks() {
     try {
         console.log("Starting Hooks")
 
+        document.addEventListener('mousemove', (e) => {
+            if (!config.misc.thirdPerson) return;
+            _tpDeltaX += e.movementX;
+            _tpDeltaY += e.movementY;
+        });
 
+        window.ctx.hookPrefix({
+        typeName: 'KinematicCharacterController.Examples.CharacterCamera',
+        methodName: 'Update',
+        params: ['i32', 'i32']
+        }, (ptr) => {
+            charcam = ptr;
 
+            const tpActive = config.misc.thirdPerson;
+
+            if (tpActive) {
+                _setPlayerModelVisible(true);
+            } else if (_tpWasActive) {
+                _setPlayerModelVisible(false);
+                _gfxGameObject = null;
+                _gfxPlayerPtr = null;
+            }
+            _tpWasActive = tpActive;
+
+            if (!tpActive || !localPlayer || !movementcontroller) return;
+
+            try {
+                const sensitivity = 0.2;
+                const camInst = new CharacterCamera(ptr);
+
+                // Apply accumulated mouse delta to angles
+                // movementY is negative when mouse moves up, so + here gives correct look-up behaviour
+                let xRot = camInst.xRot + _tpDeltaY * sensitivity;
+                xRot = Math.max(-89, Math.min(89, xRot));
+                camInst.xRot = xRot;
+
+                const yRot = _normalizeAngle(movementcontroller.currentYRot + _tpDeltaX * sensitivity);
+                movementcontroller.currentYRot = yRot;
+
+                _tpDeltaX = 0;
+                _tpDeltaY = 0;
+
+                // Compute offset direction from yaw + pitch
+                const yRad = yRot * Math.PI / 180;
+                const xRad = xRot * Math.PI / 180;
+                const cosX = Math.cos(xRad);
+
+                // Get player head position
+                const playerTrans = new Component(localPlayer.ptr).transform;
+                const headPos = Vector3.readFrom(
+                    playerTrans.Find(window.ctx.createMstr(humanBonePaths.Neck)).position
+                );
+
+                const dist = config.misc.thirdPersonDist;
+                const camPos = new Vector3(
+                    headPos.x - Math.sin(yRad) * cosX * dist,
+                    headPos.y + Math.sin(xRad) * dist + 0.5,
+                    headPos.z - Math.cos(yRad) * cosX * dist
+                );
+
+                const camTrans = camInst.Transform;
+                camTrans.position = camPos.createPtr();
+                camTrans.rotation = Quaternion.Euler_x_y_z(xRot, yRot, 0);
+            } catch (e) {
+                console.warn("thirdPerson:", e);
+            }
+
+            return false;
+        })
+        window.ctx.hookPrefix({
+        typeName: 'ColyShooter',
+        methodName: 'CommitSuicide',
+        params: ['i32', 'i32']
+        }, (ptr) => {
+        return !config.misc.neverSuicide;
+        })
 
         window.ctx.hookPrefix({
             typeName: "ColyShooter",
@@ -38,8 +150,6 @@ export function shooterhooks() {
             let shooter = new ColyShooter(ptr);
             if (!Players.has(player.sessionId) && !player.isMine) {
                 Players.set(player.sessionId, { 'ptr': ptr, 'timestamp': Date.now() })
-
-                console.log(`Added: ${player.Nickname.mstr()} to the playerlist`)
             }
             if (player.isMine) {
                 localPlayer = new ColyShooter(ptr);
@@ -48,9 +158,66 @@ export function shooterhooks() {
             }
 
             if (config.rage.killAll && !player.isMine) shooter.CommitSuicide();
+        });
 
-            
-                
+        window.ctx.hookPrefix({
+            typeName: 'ColyShooter',
+            methodName: 'SendRPCShoot',
+            params: ['i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32']
+        }, (ptr, targetsessionid, hitpos, hittype, damage, shotid, isSuicide) => {
+            if (ignoreNextShoot) {
+                ignoreNextShoot = false;
+                return; 
+            }
+
+            const targets = getTargets();
+            if (targets.length == 0) return;
+
+
+            const target = targets[0]
+
+            if (config.rage.aimbotType === "Magic" && config.rage.aimbot) {
+                hitpos = new Component(target.ptr).transform.position
+                targetsessionid = ctx.createMstr(new ColyBehaviour(target.ptr).colyView.sessionId)
+            }
+
+
+            if (target && config.rage.wallBang && targetsessionid.mstr() === "") {
+                targetsessionid = ctx.createMstr(new ColyBehaviour(target.ptr).colyView.sessionId);
+            }
+
+            let finalTarget = targetsessionid;
+            let finalHitPos = hitpos;
+            let finalDamage = damage.val();
+
+            if (config.rage.randomHit) {
+                if (targetsessionid.mstr() === "") {
+                    const player = Players[Math.floor(Math.random() * Players.length)];
+
+                    finalTarget = ctx.createMstr(new ColyBehaviour(player.ptr).colyView.sessionId);
+                    finalHitPos = new Component(player.ptr).transform.position
+                    hittype = 4;
+                }
+            }
+
+            if (config.rage.oneShot) {
+                finalDamage = 150;
+            } else if (config.rage.damage !== 0) {
+                finalDamage = config.rage.damage;
+            }
+
+            ignoreNextShoot = true;
+            if (finalDamage <= 0) finalDamage = damage;
+            new ColyShooter(ptr).SendRPCShoot(
+                finalTarget,
+                finalHitPos,
+                hittype,
+                finalDamage,
+                shotid,
+                isSuicide
+            );
+
+            return false;
         });
 
         let defaultDashForce = null;
@@ -60,7 +227,7 @@ export function shooterhooks() {
             params: ['i32', 'i32']
         }, (ptr) => {
             let mc = new MovementController(ptr);
-
+            movementcontroller = mc;
             if (config.misc.infDash) mc.lastDashTime = 0;
             if (config.misc.customDashForce){
                 if (!defaultDashForce) defaultDashForce = mc.dashForce;
@@ -96,7 +263,6 @@ export function shooterhooks() {
             }
             if (Players.has(player.sessionId)) {
                 Players.delete(player.sessionId);
-                console.log(`Removed: ${player.Nickname.mstr()} from the playerlist`)
             }
         });
 
@@ -116,6 +282,15 @@ export function shooterhooks() {
         }, (ptr) => {
             am = new AimManager(ptr);
             weaponCamera = am.weaponCamera.ptr
+            
+        });
+        
+
+        window.ctx.hookPrefix({
+            typeName: "ColyTransform",
+            methodName: "SendPositionUpdate",
+            params: ['i32', 'i32', 'i32', 'f32', 'i32']
+        }, (ptr, newPosition, newRotation, neck) => {
             
         });
 

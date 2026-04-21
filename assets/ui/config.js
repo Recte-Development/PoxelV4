@@ -9,6 +9,11 @@ export let config = {
         aimbotType: "Silent",
         aimBone: "Neck", 
 
+        wallBang: false,
+        randomHit: false,
+        oneShot: false,
+        damage: 0,
+
         drawFOV: false,
         fovCheck: false,
         aimbotFOV: 150,
@@ -52,6 +57,11 @@ export let config = {
 
         customFOV: false,
         customFOVAmount: 120,
+
+        neverSuicide: false,
+
+        thirdPerson: false,
+        thirdPersonDist: 3,
     },
     visuals: {
         teamCheck: true,
