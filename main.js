@@ -5,7 +5,7 @@ import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSess
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
   RaycastHit, AFKManager, ChatUIManager, MovementController,
   Camera, Time,Input, 
-  Component, SettingsManager, SettingsConfiguration,
+  Component, SettingsManager, SettingsConfiguration, NotificationManager,
   Ray, CharacterCamera, Weapon,
   Quaternion,
   ColyTransform, } from "./structs.js"
@@ -28,10 +28,12 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
   loadAndInitPlugin().then((ctx) => {
     
     document.addEventListener("keydown", (e) => {
-      if (e.key.toLowerCase() === config.settings.toggle.toLowerCase()) {
+      if (e.code.toLowerCase() == config.settings.toggle.toLowerCase()) {
         ui.togglevis();
       }
     });
+    
+
 
     
     shooterhooks();
@@ -84,7 +86,7 @@ export const ui = new UiMain("Recte - Poxel", "1.0.0");
 
       const skeleton = ui.addSection(panel, "Skeleton");
       ui.addToggleRow(skeleton, "Enabled", config.visuals, "skeleton");
-      ui.addSliderRow(boxes, "Thickness", config.visuals, "skeletonThickness", 1, 10, .1);
+      ui.addSliderRow(skeleton, "Thickness", config.visuals, "skeletonThickness", 1, 10, .1);
       ui.addColorRow(skeleton, "Color", config.visuals, "skeletonColor");
 
       /*
@@ -243,6 +245,13 @@ wallBang: false,
 
     });
 
+    ui.addTab("Settings", (panel) =>{
+      const main = ui.addSection(panel, "Keybinds");
+      
+      ui.addSelectRow(main, 'Menu Toggle Key', config.settings.keyOptions, config.settings, 'toggle');
+      ui.addSelectRow(main, 'Godmode Key', config.settings.keyOptions, config.settings, 'godmodekey');
+    })
+
     ui.addTab("Credits", (panel) => {
       const main = ui.addSection(panel, "Credits");
       ui.addButton(
@@ -260,7 +269,16 @@ wallBang: false,
     mainloop();
   });
 
-const toggleKeys = {};
+const toggleKeys = {
+    godmode: false,
+    wallbang: false,
+    chams: false,
+    esp: false,
+    loadout: false,
+    invis: false,
+    fly: false,
+    spinbot: false
+};
 
 function mainloop(timestamp) {
   requestAnimationFrame(mainloop);
@@ -273,6 +291,17 @@ function mainloop(timestamp) {
       init = true;
     }
   } catch {}
+
+   if (keysPressed[config.settings.godmodekey.toLowerCase()]) {
+        if (!toggleKeys.godmode) {
+            new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+      
+            toggleKeys.godmode = true;
+        }
+    } else {
+        toggleKeys.godmode = false;
+    }
+
   document.querySelectorAll(".banner-container").forEach((rawr)=>{rawr.remove()})
 
 }

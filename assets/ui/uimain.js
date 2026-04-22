@@ -13,7 +13,7 @@ const M = {
 };
 
 // Primary accent — use Catppuccin blue to mirror Neverlose's cyan/blue
-const ACC   = M.blue;      // #89b4fa
+const ACC   = M.sapphire;      // #89b4fa
 const ACC_D = '#5a9ef8';   // darker shade for filled track etc.
 
 function deepmerge(target, source) {
@@ -45,10 +45,10 @@ const CSS = `
 
 :root {
     /* Neverlose-style mapping onto Mocha */
-    --bg-deep:    #0d0d12;          /* sidebar */
-    --bg-panel:   #13131a;          /* main area */
-    --bg-card:    #1a1a24;          /* section cards */
-    --bg-row:     #1f1f2c;          /* row hover / input bg */
+    --bg-deep:    #1e1e2e;          /* sidebar */
+    --bg-panel:   #181825;          /* main area */
+    --bg-card:    #313244;          /* section cards */
+    --bg-row:     #585b70;          /* row hover / input bg */
     --border:     rgba(255,255,255,0.06);
     --border-h:   rgba(255,255,255,0.10);
     --text:       ${M.text};
@@ -86,7 +86,8 @@ body { user-select:none; overflow:hidden; }
     box-shadow:
         0 0 0 1px rgba(0,0,0,0.5),
         0 32px 100px rgba(0,0,0,0.9),
-        0 0 80px rgba(137,180,250,0.03);
+        0 0 60px rgba(137,180,250,0.12),
+        0 0 120px rgba(137,180,250,0.06);
 }
 
 /* ─── Top bar ─── */
@@ -289,7 +290,7 @@ body { user-select:none; overflow:hidden; }
 .recte-panel::-webkit-scrollbar { width:4px; }
 .recte-panel::-webkit-scrollbar-track { background:transparent; }
 .recte-panel::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.07); border-radius:2px; }
-.recte-panel.active { display:block; }
+.recte-panel.active { display:block; animation: recte-panel-in 0.2s ease-out; }
 
 /* Multi-column grid layout — like Neverlose's two-column card layout */
 .recte-panel-grid {
@@ -355,7 +356,7 @@ body { user-select:none; overflow:hidden; }
     left:2px; top:2px;
     background: var(--muted);
     border-radius: 50%;
-    transition: 0.2s;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, box-shadow 0.2s;
     box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 input:checked + .recteslider {
@@ -498,6 +499,159 @@ select.recte-select:hover { border-color: var(--border-h); }
     flex-shrink: 0;
 }
 .recte-color-swatch:hover { border-color: var(--acc); transform: scale(1.1); }
+
+/* ─── Animations ─── */
+@keyframes recte-open {
+    0%   { opacity: 0; scale: 0.92; filter: blur(8px); }
+    65%  { opacity: 1; scale: 1.02; filter: blur(0); }
+    100% { opacity: 1; scale: 1;    filter: blur(0); }
+}
+@keyframes recte-close {
+    from { opacity: 1; scale: 1;    filter: blur(0); }
+    to   { opacity: 0; scale: 0.95; filter: blur(6px); }
+}
+.recte-menu--enter { animation: recte-open  0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.recte-menu--exit  { animation: recte-close 0.2s ease-in forwards; }
+
+@keyframes recte-panel-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes recte-section-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.recte-panel.active .recte-section { animation: recte-section-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.recte-panel.active .recte-section:nth-child(1) { animation-delay: 0ms; }
+.recte-panel.active .recte-section:nth-child(2) { animation-delay: 50ms; }
+.recte-panel.active .recte-section:nth-child(3) { animation-delay: 100ms; }
+.recte-panel.active .recte-section:nth-child(4) { animation-delay: 150ms; }
+.recte-panel.active .recte-section:nth-child(5) { animation-delay: 200ms; }
+.recte-panel.active .recte-section:nth-child(6) { animation-delay: 250ms; }
+
+@keyframes recte-bar-in {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+.recte-tab.active::before { animation: recte-bar-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+@keyframes recte-icon-bounce {
+    0%, 100% { transform: translateY(0); }
+    40%      { transform: translateY(-3px); }
+    70%      { transform: translateY(1px); }
+}
+.recte-tab:hover .recte-tab-icon { animation: recte-icon-bounce 0.4s ease; }
+.recte-tab.active .recte-tab-icon {
+    transform: scale(1.18);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.recte-tab:not(.active) .recte-tab-icon {
+    transform: scale(1);
+    transition: transform 0.18s ease;
+}
+
+@keyframes recte-logo-pulse {
+    0%, 100% { filter: drop-shadow(0 0 3px rgba(137,180,250,0.4)); }
+    50%      { filter: drop-shadow(0 0 9px rgba(137,180,250,0.85)); }
+}
+.recte-logo-icon { animation: recte-logo-pulse 3s ease-in-out infinite; }
+
+.recterange::-webkit-slider-thumb:active {
+    transform: scale(1.35);
+    box-shadow: 0 0 0 7px var(--acc-glow);
+}
+
+/* ─── Backdrop blur overlay ─── */
+#recte-blur {
+    position: fixed;
+    inset: 0;
+    z-index: 99997;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    pointer-events: none;
+}
+@keyframes recte-blur-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes recte-blur-out { from { opacity: 1; } to { opacity: 0; } }
+#recte-blur.entering { animation: recte-blur-in  0.25s ease forwards; }
+#recte-blur.exiting  { animation: recte-blur-out 0.2s  ease forwards; }
+
+/* ─── Row left-accent on hover ─── */
+.recte-row {
+    box-shadow: inset 2px 0 0 transparent;
+    transition: background 0.12s, box-shadow 0.18s;
+}
+.recte-row:hover { box-shadow: inset 2px 0 0 var(--acc); }
+
+/* ─── Section card hover depth ─── */
+.recte-section-card {
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.recte-section-card:hover {
+    border-color: rgba(137,180,250,0.18);
+    box-shadow: 0 6px 28px rgba(0,0,0,0.4);
+    transform: translateY(-1px);
+}
+
+/* ─── Toggle bounce ─── */
+@keyframes toggle-pop {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+.rectetoggle.popped .recteslider {
+    animation: toggle-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ─── Slider value pop ─── */
+@keyframes val-pop {
+    0%   { transform: scale(1);    color: var(--muted); }
+    45%  { transform: scale(1.35); color: var(--acc); }
+    100% { transform: scale(1);    color: var(--muted); }
+}
+.recte-range-val { display: inline-block; }
+.recte-range-val.popping { animation: val-pop 0.28s ease; }
+
+/* ─── Ripple ─── */
+.recte-btn, .recte-player-btn, .recte-save-btn, .recte-top-btn {
+    overflow: hidden;
+    position: relative;
+}
+@keyframes recte-ripple {
+    from { transform: scale(0); opacity: 0.45; }
+    to   { transform: scale(4); opacity: 0; }
+}
+.recte-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.28);
+    width: 60px; height: 60px;
+    margin-top: -30px; margin-left: -30px;
+    pointer-events: none;
+    animation: recte-ripple 0.5s ease-out forwards;
+}
+
+/* ─── Color swatch click ─── */
+@keyframes swatch-pop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(0.85); }
+    100% { transform: scale(1.12); }
+}
+.recte-color-swatch:active { animation: swatch-pop 0.2s ease forwards; }
+
+/* ─── Snow particles ─── */
+#recte-snow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99998;
+    display: none;
+}
 `;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -527,7 +681,6 @@ export class UiMain {
                     <span>💾</span> Save
                 </button>
                 <div class="recte-top-actions">
-                    <button class="recte-top-btn" title="Settings">⚙</button>
                     <button class="recte-top-btn" title="Delete config">🗑</button>
                 </div>
             </div>
@@ -546,6 +699,15 @@ export class UiMain {
             </div>
         `;
         document.body.appendChild(menu);
+
+        // Snow container lives in body (like a normal page), not inside the menu
+        const snowEl = document.createElement('div');
+        snowEl.id = 'recte-snow';
+        document.body.appendChild(snowEl);
+
+        const blurEl = document.createElement('div');
+        blurEl.id = 'recte-blur';
+        document.body.appendChild(blurEl);
 
         this.menu = menu;
         this.sidebar = menu.querySelector('.recte-sidebar-inner');
@@ -582,8 +744,12 @@ export class UiMain {
         menu.querySelector('.recte-save-btn').addEventListener('click', () => {
             try { localStorage.setItem('recte_config', JSON.stringify(config)); } catch(e) {}
         });
-        menu.querySelectorAll('.recte-top-btn')[1].addEventListener('click', () =>
+        menu.querySelectorAll('.recte-top-btn')[0].addEventListener('click', () =>
             localStorage.removeItem('recte_config'));
+
+        menu.querySelectorAll('.recte-save-btn, .recte-top-btn').forEach(btn => {
+            btn.addEventListener('click', e => this._ripple(btn, e));
+        });
     }
 
     applyScrollFix(panel) {
@@ -594,9 +760,77 @@ export class UiMain {
         }, { passive: false });
     }
 
+    _loadParticlesJS() {
+        return new Promise(resolve => {
+            if (window.particlesJS) { resolve(); return; }
+            const s = document.createElement('script');
+            s.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+            s.onload = resolve;
+            s.onerror = resolve;
+            document.head.append(s);
+        });
+    }
+
+    _initSnow() {
+        if (this._snowInited) return;
+        this._snowInited = true;
+        this._loadParticlesJS().then(() => {
+            if (!window.particlesJS) return;
+            window.particlesJS('recte-snow', {
+                particles: {
+                    number: { value: 20, density: { enable: true, value_area: 800 } },
+                    color: { value: '#cad3f5' },
+                    opacity: { value: 0.7, random: false, anim: { enable: false } },
+                    size: { value: 5, random: true, anim: { enable: false } },
+                    line_linked: { enable: false },
+                    move: {
+                        enable: true, speed: 1.5, direction: 'bottom',
+                        random: true, straight: false, out_mode: 'out', bounce: false,
+                        attract: { enable: true, rotateX: 300, rotateY: 1200 },
+                    },
+                },
+                interactivity: {
+                    events: {
+                        onhover: { enable: false },
+                        onclick: { enable: false },
+                        resize: false,
+                    },
+                },
+                retina_detect: true,
+            });
+        });
+    }
+
     togglevis() {
+        const snowEl = document.getElementById('recte-snow');
+        const blurEl = document.getElementById('recte-blur');
         const hidden = window.getComputedStyle(this.menu).display === 'none';
-        this.menu.style.display = hidden ? 'flex' : 'none';
+        if (hidden) {
+            this.menu.style.display = 'flex';
+            snowEl.style.display = 'block';
+            blurEl.style.display = 'block';
+            blurEl.classList.remove('exiting');
+            void blurEl.offsetWidth;
+            blurEl.classList.add('entering');
+            this.menu.classList.remove('recte-menu--exit');
+            void this.menu.offsetWidth;
+            this.menu.classList.add('recte-menu--enter');
+            this._initSnow();
+        } else {
+            snowEl.style.display = 'none';
+            blurEl.classList.remove('entering');
+            blurEl.classList.add('exiting');
+            blurEl.addEventListener('animationend', () => {
+                blurEl.style.display = 'none';
+                blurEl.classList.remove('exiting');
+            }, { once: true });
+            this.menu.classList.remove('recte-menu--enter');
+            this.menu.classList.add('recte-menu--exit');
+            this.menu.addEventListener('animationend', () => {
+                this.menu.style.display = 'none';
+                this.menu.classList.remove('recte-menu--exit');
+            }, { once: true });
+        }
     }
 
     /**
@@ -685,6 +919,15 @@ export class UiMain {
         return body;
     }
 
+    _ripple(el, e) {
+        const r = document.createElement('span');
+        r.className = 'recte-ripple';
+        r.style.top  = e.offsetY + 'px';
+        r.style.left = e.offsetX + 'px';
+        el.appendChild(r);
+        r.addEventListener('animationend', () => r.remove());
+    }
+
     syncUI() { for (const fn of this.bindings) fn(); }
 
     _row(label) {
@@ -721,6 +964,10 @@ export class UiMain {
         const input = toggle.querySelector('input');
         input.addEventListener('change', e => {
             obj[key] = e.target.checked;
+            toggle.classList.remove('popped');
+            void toggle.offsetWidth;
+            toggle.classList.add('popped');
+            toggle.addEventListener('animationend', () => toggle.classList.remove('popped'), { once: true });
             if (e.target.checked && typeof onTrue === 'function') onTrue(obj, key);
         });
         this.bindings.push(() => { input.checked = !!obj[key]; });
@@ -770,6 +1017,10 @@ export class UiMain {
             obj[key] = v;
             valLabel.textContent = v;
             this._updateSliderFill(slider);
+            valLabel.classList.remove('popping');
+            void valLabel.offsetWidth;
+            valLabel.classList.add('popping');
+            valLabel.addEventListener('animationend', () => valLabel.classList.remove('popping'), { once: true });
         });
 
         wrap.appendChild(slider);
@@ -800,7 +1051,7 @@ export class UiMain {
         const btn = document.createElement('div');
         btn.className = 'recte-btn';
         btn.textContent = obj[key] ?? label;
-        btn.addEventListener('click', () => { if (callback) callback(obj, key, btn); });
+        btn.addEventListener('click', e => { this._ripple(btn, e); if (callback) callback(obj, key, btn); });
         row.appendChild(btn);
         section.appendChild(row);
         return row;
@@ -827,7 +1078,7 @@ export class UiMain {
                 btn.className = 'recte-player-btn';
                 btn.textContent = lbl;
                 if (typeof callback === 'function')
-                    btn.addEventListener('click', () => callback(player, lbl, btn));
+                    btn.addEventListener('click', e => { this._ripple(btn, e); callback(player, lbl, btn); });
                 wrap.appendChild(btn);
             });
             row.appendChild(wrap);

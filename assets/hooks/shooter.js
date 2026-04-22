@@ -1,4 +1,4 @@
-import { Weapon, SettingsManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion } from "../../structs.js";
+import { Weapon, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Vector3, nullCheck, ChatBypass, randomRange, QuaternionUtils } from "../utils.js";
 import { Players } from "../../main.js";
@@ -51,7 +51,7 @@ function _normalizeAngle(a) {
     return a;
 }
 
-
+let firstLoad = false;
 export function shooterhooks() {
     /*window.ctx.hookPrefix({
           typeName: "BattleLab.CustomPropertiesExtentions",
@@ -63,7 +63,24 @@ export function shooterhooks() {
       })*/
     try {
         console.log("Starting Hooks")
+        window.ctx.hookPrefix({
+        typeName: 'LobbyUIManager',
+        methodName: 'Start',
+        params: ['i32', 'i32']
+        }, (ptr) => {
+            if (!firstLoad)
+            {
+                const isFirefox = typeof InstallTrigger !== 'undefined';
 
+                if (!isFirefox) {
+                    NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr("You're not using FireFox.\nSome cheats may not work please use Firefox for support"), 0)
+                }
+
+                NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr(`Recte has been injected\nPress: ${config.settings.toggle} to toggle the UI`), 3)
+                firstLoad = true
+            }
+            document.querySelectorAll('.banner-container').forEach(el => el.remove())
+        });
         document.addEventListener('mousemove', (e) => {
             if (!config.misc.thirdPerson) return;
             _tpDeltaX += e.movementX;

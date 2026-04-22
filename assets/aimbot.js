@@ -90,10 +90,9 @@ export function main(){
 
     let comp = new Component(lp.ptr);
     let comp1 = new Component(target.ptr);
-   const canvas = document.getElementById("espcanvas");
+    const canvas = document.getElementById("espcanvas");
     switch (config.rage.aimbotType)
     {
-        // Mostly made for testing
         case "Internal": {
             let aimoffset = 0;
             switch (config.rage.aimBone) {
@@ -124,7 +123,12 @@ export function main(){
             break;
         }
         case "Silent": {
-            new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+            // weaponCamera is only active whenever you're aiming in
+            // switching to the CharacterCamera instance is active regardless of aim
+            new CharacterCamera(charcam).Transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+            
+            
+            //new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
             break;
         }
         case "Mouse": {

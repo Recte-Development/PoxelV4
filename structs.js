@@ -1063,6 +1063,17 @@ export class SettingsManager {
     static SetInt(settingName, value) { window.ctx.call("SettingsManager", "SetInt", [settingName, value]); }
 }
 
+export class NotificationManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get instance() { return new NotificationManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get notificationPool() { return JSArray(this.ptr.readField(0x10, 'i32')); }
+    set notificationPool(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    Awake() { window.ctx.call("NotificationManager", "Awake", [this.ptr]); }
+    IShowNotification(title, body, style) { window.ctx.call("NotificationManager", "IShowNotification", [this.ptr, title, body, style]); }
+    static Show(title, body, style) { window.ctx.call("NotificationManager", "Show", [title, body, style]); }
+}
+
 export class SettingsConfiguration {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get EnableMuzzleFlash() { return this.ptr.readField(0x20, 'i32').val() === 1; }
@@ -2424,6 +2435,189 @@ export class Quaternion {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Quaternion", "ToString_22068", [this.ptr, format, formatProvider]); }
 }
 
+export class Object {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get hideFlags() { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags", [this.ptr])); }
+    set hideFlags(v) { window.ctx.call("UnityEngine.Object", "set_hideFlags", [this.ptr, v]); }
+    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]); }
+    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, v]); }
+    get OffsetOfInstanceIDInCPlusPlusObject() { return this.ptr.readField(0x0, 'i32').val(); }
+    set OffsetOfInstanceIDInCPlusPlusObject(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_CachedPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_CachedPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, message]); }
+    static CompareBaseObjects(lhs, rhs) { return window.ctx.call("UnityEngine.Object", "CompareBaseObjects", [lhs, rhs]).val() === 1; }
+    static CurrentThreadIsMainThread() { return window.ctx.call("UnityEngine.Object", "CurrentThreadIsMainThread", []).val() === 1; }
+    static Destroy_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_22674", [obj, t]); }
+    static Destroy_obj(obj) { window.ctx.call("UnityEngine.Object", "Destroy_1974", [obj]); }
+    static DestroyImmediate_obj_allowDestroyingAssets(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22675", [obj, allowDestroyingAssets]); }
+    static DestroyImmediate_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22676", [obj]); }
+    static DestroyImmediate_Injected(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_Injected", [obj, allowDestroyingAssets]); }
+    static DestroyObject_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "DestroyObject_22684", [obj, t]); }
+    static DestroyObject_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyObject_22685", [obj]); }
+    static Destroy_Injected(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_Injected", [obj, t]); }
+    static DoesObjectWithInstanceIDExist(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist", [instanceID]).val() === 1; }
+    static DoesObjectWithInstanceIDExist_Injected(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist_Injected", [instanceID]).val() === 1; }
+    static DontDestroyOnLoad(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad", [target]); }
+    static DontDestroyOnLoad_Injected(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad_Injected", [target]); }
+    EnsureRunningOnMainThread() { window.ctx.call("UnityEngine.Object", "EnsureRunningOnMainThread", [this.ptr]); }
+    Equals(other) { return window.ctx.call("UnityEngine.Object", "Equals", [this.ptr, other]).val() === 1; }
+    static FindAnyObjectByType() { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", []); }
+    static FindAnyObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", [findObjectsInactive]); }
+    static FindAnyObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22692", [type])); }
+    static FindAnyObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22695", [type, findObjectsInactive])); }
+    static FindFirstObjectByType() { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", []); }
+    static FindFirstObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", [findObjectsInactive]); }
+    static FindFirstObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22691", [type])); }
+    static FindFirstObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22694", [type, findObjectsInactive])); }
+    static FindObjectFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID", [instanceID])); }
+    static FindObjectFromInstanceID_Injected(instanceID) { return (()=>{
+					let structptr_333c4c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_333c4c, instanceID]);
+					return structptr_333c4c;
+				})(); }
+    static FindObjectOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", []); }
+    static FindObjectOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", [includeInactive]); }
+    static FindObjectOfType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22690", [type])); }
+    static FindObjectOfType_type_includeInactive(type, includeInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22693", [type, includeInactive])); }
+    static FindObjectsByType_type_sortMode(type, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22679", [type, sortMode]); }
+    static FindObjectsByType_type_findObjectsInactive_sortMode(type, findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22680", [type, findObjectsInactive, sortMode]); }
+    static FindObjectsByType(sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [sortMode]); }
+    static FindObjectsByType(findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [findObjectsInactive, sortMode]); }
+    static FindObjectsOfType_type(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22677", [type]); }
+    static FindObjectsOfType_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22678", [type, includeInactive]); }
+    static FindObjectsOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", []); }
+    static FindObjectsOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", [includeInactive]); }
+    static FindObjectsOfTypeAll(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeAll", [type]); }
+    static FindObjectsOfTypeIncludingAssets(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeIncludingAssets", [type]); }
+    static FindSceneObjectsOfType(type) { return window.ctx.call("UnityEngine.Object", "FindSceneObjectsOfType", [type]); }
+    static ForceLoadFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID", [instanceID])); }
+    static ForceLoadFromInstanceID_Injected(instanceID) { return (()=>{
+					let structptr_a78c41 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_a78c41, instanceID]);
+					return structptr_a78c41;
+				})(); }
+    GetCachedPtr() { return (()=>{
+					let structptr_a85acb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_a85acb, this.ptr]);
+					return structptr_a85acb;
+				})(); }
+    GetEntityId() { return (()=>{
+					let structptr_f58596 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_f58596, this.ptr]);
+					return structptr_f58596;
+				})(); }
+    GetHashCode() { return window.ctx.call("UnityEngine.Object", "GetHashCode", [this.ptr]).val(); }
+    GetInstanceID() { return window.ctx.call("UnityEngine.Object", "GetInstanceID", [this.ptr]).val(); }
+    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]); }
+    static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Object", "GetName_Injected", [_unity_self, ret]); }
+    static GetOffsetOfInstanceIDInCPlusPlusObject() { return window.ctx.call("UnityEngine.Object", "GetOffsetOfInstanceIDInCPlusPlusObject", []).val(); }
+    static GetPtrFromInstanceID(instanceID, objectType, isMonoBehaviour) { return (()=>{
+					let structptr_3cf3d6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_3cf3d6, instanceID, objectType, isMonoBehaviour]);
+					return structptr_3cf3d6;
+				})(); }
+    static GetPtrFromInstanceID_Injected(instanceID, objectType, isMonoBehaviour) { return (()=>{
+					let structptr_9ecef2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_9ecef2, instanceID, objectType, isMonoBehaviour]);
+					return structptr_9ecef2;
+				})(); }
+    static Instantiate_original_position_rotation(original, position, rotation) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22668", [original, position, rotation])); }
+    static Instantiate_original_position_rotation_parent(original, position, rotation, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22669", [original, position, rotation, parent])); }
+    static Instantiate_original(original) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22670", [original])); }
+    static Instantiate_original_scene(original, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22671", [original, scene])); }
+    static Instantiate(original, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parameters]); }
+    static Instantiate(original, position, rotation, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parameters]); }
+    static Instantiate_original_parent(original, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22672", [original, parent])); }
+    static Instantiate_original_parent_instantiateInWorldSpace(original, parent, instantiateInWorldSpace) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22673", [original, parent, instantiateInWorldSpace])); }
+    static Instantiate(original) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original]); }
+    static Instantiate(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation]); }
+    static Instantiate(original, position, rotation, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parent]); }
+    static Instantiate(original, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent]); }
+    static Instantiate(original, parent, worldPositionStays) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent, worldPositionStays]); }
+    static InstantiateAsync(original) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original]); }
+    static InstantiateAsync(original, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent]); }
+    static InstantiateAsync(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation]); }
+    static InstantiateAsync(original, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent, position, rotation]); }
+    static InstantiateAsync(original, count) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count]); }
+    static InstantiateAsync(original, count, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent]); }
+    static InstantiateAsync(original, count, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation]); }
+    static InstantiateAsync(original, count, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations]); }
+    static InstantiateAsync(original, count, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation]); }
+    static InstantiateAsync(original, count, parent, position, rotation, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation, cancellationToken]); }
+    static InstantiateAsync(original, count, parent, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations]); }
+    static InstantiateAsync(original, count, parent, positions, rotations, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations, cancellationToken]); }
+    static InstantiateAsync(original, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parameters, cancellationToken]); }
+    static InstantiateAsync(original, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, positions, rotations, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations, parameters, cancellationToken]); }
+    static Internal_CloneSingle(data) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingle", [data])); }
+    static Internal_CloneSingleWithParams(data, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams", [data, parameters])); }
+    static Internal_CloneSingleWithParams_Injected(data, parameters) { return (()=>{
+					let structptr_45fee7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_45fee7, data, parameters]);
+					return structptr_45fee7;
+				})(); }
+    static Internal_CloneSingleWithParent(data, parent, worldPositionStays) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent", [data, parent, worldPositionStays])); }
+    static Internal_CloneSingleWithParent_Injected(data, parent, worldPositionStays) { return (()=>{
+					let structptr_a0a617 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_a0a617, data, parent, worldPositionStays]);
+					return structptr_a0a617;
+				})(); }
+    static Internal_CloneSingleWithScene(data, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene", [data, scene])); }
+    static Internal_CloneSingleWithScene_Injected(data, scene) { return (()=>{
+					let structptr_dadf11 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_dadf11, data, scene]);
+					return structptr_dadf11;
+				})(); }
+    static Internal_CloneSingle_Injected(data) { return (()=>{
+					let structptr_69361a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_69361a, data]);
+					return structptr_69361a;
+				})(); }
+    static Internal_InstantiateAsyncWithParams(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
+					let structptr_55459e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_55459e, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_55459e;
+				})(); }
+    static Internal_InstantiateAsyncWithParams_Injected(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
+					let structptr_453278 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_453278, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_453278;
+				})(); }
+    static Internal_InstantiateSingle(data, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle", [data, pos, rot])); }
+    static Internal_InstantiateSingleWithParams(data, position, rotation, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams", [data, position, rotation, parameters])); }
+    static Internal_InstantiateSingleWithParams_Injected(data, position, rotation, parameters) { return (()=>{
+					let structptr_707f56 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_707f56, data, position, rotation, parameters]);
+					return structptr_707f56;
+				})(); }
+    static Internal_InstantiateSingleWithParent(data, parent, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent", [data, parent, pos, rot])); }
+    static Internal_InstantiateSingleWithParent_Injected(data, parent, pos, rot) { return (()=>{
+					let structptr_c5b6f3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_c5b6f3, data, parent, pos, rot]);
+					return structptr_c5b6f3;
+				})(); }
+    static Internal_InstantiateSingle_Injected(data, pos, rot) { return (()=>{
+					let structptr_65d4dd = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_65d4dd, data, pos, rot]);
+					return structptr_65d4dd;
+				})(); }
+    static IsNativeObjectAlive(o) { return window.ctx.call("UnityEngine.Object", "IsNativeObjectAlive", [o]).val() === 1; }
+    static IsPersistent(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent", [obj]).val() === 1; }
+    static IsPersistent_Injected(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent_Injected", [obj]).val() === 1; }
+    MarkDirty() { window.ctx.call("UnityEngine.Object", "MarkDirty", [this.ptr]); }
+    static MarkDirty_Injected(_unity_self) { window.ctx.call("UnityEngine.Object", "MarkDirty_Injected", [_unity_self]); }
+    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, name]); }
+    static SetName_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Object", "SetName_Injected", [_unity_self, name]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22696", [this.ptr]); }
+    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22707", [obj]); }
+    static ToString_Injected(obj, ret) { window.ctx.call("UnityEngine.Object", "ToString_Injected", [obj, ret]); }
+    static get_hideFlags_Injected(_unity_self) { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags_Injected", [_unity_self])); }
+    static set_hideFlags_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Object", "set_hideFlags_Injected", [_unity_self, value]); }
+}
+
 export class Physics {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get defaultPhysicsScene() { return (()=>{
@@ -2573,6 +2767,28 @@ export class Ray {
 				})(); }
     ToString_pointer() { return window.ctx.call("UnityEngine.Ray", "ToString_19403", [this.ptr]); }
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Ray", "ToString_19404", [this.ptr, format, formatProvider]); }
+}
+
+export class Collider {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get attachedRigidbody() { return new Rigidbody(window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody", [this.ptr])); }
+    set enabled(v) { window.ctx.call("UnityEngine.Collider", "set_enabled", [this.ptr, v]); }
+    set isTrigger(v) { window.ctx.call("UnityEngine.Collider", "set_isTrigger", [this.ptr, v]); }
+    set sharedMaterial(v) { window.ctx.call("UnityEngine.Collider", "set_sharedMaterial", [this.ptr, v]); }
+    ClosestPoint(position) { return (()=>{
+					let structptr_35e39f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Collider", "ClosestPoint", [structptr_35e39f, this.ptr, position]);
+					return structptr_35e39f;
+				})(); }
+    static ClosestPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Collider", "ClosestPoint_Injected", [_unity_self, position, ret]); }
+    static get_attachedRigidbody_Injected(_unity_self) { return (()=>{
+					let structptr_a22939 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody_Injected", [structptr_a22939, _unity_self]);
+					return structptr_a22939;
+				})(); }
+    static set_enabled_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_enabled_Injected", [_unity_self, value]); }
+    static set_isTrigger_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_isTrigger_Injected", [_unity_self, value]); }
+    static set_sharedMaterial_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_sharedMaterial_Injected", [_unity_self, value]); }
 }
 
 export class ColyHealth {
@@ -5897,6 +6113,10 @@ export class CanvasGroup {
     static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
 }
 
+export class HideFlags {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class Collision {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     set Flipped(v) { window.ctx.call("UnityEngine.Collision", "set_Flipped", [this.ptr, v]); }
@@ -5909,28 +6129,6 @@ export class Collision {
     get m_Pair() { return new ContactPair(this.ptr.readField(0x28, 'i32')); }
     set m_Pair(v) { return this.ptr.writeField(0x28, 'i32', v); }
     Reuse(header, pair) { window.ctx.call("UnityEngine.Collision", "Reuse", [this.ptr, header, pair]); }
-}
-
-export class Collider {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get attachedRigidbody() { return new Rigidbody(window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody", [this.ptr])); }
-    set enabled(v) { window.ctx.call("UnityEngine.Collider", "set_enabled", [this.ptr, v]); }
-    set isTrigger(v) { window.ctx.call("UnityEngine.Collider", "set_isTrigger", [this.ptr, v]); }
-    set sharedMaterial(v) { window.ctx.call("UnityEngine.Collider", "set_sharedMaterial", [this.ptr, v]); }
-    ClosestPoint(position) { return (()=>{
-					let structptr_35e39f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Collider", "ClosestPoint", [structptr_35e39f, this.ptr, position]);
-					return structptr_35e39f;
-				})(); }
-    static ClosestPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Collider", "ClosestPoint_Injected", [_unity_self, position, ret]); }
-    static get_attachedRigidbody_Injected(_unity_self) { return (()=>{
-					let structptr_a22939 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody_Injected", [structptr_a22939, _unity_self]);
-					return structptr_a22939;
-				})(); }
-    static set_enabled_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_enabled_Injected", [_unity_self, value]); }
-    static set_isTrigger_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_isTrigger_Injected", [_unity_self, value]); }
-    static set_sharedMaterial_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_sharedMaterial_Injected", [_unity_self, value]); }
 }
 
 export class Rigidbody {
@@ -6303,189 +6501,6 @@ export class DamageCircleUI {
     set playerParent(v) { return this.ptr.writeField(0x10, 'i32', v); }
     Init(_hitter) { window.ctx.call("DamageCircleUI", "Init", [this.ptr, _hitter]); }
     Update() { window.ctx.call("DamageCircleUI", "Update", [this.ptr]); }
-}
-
-export class Object {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get hideFlags() { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags", [this.ptr])); }
-    set hideFlags(v) { window.ctx.call("UnityEngine.Object", "set_hideFlags", [this.ptr, v]); }
-    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]); }
-    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, v]); }
-    get OffsetOfInstanceIDInCPlusPlusObject() { return this.ptr.readField(0x0, 'i32').val(); }
-    set OffsetOfInstanceIDInCPlusPlusObject(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get m_CachedPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
-    set m_CachedPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, message]); }
-    static CompareBaseObjects(lhs, rhs) { return window.ctx.call("UnityEngine.Object", "CompareBaseObjects", [lhs, rhs]).val() === 1; }
-    static CurrentThreadIsMainThread() { return window.ctx.call("UnityEngine.Object", "CurrentThreadIsMainThread", []).val() === 1; }
-    static Destroy_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_22674", [obj, t]); }
-    static Destroy_obj(obj) { window.ctx.call("UnityEngine.Object", "Destroy_1974", [obj]); }
-    static DestroyImmediate_obj_allowDestroyingAssets(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22675", [obj, allowDestroyingAssets]); }
-    static DestroyImmediate_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22676", [obj]); }
-    static DestroyImmediate_Injected(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_Injected", [obj, allowDestroyingAssets]); }
-    static DestroyObject_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "DestroyObject_22684", [obj, t]); }
-    static DestroyObject_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyObject_22685", [obj]); }
-    static Destroy_Injected(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_Injected", [obj, t]); }
-    static DoesObjectWithInstanceIDExist(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist", [instanceID]).val() === 1; }
-    static DoesObjectWithInstanceIDExist_Injected(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist_Injected", [instanceID]).val() === 1; }
-    static DontDestroyOnLoad(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad", [target]); }
-    static DontDestroyOnLoad_Injected(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad_Injected", [target]); }
-    EnsureRunningOnMainThread() { window.ctx.call("UnityEngine.Object", "EnsureRunningOnMainThread", [this.ptr]); }
-    Equals(other) { return window.ctx.call("UnityEngine.Object", "Equals", [this.ptr, other]).val() === 1; }
-    static FindAnyObjectByType() { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", []); }
-    static FindAnyObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", [findObjectsInactive]); }
-    static FindAnyObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22692", [type])); }
-    static FindAnyObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22695", [type, findObjectsInactive])); }
-    static FindFirstObjectByType() { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", []); }
-    static FindFirstObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", [findObjectsInactive]); }
-    static FindFirstObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22691", [type])); }
-    static FindFirstObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22694", [type, findObjectsInactive])); }
-    static FindObjectFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID", [instanceID])); }
-    static FindObjectFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_333c4c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_333c4c, instanceID]);
-					return structptr_333c4c;
-				})(); }
-    static FindObjectOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", []); }
-    static FindObjectOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", [includeInactive]); }
-    static FindObjectOfType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22690", [type])); }
-    static FindObjectOfType_type_includeInactive(type, includeInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22693", [type, includeInactive])); }
-    static FindObjectsByType_type_sortMode(type, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22679", [type, sortMode]); }
-    static FindObjectsByType_type_findObjectsInactive_sortMode(type, findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22680", [type, findObjectsInactive, sortMode]); }
-    static FindObjectsByType(sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [sortMode]); }
-    static FindObjectsByType(findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [findObjectsInactive, sortMode]); }
-    static FindObjectsOfType_type(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22677", [type]); }
-    static FindObjectsOfType_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22678", [type, includeInactive]); }
-    static FindObjectsOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", []); }
-    static FindObjectsOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", [includeInactive]); }
-    static FindObjectsOfTypeAll(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeAll", [type]); }
-    static FindObjectsOfTypeIncludingAssets(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeIncludingAssets", [type]); }
-    static FindSceneObjectsOfType(type) { return window.ctx.call("UnityEngine.Object", "FindSceneObjectsOfType", [type]); }
-    static ForceLoadFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID", [instanceID])); }
-    static ForceLoadFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_a78c41 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_a78c41, instanceID]);
-					return structptr_a78c41;
-				})(); }
-    GetCachedPtr() { return (()=>{
-					let structptr_a85acb = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_a85acb, this.ptr]);
-					return structptr_a85acb;
-				})(); }
-    GetEntityId() { return (()=>{
-					let structptr_f58596 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_f58596, this.ptr]);
-					return structptr_f58596;
-				})(); }
-    GetHashCode() { return window.ctx.call("UnityEngine.Object", "GetHashCode", [this.ptr]).val(); }
-    GetInstanceID() { return window.ctx.call("UnityEngine.Object", "GetInstanceID", [this.ptr]).val(); }
-    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]); }
-    static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Object", "GetName_Injected", [_unity_self, ret]); }
-    static GetOffsetOfInstanceIDInCPlusPlusObject() { return window.ctx.call("UnityEngine.Object", "GetOffsetOfInstanceIDInCPlusPlusObject", []).val(); }
-    static GetPtrFromInstanceID(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_3cf3d6 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_3cf3d6, instanceID, objectType, isMonoBehaviour]);
-					return structptr_3cf3d6;
-				})(); }
-    static GetPtrFromInstanceID_Injected(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_9ecef2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_9ecef2, instanceID, objectType, isMonoBehaviour]);
-					return structptr_9ecef2;
-				})(); }
-    static Instantiate_original_position_rotation(original, position, rotation) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22668", [original, position, rotation])); }
-    static Instantiate_original_position_rotation_parent(original, position, rotation, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22669", [original, position, rotation, parent])); }
-    static Instantiate_original(original) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22670", [original])); }
-    static Instantiate_original_scene(original, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22671", [original, scene])); }
-    static Instantiate(original, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parameters]); }
-    static Instantiate(original, position, rotation, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parameters]); }
-    static Instantiate_original_parent(original, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22672", [original, parent])); }
-    static Instantiate_original_parent_instantiateInWorldSpace(original, parent, instantiateInWorldSpace) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22673", [original, parent, instantiateInWorldSpace])); }
-    static Instantiate(original) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original]); }
-    static Instantiate(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation]); }
-    static Instantiate(original, position, rotation, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parent]); }
-    static Instantiate(original, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent]); }
-    static Instantiate(original, parent, worldPositionStays) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent, worldPositionStays]); }
-    static InstantiateAsync(original) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original]); }
-    static InstantiateAsync(original, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent]); }
-    static InstantiateAsync(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation]); }
-    static InstantiateAsync(original, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent, position, rotation]); }
-    static InstantiateAsync(original, count) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count]); }
-    static InstantiateAsync(original, count, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent]); }
-    static InstantiateAsync(original, count, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation]); }
-    static InstantiateAsync(original, count, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations]); }
-    static InstantiateAsync(original, count, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation]); }
-    static InstantiateAsync(original, count, parent, position, rotation, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation, cancellationToken]); }
-    static InstantiateAsync(original, count, parent, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations]); }
-    static InstantiateAsync(original, count, parent, positions, rotations, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations, cancellationToken]); }
-    static InstantiateAsync(original, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parameters, cancellationToken]); }
-    static InstantiateAsync(original, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, positions, rotations, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations, parameters, cancellationToken]); }
-    static Internal_CloneSingle(data) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingle", [data])); }
-    static Internal_CloneSingleWithParams(data, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams", [data, parameters])); }
-    static Internal_CloneSingleWithParams_Injected(data, parameters) { return (()=>{
-					let structptr_45fee7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_45fee7, data, parameters]);
-					return structptr_45fee7;
-				})(); }
-    static Internal_CloneSingleWithParent(data, parent, worldPositionStays) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent", [data, parent, worldPositionStays])); }
-    static Internal_CloneSingleWithParent_Injected(data, parent, worldPositionStays) { return (()=>{
-					let structptr_a0a617 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_a0a617, data, parent, worldPositionStays]);
-					return structptr_a0a617;
-				})(); }
-    static Internal_CloneSingleWithScene(data, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene", [data, scene])); }
-    static Internal_CloneSingleWithScene_Injected(data, scene) { return (()=>{
-					let structptr_dadf11 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_dadf11, data, scene]);
-					return structptr_dadf11;
-				})(); }
-    static Internal_CloneSingle_Injected(data) { return (()=>{
-					let structptr_69361a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_69361a, data]);
-					return structptr_69361a;
-				})(); }
-    static Internal_InstantiateAsyncWithParams(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_55459e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_55459e, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_55459e;
-				})(); }
-    static Internal_InstantiateAsyncWithParams_Injected(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_453278 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_453278, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_453278;
-				})(); }
-    static Internal_InstantiateSingle(data, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle", [data, pos, rot])); }
-    static Internal_InstantiateSingleWithParams(data, position, rotation, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams", [data, position, rotation, parameters])); }
-    static Internal_InstantiateSingleWithParams_Injected(data, position, rotation, parameters) { return (()=>{
-					let structptr_707f56 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_707f56, data, position, rotation, parameters]);
-					return structptr_707f56;
-				})(); }
-    static Internal_InstantiateSingleWithParent(data, parent, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent", [data, parent, pos, rot])); }
-    static Internal_InstantiateSingleWithParent_Injected(data, parent, pos, rot) { return (()=>{
-					let structptr_c5b6f3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_c5b6f3, data, parent, pos, rot]);
-					return structptr_c5b6f3;
-				})(); }
-    static Internal_InstantiateSingle_Injected(data, pos, rot) { return (()=>{
-					let structptr_65d4dd = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_65d4dd, data, pos, rot]);
-					return structptr_65d4dd;
-				})(); }
-    static IsNativeObjectAlive(o) { return window.ctx.call("UnityEngine.Object", "IsNativeObjectAlive", [o]).val() === 1; }
-    static IsPersistent(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent", [obj]).val() === 1; }
-    static IsPersistent_Injected(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent_Injected", [obj]).val() === 1; }
-    MarkDirty() { window.ctx.call("UnityEngine.Object", "MarkDirty", [this.ptr]); }
-    static MarkDirty_Injected(_unity_self) { window.ctx.call("UnityEngine.Object", "MarkDirty_Injected", [_unity_self]); }
-    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, name]); }
-    static SetName_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Object", "SetName_Injected", [_unity_self, name]); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22696", [this.ptr]); }
-    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22707", [obj]); }
-    static ToString_Injected(obj, ret) { window.ctx.call("UnityEngine.Object", "ToString_Injected", [obj, ret]); }
-    static get_hideFlags_Injected(_unity_self) { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags_Injected", [_unity_self])); }
-    static set_hideFlags_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Object", "set_hideFlags_Injected", [_unity_self, value]); }
 }
 
 export class Avatar {
@@ -8179,10 +8194,6 @@ export class RigidbodyConstraints {
 }
 
 export class RigidbodyInterpolation {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class HideFlags {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 

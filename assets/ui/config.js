@@ -91,9 +91,9 @@ export let config = {
         
     },
     settings: {
-        toggle: 'P',
+        toggle: 'ShiftRight',
         keyOptions: [
-            "Shift", "Ctrl", "Alt",
+            "ShiftLeft", "Ctrl", "Alt", "ShiftRight",
             "Space", "CapsLock", "Tab",
             "Q", "E", "R", "F", "V", "B", "0", "Insert", "F9", "O", "I", "P", "Backquote", "G", "C", "L", "F", "None"
         ],

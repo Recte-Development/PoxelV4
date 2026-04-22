@@ -5,7 +5,7 @@ import {
   Camera,
   Component,
   Ray,
-  Quaternion, GameObject, Transform, MyRoomState,
+  Quaternion, GameObject, Transform, MyRoomState, Collider,
 
   ColyShooter, ColyBehaviour, ColyView, ColyHealth, NeckController, ColyTransform, Type, ColyTeamMember, GameModeData, GameModeManager, GameMode,
 } from "../structs";
@@ -19,7 +19,7 @@ import {
 import { config } from "./ui/config";
 import { humanBonePaths, boneLinks } from "./humanbodybones";
 import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode } from "./hooks/shooter";
-
+import {TransformHierarchy} from "./network"
 window.offset = 2;
 export let onscreen = [];
 export let closestplayer = null;
@@ -42,6 +42,34 @@ export function refreshCamera() {
   } catch (e) {
     _cam = null;
   }
+}
+
+
+
+function isVisible(player){
+  if (!_camPos) return false;
+
+  //let comps = new Component(player.ptr).gameObject.GetComponentByName("UnityEngine.Component")
+  //console.log(comps)
+
+  var campos = _camPos; // already a Vector3
+  var pcpos = Vector3.readFrom(new Component(player.ptr).transform.position);
+
+  var direction = pcpos.subtract(campos).createPtr();
+  var camposPtr = campos.createPtr();
+
+  let hitinfo = window.ctx.malloc(0x48);
+  var layermask = ~((1 << 0) | (1 << 3) | (1 << 13));
+  
+  var dist = parseFloat(pcpos.distance(campos));
+  var hit = Physics.Raycast_origin_direction_hitInfo_maxDistance_layerMask(camposPtr, direction, hitinfo, dist, layermask);
+  
+  try{
+  let hi = new RaycastHit(hitinfo);
+  console.log(new Component(hi.transform.ptr).gameObject)}
+  catch {}
+  
+  return !hit;
 }
 
 export function w2s(canvas, worldpoint) {
@@ -251,6 +279,7 @@ export function esp() {
           const fp = Vector3.readFrom(footWorldPos);
           text += `\n[${Math.round(Math.hypot(fp.x - selfPos.x, fp.y - selfPos.y, fp.z - selfPos.z))}m]`;
         }
+        text += ` | ${isVisible(player)}`
         espObj.DrawText(text, headScreen.x, headScreen.y + 2, 12, nametagsColor);
       }
 
