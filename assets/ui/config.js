@@ -90,6 +90,26 @@ export let config = {
         skeletonThickness: 2,
         
     },
+    client: {
+        accent:      '#7c6aff',
+        text:        '#e8e6ff',
+        subtext:     '#9896b8',
+        muted:       '#555470',
+        card:        'rgba(255,255,255,0.04)',
+        cardHover:   'rgba(255,255,255,0.07)',
+        border:      'rgba(255,255,255,0.07)',
+        borderHover: 'rgba(255,255,255,0.14)',
+        background:  '#0b0b10',
+    },
+    snow: {
+        enabled: true,
+        color: '#cad3f5',
+        amount: 20,
+        size: 5,
+        randomSize: true,
+        speed: 1.5,
+        opacity: 0.7,
+    },
     settings: {
         toggle: 'ShiftRight',
         keyOptions: [
