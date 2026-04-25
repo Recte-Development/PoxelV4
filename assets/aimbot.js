@@ -3,7 +3,7 @@ import {
     Transform, CharacterCamera
 } from "../structs";
 import {Players} from "../main";
-import {localPlayer, weaponCamera, movementcontroller, charcam} from "./hooks/shooter";
+import {localPlayer, weaponCamera, movementcontroller, charcam} from "./hooks/hooks";
 import { config } from "./ui/config";
 import { keysPressed, nullCheck, Vector3, buttonsPressed} from "./utils"
 import { humanBonePaths } from "./humanbodybones";

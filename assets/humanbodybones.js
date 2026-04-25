@@ -61,3 +61,26 @@ export const boneLinks = [
     { from: humanBonePaths.LeftLowerLeg, to: humanBonePaths.LeftFoot },
 ];
 
+
+const CHICKEN = 'chicken';
+
+export const chickenBonePaths = {
+  ChickenRoot:          CHICKEN,
+  ChickenBody:          `${CHICKEN}/body`,
+  ChickenRightLeg:      `${CHICKEN}/leg_r`,
+  ChickenLeftLeg:       `${CHICKEN}/leg_l`,
+  ChickenRightWing:     `${CHICKEN}/wing_r`,
+  ChickenLeftWing:      `${CHICKEN}/wing_l`,
+};
+
+const b = chickenBonePaths;
+
+export const chickenBoneLinks = [
+  
+    { from: b.ChickenBody,     to: b.ChickenRoot   },
+    { from: b.ChickenBody,     to: b.ChickenLeftLeg   },
+    { from: b.ChickenBody,     to: b.ChickenRightLeg   },
+    { from: b.ChickenBody,     to: b.ChickenRightWing   },
+    { from: b.ChickenBody,     to: b.ChickenLeftWing   },
+];
+

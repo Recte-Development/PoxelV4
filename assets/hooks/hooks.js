@@ -1,10 +1,11 @@
-import { Weapon, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion } from "../../structs.js";
+import { Weapon, DroppedTag, SpawnedItem, Object, ChickenController, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion, ColyVector3 } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Vector3, nullCheck, ChatBypass, randomRange, QuaternionUtils } from "../utils.js";
-import { Players } from "../../main.js";
+import { Chickens, Players } from "../../main.js";
 import { } from "../render.js";
 import { main, getTargets } from "../aimbot.js";
 import { humanBonePaths } from "../humanbodybones.js";
+import { TransformHierarchy } from "../network.js";
 export let currentMode = null;
 export let localPlayer = null;
 export let localPlayerPtr = null;
@@ -401,6 +402,58 @@ export function shooterhooks() {
         }, (ptr) =>{
             return !config.rage.noRecoil
         });
+
+        window.ctx.hookPrefix({
+            typeName: "ChickenController",
+            methodName: "Update",
+            params: ['i32', 'i32']
+        }, (ptr) =>{
+
+            let id = new Object(ptr).GetInstanceID()
+            if (!Chickens.has(id)) {
+                console.log("chicken added")
+                Chickens.set(id, { 'ptr': ptr, 'timestamp': Date.now() })
+                let trans = new Component(ptr).transform;
+                TransformHierarchy(trans)
+            }
+        });
+
+        window.ctx.hookPrefix({
+            typeName: "ChickenController",
+            methodName: "Die",
+            params: ['i32', 'i32']
+        }, (ptr) =>{
+
+            let id = new Object(ptr).GetInstanceID()
+            if (Chickens.has(id)) {
+                Chickens.delete(id)
+            }
+        });
+
+        // potential item esp
+        window.ctx.hookPrefix({
+            typeName: "SpawnableItemsManager",
+            methodName: "OnItemAdded",
+            params: ['i32', 'i32', 'i32', 'i32']
+        }, (ptr, key, item) =>{
+            //let it = new SpawnedItem(item).type
+            //console.log(`Spawned Item! Key: ${key.mstr()} Item: ${it.mstr()}`)
+        });
+
+        /*window.ctx.hookPrefix({
+            typeName: "SpawnableRewardItem",
+            methodName: "Init_8724",
+            params: ['i32', 'i32', 'i32']
+        }, (ptr, item) =>{
+            let dt = new DroppedTag(item);
+            console.log(`dogtag dropped`)
+            console.log(dt)
+            let lp = new ColyShooter(localPlayerPtr);
+            let colyTransform = lp.movementStateManager.colyTransform;
+            let ps = dt.position;
+            let pos = new Vector3(ps.x, ps.y, ps.z);
+            colyTransform.SendPositionUpdate(pos, Quaternion.identity, 0)
+        });*/
     }
     catch (error) {
         console.log(error)

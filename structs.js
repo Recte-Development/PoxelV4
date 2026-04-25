@@ -1048,6 +1048,263 @@ export class Weapon {
     set weaponId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
+export class DroppedTag {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get expireTime() { return this.ptr.readField(0x1C, 'f32').val(); }
+    set expireTime(v) { return this.ptr.writeField(0x1C, 'f32', v); }
+    get id() { return this.ptr.readField(0x10, 'i32').mstr(); }
+    set id(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
+    get position() { return new ColyVector3(this.ptr.readField(0x14, 'i32')); }
+    set position(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get teamId() { return this.ptr.readField(0x18, 'i32'); }
+    set teamId(v) { return this.ptr.writeField(0x18, 'i32', v); }
+}
+
+export class SpawnedItem {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get id() { return this.ptr.readField(0x24, 'i32').mstr(); }
+    set id(v) { return this.ptr.writeField(0x24, 'i32', window.ctx.createMstr(v)); }
+    get rewardParam() { return this.ptr.readField(0x20, 'i32'); }
+    set rewardParam(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get type() { return this.ptr.readField(0x1C, 'i32').mstr(); }
+    set type(v) { return this.ptr.writeField(0x1C, 'i32', window.ctx.createMstr(v)); }
+    get x() { return this.ptr.readField(0x10, 'f32').val(); }
+    set x(v) { return this.ptr.writeField(0x10, 'f32', v); }
+    get y() { return this.ptr.readField(0x14, 'f32').val(); }
+    set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
+    get z() { return this.ptr.readField(0x18, 'f32').val(); }
+    set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
+}
+
+export class Object {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get hideFlags() { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags", [this.ptr])); }
+    set hideFlags(v) { window.ctx.call("UnityEngine.Object", "set_hideFlags", [this.ptr, v]); }
+    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]); }
+    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, v]); }
+    get OffsetOfInstanceIDInCPlusPlusObject() { return this.ptr.readField(0x0, 'i32').val(); }
+    set OffsetOfInstanceIDInCPlusPlusObject(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_CachedPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_CachedPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, message]); }
+    static CompareBaseObjects(lhs, rhs) { return window.ctx.call("UnityEngine.Object", "CompareBaseObjects", [lhs, rhs]).val() === 1; }
+    static CurrentThreadIsMainThread() { return window.ctx.call("UnityEngine.Object", "CurrentThreadIsMainThread", []).val() === 1; }
+    static Destroy_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_22674", [obj, t]); }
+    static Destroy_obj(obj) { window.ctx.call("UnityEngine.Object", "Destroy_1974", [obj]); }
+    static DestroyImmediate_obj_allowDestroyingAssets(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22675", [obj, allowDestroyingAssets]); }
+    static DestroyImmediate_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22676", [obj]); }
+    static DestroyImmediate_Injected(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_Injected", [obj, allowDestroyingAssets]); }
+    static DestroyObject_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "DestroyObject_22684", [obj, t]); }
+    static DestroyObject_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyObject_22685", [obj]); }
+    static Destroy_Injected(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_Injected", [obj, t]); }
+    static DoesObjectWithInstanceIDExist(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist", [instanceID]).val() === 1; }
+    static DoesObjectWithInstanceIDExist_Injected(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist_Injected", [instanceID]).val() === 1; }
+    static DontDestroyOnLoad(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad", [target]); }
+    static DontDestroyOnLoad_Injected(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad_Injected", [target]); }
+    EnsureRunningOnMainThread() { window.ctx.call("UnityEngine.Object", "EnsureRunningOnMainThread", [this.ptr]); }
+    Equals(other) { return window.ctx.call("UnityEngine.Object", "Equals", [this.ptr, other]).val() === 1; }
+    static FindAnyObjectByType() { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", []); }
+    static FindAnyObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", [findObjectsInactive]); }
+    static FindAnyObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22692", [type])); }
+    static FindAnyObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22695", [type, findObjectsInactive])); }
+    static FindFirstObjectByType() { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", []); }
+    static FindFirstObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", [findObjectsInactive]); }
+    static FindFirstObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22691", [type])); }
+    static FindFirstObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22694", [type, findObjectsInactive])); }
+    static FindObjectFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID", [instanceID])); }
+    static FindObjectFromInstanceID_Injected(instanceID) { return (()=>{
+					let structptr_333c4c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_333c4c, instanceID]);
+					return structptr_333c4c;
+				})(); }
+    static FindObjectOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", []); }
+    static FindObjectOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", [includeInactive]); }
+    static FindObjectOfType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22690", [type])); }
+    static FindObjectOfType_type_includeInactive(type, includeInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22693", [type, includeInactive])); }
+    static FindObjectsByType_type_sortMode(type, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22679", [type, sortMode]); }
+    static FindObjectsByType_type_findObjectsInactive_sortMode(type, findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22680", [type, findObjectsInactive, sortMode]); }
+    static FindObjectsByType(sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [sortMode]); }
+    static FindObjectsByType(findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [findObjectsInactive, sortMode]); }
+    static FindObjectsOfType_type(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22677", [type]); }
+    static FindObjectsOfType_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22678", [type, includeInactive]); }
+    static FindObjectsOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", []); }
+    static FindObjectsOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", [includeInactive]); }
+    static FindObjectsOfTypeAll(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeAll", [type]); }
+    static FindObjectsOfTypeIncludingAssets(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeIncludingAssets", [type]); }
+    static FindSceneObjectsOfType(type) { return window.ctx.call("UnityEngine.Object", "FindSceneObjectsOfType", [type]); }
+    static ForceLoadFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID", [instanceID])); }
+    static ForceLoadFromInstanceID_Injected(instanceID) { return (()=>{
+					let structptr_a78c41 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_a78c41, instanceID]);
+					return structptr_a78c41;
+				})(); }
+    GetCachedPtr() { return (()=>{
+					let structptr_a85acb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_a85acb, this.ptr]);
+					return structptr_a85acb;
+				})(); }
+    GetEntityId() { return (()=>{
+					let structptr_f58596 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_f58596, this.ptr]);
+					return structptr_f58596;
+				})(); }
+    GetHashCode() { return window.ctx.call("UnityEngine.Object", "GetHashCode", [this.ptr]).val(); }
+    GetInstanceID() { return window.ctx.call("UnityEngine.Object", "GetInstanceID", [this.ptr]).val(); }
+    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]); }
+    static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Object", "GetName_Injected", [_unity_self, ret]); }
+    static GetOffsetOfInstanceIDInCPlusPlusObject() { return window.ctx.call("UnityEngine.Object", "GetOffsetOfInstanceIDInCPlusPlusObject", []).val(); }
+    static GetPtrFromInstanceID(instanceID, objectType, isMonoBehaviour) { return (()=>{
+					let structptr_3cf3d6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_3cf3d6, instanceID, objectType, isMonoBehaviour]);
+					return structptr_3cf3d6;
+				})(); }
+    static GetPtrFromInstanceID_Injected(instanceID, objectType, isMonoBehaviour) { return (()=>{
+					let structptr_9ecef2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_9ecef2, instanceID, objectType, isMonoBehaviour]);
+					return structptr_9ecef2;
+				})(); }
+    static Instantiate_original_position_rotation(original, position, rotation) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22668", [original, position, rotation])); }
+    static Instantiate_original_position_rotation_parent(original, position, rotation, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22669", [original, position, rotation, parent])); }
+    static Instantiate_original(original) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22670", [original])); }
+    static Instantiate_original_scene(original, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22671", [original, scene])); }
+    static Instantiate(original, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parameters]); }
+    static Instantiate(original, position, rotation, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parameters]); }
+    static Instantiate_original_parent(original, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22672", [original, parent])); }
+    static Instantiate_original_parent_instantiateInWorldSpace(original, parent, instantiateInWorldSpace) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22673", [original, parent, instantiateInWorldSpace])); }
+    static Instantiate(original) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original]); }
+    static Instantiate(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation]); }
+    static Instantiate(original, position, rotation, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parent]); }
+    static Instantiate(original, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent]); }
+    static Instantiate(original, parent, worldPositionStays) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent, worldPositionStays]); }
+    static InstantiateAsync(original) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original]); }
+    static InstantiateAsync(original, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent]); }
+    static InstantiateAsync(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation]); }
+    static InstantiateAsync(original, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent, position, rotation]); }
+    static InstantiateAsync(original, count) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count]); }
+    static InstantiateAsync(original, count, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent]); }
+    static InstantiateAsync(original, count, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation]); }
+    static InstantiateAsync(original, count, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations]); }
+    static InstantiateAsync(original, count, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation]); }
+    static InstantiateAsync(original, count, parent, position, rotation, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation, cancellationToken]); }
+    static InstantiateAsync(original, count, parent, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations]); }
+    static InstantiateAsync(original, count, parent, positions, rotations, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations, cancellationToken]); }
+    static InstantiateAsync(original, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parameters, cancellationToken]); }
+    static InstantiateAsync(original, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation, parameters, cancellationToken]); }
+    static InstantiateAsync(original, count, positions, rotations, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations, parameters, cancellationToken]); }
+    static Internal_CloneSingle(data) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingle", [data])); }
+    static Internal_CloneSingleWithParams(data, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams", [data, parameters])); }
+    static Internal_CloneSingleWithParams_Injected(data, parameters) { return (()=>{
+					let structptr_45fee7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_45fee7, data, parameters]);
+					return structptr_45fee7;
+				})(); }
+    static Internal_CloneSingleWithParent(data, parent, worldPositionStays) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent", [data, parent, worldPositionStays])); }
+    static Internal_CloneSingleWithParent_Injected(data, parent, worldPositionStays) { return (()=>{
+					let structptr_a0a617 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_a0a617, data, parent, worldPositionStays]);
+					return structptr_a0a617;
+				})(); }
+    static Internal_CloneSingleWithScene(data, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene", [data, scene])); }
+    static Internal_CloneSingleWithScene_Injected(data, scene) { return (()=>{
+					let structptr_dadf11 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_dadf11, data, scene]);
+					return structptr_dadf11;
+				})(); }
+    static Internal_CloneSingle_Injected(data) { return (()=>{
+					let structptr_69361a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_69361a, data]);
+					return structptr_69361a;
+				})(); }
+    static Internal_InstantiateAsyncWithParams(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
+					let structptr_55459e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_55459e, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_55459e;
+				})(); }
+    static Internal_InstantiateAsyncWithParams_Injected(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
+					let structptr_453278 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_453278, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_453278;
+				})(); }
+    static Internal_InstantiateSingle(data, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle", [data, pos, rot])); }
+    static Internal_InstantiateSingleWithParams(data, position, rotation, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams", [data, position, rotation, parameters])); }
+    static Internal_InstantiateSingleWithParams_Injected(data, position, rotation, parameters) { return (()=>{
+					let structptr_707f56 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_707f56, data, position, rotation, parameters]);
+					return structptr_707f56;
+				})(); }
+    static Internal_InstantiateSingleWithParent(data, parent, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent", [data, parent, pos, rot])); }
+    static Internal_InstantiateSingleWithParent_Injected(data, parent, pos, rot) { return (()=>{
+					let structptr_c5b6f3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_c5b6f3, data, parent, pos, rot]);
+					return structptr_c5b6f3;
+				})(); }
+    static Internal_InstantiateSingle_Injected(data, pos, rot) { return (()=>{
+					let structptr_65d4dd = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_65d4dd, data, pos, rot]);
+					return structptr_65d4dd;
+				})(); }
+    static IsNativeObjectAlive(o) { return window.ctx.call("UnityEngine.Object", "IsNativeObjectAlive", [o]).val() === 1; }
+    static IsPersistent(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent", [obj]).val() === 1; }
+    static IsPersistent_Injected(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent_Injected", [obj]).val() === 1; }
+    MarkDirty() { window.ctx.call("UnityEngine.Object", "MarkDirty", [this.ptr]); }
+    static MarkDirty_Injected(_unity_self) { window.ctx.call("UnityEngine.Object", "MarkDirty_Injected", [_unity_self]); }
+    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, name]); }
+    static SetName_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Object", "SetName_Injected", [_unity_self, name]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22696", [this.ptr]); }
+    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22707", [obj]); }
+    static ToString_Injected(obj, ret) { window.ctx.call("UnityEngine.Object", "ToString_Injected", [obj, ret]); }
+    static get_hideFlags_Injected(_unity_self) { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags_Injected", [_unity_self])); }
+    static set_hideFlags_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Object", "set_hideFlags_Injected", [_unity_self, value]); }
+}
+
+export class ChickenController {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get animator() { return new Animator(this.ptr.readField(0x18, 'i32')); }
+    set animator(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get audioSource() { return new AudioSource(this.ptr.readField(0x48, 'i32')); }
+    set audioSource(v) { return this.ptr.writeField(0x48, 'i32', v); }
+    get chickenAnimator() { return new Animator(this.ptr.readField(0x14, 'i32')); }
+    set chickenAnimator(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get chickenExplosion() { return new Transform(this.ptr.readField(0x1C, 'i32')); }
+    set chickenExplosion(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get currentMovePointIndex() { return this.ptr.readField(0x38, 'i32').val(); }
+    set currentMovePointIndex(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get currentSpeed() { return this.ptr.readField(0x3C, 'f32').val(); }
+    set currentSpeed(v) { return this.ptr.writeField(0x3C, 'f32', v); }
+    get explosion() { return new Transform(this.ptr.readField(0x20, 'i32')); }
+    set explosion(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get isReversed() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set isReversed(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get lastMovePointIndex() { return this.ptr.readField(0x50, 'i32').val(); }
+    set lastMovePointIndex(v) { return this.ptr.writeField(0x50, 'i32', v); }
+    get movePoints() { return JSArray(this.ptr.readField(0x28, 'i32')); }
+    set movePoints(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get myLine() { return new ChickenLine(this.ptr.readField(0x10, 'i32')); }
+    set myLine(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get prevMovePointIndex() { return this.ptr.readField(0x4C, 'i32').val(); }
+    set prevMovePointIndex(v) { return this.ptr.writeField(0x4C, 'i32', v); }
+    get runSpeed() { return this.ptr.readField(0x30, 'f32').val(); }
+    set runSpeed(v) { return this.ptr.writeField(0x30, 'f32', v); }
+    get scaleMulti() { return this.ptr.readField(0x44, 'f32').val(); }
+    set scaleMulti(v) { return this.ptr.writeField(0x44, 'f32', v); }
+    get state() { return new State(this.ptr.readField(0x24, 'i32')); }
+    set state(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get stateWaitTime() { return this.ptr.readField(0x34, 'f32').val(); }
+    set stateWaitTime(v) { return this.ptr.writeField(0x34, 'f32', v); }
+    get walkSpeed() { return this.ptr.readField(0x2C, 'f32').val(); }
+    set walkSpeed(v) { return this.ptr.writeField(0x2C, 'f32', v); }
+    ChangeToRandomState() { window.ctx.call("ChickenController", "ChangeToRandomState", [this.ptr]); }
+    Die() { window.ctx.call("ChickenController", "Die", [this.ptr]); }
+    Init(line, fromIndex) { window.ctx.call("ChickenController", "Init", [this.ptr, line, fromIndex]); }
+    MoveToNextPoint() { window.ctx.call("ChickenController", "MoveToNextPoint", [this.ptr]); }
+    PlaySound() { window.ctx.call("ChickenController", "PlaySound", [this.ptr]); }
+    SetState(newState) { window.ctx.call("ChickenController", "SetState", [this.ptr, newState]); }
+    Start() { window.ctx.call("ChickenController", "Start", [this.ptr]); }
+    Update() { window.ctx.call("ChickenController", "Update", [this.ptr]); }
+}
+
 export class SettingsManager {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get OnSettingsChanged() { return this.ptr.readField(0x0, 'i32'); }
@@ -2435,187 +2692,14 @@ export class Quaternion {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Quaternion", "ToString_22068", [this.ptr, format, formatProvider]); }
 }
 
-export class Object {
+export class ColyVector3 {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get hideFlags() { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags", [this.ptr])); }
-    set hideFlags(v) { window.ctx.call("UnityEngine.Object", "set_hideFlags", [this.ptr, v]); }
-    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]); }
-    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, v]); }
-    get OffsetOfInstanceIDInCPlusPlusObject() { return this.ptr.readField(0x0, 'i32').val(); }
-    set OffsetOfInstanceIDInCPlusPlusObject(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get m_CachedPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
-    set m_CachedPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, message]); }
-    static CompareBaseObjects(lhs, rhs) { return window.ctx.call("UnityEngine.Object", "CompareBaseObjects", [lhs, rhs]).val() === 1; }
-    static CurrentThreadIsMainThread() { return window.ctx.call("UnityEngine.Object", "CurrentThreadIsMainThread", []).val() === 1; }
-    static Destroy_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_22674", [obj, t]); }
-    static Destroy_obj(obj) { window.ctx.call("UnityEngine.Object", "Destroy_1974", [obj]); }
-    static DestroyImmediate_obj_allowDestroyingAssets(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22675", [obj, allowDestroyingAssets]); }
-    static DestroyImmediate_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_22676", [obj]); }
-    static DestroyImmediate_Injected(obj, allowDestroyingAssets) { window.ctx.call("UnityEngine.Object", "DestroyImmediate_Injected", [obj, allowDestroyingAssets]); }
-    static DestroyObject_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "DestroyObject_22684", [obj, t]); }
-    static DestroyObject_obj(obj) { window.ctx.call("UnityEngine.Object", "DestroyObject_22685", [obj]); }
-    static Destroy_Injected(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_Injected", [obj, t]); }
-    static DoesObjectWithInstanceIDExist(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist", [instanceID]).val() === 1; }
-    static DoesObjectWithInstanceIDExist_Injected(instanceID) { return window.ctx.call("UnityEngine.Object", "DoesObjectWithInstanceIDExist_Injected", [instanceID]).val() === 1; }
-    static DontDestroyOnLoad(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad", [target]); }
-    static DontDestroyOnLoad_Injected(target) { window.ctx.call("UnityEngine.Object", "DontDestroyOnLoad_Injected", [target]); }
-    EnsureRunningOnMainThread() { window.ctx.call("UnityEngine.Object", "EnsureRunningOnMainThread", [this.ptr]); }
-    Equals(other) { return window.ctx.call("UnityEngine.Object", "Equals", [this.ptr, other]).val() === 1; }
-    static FindAnyObjectByType() { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", []); }
-    static FindAnyObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindAnyObjectByType", [findObjectsInactive]); }
-    static FindAnyObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22692", [type])); }
-    static FindAnyObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindAnyObjectByType_22695", [type, findObjectsInactive])); }
-    static FindFirstObjectByType() { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", []); }
-    static FindFirstObjectByType(findObjectsInactive) { return window.ctx.call("UnityEngine.Object", "FindFirstObjectByType", [findObjectsInactive]); }
-    static FindFirstObjectByType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22691", [type])); }
-    static FindFirstObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22694", [type, findObjectsInactive])); }
-    static FindObjectFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID", [instanceID])); }
-    static FindObjectFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_333c4c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_333c4c, instanceID]);
-					return structptr_333c4c;
-				})(); }
-    static FindObjectOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", []); }
-    static FindObjectOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", [includeInactive]); }
-    static FindObjectOfType_type(type) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22690", [type])); }
-    static FindObjectOfType_type_includeInactive(type, includeInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectOfType_22693", [type, includeInactive])); }
-    static FindObjectsByType_type_sortMode(type, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22679", [type, sortMode]); }
-    static FindObjectsByType_type_findObjectsInactive_sortMode(type, findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType_22680", [type, findObjectsInactive, sortMode]); }
-    static FindObjectsByType(sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [sortMode]); }
-    static FindObjectsByType(findObjectsInactive, sortMode) { return window.ctx.call("UnityEngine.Object", "FindObjectsByType", [findObjectsInactive, sortMode]); }
-    static FindObjectsOfType_type(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22677", [type]); }
-    static FindObjectsOfType_type_includeInactive(type, includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType_22678", [type, includeInactive]); }
-    static FindObjectsOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", []); }
-    static FindObjectsOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfType", [includeInactive]); }
-    static FindObjectsOfTypeAll(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeAll", [type]); }
-    static FindObjectsOfTypeIncludingAssets(type) { return window.ctx.call("UnityEngine.Object", "FindObjectsOfTypeIncludingAssets", [type]); }
-    static FindSceneObjectsOfType(type) { return window.ctx.call("UnityEngine.Object", "FindSceneObjectsOfType", [type]); }
-    static ForceLoadFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID", [instanceID])); }
-    static ForceLoadFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_a78c41 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_a78c41, instanceID]);
-					return structptr_a78c41;
-				})(); }
-    GetCachedPtr() { return (()=>{
-					let structptr_a85acb = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_a85acb, this.ptr]);
-					return structptr_a85acb;
-				})(); }
-    GetEntityId() { return (()=>{
-					let structptr_f58596 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_f58596, this.ptr]);
-					return structptr_f58596;
-				})(); }
-    GetHashCode() { return window.ctx.call("UnityEngine.Object", "GetHashCode", [this.ptr]).val(); }
-    GetInstanceID() { return window.ctx.call("UnityEngine.Object", "GetInstanceID", [this.ptr]).val(); }
-    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]); }
-    static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Object", "GetName_Injected", [_unity_self, ret]); }
-    static GetOffsetOfInstanceIDInCPlusPlusObject() { return window.ctx.call("UnityEngine.Object", "GetOffsetOfInstanceIDInCPlusPlusObject", []).val(); }
-    static GetPtrFromInstanceID(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_3cf3d6 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_3cf3d6, instanceID, objectType, isMonoBehaviour]);
-					return structptr_3cf3d6;
-				})(); }
-    static GetPtrFromInstanceID_Injected(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_9ecef2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_9ecef2, instanceID, objectType, isMonoBehaviour]);
-					return structptr_9ecef2;
-				})(); }
-    static Instantiate_original_position_rotation(original, position, rotation) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22668", [original, position, rotation])); }
-    static Instantiate_original_position_rotation_parent(original, position, rotation, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22669", [original, position, rotation, parent])); }
-    static Instantiate_original(original) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22670", [original])); }
-    static Instantiate_original_scene(original, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22671", [original, scene])); }
-    static Instantiate(original, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parameters]); }
-    static Instantiate(original, position, rotation, parameters) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parameters]); }
-    static Instantiate_original_parent(original, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22672", [original, parent])); }
-    static Instantiate_original_parent_instantiateInWorldSpace(original, parent, instantiateInWorldSpace) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22673", [original, parent, instantiateInWorldSpace])); }
-    static Instantiate(original) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original]); }
-    static Instantiate(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation]); }
-    static Instantiate(original, position, rotation, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, position, rotation, parent]); }
-    static Instantiate(original, parent) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent]); }
-    static Instantiate(original, parent, worldPositionStays) { return window.ctx.call("UnityEngine.Object", "Instantiate", [original, parent, worldPositionStays]); }
-    static InstantiateAsync(original) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original]); }
-    static InstantiateAsync(original, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent]); }
-    static InstantiateAsync(original, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation]); }
-    static InstantiateAsync(original, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parent, position, rotation]); }
-    static InstantiateAsync(original, count) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count]); }
-    static InstantiateAsync(original, count, parent) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent]); }
-    static InstantiateAsync(original, count, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation]); }
-    static InstantiateAsync(original, count, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations]); }
-    static InstantiateAsync(original, count, parent, position, rotation) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation]); }
-    static InstantiateAsync(original, count, parent, position, rotation, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, position, rotation, cancellationToken]); }
-    static InstantiateAsync(original, count, parent, positions, rotations) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations]); }
-    static InstantiateAsync(original, count, parent, positions, rotations, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parent, positions, rotations, cancellationToken]); }
-    static InstantiateAsync(original, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, parameters, cancellationToken]); }
-    static InstantiateAsync(original, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, position, rotation, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, position, rotation, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, position, rotation, parameters, cancellationToken]); }
-    static InstantiateAsync(original, count, positions, rotations, parameters, cancellationToken) { return window.ctx.call("UnityEngine.Object", "InstantiateAsync", [original, count, positions, rotations, parameters, cancellationToken]); }
-    static Internal_CloneSingle(data) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingle", [data])); }
-    static Internal_CloneSingleWithParams(data, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams", [data, parameters])); }
-    static Internal_CloneSingleWithParams_Injected(data, parameters) { return (()=>{
-					let structptr_45fee7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_45fee7, data, parameters]);
-					return structptr_45fee7;
-				})(); }
-    static Internal_CloneSingleWithParent(data, parent, worldPositionStays) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent", [data, parent, worldPositionStays])); }
-    static Internal_CloneSingleWithParent_Injected(data, parent, worldPositionStays) { return (()=>{
-					let structptr_a0a617 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_a0a617, data, parent, worldPositionStays]);
-					return structptr_a0a617;
-				})(); }
-    static Internal_CloneSingleWithScene(data, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene", [data, scene])); }
-    static Internal_CloneSingleWithScene_Injected(data, scene) { return (()=>{
-					let structptr_dadf11 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_dadf11, data, scene]);
-					return structptr_dadf11;
-				})(); }
-    static Internal_CloneSingle_Injected(data) { return (()=>{
-					let structptr_69361a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_69361a, data]);
-					return structptr_69361a;
-				})(); }
-    static Internal_InstantiateAsyncWithParams(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_55459e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_55459e, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_55459e;
-				})(); }
-    static Internal_InstantiateAsyncWithParams_Injected(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_453278 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_453278, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_453278;
-				})(); }
-    static Internal_InstantiateSingle(data, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle", [data, pos, rot])); }
-    static Internal_InstantiateSingleWithParams(data, position, rotation, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams", [data, position, rotation, parameters])); }
-    static Internal_InstantiateSingleWithParams_Injected(data, position, rotation, parameters) { return (()=>{
-					let structptr_707f56 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_707f56, data, position, rotation, parameters]);
-					return structptr_707f56;
-				})(); }
-    static Internal_InstantiateSingleWithParent(data, parent, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent", [data, parent, pos, rot])); }
-    static Internal_InstantiateSingleWithParent_Injected(data, parent, pos, rot) { return (()=>{
-					let structptr_c5b6f3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_c5b6f3, data, parent, pos, rot]);
-					return structptr_c5b6f3;
-				})(); }
-    static Internal_InstantiateSingle_Injected(data, pos, rot) { return (()=>{
-					let structptr_65d4dd = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_65d4dd, data, pos, rot]);
-					return structptr_65d4dd;
-				})(); }
-    static IsNativeObjectAlive(o) { return window.ctx.call("UnityEngine.Object", "IsNativeObjectAlive", [o]).val() === 1; }
-    static IsPersistent(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent", [obj]).val() === 1; }
-    static IsPersistent_Injected(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent_Injected", [obj]).val() === 1; }
-    MarkDirty() { window.ctx.call("UnityEngine.Object", "MarkDirty", [this.ptr]); }
-    static MarkDirty_Injected(_unity_self) { window.ctx.call("UnityEngine.Object", "MarkDirty_Injected", [_unity_self]); }
-    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, name]); }
-    static SetName_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Object", "SetName_Injected", [_unity_self, name]); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22696", [this.ptr]); }
-    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22707", [obj]); }
-    static ToString_Injected(obj, ret) { window.ctx.call("UnityEngine.Object", "ToString_Injected", [obj, ret]); }
-    static get_hideFlags_Injected(_unity_self) { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags_Injected", [_unity_self])); }
-    static set_hideFlags_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Object", "set_hideFlags_Injected", [_unity_self, value]); }
+    get x() { return this.ptr.readField(0x10, 'f32').val(); }
+    set x(v) { return this.ptr.writeField(0x10, 'f32', v); }
+    get y() { return this.ptr.readField(0x14, 'f32').val(); }
+    set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
+    get z() { return this.ptr.readField(0x18, 'f32').val(); }
+    set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
 }
 
 export class Physics {
@@ -4558,6 +4642,223 @@ export class Vector3 {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22033", [this.ptr, format, formatProvider]); }
 }
 
+export class HideFlags {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class AudioSource {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get bypassEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassEffects", [this.ptr]).val() === 1; }
+    set bypassEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassEffects", [this.ptr, v]); }
+    get bypassListenerEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassListenerEffects", [this.ptr]).val() === 1; }
+    set bypassListenerEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassListenerEffects", [this.ptr, v]); }
+    get bypassReverbZones() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassReverbZones", [this.ptr]).val() === 1; }
+    set bypassReverbZones(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassReverbZones", [this.ptr, v]); }
+    get clip() { return new AudioClip(window.ctx.call("UnityEngine.AudioSource", "get_clip", [this.ptr])); }
+    set clip(v) { window.ctx.call("UnityEngine.AudioSource", "set_clip", [this.ptr, v]); }
+    get containerActivePlayables() { return window.ctx.call("UnityEngine.AudioSource", "get_containerActivePlayables", [this.ptr]); }
+    get dopplerLevel() { return window.ctx.call("UnityEngine.AudioSource", "get_dopplerLevel", [this.ptr]).val(); }
+    set dopplerLevel(v) { window.ctx.call("UnityEngine.AudioSource", "set_dopplerLevel", [this.ptr, v]); }
+    get generator() { return new IAudioGenerator(window.ctx.call("UnityEngine.AudioSource", "get_generator", [this.ptr])); }
+    set generator(v) { window.ctx.call("UnityEngine.AudioSource", "set_generator", [this.ptr, v]); }
+    get generatorDefinition() { return new IAudioGenerator(window.ctx.call("UnityEngine.AudioSource", "get_generatorDefinition", [this.ptr])); }
+    set generatorDefinition(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorDefinition", [this.ptr, v]); }
+    get generatorHandle() { return (()=>{
+					let structptr_2cd0a4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorHandle", [structptr_2cd0a4, this.ptr]);
+					return structptr_2cd0a4;
+				})(); }
+    get generatorHeader() { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader", [this.ptr]); }
+    get generatorInstance() { return (()=>{
+					let structptr_38a07c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorInstance", [structptr_38a07c, this.ptr]);
+					return structptr_38a07c;
+				})(); }
+    get generatorObject() { return new Object(window.ctx.call("UnityEngine.AudioSource", "get_generatorObject", [this.ptr])); }
+    set generatorObject(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorObject", [this.ptr, v]); }
+    get ignoreListenerPause() { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerPause", [this.ptr]).val() === 1; }
+    set ignoreListenerPause(v) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerPause", [this.ptr, v]); }
+    get ignoreListenerVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerVolume", [this.ptr]).val() === 1; }
+    set ignoreListenerVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerVolume", [this.ptr, v]); }
+    get isContainerPlaying() { return window.ctx.call("UnityEngine.AudioSource", "get_isContainerPlaying", [this.ptr]).val() === 1; }
+    get isPlaying() { return window.ctx.call("UnityEngine.AudioSource", "get_isPlaying", [this.ptr]).val() === 1; }
+    get isVirtual() { return window.ctx.call("UnityEngine.AudioSource", "get_isVirtual", [this.ptr]).val() === 1; }
+    get loop() { return window.ctx.call("UnityEngine.AudioSource", "get_loop", [this.ptr]).val() === 1; }
+    set loop(v) { window.ctx.call("UnityEngine.AudioSource", "set_loop", [this.ptr, v]); }
+    get maxDistance() { return window.ctx.call("UnityEngine.AudioSource", "get_maxDistance", [this.ptr]).val(); }
+    set maxDistance(v) { window.ctx.call("UnityEngine.AudioSource", "set_maxDistance", [this.ptr, v]); }
+    get maxVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_maxVolume", [this.ptr]).val(); }
+    set maxVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_maxVolume", [this.ptr, v]); }
+    get minDistance() { return window.ctx.call("UnityEngine.AudioSource", "get_minDistance", [this.ptr]).val(); }
+    set minDistance(v) { window.ctx.call("UnityEngine.AudioSource", "set_minDistance", [this.ptr, v]); }
+    get minVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_minVolume", [this.ptr]).val(); }
+    set minVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_minVolume", [this.ptr, v]); }
+    get mute() { return window.ctx.call("UnityEngine.AudioSource", "get_mute", [this.ptr]).val() === 1; }
+    set mute(v) { window.ctx.call("UnityEngine.AudioSource", "set_mute", [this.ptr, v]); }
+    get outputAudioMixerGroup() { return new AudioMixerGroup(window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup", [this.ptr])); }
+    set outputAudioMixerGroup(v) { window.ctx.call("UnityEngine.AudioSource", "set_outputAudioMixerGroup", [this.ptr, v]); }
+    get panStereo() { return window.ctx.call("UnityEngine.AudioSource", "get_panStereo", [this.ptr]).val(); }
+    set panStereo(v) { window.ctx.call("UnityEngine.AudioSource", "set_panStereo", [this.ptr, v]); }
+    get pitch() { return window.ctx.call("UnityEngine.AudioSource", "get_pitch", [this.ptr]).val(); }
+    set pitch(v) { window.ctx.call("UnityEngine.AudioSource", "set_pitch", [this.ptr, v]); }
+    get playOnAwake() { return window.ctx.call("UnityEngine.AudioSource", "get_playOnAwake", [this.ptr]).val() === 1; }
+    set playOnAwake(v) { window.ctx.call("UnityEngine.AudioSource", "set_playOnAwake", [this.ptr, v]); }
+    get priority() { return window.ctx.call("UnityEngine.AudioSource", "get_priority", [this.ptr]).val(); }
+    set priority(v) { window.ctx.call("UnityEngine.AudioSource", "set_priority", [this.ptr, v]); }
+    get resource() { return new AudioResource(window.ctx.call("UnityEngine.AudioSource", "get_resource", [this.ptr])); }
+    set resource(v) { window.ctx.call("UnityEngine.AudioSource", "set_resource", [this.ptr, v]); }
+    get reverbZoneMix() { return window.ctx.call("UnityEngine.AudioSource", "get_reverbZoneMix", [this.ptr]).val(); }
+    set reverbZoneMix(v) { window.ctx.call("UnityEngine.AudioSource", "set_reverbZoneMix", [this.ptr, v]); }
+    get rolloffFactor() { return window.ctx.call("UnityEngine.AudioSource", "get_rolloffFactor", [this.ptr]).val(); }
+    set rolloffFactor(v) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffFactor", [this.ptr, v]); }
+    get rolloffMode() { return new AudioRolloffMode(window.ctx.call("UnityEngine.AudioSource", "get_rolloffMode", [this.ptr])); }
+    set rolloffMode(v) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffMode", [this.ptr, v]); }
+    get spatialBlend() { return window.ctx.call("UnityEngine.AudioSource", "get_spatialBlend", [this.ptr]).val(); }
+    set spatialBlend(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatialBlend", [this.ptr, v]); }
+    get spatialize() { return window.ctx.call("UnityEngine.AudioSource", "get_spatialize", [this.ptr]).val() === 1; }
+    set spatialize(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatialize", [this.ptr, v]); }
+    get spatializePostEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_spatializePostEffects", [this.ptr]).val() === 1; }
+    set spatializePostEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatializePostEffects", [this.ptr, v]); }
+    get spread() { return window.ctx.call("UnityEngine.AudioSource", "get_spread", [this.ptr]).val(); }
+    set spread(v) { window.ctx.call("UnityEngine.AudioSource", "set_spread", [this.ptr, v]); }
+    get time() { return window.ctx.call("UnityEngine.AudioSource", "get_time", [this.ptr]).val(); }
+    set time(v) { window.ctx.call("UnityEngine.AudioSource", "set_time", [this.ptr, v]); }
+    get timeSamples() { return window.ctx.call("UnityEngine.AudioSource", "get_timeSamples", [this.ptr]).val(); }
+    set timeSamples(v) { window.ctx.call("UnityEngine.AudioSource", "set_timeSamples", [this.ptr, v]); }
+    get velocityUpdateMode() { return new AudioVelocityUpdateMode(window.ctx.call("UnityEngine.AudioSource", "get_velocityUpdateMode", [this.ptr])); }
+    set velocityUpdateMode(v) { window.ctx.call("UnityEngine.AudioSource", "set_velocityUpdateMode", [this.ptr, v]); }
+    get volume() { return window.ctx.call("UnityEngine.AudioSource", "get_volume", [this.ptr]).val(); }
+    set volume(v) { window.ctx.call("UnityEngine.AudioSource", "set_volume", [this.ptr, v]); }
+    GetAmbisonicDecoderFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetAmbisonicDecoderFloat", [this.ptr, index, value]).val() === 1; }
+    static GetAmbisonicDecoderFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetAmbisonicDecoderFloat_Injected", [_unity_self, index, value]).val() === 1; }
+    GetAudioRandomContainerRuntimeMeterValue() { return window.ctx.call("UnityEngine.AudioSource", "GetAudioRandomContainerRuntimeMeterValue", [this.ptr]).val(); }
+    static GetAudioRandomContainerRuntimeMeterValue_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "GetAudioRandomContainerRuntimeMeterValue_Injected", [_unity_self]).val(); }
+    GetCustomCurve(type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurve", [this.ptr, type])); }
+    static GetCustomCurveHelper(source, type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper", [source, type])); }
+    static GetCustomCurveHelper_Injected(source, type) { return (()=>{
+					let structptr_20c7e7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper_Injected", [structptr_20c7e7, source, type]);
+					return structptr_20c7e7;
+				})(); }
+    GetOutputData_numSamples_channel(numSamples, channel) { return window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18429", [this.ptr, numSamples, channel]); }
+    GetOutputData_samples_channel(samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18430", [this.ptr, samples, channel]); }
+    static GetOutputDataHelper(source, samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputDataHelper", [source, samples, channel]); }
+    static GetOutputDataHelper_Injected(source, samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputDataHelper_Injected", [source, samples, channel]); }
+    static GetPitch(source) { return window.ctx.call("UnityEngine.AudioSource", "GetPitch", [source]).val(); }
+    static GetPitch_Injected(source) { return window.ctx.call("UnityEngine.AudioSource", "GetPitch_Injected", [source]).val(); }
+    GetSpatializerFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetSpatializerFloat", [this.ptr, index, value]).val() === 1; }
+    static GetSpatializerFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetSpatializerFloat_Injected", [_unity_self, index, value]).val() === 1; }
+    GetSpectrumData_numSamples_channel_window_safe(numSamples, channel, window_safe) { return window.ctx.call("UnityEngine.AudioSource", "GetSpectrumData_18431", [this.ptr, numSamples, channel, window_safe]); }
+    GetSpectrumData_samples_channel_window_safe(samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumData_18432", [this.ptr, samples, channel, window_safe]); }
+    static GetSpectrumDataHelper(source, samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumDataHelper", [source, samples, channel, window_safe]); }
+    static GetSpectrumDataHelper_Injected(source, samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumDataHelper_Injected", [source, samples, channel, window_safe]); }
+    Pause() { window.ctx.call("UnityEngine.AudioSource", "Pause", [this.ptr]); }
+    static Pause_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "Pause_Injected", [_unity_self]); }
+    Play_delay(delay) { window.ctx.call("UnityEngine.AudioSource", "Play_18347", [this.ptr, delay]); }
+    Play_pointer() { window.ctx.call("UnityEngine.AudioSource", "Play_18371", [this.ptr]); }
+    Play_delay(delay) { window.ctx.call("UnityEngine.AudioSource", "Play_18372", [this.ptr, delay]); }
+    static PlayClipAtPoint_clip_position(clip, position) { window.ctx.call("UnityEngine.AudioSource", "PlayClipAtPoint_18387", [clip, position]); }
+    static PlayClipAtPoint_clip_position_volume(clip, position, volume) { window.ctx.call("UnityEngine.AudioSource", "PlayClipAtPoint_18388", [clip, position, volume]); }
+    PlayDelayed(delay) { window.ctx.call("UnityEngine.AudioSource", "PlayDelayed", [this.ptr, delay]); }
+    static PlayHelper(source, delay) { window.ctx.call("UnityEngine.AudioSource", "PlayHelper", [source, delay]); }
+    static PlayHelper_Injected(source, delay) { window.ctx.call("UnityEngine.AudioSource", "PlayHelper_Injected", [source, delay]); }
+    PlayOneShot_clip(clip) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShot_18375", [this.ptr, clip]); }
+    PlayOneShot_clip_volumeScale(clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShot_18376", [this.ptr, clip, volumeScale]); }
+    static PlayOneShotHelper(source, clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShotHelper", [source, clip, volumeScale]); }
+    static PlayOneShotHelper_Injected(source, clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShotHelper_Injected", [source, clip, volumeScale]); }
+    PlayScheduled(time) { window.ctx.call("UnityEngine.AudioSource", "PlayScheduled", [this.ptr, time]); }
+    static Play_Injected(_unity_self, delay) { window.ctx.call("UnityEngine.AudioSource", "Play_Injected", [_unity_self, delay]); }
+    SetAmbisonicDecoderFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetAmbisonicDecoderFloat", [this.ptr, index, value]).val() === 1; }
+    static SetAmbisonicDecoderFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetAmbisonicDecoderFloat_Injected", [_unity_self, index, value]).val() === 1; }
+    SetCustomCurve(type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurve", [this.ptr, type, curve]); }
+    static SetCustomCurveHelper(source, type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurveHelper", [source, type, curve]); }
+    static SetCustomCurveHelper_Injected(source, type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurveHelper_Injected", [source, type, curve]); }
+    static SetPitch(source, pitch) { window.ctx.call("UnityEngine.AudioSource", "SetPitch", [source, pitch]); }
+    static SetPitch_Injected(source, pitch) { window.ctx.call("UnityEngine.AudioSource", "SetPitch_Injected", [source, pitch]); }
+    SetScheduledEndTime(time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledEndTime", [this.ptr, time]); }
+    static SetScheduledEndTime_Injected(_unity_self, time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledEndTime_Injected", [_unity_self, time]); }
+    SetScheduledStartTime(time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledStartTime", [this.ptr, time]); }
+    static SetScheduledStartTime_Injected(_unity_self, time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledStartTime_Injected", [_unity_self, time]); }
+    SetSpatializerFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetSpatializerFloat", [this.ptr, index, value]).val() === 1; }
+    static SetSpatializerFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetSpatializerFloat_Injected", [_unity_self, index, value]).val() === 1; }
+    SkipToNextElementIfHasContainer() { window.ctx.call("UnityEngine.AudioSource", "SkipToNextElementIfHasContainer", [this.ptr]); }
+    static SkipToNextElementIfHasContainer_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "SkipToNextElementIfHasContainer_Injected", [_unity_self]); }
+    Stop_stopOneShots(stopOneShots) { window.ctx.call("UnityEngine.AudioSource", "Stop_18349", [this.ptr, stopOneShots]); }
+    Stop_pointer() { window.ctx.call("UnityEngine.AudioSource", "Stop_18379", [this.ptr]); }
+    static Stop_Injected(_unity_self, stopOneShots) { window.ctx.call("UnityEngine.AudioSource", "Stop_Injected", [_unity_self, stopOneShots]); }
+    UnPause() { window.ctx.call("UnityEngine.AudioSource", "UnPause", [this.ptr]); }
+    static UnPause_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "UnPause_Injected", [_unity_self]); }
+    static get_bypassEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassEffects_Injected", [_unity_self]).val() === 1; }
+    static get_bypassListenerEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassListenerEffects_Injected", [_unity_self]).val() === 1; }
+    static get_bypassReverbZones_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassReverbZones_Injected", [_unity_self]).val() === 1; }
+    static get_containerActivePlayables_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_containerActivePlayables_Injected", [_unity_self]); }
+    static get_dopplerLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_dopplerLevel_Injected", [_unity_self]).val(); }
+    static get_generatorHeader_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader_Injected", [_unity_self]); }
+    static get_generatorObject_Injected(_unity_self) { return (()=>{
+					let structptr_833d42 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorObject_Injected", [structptr_833d42, _unity_self]);
+					return structptr_833d42;
+				})(); }
+    static get_ignoreListenerPause_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerPause_Injected", [_unity_self]).val() === 1; }
+    static get_ignoreListenerVolume_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerVolume_Injected", [_unity_self]).val() === 1; }
+    static get_isContainerPlaying_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isContainerPlaying_Injected", [_unity_self]).val() === 1; }
+    static get_isPlaying_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isPlaying_Injected", [_unity_self]).val() === 1; }
+    static get_isVirtual_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isVirtual_Injected", [_unity_self]).val() === 1; }
+    static get_loop_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_loop_Injected", [_unity_self]).val() === 1; }
+    static get_maxDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_maxDistance_Injected", [_unity_self]).val(); }
+    static get_minDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_minDistance_Injected", [_unity_self]).val(); }
+    static get_mute_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_mute_Injected", [_unity_self]).val() === 1; }
+    static get_outputAudioMixerGroup_Injected(_unity_self) { return (()=>{
+					let structptr_46010d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup_Injected", [structptr_46010d, _unity_self]);
+					return structptr_46010d;
+				})(); }
+    static get_panStereo_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_panStereo_Injected", [_unity_self]).val(); }
+    static get_playOnAwake_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_playOnAwake_Injected", [_unity_self]).val() === 1; }
+    static get_priority_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_priority_Injected", [_unity_self]).val(); }
+    static get_reverbZoneMix_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_reverbZoneMix_Injected", [_unity_self]).val(); }
+    static get_rolloffMode_Injected(_unity_self) { return new AudioRolloffMode(window.ctx.call("UnityEngine.AudioSource", "get_rolloffMode_Injected", [_unity_self])); }
+    static get_spatialBlend_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatialBlend_Injected", [_unity_self]).val(); }
+    static get_spatializePostEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatializePostEffects_Injected", [_unity_self]).val() === 1; }
+    static get_spatialize_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatialize_Injected", [_unity_self]).val() === 1; }
+    static get_spread_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spread_Injected", [_unity_self]).val(); }
+    static get_timeSamples_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_timeSamples_Injected", [_unity_self]).val(); }
+    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_time_Injected", [_unity_self]).val(); }
+    static get_velocityUpdateMode_Injected(_unity_self) { return new AudioVelocityUpdateMode(window.ctx.call("UnityEngine.AudioSource", "get_velocityUpdateMode_Injected", [_unity_self])); }
+    static get_volume_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_volume_Injected", [_unity_self]).val(); }
+    static set_bypassEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassEffects_Injected", [_unity_self, value]); }
+    static set_bypassListenerEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassListenerEffects_Injected", [_unity_self, value]); }
+    static set_bypassReverbZones_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassReverbZones_Injected", [_unity_self, value]); }
+    static set_dopplerLevel_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_dopplerLevel_Injected", [_unity_self, value]); }
+    static set_generatorObject_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_generatorObject_Injected", [_unity_self, value]); }
+    static set_ignoreListenerPause_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerPause_Injected", [_unity_self, value]); }
+    static set_ignoreListenerVolume_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerVolume_Injected", [_unity_self, value]); }
+    static set_loop_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_loop_Injected", [_unity_self, value]); }
+    static set_maxDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_maxDistance_Injected", [_unity_self, value]); }
+    static set_minDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_minDistance_Injected", [_unity_self, value]); }
+    static set_mute_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_mute_Injected", [_unity_self, value]); }
+    static set_outputAudioMixerGroup_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_outputAudioMixerGroup_Injected", [_unity_self, value]); }
+    static set_panStereo_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_panStereo_Injected", [_unity_self, value]); }
+    static set_playOnAwake_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_playOnAwake_Injected", [_unity_self, value]); }
+    static set_priority_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_priority_Injected", [_unity_self, value]); }
+    static set_reverbZoneMix_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_reverbZoneMix_Injected", [_unity_self, value]); }
+    static set_rolloffMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffMode_Injected", [_unity_self, value]); }
+    static set_spatialBlend_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatialBlend_Injected", [_unity_self, value]); }
+    static set_spatializePostEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatializePostEffects_Injected", [_unity_self, value]); }
+    static set_spatialize_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatialize_Injected", [_unity_self, value]); }
+    static set_spread_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spread_Injected", [_unity_self, value]); }
+    static set_timeSamples_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_timeSamples_Injected", [_unity_self, value]); }
+    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_time_Injected", [_unity_self, value]); }
+    static set_velocityUpdateMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_velocityUpdateMode_Injected", [_unity_self, value]); }
+    static set_volume_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_volume_Injected", [_unity_self, value]); }
+}
+
+export class ChickenLine {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get movePoints() { return this.ptr.readField(0x10, 'i32'); }
+    set movePoints(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
 export class IMECompositionMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
@@ -5396,213 +5697,6 @@ export class ItemRarity {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
-export class AudioSource {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get bypassEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassEffects", [this.ptr]).val() === 1; }
-    set bypassEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassEffects", [this.ptr, v]); }
-    get bypassListenerEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassListenerEffects", [this.ptr]).val() === 1; }
-    set bypassListenerEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassListenerEffects", [this.ptr, v]); }
-    get bypassReverbZones() { return window.ctx.call("UnityEngine.AudioSource", "get_bypassReverbZones", [this.ptr]).val() === 1; }
-    set bypassReverbZones(v) { window.ctx.call("UnityEngine.AudioSource", "set_bypassReverbZones", [this.ptr, v]); }
-    get clip() { return new AudioClip(window.ctx.call("UnityEngine.AudioSource", "get_clip", [this.ptr])); }
-    set clip(v) { window.ctx.call("UnityEngine.AudioSource", "set_clip", [this.ptr, v]); }
-    get containerActivePlayables() { return window.ctx.call("UnityEngine.AudioSource", "get_containerActivePlayables", [this.ptr]); }
-    get dopplerLevel() { return window.ctx.call("UnityEngine.AudioSource", "get_dopplerLevel", [this.ptr]).val(); }
-    set dopplerLevel(v) { window.ctx.call("UnityEngine.AudioSource", "set_dopplerLevel", [this.ptr, v]); }
-    get generator() { return new IAudioGenerator(window.ctx.call("UnityEngine.AudioSource", "get_generator", [this.ptr])); }
-    set generator(v) { window.ctx.call("UnityEngine.AudioSource", "set_generator", [this.ptr, v]); }
-    get generatorDefinition() { return new IAudioGenerator(window.ctx.call("UnityEngine.AudioSource", "get_generatorDefinition", [this.ptr])); }
-    set generatorDefinition(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorDefinition", [this.ptr, v]); }
-    get generatorHandle() { return (()=>{
-					let structptr_2cd0a4 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AudioSource", "get_generatorHandle", [structptr_2cd0a4, this.ptr]);
-					return structptr_2cd0a4;
-				})(); }
-    get generatorHeader() { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader", [this.ptr]); }
-    get generatorInstance() { return (()=>{
-					let structptr_38a07c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AudioSource", "get_generatorInstance", [structptr_38a07c, this.ptr]);
-					return structptr_38a07c;
-				})(); }
-    get generatorObject() { return new Object(window.ctx.call("UnityEngine.AudioSource", "get_generatorObject", [this.ptr])); }
-    set generatorObject(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorObject", [this.ptr, v]); }
-    get ignoreListenerPause() { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerPause", [this.ptr]).val() === 1; }
-    set ignoreListenerPause(v) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerPause", [this.ptr, v]); }
-    get ignoreListenerVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerVolume", [this.ptr]).val() === 1; }
-    set ignoreListenerVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerVolume", [this.ptr, v]); }
-    get isContainerPlaying() { return window.ctx.call("UnityEngine.AudioSource", "get_isContainerPlaying", [this.ptr]).val() === 1; }
-    get isPlaying() { return window.ctx.call("UnityEngine.AudioSource", "get_isPlaying", [this.ptr]).val() === 1; }
-    get isVirtual() { return window.ctx.call("UnityEngine.AudioSource", "get_isVirtual", [this.ptr]).val() === 1; }
-    get loop() { return window.ctx.call("UnityEngine.AudioSource", "get_loop", [this.ptr]).val() === 1; }
-    set loop(v) { window.ctx.call("UnityEngine.AudioSource", "set_loop", [this.ptr, v]); }
-    get maxDistance() { return window.ctx.call("UnityEngine.AudioSource", "get_maxDistance", [this.ptr]).val(); }
-    set maxDistance(v) { window.ctx.call("UnityEngine.AudioSource", "set_maxDistance", [this.ptr, v]); }
-    get maxVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_maxVolume", [this.ptr]).val(); }
-    set maxVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_maxVolume", [this.ptr, v]); }
-    get minDistance() { return window.ctx.call("UnityEngine.AudioSource", "get_minDistance", [this.ptr]).val(); }
-    set minDistance(v) { window.ctx.call("UnityEngine.AudioSource", "set_minDistance", [this.ptr, v]); }
-    get minVolume() { return window.ctx.call("UnityEngine.AudioSource", "get_minVolume", [this.ptr]).val(); }
-    set minVolume(v) { window.ctx.call("UnityEngine.AudioSource", "set_minVolume", [this.ptr, v]); }
-    get mute() { return window.ctx.call("UnityEngine.AudioSource", "get_mute", [this.ptr]).val() === 1; }
-    set mute(v) { window.ctx.call("UnityEngine.AudioSource", "set_mute", [this.ptr, v]); }
-    get outputAudioMixerGroup() { return new AudioMixerGroup(window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup", [this.ptr])); }
-    set outputAudioMixerGroup(v) { window.ctx.call("UnityEngine.AudioSource", "set_outputAudioMixerGroup", [this.ptr, v]); }
-    get panStereo() { return window.ctx.call("UnityEngine.AudioSource", "get_panStereo", [this.ptr]).val(); }
-    set panStereo(v) { window.ctx.call("UnityEngine.AudioSource", "set_panStereo", [this.ptr, v]); }
-    get pitch() { return window.ctx.call("UnityEngine.AudioSource", "get_pitch", [this.ptr]).val(); }
-    set pitch(v) { window.ctx.call("UnityEngine.AudioSource", "set_pitch", [this.ptr, v]); }
-    get playOnAwake() { return window.ctx.call("UnityEngine.AudioSource", "get_playOnAwake", [this.ptr]).val() === 1; }
-    set playOnAwake(v) { window.ctx.call("UnityEngine.AudioSource", "set_playOnAwake", [this.ptr, v]); }
-    get priority() { return window.ctx.call("UnityEngine.AudioSource", "get_priority", [this.ptr]).val(); }
-    set priority(v) { window.ctx.call("UnityEngine.AudioSource", "set_priority", [this.ptr, v]); }
-    get resource() { return new AudioResource(window.ctx.call("UnityEngine.AudioSource", "get_resource", [this.ptr])); }
-    set resource(v) { window.ctx.call("UnityEngine.AudioSource", "set_resource", [this.ptr, v]); }
-    get reverbZoneMix() { return window.ctx.call("UnityEngine.AudioSource", "get_reverbZoneMix", [this.ptr]).val(); }
-    set reverbZoneMix(v) { window.ctx.call("UnityEngine.AudioSource", "set_reverbZoneMix", [this.ptr, v]); }
-    get rolloffFactor() { return window.ctx.call("UnityEngine.AudioSource", "get_rolloffFactor", [this.ptr]).val(); }
-    set rolloffFactor(v) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffFactor", [this.ptr, v]); }
-    get rolloffMode() { return new AudioRolloffMode(window.ctx.call("UnityEngine.AudioSource", "get_rolloffMode", [this.ptr])); }
-    set rolloffMode(v) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffMode", [this.ptr, v]); }
-    get spatialBlend() { return window.ctx.call("UnityEngine.AudioSource", "get_spatialBlend", [this.ptr]).val(); }
-    set spatialBlend(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatialBlend", [this.ptr, v]); }
-    get spatialize() { return window.ctx.call("UnityEngine.AudioSource", "get_spatialize", [this.ptr]).val() === 1; }
-    set spatialize(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatialize", [this.ptr, v]); }
-    get spatializePostEffects() { return window.ctx.call("UnityEngine.AudioSource", "get_spatializePostEffects", [this.ptr]).val() === 1; }
-    set spatializePostEffects(v) { window.ctx.call("UnityEngine.AudioSource", "set_spatializePostEffects", [this.ptr, v]); }
-    get spread() { return window.ctx.call("UnityEngine.AudioSource", "get_spread", [this.ptr]).val(); }
-    set spread(v) { window.ctx.call("UnityEngine.AudioSource", "set_spread", [this.ptr, v]); }
-    get time() { return window.ctx.call("UnityEngine.AudioSource", "get_time", [this.ptr]).val(); }
-    set time(v) { window.ctx.call("UnityEngine.AudioSource", "set_time", [this.ptr, v]); }
-    get timeSamples() { return window.ctx.call("UnityEngine.AudioSource", "get_timeSamples", [this.ptr]).val(); }
-    set timeSamples(v) { window.ctx.call("UnityEngine.AudioSource", "set_timeSamples", [this.ptr, v]); }
-    get velocityUpdateMode() { return new AudioVelocityUpdateMode(window.ctx.call("UnityEngine.AudioSource", "get_velocityUpdateMode", [this.ptr])); }
-    set velocityUpdateMode(v) { window.ctx.call("UnityEngine.AudioSource", "set_velocityUpdateMode", [this.ptr, v]); }
-    get volume() { return window.ctx.call("UnityEngine.AudioSource", "get_volume", [this.ptr]).val(); }
-    set volume(v) { window.ctx.call("UnityEngine.AudioSource", "set_volume", [this.ptr, v]); }
-    GetAmbisonicDecoderFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetAmbisonicDecoderFloat", [this.ptr, index, value]).val() === 1; }
-    static GetAmbisonicDecoderFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetAmbisonicDecoderFloat_Injected", [_unity_self, index, value]).val() === 1; }
-    GetAudioRandomContainerRuntimeMeterValue() { return window.ctx.call("UnityEngine.AudioSource", "GetAudioRandomContainerRuntimeMeterValue", [this.ptr]).val(); }
-    static GetAudioRandomContainerRuntimeMeterValue_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "GetAudioRandomContainerRuntimeMeterValue_Injected", [_unity_self]).val(); }
-    GetCustomCurve(type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurve", [this.ptr, type])); }
-    static GetCustomCurveHelper(source, type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper", [source, type])); }
-    static GetCustomCurveHelper_Injected(source, type) { return (()=>{
-					let structptr_20c7e7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper_Injected", [structptr_20c7e7, source, type]);
-					return structptr_20c7e7;
-				})(); }
-    GetOutputData_numSamples_channel(numSamples, channel) { return window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18429", [this.ptr, numSamples, channel]); }
-    GetOutputData_samples_channel(samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18430", [this.ptr, samples, channel]); }
-    static GetOutputDataHelper(source, samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputDataHelper", [source, samples, channel]); }
-    static GetOutputDataHelper_Injected(source, samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputDataHelper_Injected", [source, samples, channel]); }
-    static GetPitch(source) { return window.ctx.call("UnityEngine.AudioSource", "GetPitch", [source]).val(); }
-    static GetPitch_Injected(source) { return window.ctx.call("UnityEngine.AudioSource", "GetPitch_Injected", [source]).val(); }
-    GetSpatializerFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetSpatializerFloat", [this.ptr, index, value]).val() === 1; }
-    static GetSpatializerFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "GetSpatializerFloat_Injected", [_unity_self, index, value]).val() === 1; }
-    GetSpectrumData_numSamples_channel_window_safe(numSamples, channel, window_safe) { return window.ctx.call("UnityEngine.AudioSource", "GetSpectrumData_18431", [this.ptr, numSamples, channel, window_safe]); }
-    GetSpectrumData_samples_channel_window_safe(samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumData_18432", [this.ptr, samples, channel, window_safe]); }
-    static GetSpectrumDataHelper(source, samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumDataHelper", [source, samples, channel, window_safe]); }
-    static GetSpectrumDataHelper_Injected(source, samples, channel, window_safe) { window.ctx.call("UnityEngine.AudioSource", "GetSpectrumDataHelper_Injected", [source, samples, channel, window_safe]); }
-    Pause() { window.ctx.call("UnityEngine.AudioSource", "Pause", [this.ptr]); }
-    static Pause_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "Pause_Injected", [_unity_self]); }
-    Play_delay(delay) { window.ctx.call("UnityEngine.AudioSource", "Play_18347", [this.ptr, delay]); }
-    Play_pointer() { window.ctx.call("UnityEngine.AudioSource", "Play_18371", [this.ptr]); }
-    Play_delay(delay) { window.ctx.call("UnityEngine.AudioSource", "Play_18372", [this.ptr, delay]); }
-    static PlayClipAtPoint_clip_position(clip, position) { window.ctx.call("UnityEngine.AudioSource", "PlayClipAtPoint_18387", [clip, position]); }
-    static PlayClipAtPoint_clip_position_volume(clip, position, volume) { window.ctx.call("UnityEngine.AudioSource", "PlayClipAtPoint_18388", [clip, position, volume]); }
-    PlayDelayed(delay) { window.ctx.call("UnityEngine.AudioSource", "PlayDelayed", [this.ptr, delay]); }
-    static PlayHelper(source, delay) { window.ctx.call("UnityEngine.AudioSource", "PlayHelper", [source, delay]); }
-    static PlayHelper_Injected(source, delay) { window.ctx.call("UnityEngine.AudioSource", "PlayHelper_Injected", [source, delay]); }
-    PlayOneShot_clip(clip) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShot_18375", [this.ptr, clip]); }
-    PlayOneShot_clip_volumeScale(clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShot_18376", [this.ptr, clip, volumeScale]); }
-    static PlayOneShotHelper(source, clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShotHelper", [source, clip, volumeScale]); }
-    static PlayOneShotHelper_Injected(source, clip, volumeScale) { window.ctx.call("UnityEngine.AudioSource", "PlayOneShotHelper_Injected", [source, clip, volumeScale]); }
-    PlayScheduled(time) { window.ctx.call("UnityEngine.AudioSource", "PlayScheduled", [this.ptr, time]); }
-    static Play_Injected(_unity_self, delay) { window.ctx.call("UnityEngine.AudioSource", "Play_Injected", [_unity_self, delay]); }
-    SetAmbisonicDecoderFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetAmbisonicDecoderFloat", [this.ptr, index, value]).val() === 1; }
-    static SetAmbisonicDecoderFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetAmbisonicDecoderFloat_Injected", [_unity_self, index, value]).val() === 1; }
-    SetCustomCurve(type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurve", [this.ptr, type, curve]); }
-    static SetCustomCurveHelper(source, type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurveHelper", [source, type, curve]); }
-    static SetCustomCurveHelper_Injected(source, type, curve) { window.ctx.call("UnityEngine.AudioSource", "SetCustomCurveHelper_Injected", [source, type, curve]); }
-    static SetPitch(source, pitch) { window.ctx.call("UnityEngine.AudioSource", "SetPitch", [source, pitch]); }
-    static SetPitch_Injected(source, pitch) { window.ctx.call("UnityEngine.AudioSource", "SetPitch_Injected", [source, pitch]); }
-    SetScheduledEndTime(time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledEndTime", [this.ptr, time]); }
-    static SetScheduledEndTime_Injected(_unity_self, time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledEndTime_Injected", [_unity_self, time]); }
-    SetScheduledStartTime(time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledStartTime", [this.ptr, time]); }
-    static SetScheduledStartTime_Injected(_unity_self, time) { window.ctx.call("UnityEngine.AudioSource", "SetScheduledStartTime_Injected", [_unity_self, time]); }
-    SetSpatializerFloat(index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetSpatializerFloat", [this.ptr, index, value]).val() === 1; }
-    static SetSpatializerFloat_Injected(_unity_self, index, value) { return window.ctx.call("UnityEngine.AudioSource", "SetSpatializerFloat_Injected", [_unity_self, index, value]).val() === 1; }
-    SkipToNextElementIfHasContainer() { window.ctx.call("UnityEngine.AudioSource", "SkipToNextElementIfHasContainer", [this.ptr]); }
-    static SkipToNextElementIfHasContainer_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "SkipToNextElementIfHasContainer_Injected", [_unity_self]); }
-    Stop_stopOneShots(stopOneShots) { window.ctx.call("UnityEngine.AudioSource", "Stop_18349", [this.ptr, stopOneShots]); }
-    Stop_pointer() { window.ctx.call("UnityEngine.AudioSource", "Stop_18379", [this.ptr]); }
-    static Stop_Injected(_unity_self, stopOneShots) { window.ctx.call("UnityEngine.AudioSource", "Stop_Injected", [_unity_self, stopOneShots]); }
-    UnPause() { window.ctx.call("UnityEngine.AudioSource", "UnPause", [this.ptr]); }
-    static UnPause_Injected(_unity_self) { window.ctx.call("UnityEngine.AudioSource", "UnPause_Injected", [_unity_self]); }
-    static get_bypassEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassEffects_Injected", [_unity_self]).val() === 1; }
-    static get_bypassListenerEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassListenerEffects_Injected", [_unity_self]).val() === 1; }
-    static get_bypassReverbZones_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_bypassReverbZones_Injected", [_unity_self]).val() === 1; }
-    static get_containerActivePlayables_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_containerActivePlayables_Injected", [_unity_self]); }
-    static get_dopplerLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_dopplerLevel_Injected", [_unity_self]).val(); }
-    static get_generatorHeader_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader_Injected", [_unity_self]); }
-    static get_generatorObject_Injected(_unity_self) { return (()=>{
-					let structptr_833d42 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AudioSource", "get_generatorObject_Injected", [structptr_833d42, _unity_self]);
-					return structptr_833d42;
-				})(); }
-    static get_ignoreListenerPause_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerPause_Injected", [_unity_self]).val() === 1; }
-    static get_ignoreListenerVolume_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerVolume_Injected", [_unity_self]).val() === 1; }
-    static get_isContainerPlaying_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isContainerPlaying_Injected", [_unity_self]).val() === 1; }
-    static get_isPlaying_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isPlaying_Injected", [_unity_self]).val() === 1; }
-    static get_isVirtual_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_isVirtual_Injected", [_unity_self]).val() === 1; }
-    static get_loop_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_loop_Injected", [_unity_self]).val() === 1; }
-    static get_maxDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_maxDistance_Injected", [_unity_self]).val(); }
-    static get_minDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_minDistance_Injected", [_unity_self]).val(); }
-    static get_mute_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_mute_Injected", [_unity_self]).val() === 1; }
-    static get_outputAudioMixerGroup_Injected(_unity_self) { return (()=>{
-					let structptr_46010d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup_Injected", [structptr_46010d, _unity_self]);
-					return structptr_46010d;
-				})(); }
-    static get_panStereo_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_panStereo_Injected", [_unity_self]).val(); }
-    static get_playOnAwake_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_playOnAwake_Injected", [_unity_self]).val() === 1; }
-    static get_priority_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_priority_Injected", [_unity_self]).val(); }
-    static get_reverbZoneMix_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_reverbZoneMix_Injected", [_unity_self]).val(); }
-    static get_rolloffMode_Injected(_unity_self) { return new AudioRolloffMode(window.ctx.call("UnityEngine.AudioSource", "get_rolloffMode_Injected", [_unity_self])); }
-    static get_spatialBlend_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatialBlend_Injected", [_unity_self]).val(); }
-    static get_spatializePostEffects_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatializePostEffects_Injected", [_unity_self]).val() === 1; }
-    static get_spatialize_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spatialize_Injected", [_unity_self]).val() === 1; }
-    static get_spread_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_spread_Injected", [_unity_self]).val(); }
-    static get_timeSamples_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_timeSamples_Injected", [_unity_self]).val(); }
-    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_time_Injected", [_unity_self]).val(); }
-    static get_velocityUpdateMode_Injected(_unity_self) { return new AudioVelocityUpdateMode(window.ctx.call("UnityEngine.AudioSource", "get_velocityUpdateMode_Injected", [_unity_self])); }
-    static get_volume_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_volume_Injected", [_unity_self]).val(); }
-    static set_bypassEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassEffects_Injected", [_unity_self, value]); }
-    static set_bypassListenerEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassListenerEffects_Injected", [_unity_self, value]); }
-    static set_bypassReverbZones_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_bypassReverbZones_Injected", [_unity_self, value]); }
-    static set_dopplerLevel_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_dopplerLevel_Injected", [_unity_self, value]); }
-    static set_generatorObject_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_generatorObject_Injected", [_unity_self, value]); }
-    static set_ignoreListenerPause_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerPause_Injected", [_unity_self, value]); }
-    static set_ignoreListenerVolume_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_ignoreListenerVolume_Injected", [_unity_self, value]); }
-    static set_loop_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_loop_Injected", [_unity_self, value]); }
-    static set_maxDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_maxDistance_Injected", [_unity_self, value]); }
-    static set_minDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_minDistance_Injected", [_unity_self, value]); }
-    static set_mute_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_mute_Injected", [_unity_self, value]); }
-    static set_outputAudioMixerGroup_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_outputAudioMixerGroup_Injected", [_unity_self, value]); }
-    static set_panStereo_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_panStereo_Injected", [_unity_self, value]); }
-    static set_playOnAwake_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_playOnAwake_Injected", [_unity_self, value]); }
-    static set_priority_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_priority_Injected", [_unity_self, value]); }
-    static set_reverbZoneMix_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_reverbZoneMix_Injected", [_unity_self, value]); }
-    static set_rolloffMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_rolloffMode_Injected", [_unity_self, value]); }
-    static set_spatialBlend_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatialBlend_Injected", [_unity_self, value]); }
-    static set_spatializePostEffects_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatializePostEffects_Injected", [_unity_self, value]); }
-    static set_spatialize_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spatialize_Injected", [_unity_self, value]); }
-    static set_spread_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_spread_Injected", [_unity_self, value]); }
-    static set_timeSamples_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_timeSamples_Injected", [_unity_self, value]); }
-    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_time_Injected", [_unity_self, value]); }
-    static set_velocityUpdateMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_velocityUpdateMode_Injected", [_unity_self, value]); }
-    static set_volume_Injected(_unity_self, value) { window.ctx.call("UnityEngine.AudioSource", "set_volume_Injected", [_unity_self, value]); }
-}
-
 export class AudioClip {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get ambisonic() { return window.ctx.call("UnityEngine.AudioClip", "get_ambisonic", [this.ptr]).val() === 1; }
@@ -6111,10 +6205,6 @@ export class CanvasGroup {
     static set_blocksRaycasts_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts_Injected", [_unity_self, value]); }
     static set_ignoreParentGroups_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups_Injected", [_unity_self, value]); }
     static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
-}
-
-export class HideFlags {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
 export class Collision {
@@ -6965,6 +7055,23 @@ export class Shader {
     static set_maximumLOD_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Shader", "set_maximumLOD_Injected", [_unity_self, value]); }
 }
 
+export class IAudioGenerator {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    CreateInstance(context, nestedFormat, creationParameters) { return (()=>{
+					let structptr_2a56ee = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Audio.IAudioGenerator", "CreateInstance", [structptr_2a56ee, this.ptr, context, nestedFormat, creationParameters]);
+					return structptr_2a56ee;
+				})(); }
+}
+
+export class AudioRolloffMode {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class AudioVelocityUpdateMode {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class CapsuleCollider {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get center() { return (()=>{
@@ -7134,16 +7241,6 @@ export class RectTransform {
     static set_pivot_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_pivot_Injected", [_unity_self, value]); }
     static set_sendChildDimensionsChange_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange_Injected", [_unity_self, value]); }
     static set_sizeDelta_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta_Injected", [_unity_self, value]); }
-}
-
-export class ColyVector3 {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get x() { return this.ptr.readField(0x10, 'f32').val(); }
-    set x(v) { return this.ptr.writeField(0x10, 'f32', v); }
-    get y() { return this.ptr.readField(0x14, 'f32').val(); }
-    set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
-    get z() { return this.ptr.readField(0x18, 'f32').val(); }
-    set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
 }
 
 export class TrailRenderer {
@@ -7667,23 +7764,6 @@ export class ParticleSystem {
     static set_randomSeed_Injected(_unity_self, value) { window.ctx.call("UnityEngine.ParticleSystem", "set_randomSeed_Injected", [_unity_self, value]); }
     static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.ParticleSystem", "set_time_Injected", [_unity_self, value]); }
     static set_useAutoRandomSeed_Injected(_unity_self, value) { window.ctx.call("UnityEngine.ParticleSystem", "set_useAutoRandomSeed_Injected", [_unity_self, value]); }
-}
-
-export class IAudioGenerator {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    CreateInstance(context, nestedFormat, creationParameters) { return (()=>{
-					let structptr_2a56ee = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Audio.IAudioGenerator", "CreateInstance", [structptr_2a56ee, this.ptr, context, nestedFormat, creationParameters]);
-					return structptr_2a56ee;
-				})(); }
-}
-
-export class AudioRolloffMode {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class AudioVelocityUpdateMode {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
 export class AudioDataLoadState {

@@ -88,6 +88,13 @@ export let config = {
         skeleton: false,
         skeletonColor: "#8a2be2",
         skeletonThickness: 2,
+
+        chickenNametags: false,
+        chickenNametagColor: "#9a95b9",
+
+        chickenSkeletons: false,
+        chickenSkeletonColor: "#8a2be2",
+        chickenSkeletonThickness: 2,
         
     },
     client: {

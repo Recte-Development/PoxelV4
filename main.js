@@ -1,7 +1,7 @@
 import { loadAndInitPlugin } from "./assets/injection.js";
 import { MenuUI, allowTypingInLilGuiInputs } from "./assets/hooks/uimain.js";
 import { config } from "./assets/ui/config.js";
-import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSessionId, currentMode } from "./assets/hooks/shooter.js";
+import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSessionId, currentMode } from "./assets/hooks/hooks.js";
 import { Schema, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
   RaycastHit, AFKManager, ChatUIManager, MovementController,
   Camera, Time,Input,
@@ -21,6 +21,7 @@ import {
 import { esp } from "./assets/render.js";
 import {main} from "./assets/aimbot.js";
 export let Players = new Map();
+export let Chickens = new Map();
 window.playermap = Players;
 let init = false
 export const ui = new MenuUI("Recte - Poxel", "1.0.0");
@@ -76,6 +77,16 @@ export const ui = new MenuUI("Recte - Poxel", "1.0.0");
       ui.addColorRow(tracers, "Color", config.visuals, "tracerColor");
       ui.addSelectRow(tracers, "Screen Location", ["Bottom Center", "Top Center", "Center", "Bottom Left", "Bottom Right", "Top Left", "Top Right"], config.visuals, "tracerFrom");
       ui.addSelectRow(tracers, "Body Location", ["Feet", "Head"], config.visuals, "tracerTo");
+
+
+      const chickens = ui.addSection(t, "Chickens", "misc");
+      ui.addToggleRow(chickens, "Nametags", config.visuals, "chickenNametags");
+      ui.addColorRow(chickens, "Nametag Color", config.visuals, "chickenNametagColor");
+      ui.addToggleRow(chickens, "Skeleton", config.visuals, "chickenSkeletons");
+      ui.addColorRow(chickens, "Skeleton Color", config.visuals, "chickenSkeletonColor");
+      ui.addSliderRow(chickens, "Skeleton Thickness", config.visuals, "chickenSkeletonThickness", 1, 10, .1);
+
+
     });
 
     ui.addTab("Aimbot", "crosshair", (t) => {
@@ -186,13 +197,13 @@ export const ui = new MenuUI("Recte - Poxel", "1.0.0");
       ui.addColorRow(theme, "Border",       config.client, "border",      applyColors);
       ui.addColorRow(theme, "Border Hover", config.client, "borderHover", applyColors);
       ui.addColorRow(theme, "Background",   config.client, "background",  applyColors);
-    });
 
-    ui.addTab("Settings", "settings", (t) => {
+      
       const keybinds = ui.addSection(t, "Keybinds", "key");
       ui.addSelectRow(keybinds, "Menu Toggle Key", config.settings.keyOptions, config.settings, "toggle");
       ui.addSelectRow(keybinds, "Godmode Key", config.settings.keyOptions, config.settings, "godmodekey");
     });
+
 
     ui.addTab("Credits", "info", (t) => {
       const credits = ui.addSection(t, "Credits", "info");
@@ -238,6 +249,6 @@ function mainloop(timestamp) {
         toggleKeys.godmode = false;
     }
 
-  document.querySelectorAll(".banner-container").forEach((rawr)=>{rawr.remove()})
+  document.querySelectorAll('.banner-container,[id^="kour-io_"],banner-container,banner_300x600,banner_300x250,banner_780x90').forEach(e=>e.remove())
 
 }

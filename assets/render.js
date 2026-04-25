@@ -1,11 +1,11 @@
-import { Players } from "../main";
+import { Chickens, Players } from "../main";
 import {
   Physics,
   RaycastHit,
   Camera,
   Component,
   Ray,
-  Quaternion, GameObject, Transform, MyRoomState, Collider,
+  Quaternion, GameObject, Transform, MyRoomState, Collider, 
 
   ColyShooter, ColyBehaviour, ColyView, ColyHealth, NeckController, ColyTransform, Type, ColyTeamMember, GameModeData, GameModeManager, GameMode,
 } from "../structs";
@@ -17,8 +17,8 @@ import {
   Vector3, strip, TypeUtils
 } from "./utils";
 import { config } from "./ui/config";
-import { humanBonePaths, boneLinks } from "./humanbodybones";
-import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode } from "./hooks/shooter";
+import { humanBonePaths, boneLinks, chickenBoneLinks, chickenBonePaths} from "./humanbodybones";
+import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode } from "./hooks/hooks";
 import {TransformHierarchy} from "./network"
 window.offset = 2;
 export let onscreen = [];
@@ -64,10 +64,7 @@ function isVisible(player){
   var dist = parseFloat(pcpos.distance(campos));
   var hit = Physics.Raycast_origin_direction_hitInfo_maxDistance_layerMask(camposPtr, direction, hitinfo, dist, layermask);
   
-  try{
-  let hi = new RaycastHit(hitinfo);
-  console.log(new Component(hi.transform.ptr).gameObject)}
-  catch {}
+  
   
   return !hit;
 }
@@ -279,7 +276,7 @@ export function esp() {
           const fp = Vector3.readFrom(footWorldPos);
           text += `\n[${Math.round(Math.hypot(fp.x - selfPos.x, fp.y - selfPos.y, fp.z - selfPos.z))}m]`;
         }
-        text += ` | ${isVisible(player)}`
+        //text += ` | ${isVisible(player)}`
         espObj.DrawText(text, headScreen.x, headScreen.y + 2, 12, nametagsColor);
       }
 
@@ -308,8 +305,39 @@ export function esp() {
         }
       }
 
-    } catch (err){ console.log(err)}
+    } catch{ }
   });
+
+
+  const chickenBoneLinkmStrs = config.visuals.chickenSkeletons ? chickenBoneLinks.map(({ from, to }) => ({
+    from: window.ctx.createMstr(from),
+    to: window.ctx.createMstr(to),
+  })) : null;
+  Chickens.forEach((chicken) => {
+    const comp = new Component(chicken.ptr);
+    const compTransform = comp.transform;
+
+    const screen = w2s(canvas, comp.transform.position)
+    if (!onScreen(screen)) return;
+
+      //if (config.visuals.chickenNametags){
+        //drawtext(ctx2d, config.visuals.chickenNametagColor, screen.x, screen.y, "Chicken")}
+      
+
+      const espObj = new ESPThings(ctx2d, screen, screen);
+      if (config.visuals.chickenNametags) {
+        espObj.DrawText("Chicken", screen.x, screen.y - 5, 12, config.visuals.chickenNametagColor);
+      }
+      if (config.visuals.chickenSkeletons && chickenBoneLinkmStrs) {
+        for (const { from, to } of chickenBoneLinkmStrs) {
+          try {
+            const fromPos = w2s(canvas, compTransform.Find(from).position);
+            const toPos = w2s(canvas, compTransform.Find(to).position);
+            if (fromPos && toPos) espObj.DrawLine(fromPos, toPos, config.visuals.chickenSkeletonColor, config.visuals.chickenSkeletonThickness);
+          } catch {}
+        }
+      }
+  })
 
   onscreen.length = 0;
 }
