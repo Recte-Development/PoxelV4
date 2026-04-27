@@ -36,6 +36,8 @@ const CSS = `
 .rm-top:active{cursor:grabbing;}
 .rm-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;letter-spacing:.4px;color:var(--txt);flex-shrink:0;}
 .rm-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--accGlow);animation:dot-pulse 3s ease-in-out infinite;}
+.rm-logo-sep{color:var(--muted);font-weight:400;margin:0 2px;}
+.rm-logo-sub{color:var(--sub);font-weight:500;}
 @keyframes dot-pulse{0%,100%{box-shadow:0 0 8px var(--accGlow)}50%{box-shadow:0 0 18px var(--accGlow)}}
 .rm-divider{width:1px;height:20px;background:var(--brd);flex-shrink:0;}
 .rm-top-right{margin-left:auto;display:flex;align-items:center;gap:6px;}
@@ -176,8 +178,7 @@ export class MenuUI {
         root.className = 'rm';
         root.innerHTML = `
             <div class="rm-top">
-                <div class="rm-logo"><div class="rm-logo-dot"></div><span>Recte</span></div>
-                <div class="rm-divider"></div>
+                <div class="rm-logo"><div class="rm-logo-dot"></div><span>Recte</span><span class="rm-logo-sep">|</span><span class="rm-logo-sub">${u || 'Poxel'} v${v || '1.0'}</span></div>
                 <div class="rm-top-right">
                     <button class="rm-save-btn">${ico.save} Save</button>
                     <button class="rm-icon-btn rm-icon-del">${ico.trash}</button>
@@ -186,13 +187,6 @@ export class MenuUI {
             <div class="rm-main">
                 <div class="rm-sidebar">
                     <div class="rm-sidebar-inner"></div>
-                    <div class="rm-sidebar-footer">
-                        <div class="rm-avatar">${(u || '?')[0].toUpperCase()}</div>
-                        <div>
-                            <div class="rm-user-name">${u || 'User'}</div>
-                            <div class="rm-user-sub">v${v || '1.0'}</div>
-                        </div>
-                    </div>
                 </div>
                 <div class="rm-panels"></div>
             </div>

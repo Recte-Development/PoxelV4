@@ -24,7 +24,7 @@ export let Players = new Map();
 export let Chickens = new Map();
 window.playermap = Players;
 let init = false
-export const ui = new MenuUI("Recte - Poxel", "1.0.0");
+export const ui = new MenuUI("Poxel", "4.0");
 
   loadAndInitPlugin().then((ctx) => {
 
@@ -228,10 +228,11 @@ const toggleKeys = {
 };
 
 function mainloop(timestamp) {
+  try {
   requestAnimationFrame(mainloop);
   esp();
   main();
-  try {
+  
     if (!init) {
         console.log("Recte Loaded & Shit"
       );
