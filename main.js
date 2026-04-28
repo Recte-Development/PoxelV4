@@ -72,7 +72,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addSliderRow(skeleton, "Skeleton Thickness", config.visuals, "skeletonThickness", 1, 10, .1);
       ui.addColorRow(skeleton, "Skeleton Color", config.visuals, "skeletonColor");
 
-      const tracers = ui.addSection(t, "Tracers", "misc");
+      const tracers = ui.addSection(g, "Tracers", "misc");
       ui.addToggleRow(tracers, "Enabled", config.visuals, "tracers");
       ui.addSliderRow(tracers, "Thickness", config.visuals, "tracerThickness", 1, 10, .1);
       ui.addColorRow(tracers, "Color", config.visuals, "tracerColor");
@@ -80,7 +80,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addSelectRow(tracers, "Body Location", ["Feet", "Head"], config.visuals, "tracerTo");
 
 
-      const chickens = ui.addSection(t, "Chickens", "misc");
+      const chickens = ui.addSection(g, "Chickens", "misc");
       ui.addToggleRow(chickens, "Nametags", config.visuals, "chickenNametags");
       ui.addColorRow(chickens, "Nametag Color", config.visuals, "chickenNametagColor");
       ui.addToggleRow(chickens, "Skeleton", config.visuals, "chickenSkeletons");

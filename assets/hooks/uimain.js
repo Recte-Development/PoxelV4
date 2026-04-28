@@ -67,8 +67,8 @@ const CSS = `
 .rm-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.07);border-radius:2px;}
 .rm-panel.active{display:block;animation:rm-panel-in .22s cubic-bezier(.16,1,.3,1) both;}
 @keyframes rm-panel-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.rm-panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start;margin-bottom:12px;}
-.rm-panel-grid .rm-section{margin-bottom:0;min-width:0;}
+.rm-panel-grid{columns:2;column-gap:12px;margin-bottom:12px;}
+.rm-panel-grid .rm-section{break-inside:avoid;margin-bottom:12px;min-width:0;}
 .rm-section{margin-bottom:12px;animation:rm-section-in .25s cubic-bezier(.16,1,.3,1) both;}
 @keyframes rm-section-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .rm-panel.active .rm-section:nth-child(1){animation-delay:0ms}
