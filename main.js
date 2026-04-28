@@ -161,7 +161,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addToggleRow(view, "Custom FOV", config.misc, "customFOV");
       ui.addSliderRow(view, "FOV Amount", config.misc, "customFOVAmount", 1, 180, 1);
 
-      const chat = ui.addSection(t, "Chat", "misc");
+      const chat = ui.addSection(g, "Chat", "misc");
       ui.addToggleRow(chat, "Chat Spam", config.misc, "chatSpam");
       ui.addTextRow(chat, "Spam Message", config.misc, "chatSpamMessage", "recte.cc");
       ui.addButton(chat, "Send Message", "Execute", "Execute1", () => {
@@ -200,7 +200,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addColorRow(theme, "Background",   config.client, "background",  applyColors);
 
       
-      const keybinds = ui.addSection(t, "Keybinds", "key");
+      const keybinds = ui.addSection(g, "Keybinds", "key");
       ui.addSelectRow(keybinds, "Menu Toggle Key", config.settings.keyOptions, config.settings, "toggle");
       ui.addSelectRow(keybinds, "Godmode Key", config.settings.keyOptions, config.settings, "godmodekey");
     });
