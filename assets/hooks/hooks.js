@@ -64,6 +64,7 @@ export function shooterhooks() {
       })*/
     try {
         console.log("Starting Hooks")
+        
         window.ctx.hookPrefix({
         typeName: 'LobbyUIManager',
         methodName: 'Start',
@@ -304,13 +305,7 @@ export function shooterhooks() {
         });
         
 
-        window.ctx.hookPrefix({
-            typeName: "ColyTransform",
-            methodName: "SendPositionUpdate",
-            params: ['i32', 'i32', 'i32', 'f32', 'i32']
-        }, (ptr, newPosition, newRotation, neck) => {
-            
-        });
+        
 
         /*window.ctx.hookPrefix({
             typeName: "UnityEngine.Camera",

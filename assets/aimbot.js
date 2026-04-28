@@ -47,7 +47,7 @@ export function getTargets() {
             if (!worldPos) return;
 
             const screenPos = w2s(canvas, worldPos);
-            if (!onScreen(screenPos) && !config.rage.screenCheck) return;
+            if (!onScreen(screenPos) && config.rage.screenCheck) return;
 
             const screenDist = Math.hypot(screenPos.x - screenCenterX, screenPos.y - screenCenterY);
             if (config.rage.fovCheck && screenDist > config.rage.aimbotFOV) return;

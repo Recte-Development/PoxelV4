@@ -45,7 +45,8 @@ export const ui = new MenuUI("Poxel", "4.0");
         try {
           let cT = new ColyTransform(new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.ptr);
           console.log(cT);
-          cT.SendPositionUpdate(new Component(Players.values().next().value.ptr).transform.position, QuaternionUtils.random().createPtr(), 0);
+          let v = new Vector3(0, 0, 0)
+          cT.SendPositionUpdate(v.createPtr(), QuaternionUtils.random().createPtr(), 0);
         } catch (error) { console.error(error); }
       });
 
@@ -147,7 +148,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addToggleRow(movement, "Never Suicide", config.misc, "neverSuicide");
       ui.addToggleRow(movement, "Infinite Dash", config.misc, "infDash");
       ui.addToggleRow(movement, "Custom Dash Force", config.misc, "customDashForce");
-      ui.addSliderRow(movement, "Dash Force", config.misc, "dashForce", 1, 75, 1);
+      ui.addSliderRow(movement, "Dash Force", config.misc, "dashForce", 1, 250, 1);
       ui.addToggleRow(movement, "Flight", config.misc, "flight");
       ui.addSliderRow(movement, "Flight Speed", config.misc, "flightSpeed", 1, 75, 1);
       ui.addToggleRow(movement, "Third Person", config.misc, "thirdPerson");
@@ -245,6 +246,7 @@ function mainloop(timestamp) {
             new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
 
             toggleKeys.godmode = true;
+            NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr("God Mode Enabled"), 3)
         }
     } else {
         toggleKeys.godmode = false;
