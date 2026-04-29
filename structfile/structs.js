@@ -1811,7 +1811,7 @@ export class CTFPoint {
     set flagObject(v) { return this.ptr.writeField(0x2C, 'i32', v); }
     get flagSpawnPoint() { return new Transform(this.ptr.readField(0x28, 'i32')); }
     set flagSpawnPoint(v) { return this.ptr.writeField(0x28, 'i32', v); }
-    get lastMyFlagAtBase() { return new Boolean(this.ptr.readField(0x38, 'i32')).val() === 1; }
+    get lastMyFlagAtBase() { return this.ptr.readField(0x38, 'i32').val() === 1; }
     set lastMyFlagAtBase(v) { return this.ptr.writeField(0x38, 'i32', v); }
     get lastMyFlagCarriedBy() { return this.ptr.readField(0x34, 'i32').mstr(); }
     set lastMyFlagCarriedBy(v) { return this.ptr.writeField(0x34, 'i32', window.ctx.createMstr(v)); }

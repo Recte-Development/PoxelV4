@@ -1048,6 +1048,114 @@ export class Weapon {
     set weaponId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
+export class FlagObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get blueMat() { return new Material(this.ptr.readField(0x14, 'i32')); }
+    set blueMat(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get ctfPoint() { return new CTFPoint(this.ptr.readField(0x18, 'i32')); }
+    set ctfPoint(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get flagMeshRenderer() { return new MeshRenderer(this.ptr.readField(0x28, 'i32')); }
+    set flagMeshRenderer(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get isAtBaseCache() { return this.ptr.readField(0x2C, 'i32').val() === 1; }
+    set isAtBaseCache(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get lastTriggerTime() { return this.ptr.readField(0x20, 'f32').val(); }
+    set lastTriggerTime(v) { return this.ptr.writeField(0x20, 'f32', v); }
+    get myFlag() { return new Flag(this.ptr.readField(0x1C, 'i32')); }
+    set myFlag(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get myWaypointObject() { return new FlagStaticWaypointObject(this.ptr.readField(0x24, 'i32')); }
+    set myWaypointObject(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get redMat() { return new Material(this.ptr.readField(0x10, 'i32')); }
+    set redMat(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    GetFlag() { return new Flag(window.ctx.call("FlagObject", "GetFlag", [this.ptr])); }
+    Initialize(ctfPoint, flag) { window.ctx.call("FlagObject", "Initialize", [this.ptr, ctfPoint, flag]); }
+    OnPlayerTouched(view) { window.ctx.call("FlagObject", "OnPlayerTouched", [this.ptr, view]); }
+    OnTriggerEnter(other) { window.ctx.call("FlagObject", "OnTriggerEnter", [this.ptr, other]); }
+    Update() { window.ctx.call("FlagObject", "Update", [this.ptr]); }
+}
+
+export class CursorController {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static get canLock() { return window.ctx.call("CursorController", "get_canLock", []).val() === 1; }
+    static get isCursorLocked() { return window.ctx.call("CursorController", "get_isCursorLocked", []).val() === 1; }
+    static set isCursorLocked(v) { window.ctx.call("CursorController", "set_isCursorLocked", [v]); }
+    get _isCursorLocked_k_BackingField() { return this.ptr.readField(0x0, 'i32').val() === 1; }
+    set _isCursorLocked_k_BackingField(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get OnLockState() { return new Action(this.ptr.readField(0xC, 'i32')); }
+    set OnLockState(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get instance() { return new CursorController(this.ptr.readField(0x4, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get lastLockTime() { return this.ptr.readField(0x8, 'f32').val(); }
+    set lastLockTime(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    static GetLastLockTime() { return window.ctx.call("CursorController", "GetLastLockTime", []).val(); }
+    static LockJs() { window.ctx.call("CursorController", "LockJs", []); }
+    OnLockChange(isLocked) { window.ctx.call("CursorController", "OnLockChange", [this.ptr, isLocked]); }
+    static SetCursorStyle(style) { window.ctx.call("CursorController", "SetCursorStyle", [style]); }
+    Start() { window.ctx.call("CursorController", "Start", [this.ptr]); }
+    static TryLockCursor(newLock) { return window.ctx.call("CursorController", "TryLockCursor", [newLock]).val() === 1; }
+    static UnlockJs() { window.ctx.call("CursorController", "UnlockJs", []); }
+}
+
+export class MapUIManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get IsPaused() { return window.ctx.call("MapUIManager", "get_IsPaused", [this.ptr]).val() === 1; }
+    set IsPaused(v) { window.ctx.call("MapUIManager", "set_IsPaused", [this.ptr, v]); }
+    get OnPause() { return this.ptr.readField(0x4, 'i32').val() === 1; }
+    set OnPause(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get canvasGroup() { return new CanvasGroup(this.ptr.readField(0x3C, 'i32')); }
+    set canvasGroup(v) { return this.ptr.writeField(0x3C, 'i32', v); }
+    get chatUIManager() { return new ChatUIManager(this.ptr.readField(0x34, 'i32')); }
+    set chatUIManager(v) { return this.ptr.writeField(0x34, 'i32', v); }
+    get clickToPlaySpinner() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
+    set clickToPlaySpinner(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get clickToPlayTxt() { return new TMPText(this.ptr.readField(0x14, 'i32')); }
+    set clickToPlayTxt(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get enableTime() { return this.ptr.readField(0x20, 'f32').val(); }
+    set enableTime(v) { return this.ptr.writeField(0x20, 'f32', v); }
+    get guiParent() { return new GameObject(this.ptr.readField(0x38, 'i32')); }
+    set guiParent(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get instance() { return new MapUIManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get isPaused() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set isPaused(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get killFieldUIManager() { return new KillFieldUIManager(this.ptr.readField(0x30, 'i32')); }
+    set killFieldUIManager(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get lastResumeTime() { return this.ptr.readField(0x8, 'f32').val(); }
+    set lastResumeTime(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get pausedPanel() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set pausedPanel(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get playerPausedShowElems() { return JSArray(this.ptr.readField(0x2C, 'i32')); }
+    set playerPausedShowElems(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get playerRawImage() { return new RawImage(this.ptr.readField(0x24, 'i32')); }
+    set playerRawImage(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get spectateBtn() { return new GameObject(this.ptr.readField(0x10, 'i32')); }
+    set spectateBtn(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get spectatorPrefab() { return new GameObject(this.ptr.readField(0x44, 'i32')); }
+    set spectatorPrefab(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get yourRoomTxt() { return new TMPText(this.ptr.readField(0x18, 'i32')); }
+    set yourRoomTxt(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    Awake() { window.ctx.call("MapUIManager", "Awake", [this.ptr]); }
+    ExternalCall(funcName) { window.ctx.call("MapUIManager", "ExternalCall", [this.ptr, funcName]); }
+    LoadClassesPanel() { window.ctx.call("MapUIManager", "LoadClassesPanel", [this.ptr]); }
+    LoadFriendsPanel() { window.ctx.call("MapUIManager", "LoadFriendsPanel", [this.ptr]); }
+    LoadInviteFriendsPanel() { window.ctx.call("MapUIManager", "LoadInviteFriendsPanel", [this.ptr]); }
+    LoadServersPanel() { window.ctx.call("MapUIManager", "LoadServersPanel", [this.ptr]); }
+    LoadSettingsPanel() { window.ctx.call("MapUIManager", "LoadSettingsPanel", [this.ptr]); }
+    OnCursorLocked() { window.ctx.call("MapUIManager", "OnCursorLocked", [this.ptr]); }
+    OnCursorStateChangedTick() { window.ctx.call("MapUIManager", "OnCursorStateChangedTick", [this.ptr]); }
+    OnCursorUnlocked() { window.ctx.call("MapUIManager", "OnCursorUnlocked", [this.ptr]); }
+    OnDisable() { window.ctx.call("MapUIManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("MapUIManager", "OnEnable", [this.ptr]); }
+    PWADownload() { window.ctx.call("MapUIManager", "PWADownload", [this.ptr]); }
+    PlayPressed_pointer() { window.ctx.call("MapUIManager", "PlayPressed_7406", [this.ptr]); }
+    PlayPressed_isJoystick(isJoystick) { window.ctx.call("MapUIManager", "PlayPressed_7407", [this.ptr, isJoystick]); }
+    PostGameEnded() { window.ctx.call("MapUIManager", "PostGameEnded", [this.ptr]); }
+    SetGUIParent(active) { window.ctx.call("MapUIManager", "SetGUIParent", [this.ptr, active]); }
+    SlowUpdate() { window.ctx.call("MapUIManager", "SlowUpdate", [this.ptr]); }
+    Spectate() { window.ctx.call("MapUIManager", "Spectate", [this.ptr]); }
+    Start() { window.ctx.call("MapUIManager", "Start", [this.ptr]); }
+    Update() { window.ctx.call("MapUIManager", "Update", [this.ptr]); }
+}
+
 export class DroppedTag {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get expireTime() { return this.ptr.readField(0x1C, 'f32').val(); }
@@ -3010,6 +3118,41 @@ export class Schema {
     GetFieldChildTypes() { return window.ctx.call("Colyseus.Schema.Schema", "GetFieldChildTypes", [this.ptr]); }
 }
 
+export class CTFManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get currentCTFPoints() { return this.ptr.readField(0x18, 'i32'); }
+    set currentCTFPoints(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get instance() { return new CTFManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get isInitializing() { return this.ptr.readField(0x20, 'i32').val() === 1; }
+    set isInitializing(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get popupTxt() { return new TMPText(this.ptr.readField(0x10, 'i32')); }
+    set popupTxt(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get popupUI() { return new CanvasGroup(this.ptr.readField(0x14, 'i32')); }
+    set popupUI(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get schemaCallbacks() { return this.ptr.readField(0x1C, 'i32'); }
+    set schemaCallbacks(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    _Initialize_b_14_1(key, flag) { window.ctx.call("CTFManager", "<Initialize>b__14_1", [this.ptr, key, flag]); }
+    _Initialize_b_14_3(key, flag) { window.ctx.call("CTFManager", "<Initialize>b__14_3", [this.ptr, key, flag]); }
+    _ShowPopupUI_b_3_0() { window.ctx.call("CTFManager", "<ShowPopupUI>b__3_0", [this.ptr]); }
+    Awake() { window.ctx.call("CTFManager", "Awake", [this.ptr]); }
+    CleanupAllFlags() { window.ctx.call("CTFManager", "CleanupAllFlags", [this.ptr]); }
+    DebouncedInitialize() { return (()=>{
+					let structptr_201922 = window.ctx.malloc(50);
+					window.ctx.call("CTFManager", "DebouncedInitialize", [structptr_201922, this.ptr]);
+					return structptr_201922;
+				})(); }
+    ForceRedrawAllPoints() { window.ctx.call("CTFManager", "ForceRedrawAllPoints", [this.ptr]); }
+    HandleWaypointReset() { window.ctx.call("CTFManager", "HandleWaypointReset", [this.ptr]); }
+    Initialize() { window.ctx.call("CTFManager", "Initialize", [this.ptr]); }
+    IsCarryingAnyFlag(playerId) { return window.ctx.call("CTFManager", "IsCarryingAnyFlag", [this.ptr, playerId]).val() === 1; }
+    OnDisable() { window.ctx.call("CTFManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("CTFManager", "OnEnable", [this.ptr]); }
+    OnFlagAdded(key, flag) { window.ctx.call("CTFManager", "OnFlagAdded", [this.ptr, key, flag]); }
+    OnFlagRemoved(key, flag) { window.ctx.call("CTFManager", "OnFlagRemoved", [this.ptr, key, flag]); }
+    ShowPopupUI(txt) { window.ctx.call("CTFManager", "ShowPopupUI", [this.ptr, txt]); }
+}
+
 export class Animator {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get allowConstantClipSamplingOptimization() { return window.ctx.call("UnityEngine.Animator", "get_allowConstantClipSamplingOptimization", [this.ptr]).val() === 1; }
@@ -4645,6 +4788,154 @@ export class Vector3 {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22124", [this.ptr, format, formatProvider]); }
 }
 
+export class CTFPoint {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get baseRenderers() { return JSArray(this.ptr.readField(0x24, 'i32')); }
+    set baseRenderers(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get baseWaypointObject() { return new BaseWaypointObject(this.ptr.readField(0x10, 'i32')); }
+    set baseWaypointObject(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get flagChangeUnregisterCallback() { return new Action(this.ptr.readField(0x30, 'i32')); }
+    set flagChangeUnregisterCallback(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get flagObject() { return new FlagObject(this.ptr.readField(0x2C, 'i32')); }
+    set flagObject(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get flagSpawnPoint() { return new Transform(this.ptr.readField(0x28, 'i32')); }
+    set flagSpawnPoint(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get lastMyFlagAtBase() { return this.ptr.readField(0x38, 'i32').val() === 1; }
+    set lastMyFlagAtBase(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get lastMyFlagCarriedBy() { return this.ptr.readField(0x34, 'i32').mstr(); }
+    set lastMyFlagCarriedBy(v) { return this.ptr.writeField(0x34, 'i32', window.ctx.createMstr(v)); }
+    get lastTriggerTime() { return this.ptr.readField(0x18, 'f32').val(); }
+    set lastTriggerTime(v) { return this.ptr.writeField(0x18, 'f32', v); }
+    get materialsPerTeamID() { return JSArray(this.ptr.readField(0x1C, 'i32')); }
+    set materialsPerTeamID(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get myCTFWaypointUI() { return new CTFWaypointUI(this.ptr.readField(0x14, 'i32')); }
+    set myCTFWaypointUI(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get myFlag() { return new Flag(this.ptr.readField(0x20, 'i32')); }
+    set myFlag(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    _SubscribeToFlagChanges_b_12_0() { window.ctx.call("CTFPoint", "<SubscribeToFlagChanges>b__12_0", [this.ptr]); }
+    Initialize(flag) { window.ctx.call("CTFPoint", "Initialize", [this.ptr, flag]); }
+    OnDestroy() { window.ctx.call("CTFPoint", "OnDestroy", [this.ptr]); }
+    OnPlayerTouched(view) { window.ctx.call("CTFPoint", "OnPlayerTouched", [this.ptr, view]); }
+    OnTriggerEnter(other) { window.ctx.call("CTFPoint", "OnTriggerEnter", [this.ptr, other]); }
+    ReinitializeWaypoint() { window.ctx.call("CTFPoint", "ReinitializeWaypoint", [this.ptr]); }
+    SetNullParent(x) { window.ctx.call("CTFPoint", "SetNullParent", [this.ptr, x]); }
+    SubscribeToFlagChanges() { window.ctx.call("CTFPoint", "SubscribeToFlagChanges", [this.ptr]); }
+    TryPickUpFlag() { window.ctx.call("CTFPoint", "TryPickUpFlag", [this.ptr]); }
+    UnsubscribeFromFlagChanges() { window.ctx.call("CTFPoint", "UnsubscribeFromFlagChanges", [this.ptr]); }
+    UpdateFlagState() { window.ctx.call("CTFPoint", "UpdateFlagState", [this.ptr]); }
+}
+
+export class MeshRenderer {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get additionalVertexStreams() { return new Mesh(window.ctx.call("UnityEngine.MeshRenderer", "get_additionalVertexStreams", [this.ptr])); }
+    set additionalVertexStreams(v) { window.ctx.call("UnityEngine.MeshRenderer", "set_additionalVertexStreams", [this.ptr, v]); }
+    get enlightenVertexStream() { return new Mesh(window.ctx.call("UnityEngine.MeshRenderer", "get_enlightenVertexStream", [this.ptr])); }
+    set enlightenVertexStream(v) { window.ctx.call("UnityEngine.MeshRenderer", "set_enlightenVertexStream", [this.ptr, v]); }
+    get subMeshStartIndex() { return window.ctx.call("UnityEngine.MeshRenderer", "get_subMeshStartIndex", [this.ptr]).val(); }
+    DontStripMeshRenderer() { window.ctx.call("UnityEngine.MeshRenderer", "DontStripMeshRenderer", [this.ptr]); }
+    GetShaderUserValue() { return window.ctx.call("UnityEngine.MeshRenderer", "GetShaderUserValue", [this.ptr]).val(); }
+    Internal_GetShaderUserValueUInt() { return window.ctx.call("UnityEngine.MeshRenderer", "Internal_GetShaderUserValueUInt", [this.ptr]).val(); }
+    static Internal_GetShaderUserValueUInt_Injected(_unity_self) { return window.ctx.call("UnityEngine.MeshRenderer", "Internal_GetShaderUserValueUInt_Injected", [_unity_self]).val(); }
+    Internal_SetShaderUserValueUInt(v) { window.ctx.call("UnityEngine.MeshRenderer", "Internal_SetShaderUserValueUInt", [this.ptr, v]); }
+    static Internal_SetShaderUserValueUInt_Injected(_unity_self, v) { window.ctx.call("UnityEngine.MeshRenderer", "Internal_SetShaderUserValueUInt_Injected", [_unity_self, v]); }
+    SetShaderUserValue(v) { window.ctx.call("UnityEngine.MeshRenderer", "SetShaderUserValue", [this.ptr, v]); }
+    static get_additionalVertexStreams_Injected(_unity_self) { return (()=>{
+					let structptr_27c9a7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.MeshRenderer", "get_additionalVertexStreams_Injected", [structptr_27c9a7, _unity_self]);
+					return structptr_27c9a7;
+				})(); }
+    static get_enlightenVertexStream_Injected(_unity_self) { return (()=>{
+					let structptr_ead2c7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.MeshRenderer", "get_enlightenVertexStream_Injected", [structptr_ead2c7, _unity_self]);
+					return structptr_ead2c7;
+				})(); }
+    static get_subMeshStartIndex_Injected(_unity_self) { return window.ctx.call("UnityEngine.MeshRenderer", "get_subMeshStartIndex_Injected", [_unity_self]).val(); }
+    static set_additionalVertexStreams_Injected(_unity_self, value) { window.ctx.call("UnityEngine.MeshRenderer", "set_additionalVertexStreams_Injected", [_unity_self, value]); }
+    static set_enlightenVertexStream_Injected(_unity_self, value) { window.ctx.call("UnityEngine.MeshRenderer", "set_enlightenVertexStream_Injected", [_unity_self, value]); }
+}
+
+export class Flag {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get basePosition() { return new ColyVector3(this.ptr.readField(0x1C, 'i32')); }
+    set basePosition(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get carriedBy() { return this.ptr.readField(0x14, 'i32').mstr(); }
+    set carriedBy(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
+    get isAtBase() { return this.ptr.readField(0x11, 'i32').val() === 1; }
+    set isAtBase(v) { return this.ptr.writeField(0x11, 'i32', v); }
+    get position() { return new ColyVector3(this.ptr.readField(0x18, 'i32')); }
+    set position(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get teamId() { return this.ptr.readField(0x10, 'i32'); }
+    set teamId(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
+export class FlagStaticWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get myFlagObject() { return new FlagObject(this.ptr.readField(0x20, 'i32')); }
+    set myFlagObject(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    OnDisable() { window.ctx.call("FlagStaticWaypointObject", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("FlagStaticWaypointObject", "OnEnable", [this.ptr]); }
+    OnWaypointAddedHandler(waypointUI) { window.ctx.call("FlagStaticWaypointObject", "OnWaypointAddedHandler", [this.ptr, waypointUI]); }
+}
+
+export class CanvasGroup {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get alpha() { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha", [this.ptr]).val(); }
+    set alpha(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha", [this.ptr, v]); }
+    get blocksRaycasts() { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts", [this.ptr]).val() === 1; }
+    set blocksRaycasts(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts", [this.ptr, v]); }
+    get ignoreParentGroups() { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups", [this.ptr]).val() === 1; }
+    set ignoreParentGroups(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups", [this.ptr, v]); }
+    get interactable() { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable", [this.ptr]).val() === 1; }
+    set interactable(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable", [this.ptr, v]); }
+    IsRaycastLocationValid(sp, eventCamera) { return window.ctx.call("UnityEngine.CanvasGroup", "IsRaycastLocationValid", [this.ptr, sp, eventCamera]).val() === 1; }
+    static get_alpha_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha_Injected", [_unity_self]).val(); }
+    static get_blocksRaycasts_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts_Injected", [_unity_self]).val() === 1; }
+    static get_ignoreParentGroups_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups_Injected", [_unity_self]).val() === 1; }
+    static get_interactable_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable_Injected", [_unity_self]).val() === 1; }
+    static set_alpha_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha_Injected", [_unity_self, value]); }
+    static set_blocksRaycasts_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts_Injected", [_unity_self, value]); }
+    static set_ignoreParentGroups_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups_Injected", [_unity_self, value]); }
+    static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
+}
+
+export class KillFieldUIManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get OnDied() { return this.ptr.readField(0x8, 'i32'); }
+    set OnDied(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get OnKilled() { return this.ptr.readField(0x4, 'i32'); }
+    set OnKilled(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get instance() { return new KillFieldUIManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get killFieldMessages() { return JSArray(this.ptr.readField(0x10, 'i32')); }
+    set killFieldMessages(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    AddMessage(message) { window.ctx.call("KillFieldUIManager", "AddMessage", [this.ptr, message]); }
+    Awake() { window.ctx.call("KillFieldUIManager", "Awake", [this.ptr]); }
+    GetAvailableMessage() { return new KillFieldUIMessage(window.ctx.call("KillFieldUIManager", "GetAvailableMessage", [this.ptr])); }
+    HandleSpawn(view, isSpawning) { window.ctx.call("KillFieldUIManager", "HandleSpawn", [this.ptr, view, isSpawning]); }
+    OnDisable() { window.ctx.call("KillFieldUIManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("KillFieldUIManager", "OnEnable", [this.ptr]); }
+}
+
+export class RawImage {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get mainTexture() { return new Texture(window.ctx.call("UnityEngine.UI.RawImage", "get_mainTexture", [this.ptr])); }
+    get texture() { return new Texture(window.ctx.call("UnityEngine.UI.RawImage", "get_texture", [this.ptr])); }
+    set texture(v) { window.ctx.call("UnityEngine.UI.RawImage", "set_texture", [this.ptr, v]); }
+    get uvRect() { return (()=>{
+					let structptr_c10173 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.UI.RawImage", "get_uvRect", [structptr_c10173, this.ptr]);
+					return structptr_c10173;
+				})(); }
+    set uvRect(v) { window.ctx.call("UnityEngine.UI.RawImage", "set_uvRect", [this.ptr, v]); }
+    get m_Texture() { return new Texture(this.ptr.readField(0x80, 'i32')); }
+    set m_Texture(v) { return this.ptr.writeField(0x80, 'i32', v); }
+    get m_UVRect() { return new Rect(this.ptr.readField(0x84, 'i32')); }
+    set m_UVRect(v) { return this.ptr.writeField(0x84, 'i32', v); }
+    OnDidApplyAnimationProperties() { window.ctx.call("UnityEngine.UI.RawImage", "OnDidApplyAnimationProperties", [this.ptr]); }
+    OnPopulateMesh(vh) { window.ctx.call("UnityEngine.UI.RawImage", "OnPopulateMesh", [this.ptr, vh]); }
+    SetNativeSize() { window.ctx.call("UnityEngine.UI.RawImage", "SetNativeSize", [this.ptr]); }
+}
+
 export class HideFlags {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
@@ -5352,20 +5643,6 @@ export class ColyAI {
     SendChatMessage(body) { window.ctx.call("ColyAI", "SendChatMessage", [this.ptr, body]); }
     SetState(newState) { window.ctx.call("ColyAI", "SetState", [this.ptr, newState]); }
     Update() { window.ctx.call("ColyAI", "Update", [this.ptr]); }
-}
-
-export class Flag {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get basePosition() { return new ColyVector3(this.ptr.readField(0x1C, 'i32')); }
-    set basePosition(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get carriedBy() { return this.ptr.readField(0x14, 'i32').mstr(); }
-    set carriedBy(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
-    get isAtBase() { return this.ptr.readField(0x11, 'i32').val() === 1; }
-    set isAtBase(v) { return this.ptr.writeField(0x11, 'i32', v); }
-    get position() { return new ColyVector3(this.ptr.readField(0x18, 'i32')); }
-    set position(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get teamId() { return this.ptr.readField(0x10, 'i32'); }
-    set teamId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
 export class Team {
@@ -6182,27 +6459,6 @@ export class JSONNode {
     ToString_pointer() { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9269", [this.ptr]); }
     ToString_aIndent(aIndent) { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9270", [this.ptr, aIndent]); }
     WriteToStringBuilder(aSB, aIndent, aIndentInc, aMode) { window.ctx.call("SimpleJSON.JSONNode", "WriteToStringBuilder", [this.ptr, aSB, aIndent, aIndentInc, aMode]); }
-}
-
-export class CanvasGroup {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get alpha() { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha", [this.ptr]).val(); }
-    set alpha(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha", [this.ptr, v]); }
-    get blocksRaycasts() { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts", [this.ptr]).val() === 1; }
-    set blocksRaycasts(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts", [this.ptr, v]); }
-    get ignoreParentGroups() { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups", [this.ptr]).val() === 1; }
-    set ignoreParentGroups(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups", [this.ptr, v]); }
-    get interactable() { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable", [this.ptr]).val() === 1; }
-    set interactable(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable", [this.ptr, v]); }
-    IsRaycastLocationValid(sp, eventCamera) { return window.ctx.call("UnityEngine.CanvasGroup", "IsRaycastLocationValid", [this.ptr, sp, eventCamera]).val() === 1; }
-    static get_alpha_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha_Injected", [_unity_self]).val(); }
-    static get_blocksRaycasts_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts_Injected", [_unity_self]).val() === 1; }
-    static get_ignoreParentGroups_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups_Injected", [_unity_self]).val() === 1; }
-    static get_interactable_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable_Injected", [_unity_self]).val() === 1; }
-    static set_alpha_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha_Injected", [_unity_self, value]); }
-    static set_blocksRaycasts_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts_Injected", [_unity_self, value]); }
-    static set_ignoreParentGroups_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups_Injected", [_unity_self, value]); }
-    static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
 }
 
 export class Collision {
@@ -7051,6 +7307,753 @@ export class Shader {
     static get_subshaderCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Shader", "get_subshaderCount_Injected", [_unity_self]).val(); }
     static set_globalRenderPipeline_Injected(value) { window.ctx.call("UnityEngine.Shader", "set_globalRenderPipeline_Injected", [value]); }
     static set_maximumLOD_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Shader", "set_maximumLOD_Injected", [_unity_self, value]); }
+}
+
+export class BaseWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get waypointPositioner() { return new Transform(this.ptr.readField(0x14, 'i32')); }
+    set waypointPositioner(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get waypointUIPrefab() { return new WaypointUI(this.ptr.readField(0x10, 'i32')); }
+    set waypointUIPrefab(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
+export class CTFWaypointUI {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get actionText() { return new TMPText(this.ptr.readField(0x1C, 'i32')); }
+    set actionText(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get flagIcon() { return new GameObject(this.ptr.readField(0x24, 'i32')); }
+    set flagIcon(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get frameImage() { return new Image(this.ptr.readField(0x20, 'i32')); }
+    set frameImage(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get glowFx() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set glowFx(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get lastIsCarrier() { return this.ptr.readField(0x2C, 'i32').val() === 1; }
+    set lastIsCarrier(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    static ReverseFlagTeam(team) { return window.ctx.call("CTFWaypointUI", "ReverseFlagTeam", [team]).val(); }
+    Set(flag) { window.ctx.call("CTFWaypointUI", "Set", [this.ptr, flag]); }
+}
+
+export class Mesh {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get bindposeCount() { return window.ctx.call("UnityEngine.Mesh", "get_bindposeCount", [this.ptr]).val(); }
+    get bindposes() { return window.ctx.call("UnityEngine.Mesh", "get_bindposes", [this.ptr]); }
+    set bindposes(v) { window.ctx.call("UnityEngine.Mesh", "set_bindposes", [this.ptr, v]); }
+    get blendShapeCount() { return window.ctx.call("UnityEngine.Mesh", "get_blendShapeCount", [this.ptr]).val(); }
+    get boneWeights() { return window.ctx.call("UnityEngine.Mesh", "get_boneWeights", [this.ptr]); }
+    set boneWeights(v) { window.ctx.call("UnityEngine.Mesh", "set_boneWeights", [this.ptr, v]); }
+    get bounds() { return (()=>{
+					let structptr_9b45c2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "get_bounds", [structptr_9b45c2, this.ptr]);
+					return structptr_9b45c2;
+				})(); }
+    set bounds(v) { window.ctx.call("UnityEngine.Mesh", "set_bounds", [this.ptr, v]); }
+    get canAccess() { return window.ctx.call("UnityEngine.Mesh", "get_canAccess", [this.ptr]).val() === 1; }
+    get colors() { return window.ctx.call("UnityEngine.Mesh", "get_colors", [this.ptr]); }
+    set colors(v) { window.ctx.call("UnityEngine.Mesh", "set_colors", [this.ptr, v]); }
+    get colors32() { return window.ctx.call("UnityEngine.Mesh", "get_colors32", [this.ptr]); }
+    set colors32(v) { window.ctx.call("UnityEngine.Mesh", "set_colors32", [this.ptr, v]); }
+    get indexBufferTarget() { return new Target(window.ctx.call("UnityEngine.Mesh", "get_indexBufferTarget", [this.ptr])); }
+    set indexBufferTarget(v) { window.ctx.call("UnityEngine.Mesh", "set_indexBufferTarget", [this.ptr, v]); }
+    get indexFormat() { return new IndexFormat(window.ctx.call("UnityEngine.Mesh", "get_indexFormat", [this.ptr])); }
+    set indexFormat(v) { window.ctx.call("UnityEngine.Mesh", "set_indexFormat", [this.ptr, v]); }
+    get isLodSelectionActive() { return window.ctx.call("UnityEngine.Mesh", "get_isLodSelectionActive", [this.ptr]).val() === 1; }
+    get isReadable() { return window.ctx.call("UnityEngine.Mesh", "get_isReadable", [this.ptr]).val() === 1; }
+    get lodCount() { return window.ctx.call("UnityEngine.Mesh", "get_lodCount", [this.ptr]).val(); }
+    set lodCount(v) { window.ctx.call("UnityEngine.Mesh", "set_lodCount", [this.ptr, v]); }
+    get lodSelectionCurve() { return (()=>{
+					let structptr_f42b93 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "get_lodSelectionCurve", [structptr_f42b93, this.ptr]);
+					return structptr_f42b93;
+				})(); }
+    set lodSelectionCurve(v) { window.ctx.call("UnityEngine.Mesh", "set_lodSelectionCurve", [this.ptr, v]); }
+    get normals() { return window.ctx.call("UnityEngine.Mesh", "get_normals", [this.ptr]); }
+    set normals(v) { window.ctx.call("UnityEngine.Mesh", "set_normals", [this.ptr, v]); }
+    get skinWeightBufferLayout() { return new SkinWeights(window.ctx.call("UnityEngine.Mesh", "get_skinWeightBufferLayout", [this.ptr])); }
+    get subMeshCount() { return window.ctx.call("UnityEngine.Mesh", "get_subMeshCount", [this.ptr]).val(); }
+    set subMeshCount(v) { window.ctx.call("UnityEngine.Mesh", "set_subMeshCount", [this.ptr, v]); }
+    get tangents() { return window.ctx.call("UnityEngine.Mesh", "get_tangents", [this.ptr]); }
+    set tangents(v) { window.ctx.call("UnityEngine.Mesh", "set_tangents", [this.ptr, v]); }
+    get triangles() { return window.ctx.call("UnityEngine.Mesh", "get_triangles", [this.ptr]); }
+    set triangles(v) { window.ctx.call("UnityEngine.Mesh", "set_triangles", [this.ptr, v]); }
+    get uv() { return window.ctx.call("UnityEngine.Mesh", "get_uv", [this.ptr]); }
+    set uv(v) { window.ctx.call("UnityEngine.Mesh", "set_uv", [this.ptr, v]); }
+    get uv2() { return window.ctx.call("UnityEngine.Mesh", "get_uv2", [this.ptr]); }
+    set uv2(v) { window.ctx.call("UnityEngine.Mesh", "set_uv2", [this.ptr, v]); }
+    get uv3() { return window.ctx.call("UnityEngine.Mesh", "get_uv3", [this.ptr]); }
+    set uv3(v) { window.ctx.call("UnityEngine.Mesh", "set_uv3", [this.ptr, v]); }
+    get uv4() { return window.ctx.call("UnityEngine.Mesh", "get_uv4", [this.ptr]); }
+    set uv4(v) { window.ctx.call("UnityEngine.Mesh", "set_uv4", [this.ptr, v]); }
+    get uv5() { return window.ctx.call("UnityEngine.Mesh", "get_uv5", [this.ptr]); }
+    set uv5(v) { window.ctx.call("UnityEngine.Mesh", "set_uv5", [this.ptr, v]); }
+    get uv6() { return window.ctx.call("UnityEngine.Mesh", "get_uv6", [this.ptr]); }
+    set uv6(v) { window.ctx.call("UnityEngine.Mesh", "set_uv6", [this.ptr, v]); }
+    get uv7() { return window.ctx.call("UnityEngine.Mesh", "get_uv7", [this.ptr]); }
+    set uv7(v) { window.ctx.call("UnityEngine.Mesh", "set_uv7", [this.ptr, v]); }
+    get uv8() { return window.ctx.call("UnityEngine.Mesh", "get_uv8", [this.ptr]); }
+    set uv8(v) { window.ctx.call("UnityEngine.Mesh", "set_uv8", [this.ptr, v]); }
+    get vertexAttributeCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexAttributeCount", [this.ptr]).val(); }
+    get vertexBufferCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexBufferCount", [this.ptr]).val(); }
+    get vertexBufferTarget() { return new Target(window.ctx.call("UnityEngine.Mesh", "get_vertexBufferTarget", [this.ptr])); }
+    set vertexBufferTarget(v) { window.ctx.call("UnityEngine.Mesh", "set_vertexBufferTarget", [this.ptr, v]); }
+    get vertexCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexCount", [this.ptr]).val(); }
+    get vertices() { return window.ctx.call("UnityEngine.Mesh", "get_vertices", [this.ptr]); }
+    set vertices(v) { window.ctx.call("UnityEngine.Mesh", "set_vertices", [this.ptr, v]); }
+    static AcquireReadOnlyMeshData_mesh(mesh) { return (()=>{
+					let structptr_589b21 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21043", [structptr_589b21, mesh]);
+					return structptr_589b21;
+				})(); }
+    static AcquireReadOnlyMeshData_meshes(meshes) { return (()=>{
+					let structptr_ffcbb9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21044", [structptr_ffcbb9, meshes]);
+					return structptr_ffcbb9;
+				})(); }
+    static AcquireReadOnlyMeshData_meshes(meshes) { return (()=>{
+					let structptr_f1d515 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21045", [structptr_f1d515, meshes]);
+					return structptr_f1d515;
+				})(); }
+    AddBlendShapeFrame_shapeName_frameWeight_deltaVertices_deltaNormals_deltaTangents(shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_20886", [this.ptr, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    AddBlendShapeFrame_shapeName_frameWeight_deltaVertices_deltaNormals_deltaTangents(shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_20887", [this.ptr, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    static AddBlendShapeFrame_Injected(_unity_self, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_Injected", [_unity_self, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    static AllocateWritableMeshData_meshCount(meshCount) { return (()=>{
+					let structptr_084f6c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21046", [structptr_084f6c, meshCount]);
+					return structptr_084f6c;
+				})(); }
+    static AllocateWritableMeshData_mesh(mesh) { return (()=>{
+					let structptr_9bb410 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21047", [structptr_9bb410, mesh]);
+					return structptr_9bb410;
+				})(); }
+    static AllocateWritableMeshData_meshes(meshes) { return (()=>{
+					let structptr_00bbd8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21048", [structptr_00bbd8, meshes]);
+					return structptr_00bbd8;
+				})(); }
+    static AllocateWritableMeshData_meshes(meshes) { return (()=>{
+					let structptr_5b3f2d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21049", [structptr_5b3f2d, meshes]);
+					return structptr_5b3f2d;
+				})(); }
+    static ApplyAndDisposeWritableMeshData_data_mesh_flags(data, mesh, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21050", [data, mesh, flags]); }
+    static ApplyAndDisposeWritableMeshData_data_meshes_flags(data, meshes, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21051", [data, meshes, flags]); }
+    static ApplyAndDisposeWritableMeshData_data_meshes_flags(data, meshes, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21052", [data, meshes, flags]); }
+    CheckCanAccessSubmesh(submesh, errorAboutTriangles) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmesh", [this.ptr, submesh, errorAboutTriangles]).val() === 1; }
+    CheckCanAccessSubmeshIndices(submesh) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmeshIndices", [this.ptr, submesh]).val() === 1; }
+    CheckCanAccessSubmeshTriangles(submesh) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmeshTriangles", [this.ptr, submesh]).val() === 1; }
+    CheckIndicesArrayRange(valuesLength, start, length) { window.ctx.call("UnityEngine.Mesh", "CheckIndicesArrayRange", [this.ptr, valuesLength, start, length]); }
+    Clear_keepVertexLayout(keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "Clear_21147", [this.ptr, keepVertexLayout]); }
+    Clear_pointer() { window.ctx.call("UnityEngine.Mesh", "Clear_21148", [this.ptr]); }
+    ClearBlendShapes() { window.ctx.call("UnityEngine.Mesh", "ClearBlendShapes", [this.ptr]); }
+    static ClearBlendShapes_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "ClearBlendShapes_Injected", [_unity_self]); }
+    ClearImpl(keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "ClearImpl", [this.ptr, keepVertexLayout]); }
+    static ClearImpl_Injected(_unity_self, keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "ClearImpl_Injected", [_unity_self, keepVertexLayout]); }
+    CombineMeshes_combine_mergeSubMeshes_useMatrices_hasLightmapData(combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21163", [this.ptr, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    CombineMeshes_combine_mergeSubMeshes_useMatrices(combine, mergeSubMeshes, useMatrices) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21164", [this.ptr, combine, mergeSubMeshes, useMatrices]); }
+    CombineMeshes_combine_mergeSubMeshes(combine, mergeSubMeshes) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21165", [this.ptr, combine, mergeSubMeshes]); }
+    CombineMeshes_combine(combine) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21166", [this.ptr, combine]); }
+    CombineMeshesImpl(combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshesImpl", [this.ptr, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    static CombineMeshesImpl_Injected(_unity_self, combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshesImpl_Injected", [_unity_self, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    static DefaultDimensionForChannel(channel) { return window.ctx.call("UnityEngine.Mesh", "DefaultDimensionForChannel", [channel]).val(); }
+    static FromInstanceID(id) { return new Mesh(window.ctx.call("UnityEngine.Mesh", "FromInstanceID", [id])); }
+    static FromInstanceID_Injected(id) { return (()=>{
+					let structptr_b040de = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "FromInstanceID_Injected", [structptr_b040de, id]);
+					return structptr_b040de;
+				})(); }
+    GetAllBoneWeights() { return (()=>{
+					let structptr_43ce66 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeights", [structptr_43ce66, this.ptr]);
+					return structptr_43ce66;
+				})(); }
+    GetAllBoneWeightsArray() { return (()=>{
+					let structptr_c1b6e7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArray", [structptr_c1b6e7, this.ptr]);
+					return structptr_c1b6e7;
+				})(); }
+    GetAllBoneWeightsArraySize() { return window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArraySize", [this.ptr]).val(); }
+    static GetAllBoneWeightsArraySize_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArraySize_Injected", [_unity_self]).val(); }
+    static GetAllBoneWeightsArray_Injected(_unity_self) { return (()=>{
+					let structptr_2d0443 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArray_Injected", [structptr_2d0443, _unity_self]);
+					return structptr_2d0443;
+				})(); }
+    GetAllocArrayFromChannel(channel, format, dim) { return window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannel", [this.ptr, channel, format, dim]); }
+    GetAllocArrayFromChannel(channel) { return window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannel", [this.ptr, channel]); }
+    GetAllocArrayFromChannelImpl(channel, format, dim) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannelImpl", [this.ptr, channel, format, dim])); }
+    static GetAllocArrayFromChannelImpl_Injected(_unity_self, channel, format, dim) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannelImpl_Injected", [_unity_self, channel, format, dim])); }
+    GetArrayFromChannelImpl(channel, format, dim, values) { window.ctx.call("UnityEngine.Mesh", "GetArrayFromChannelImpl", [this.ptr, channel, format, dim, values]); }
+    static GetArrayFromChannelImpl_Injected(_unity_self, channel, format, dim, values) { window.ctx.call("UnityEngine.Mesh", "GetArrayFromChannelImpl_Injected", [_unity_self, channel, format, dim, values]); }
+    GetBaseVertex(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertex", [this.ptr, submesh]).val(); }
+    GetBaseVertexImpl(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertexImpl", [this.ptr, submesh]).val(); }
+    static GetBaseVertexImpl_Injected(_unity_self, submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertexImpl_Injected", [_unity_self, submesh]).val(); }
+    GetBindposes_pointer() { return (()=>{
+					let structptr_67fd85 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposes_20903", [structptr_67fd85, this.ptr]);
+					return structptr_67fd85;
+				})(); }
+    GetBindposes_bindposes(bindposes) { window.ctx.call("UnityEngine.Mesh", "GetBindposes_21142", [this.ptr, bindposes]); }
+    GetBindposesArray() { return (()=>{
+					let structptr_42562f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposesArray", [structptr_42562f, this.ptr]);
+					return structptr_42562f;
+				})(); }
+    static GetBindposesArray_Injected(_unity_self) { return (()=>{
+					let structptr_fe44d7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposesArray_Injected", [structptr_fe44d7, _unity_self]);
+					return structptr_fe44d7;
+				})(); }
+    GetBindposesNonAllocImpl(values) { window.ctx.call("UnityEngine.Mesh", "GetBindposesNonAllocImpl", [this.ptr, values]); }
+    static GetBindposesNonAllocImpl_Injected(_unity_self, values) { window.ctx.call("UnityEngine.Mesh", "GetBindposesNonAllocImpl_Injected", [_unity_self, values]); }
+    GetBlendShapeBuffer_layout(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBuffer_21056", [this.ptr, layout])); }
+    GetBlendShapeBuffer_pointer() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBuffer_21057", [this.ptr])); }
+    GetBlendShapeBufferImpl(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferImpl", [this.ptr, layout])); }
+    static GetBlendShapeBufferImpl_Injected(_unity_self, layout) { return (()=>{
+					let structptr_3be503 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferImpl_Injected", [structptr_3be503, _unity_self, layout]);
+					return structptr_3be503;
+				})(); }
+    GetBlendShapeBufferRange(blendShapeIndex) { return (()=>{
+					let structptr_240e49 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferRange", [structptr_240e49, this.ptr, blendShapeIndex]);
+					return structptr_240e49;
+				})(); }
+    GetBlendShapeFrameCount(shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameCount", [this.ptr, shapeIndex]).val(); }
+    static GetBlendShapeFrameCount_Injected(_unity_self, shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameCount_Injected", [_unity_self, shapeIndex]).val(); }
+    GetBlendShapeFrameVertices(shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameVertices", [this.ptr, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents]); }
+    static GetBlendShapeFrameVertices_Injected(_unity_self, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameVertices_Injected", [_unity_self, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents]); }
+    GetBlendShapeFrameWeight(shapeIndex, frameIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameWeight", [this.ptr, shapeIndex, frameIndex]).val(); }
+    static GetBlendShapeFrameWeight_Injected(_unity_self, shapeIndex, frameIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameWeight_Injected", [_unity_self, shapeIndex, frameIndex]).val(); }
+    GetBlendShapeIndex(blendShapeName) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeIndex", [this.ptr, blendShapeName]).val(); }
+    static GetBlendShapeIndex_Injected(_unity_self, blendShapeName) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeIndex_Injected", [_unity_self, blendShapeName]).val(); }
+    GetBlendShapeName(shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeName", [this.ptr, shapeIndex]); }
+    static GetBlendShapeName_Injected(_unity_self, shapeIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeName_Injected", [_unity_self, shapeIndex, ret]); }
+    GetBlendShapeOffsetInternal(index) { return (()=>{
+					let structptr_93f5d2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeOffsetInternal", [structptr_93f5d2, this.ptr, index]);
+					return structptr_93f5d2;
+				})(); }
+    static GetBlendShapeOffsetInternal_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeOffsetInternal_Injected", [_unity_self, index, ret]); }
+    GetBoneWeightBuffer(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBuffer", [this.ptr, layout])); }
+    GetBoneWeightBufferImpl(bonesPerVertex) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferImpl", [this.ptr, bonesPerVertex])); }
+    static GetBoneWeightBufferImpl_Injected(_unity_self, bonesPerVertex) { return (()=>{
+					let structptr_ac542e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferImpl_Injected", [structptr_ac542e, _unity_self, bonesPerVertex]);
+					return structptr_ac542e;
+				})(); }
+    GetBoneWeightBufferLayoutInternal() { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferLayoutInternal", [this.ptr]).val(); }
+    static GetBoneWeightBufferLayoutInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferLayoutInternal_Injected", [_unity_self]).val(); }
+    GetBoneWeights(boneWeights) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeights", [this.ptr, boneWeights]); }
+    GetBoneWeightsImpl() { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsImpl", [this.ptr]); }
+    static GetBoneWeightsImpl_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsImpl_Injected", [_unity_self, ret]); }
+    GetBoneWeightsNonAllocImpl(values) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsNonAllocImpl", [this.ptr, values]); }
+    static GetBoneWeightsNonAllocImpl_Injected(_unity_self, values) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsNonAllocImpl_Injected", [_unity_self, values]); }
+    GetBonesPerVertex() { return (()=>{
+					let structptr_8d840f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertex", [structptr_8d840f, this.ptr]);
+					return structptr_8d840f;
+				})(); }
+    GetBonesPerVertexArray() { return (()=>{
+					let structptr_7f6328 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertexArray", [structptr_7f6328, this.ptr]);
+					return structptr_7f6328;
+				})(); }
+    static GetBonesPerVertexArray_Injected(_unity_self) { return (()=>{
+					let structptr_e53b96 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertexArray_Injected", [structptr_e53b96, _unity_self]);
+					return structptr_e53b96;
+				})(); }
+    GetColors_colors(colors) { window.ctx.call("UnityEngine.Mesh", "GetColors_21001", [this.ptr, colors]); }
+    GetColors_colors(colors) { window.ctx.call("UnityEngine.Mesh", "GetColors_21008", [this.ptr, colors]); }
+    GetIndexBuffer() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetIndexBuffer", [this.ptr])); }
+    GetIndexBufferImpl() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetIndexBufferImpl", [this.ptr])); }
+    static GetIndexBufferImpl_Injected(_unity_self) { return (()=>{
+					let structptr_92f82d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetIndexBufferImpl_Injected", [structptr_92f82d, _unity_self]);
+					return structptr_92f82d;
+				})(); }
+    GetIndexCount_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCount_21083", [this.ptr, submesh]).val(); }
+    GetIndexCount_submesh_meshLod(submesh, meshLod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCount_21084", [this.ptr, submesh, meshLod]).val(); }
+    GetIndexCountImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCountImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetIndexCountImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCountImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetIndexStart_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStart_21081", [this.ptr, submesh]).val(); }
+    GetIndexStart_submesh_meshLod(submesh, meshLod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStart_21082", [this.ptr, submesh, meshLod]).val(); }
+    GetIndexStartImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStartImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetIndexStartImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStartImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetIndices_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21073", [this.ptr, submesh]); }
+    GetIndices_submesh_applyBaseVertex(submesh, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21074", [this.ptr, submesh, applyBaseVertex]); }
+    GetIndices_submesh_meshLod_applyBaseVertex(submesh, meshLod, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21075", [this.ptr, submesh, meshLod, applyBaseVertex]); }
+    GetIndices_indices_submesh(indices, submesh) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21076", [this.ptr, indices, submesh]); }
+    GetIndices_indices_submesh_applyBaseVertex(indices, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21077", [this.ptr, indices, submesh, applyBaseVertex]); }
+    GetIndices_indices_submesh_meshLod_applyBaseVertex(indices, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21078", [this.ptr, indices, submesh, meshLod, applyBaseVertex]); }
+    GetIndices_indices_submesh_applyBaseVertex(indices, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21079", [this.ptr, indices, submesh, applyBaseVertex]); }
+    GetIndices_indices_submesh_meshLod_applyBaseVertex(indices, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21080", [this.ptr, indices, submesh, meshLod, applyBaseVertex]); }
+    GetIndicesImpl(submesh, applyBaseVertex, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndicesImpl", [this.ptr, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesImpl_Injected(_unity_self, submesh, applyBaseVertex, meshlod, ret) { window.ctx.call("UnityEngine.Mesh", "GetIndicesImpl_Injected", [_unity_self, submesh, applyBaseVertex, meshlod, ret]); }
+    GetIndicesNonAllocImpl(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    GetIndicesNonAllocImpl16(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl16", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesNonAllocImpl16_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl16_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesNonAllocImpl_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    GetListForChannel(buffer, capacity, channel, dim) { window.ctx.call("UnityEngine.Mesh", "GetListForChannel", [this.ptr, buffer, capacity, channel, dim]); }
+    GetListForChannel(buffer, capacity, channel, dim, channelType) { window.ctx.call("UnityEngine.Mesh", "GetListForChannel", [this.ptr, buffer, capacity, channel, dim, channelType]); }
+    GetLod(subMeshIndex, levelIndex) { return (()=>{
+					let structptr_274836 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetLod", [structptr_274836, this.ptr, subMeshIndex, levelIndex]);
+					return structptr_274836;
+				})(); }
+    GetLodCount() { return window.ctx.call("UnityEngine.Mesh", "GetLodCount", [this.ptr]).val(); }
+    static GetLodCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetLodCount_Injected", [_unity_self]).val(); }
+    GetLodSelectionCurve() { return (()=>{
+					let structptr_e05e05 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetLodSelectionCurve", [structptr_e05e05, this.ptr]);
+					return structptr_e05e05;
+				})(); }
+    static GetLodSelectionCurve_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "GetLodSelectionCurve_Injected", [_unity_self, ret]); }
+    static GetLod_Injected(_unity_self, subMeshIndex, levelIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetLod_Injected", [_unity_self, subMeshIndex, levelIndex, ret]); }
+    GetLods_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetLods_21140", [this.ptr, submesh]); }
+    GetLods_levels_submesh(levels, submesh) { window.ctx.call("UnityEngine.Mesh", "GetLods_21141", [this.ptr, levels, submesh]); }
+    GetLodsAlloc(subMeshIndex) { return window.ctx.call("UnityEngine.Mesh", "GetLodsAlloc", [this.ptr, subMeshIndex]); }
+    static GetLodsAlloc_Injected(_unity_self, subMeshIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetLodsAlloc_Injected", [_unity_self, subMeshIndex, ret]); }
+    GetLodsNonAlloc(levels, subMeshIndex) { window.ctx.call("UnityEngine.Mesh", "GetLodsNonAlloc", [this.ptr, levels, subMeshIndex]); }
+    static GetLodsNonAlloc_Injected(_unity_self, levels, subMeshIndex) { window.ctx.call("UnityEngine.Mesh", "GetLodsNonAlloc_Injected", [_unity_self, levels, subMeshIndex]); }
+    GetNativeIndexBufferPtr() { return (()=>{
+					let structptr_919c0b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeIndexBufferPtr", [structptr_919c0b, this.ptr]);
+					return structptr_919c0b;
+				})(); }
+    static GetNativeIndexBufferPtr_Injected(_unity_self) { return (()=>{
+					let structptr_901217 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeIndexBufferPtr_Injected", [structptr_901217, _unity_self]);
+					return structptr_901217;
+				})(); }
+    GetNativeVertexBufferPtr(index) { return (()=>{
+					let structptr_1fc9bb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeVertexBufferPtr", [structptr_1fc9bb, this.ptr, index]);
+					return structptr_1fc9bb;
+				})(); }
+    static GetNativeVertexBufferPtr_Injected(_unity_self, index) { return (()=>{
+					let structptr_2c7455 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeVertexBufferPtr_Injected", [structptr_2c7455, _unity_self, index]);
+					return structptr_2c7455;
+				})(); }
+    GetNormals(normals) { window.ctx.call("UnityEngine.Mesh", "GetNormals", [this.ptr, normals]); }
+    GetSubMesh(index) { return (()=>{
+					let structptr_95ab95 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetSubMesh", [structptr_95ab95, this.ptr, index]);
+					return structptr_95ab95;
+				})(); }
+    static GetSubMesh_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetSubMesh_Injected", [_unity_self, index, ret]); }
+    GetTangents(tangents) { window.ctx.call("UnityEngine.Mesh", "GetTangents", [this.ptr, tangents]); }
+    GetTopology(submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopology", [this.ptr, submesh])); }
+    GetTopologyImpl(submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopologyImpl", [this.ptr, submesh])); }
+    static GetTopologyImpl_Injected(_unity_self, submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopologyImpl_Injected", [_unity_self, submesh])); }
+    GetTotalIndexCount() { return window.ctx.call("UnityEngine.Mesh", "GetTotalIndexCount", [this.ptr]).val(); }
+    static GetTotalIndexCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetTotalIndexCount_Injected", [_unity_self]).val(); }
+    GetTriangles_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21065", [this.ptr, submesh]); }
+    GetTriangles_submesh_applyBaseVertex(submesh, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21066", [this.ptr, submesh, applyBaseVertex]); }
+    GetTriangles_submesh_meshLod_applyBaseVertex(submesh, meshLod, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21067", [this.ptr, submesh, meshLod, applyBaseVertex]); }
+    GetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21068", [this.ptr, triangles, submesh]); }
+    GetTriangles_triangles_submesh_applyBaseVertex(triangles, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21069", [this.ptr, triangles, submesh, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_meshLod_applyBaseVertex(triangles, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21070", [this.ptr, triangles, submesh, meshLod, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_applyBaseVertex(triangles, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21071", [this.ptr, triangles, submesh, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_meshLod_applyBaseVertex(triangles, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21072", [this.ptr, triangles, submesh, meshLod, applyBaseVertex]); }
+    GetTrianglesCountImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesCountImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetTrianglesCountImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesCountImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetTrianglesImpl(submesh, applyBaseVertex, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesImpl", [this.ptr, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesImpl_Injected(_unity_self, submesh, applyBaseVertex, meshlod, ret) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesImpl_Injected", [_unity_self, submesh, applyBaseVertex, meshlod, ret]); }
+    GetTrianglesNonAllocImpl(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    GetTrianglesNonAllocImpl16(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl16", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesNonAllocImpl16_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl16_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesNonAllocImpl_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetUVChannel(uvIndex) { return new VertexAttribute(window.ctx.call("UnityEngine.Mesh", "GetUVChannel", [uvIndex])); }
+    GetUVDistributionMetric(uvSetIndex) { return window.ctx.call("UnityEngine.Mesh", "GetUVDistributionMetric", [this.ptr, uvSetIndex]).val(); }
+    static GetUVDistributionMetric_Injected(_unity_self, uvSetIndex) { return window.ctx.call("UnityEngine.Mesh", "GetUVDistributionMetric_Injected", [_unity_self, uvSetIndex]).val(); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21034", [this.ptr, channel, uvs]); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21035", [this.ptr, channel, uvs]); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21036", [this.ptr, channel, uvs]); }
+    GetUVsImpl(uvIndex, uvs, dim) { window.ctx.call("UnityEngine.Mesh", "GetUVsImpl", [this.ptr, uvIndex, uvs, dim]); }
+    GetVertexAttribute(index) { return (()=>{
+					let structptr_d44b5d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetVertexAttribute", [structptr_d44b5d, this.ptr, index]);
+					return structptr_d44b5d;
+				})(); }
+    GetVertexAttributeCountImpl() { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeCountImpl", [this.ptr]).val(); }
+    static GetVertexAttributeCountImpl_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeCountImpl_Injected", [_unity_self]).val(); }
+    GetVertexAttributeDimension(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeDimension", [this.ptr, attr]).val(); }
+    static GetVertexAttributeDimension_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeDimension_Injected", [_unity_self, attr]).val(); }
+    GetVertexAttributeFormat(attr) { return new VertexAttributeFormat(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeFormat", [this.ptr, attr])); }
+    static GetVertexAttributeFormat_Injected(_unity_self, attr) { return new VertexAttributeFormat(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeFormat_Injected", [_unity_self, attr])); }
+    GetVertexAttributeOffset(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeOffset", [this.ptr, attr]).val(); }
+    static GetVertexAttributeOffset_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeOffset_Injected", [_unity_self, attr]).val(); }
+    GetVertexAttributeStream(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeStream", [this.ptr, attr]).val(); }
+    static GetVertexAttributeStream_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeStream_Injected", [_unity_self, attr]).val(); }
+    static GetVertexAttribute_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetVertexAttribute_Injected", [_unity_self, index, ret]); }
+    GetVertexAttributes_pointer() { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21038", [this.ptr]); }
+    GetVertexAttributes_attributes(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21039", [this.ptr, attributes]).val(); }
+    GetVertexAttributes_attributes(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21040", [this.ptr, attributes]).val(); }
+    GetVertexAttributesAlloc() { return new Array(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesAlloc", [this.ptr])); }
+    static GetVertexAttributesAlloc_Injected(_unity_self) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesAlloc_Injected", [_unity_self])); }
+    GetVertexAttributesArray(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesArray", [this.ptr, attributes]).val(); }
+    static GetVertexAttributesArray_Injected(_unity_self, attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesArray_Injected", [_unity_self, attributes]).val(); }
+    GetVertexAttributesList(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesList", [this.ptr, attributes]).val(); }
+    static GetVertexAttributesList_Injected(_unity_self, attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesList_Injected", [_unity_self, attributes]).val(); }
+    GetVertexBuffer(index) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetVertexBuffer", [this.ptr, index])); }
+    GetVertexBufferImpl(index) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetVertexBufferImpl", [this.ptr, index])); }
+    static GetVertexBufferImpl_Injected(_unity_self, index) { return (()=>{
+					let structptr_25a0fb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetVertexBufferImpl_Injected", [structptr_25a0fb, _unity_self, index]);
+					return structptr_25a0fb;
+				})(); }
+    GetVertexBufferStride(stream) { return window.ctx.call("UnityEngine.Mesh", "GetVertexBufferStride", [this.ptr, stream]).val(); }
+    static GetVertexBufferStride_Injected(_unity_self, stream) { return window.ctx.call("UnityEngine.Mesh", "GetVertexBufferStride_Injected", [_unity_self, stream]).val(); }
+    GetVertices(vertices) { window.ctx.call("UnityEngine.Mesh", "GetVertices", [this.ptr, vertices]); }
+    HasBoneWeights() { return window.ctx.call("UnityEngine.Mesh", "HasBoneWeights", [this.ptr]).val() === 1; }
+    static HasBoneWeights_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "HasBoneWeights_Injected", [_unity_self]).val() === 1; }
+    HasVertexAttribute(attr) { return window.ctx.call("UnityEngine.Mesh", "HasVertexAttribute", [this.ptr, attr]).val() === 1; }
+    static HasVertexAttribute_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "HasVertexAttribute_Injected", [_unity_self, attr]).val() === 1; }
+    InternalSetBoneWeights(bonesPerVertex, bonesPerVertexSize, weights, weightsSize) { window.ctx.call("UnityEngine.Mesh", "InternalSetBoneWeights", [this.ptr, bonesPerVertex, bonesPerVertexSize, weights, weightsSize]); }
+    static InternalSetBoneWeights_Injected(_unity_self, bonesPerVertex, bonesPerVertexSize, weights, weightsSize) { window.ctx.call("UnityEngine.Mesh", "InternalSetBoneWeights_Injected", [_unity_self, bonesPerVertex, bonesPerVertexSize, weights, weightsSize]); }
+    InternalSetIndexBufferData(data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetIndexBufferDataFromArray(data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferDataFromArray", [this.ptr, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetIndexBufferDataFromArray_Injected(_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferDataFromArray_Injected", [_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetIndexBufferData_Injected(_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferData_Injected", [_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetVertexBufferData(stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferData", [this.ptr, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetVertexBufferDataFromArray(stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferDataFromArray", [this.ptr, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetVertexBufferDataFromArray_Injected(_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferDataFromArray_Injected", [_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetVertexBufferData_Injected(_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferData_Injected", [_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static Internal_Create(mono) { window.ctx.call("UnityEngine.Mesh", "Internal_Create", [mono]); }
+    MarkDynamic() { window.ctx.call("UnityEngine.Mesh", "MarkDynamic", [this.ptr]); }
+    MarkDynamicImpl() { window.ctx.call("UnityEngine.Mesh", "MarkDynamicImpl", [this.ptr]); }
+    static MarkDynamicImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "MarkDynamicImpl_Injected", [_unity_self]); }
+    MarkModified() { window.ctx.call("UnityEngine.Mesh", "MarkModified", [this.ptr]); }
+    static MarkModified_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "MarkModified_Injected", [_unity_self]); }
+    Optimize() { window.ctx.call("UnityEngine.Mesh", "Optimize", [this.ptr]); }
+    OptimizeImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeImpl", [this.ptr]); }
+    static OptimizeImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeImpl_Injected", [_unity_self]); }
+    OptimizeIndexBuffers() { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffers", [this.ptr]); }
+    OptimizeIndexBuffersImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffersImpl", [this.ptr]); }
+    static OptimizeIndexBuffersImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffersImpl_Injected", [_unity_self]); }
+    OptimizeReorderVertexBuffer() { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBuffer", [this.ptr]); }
+    OptimizeReorderVertexBufferImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBufferImpl", [this.ptr]); }
+    static OptimizeReorderVertexBufferImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBufferImpl_Injected", [_unity_self]); }
+    PrintErrorCantAccessChannel(ch) { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessChannel", [this.ptr, ch]); }
+    static PrintErrorCantAccessChannel_Injected(_unity_self, ch) { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessChannel_Injected", [_unity_self, ch]); }
+    PrintErrorCantAccessIndices() { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessIndices", [this.ptr]); }
+    RecalculateBounds_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateBounds_21149", [this.ptr]); }
+    RecalculateBounds_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBounds_21152", [this.ptr, flags]); }
+    RecalculateBoundsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBoundsImpl", [this.ptr, flags]); }
+    static RecalculateBoundsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBoundsImpl_Injected", [_unity_self, flags]); }
+    RecalculateNormals_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateNormals_21150", [this.ptr]); }
+    RecalculateNormals_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormals_21153", [this.ptr, flags]); }
+    RecalculateNormalsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormalsImpl", [this.ptr, flags]); }
+    static RecalculateNormalsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormalsImpl_Injected", [_unity_self, flags]); }
+    RecalculateTangents_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateTangents_21151", [this.ptr]); }
+    RecalculateTangents_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangents_21154", [this.ptr, flags]); }
+    RecalculateTangentsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangentsImpl", [this.ptr, flags]); }
+    static RecalculateTangentsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangentsImpl_Injected", [_unity_self, flags]); }
+    RecalculateUVDistributionMetric(uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetric", [this.ptr, uvSetIndex, uvAreaThreshold]); }
+    RecalculateUVDistributionMetricImpl(uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricImpl", [this.ptr, uvSetIndex, uvAreaThreshold]); }
+    static RecalculateUVDistributionMetricImpl_Injected(_unity_self, uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricImpl_Injected", [_unity_self, uvSetIndex, uvAreaThreshold]); }
+    RecalculateUVDistributionMetrics(uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetrics", [this.ptr, uvAreaThreshold]); }
+    RecalculateUVDistributionMetricsImpl(uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricsImpl", [this.ptr, uvAreaThreshold]); }
+    static RecalculateUVDistributionMetricsImpl_Injected(_unity_self, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricsImpl_Injected", [_unity_self, uvAreaThreshold]); }
+    SetAllSubMeshesAtOnceFromArray(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromArray", [this.ptr, desc, start, count, flags]); }
+    static SetAllSubMeshesAtOnceFromArray_Injected(_unity_self, desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromArray_Injected", [_unity_self, desc, start, count, flags]); }
+    SetAllSubMeshesAtOnceFromNativeArray(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromNativeArray", [this.ptr, desc, start, count, flags]); }
+    static SetAllSubMeshesAtOnceFromNativeArray_Injected(_unity_self, desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromNativeArray_Injected", [_unity_self, desc, start, count, flags]); }
+    SetArrayForChannel(channel, format, dim, values, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannel", [this.ptr, channel, format, dim, values, flags]); }
+    SetArrayForChannel(channel, values, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannel", [this.ptr, channel, values, flags]); }
+    SetArrayForChannelImpl(channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannelImpl", [this.ptr, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    static SetArrayForChannelImpl_Injected(_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannelImpl_Injected", [_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    SetBindposes(poses) { window.ctx.call("UnityEngine.Mesh", "SetBindposes", [this.ptr, poses]); }
+    SetBindposesFromScript_NativeArray(posesPtr, posesCount) { window.ctx.call("UnityEngine.Mesh", "SetBindposesFromScript_NativeArray", [this.ptr, posesPtr, posesCount]); }
+    static SetBindposesFromScript_NativeArray_Injected(_unity_self, posesPtr, posesCount) { window.ctx.call("UnityEngine.Mesh", "SetBindposesFromScript_NativeArray_Injected", [_unity_self, posesPtr, posesCount]); }
+    SetBoneWeights(bonesPerVertex, weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeights", [this.ptr, bonesPerVertex, weights]); }
+    SetBoneWeightsImpl(weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeightsImpl", [this.ptr, weights]); }
+    static SetBoneWeightsImpl_Injected(_unity_self, weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeightsImpl_Injected", [_unity_self, weights]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21002", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21003", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21004", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21005", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21006", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21007", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21009", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21010", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21011", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21012", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21013", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21014", [this.ptr, inColors, start, length, flags]); }
+    SetColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors]); }
+    SetColors(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors, start, length]); }
+    SetColors(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors, start, length, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferParams(indexCount, format) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferParams", [this.ptr, indexCount, format]); }
+    static SetIndexBufferParams_Injected(_unity_self, indexCount, format) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferParams_Injected", [_unity_self, indexCount, format]); }
+    SetIndices_indices_topology_submesh(indices, topology, submesh) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21108", [this.ptr, indices, topology, submesh]); }
+    SetIndices_indices_topology_submesh_calculateBounds(indices, topology, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21109", [this.ptr, indices, topology, submesh, calculateBounds]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21110", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21111", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21112", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21113", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21114", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21115", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21116", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21117", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21118", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21119", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21120", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21121", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21122", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21123", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21124", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21125", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndicesImpl(submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesImpl", [this.ptr, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    static SetIndicesImpl_Injected(_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesImpl_Injected", [_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    SetIndicesNativeArrayImpl(submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesNativeArrayImpl", [this.ptr, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    static SetIndicesNativeArrayImpl_Injected(_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesNativeArrayImpl_Injected", [_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    SetListForChannel(channel, format, dim, values, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetListForChannel", [this.ptr, channel, format, dim, values, start, length, flags]); }
+    SetListForChannel(channel, values, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetListForChannel", [this.ptr, channel, values, start, length, flags]); }
+    SetLod(submesh, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLod", [this.ptr, submesh, level, levelRange, flags]); }
+    SetLodCount(numLevels) { window.ctx.call("UnityEngine.Mesh", "SetLodCount", [this.ptr, numLevels]); }
+    static SetLodCount_Injected(_unity_self, numLevels) { window.ctx.call("UnityEngine.Mesh", "SetLodCount_Injected", [_unity_self, numLevels]); }
+    SetLodImpl(subMeshIndex, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodImpl", [this.ptr, subMeshIndex, level, levelRange, flags]); }
+    static SetLodImpl_Injected(_unity_self, subMeshIndex, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodImpl_Injected", [_unity_self, subMeshIndex, level, levelRange, flags]); }
+    SetLodSelectionCurve(lodSelectionCurve) { window.ctx.call("UnityEngine.Mesh", "SetLodSelectionCurve", [this.ptr, lodSelectionCurve]); }
+    static SetLodSelectionCurve_Injected(_unity_self, lodSelectionCurve) { window.ctx.call("UnityEngine.Mesh", "SetLodSelectionCurve_Injected", [_unity_self, lodSelectionCurve]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21134", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21135", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21136", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21137", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21138", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21139", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLodsFromArray(levelRanges, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromArray", [this.ptr, levelRanges, start, count, submesh, flags]); }
+    static SetLodsFromArray_Injected(_unity_self, levelRanges, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromArray_Injected", [_unity_self, levelRanges, start, count, submesh, flags]); }
+    SetLodsFromNativeArray(lodLevels, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromNativeArray", [this.ptr, lodLevels, count, submesh, flags]); }
+    static SetLodsFromNativeArray_Injected(_unity_self, lodLevels, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromNativeArray_Injected", [_unity_self, lodLevels, count, submesh, flags]); }
+    SetNativeArrayForChannelImpl(channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetNativeArrayForChannelImpl", [this.ptr, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    static SetNativeArrayForChannelImpl_Injected(_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetNativeArrayForChannelImpl_Injected", [_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    SetNormals_inNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20988", [this.ptr, inNormals]); }
+    SetNormals_inNormals_start_length(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20989", [this.ptr, inNormals, start, length]); }
+    SetNormals_inNormals_start_length_flags(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20990", [this.ptr, inNormals, start, length, flags]); }
+    SetNormals_inNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20991", [this.ptr, inNormals]); }
+    SetNormals_inNormals_start_length(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20992", [this.ptr, inNormals, start, length]); }
+    SetNormals_inNormals_start_length_flags(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20993", [this.ptr, inNormals, start, length, flags]); }
+    SetNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals]); }
+    SetNormals(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals, start, length]); }
+    SetNormals(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals, start, length, flags]); }
+    SetSizedArrayForChannel(channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetSizedArrayForChannel", [this.ptr, channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags]); }
+    SetSizedNativeArrayForChannel(channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetSizedNativeArrayForChannel", [this.ptr, channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags]); }
+    SetSubMesh(index, desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMesh", [this.ptr, index, desc, flags]); }
+    static SetSubMesh_Injected(_unity_self, index, desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMesh_Injected", [_unity_self, index, desc, flags]); }
+    SetSubMeshes_desc_start_count_flags(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21126", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes_desc_flags(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21127", [this.ptr, desc, flags]); }
+    SetSubMeshes_desc_start_count_flags(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21128", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes_desc_flags(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21129", [this.ptr, desc, flags]); }
+    SetSubMeshes(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes", [this.ptr, desc, flags]); }
+    SetTangents_inTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20995", [this.ptr, inTangents]); }
+    SetTangents_inTangents_start_length(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20996", [this.ptr, inTangents, start, length]); }
+    SetTangents_inTangents_start_length_flags(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20997", [this.ptr, inTangents, start, length, flags]); }
+    SetTangents_inTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20998", [this.ptr, inTangents]); }
+    SetTangents_inTangents_start_length(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20999", [this.ptr, inTangents, start, length]); }
+    SetTangents_inTangents_start_length_flags(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents_21000", [this.ptr, inTangents, start, length, flags]); }
+    SetTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents]); }
+    SetTangents(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents, start, length]); }
+    SetTangents(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents, start, length, flags]); }
+    SetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21088", [this.ptr, triangles, submesh]); }
+    SetTriangles_triangles_submesh_calculateBounds(triangles, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21089", [this.ptr, triangles, submesh, calculateBounds]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21090", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21091", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21092", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21093", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21094", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21095", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21096", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21097", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21098", [this.ptr, triangles, submesh]); }
+    SetTriangles_triangles_submesh_calculateBounds(triangles, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21099", [this.ptr, triangles, submesh, calculateBounds]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21100", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21101", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21102", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21103", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21104", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21105", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21106", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21107", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTrianglesImpl(submesh, indicesFormat, triangles, trianglesArrayLength, start, length, calculateBounds, baseVertex, meshLod) { window.ctx.call("UnityEngine.Mesh", "SetTrianglesImpl", [this.ptr, submesh, indicesFormat, triangles, trianglesArrayLength, start, length, calculateBounds, baseVertex, meshLod]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21015", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21016", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21017", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21018", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21019", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21020", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21021", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21022", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21023", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21025", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21026", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21027", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21028", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21029", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21030", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21031", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21032", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21033", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs]); }
+    SetUVs(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs, start, length]); }
+    SetUVs(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUvsImpl(uvIndex, dim, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUvsImpl", [this.ptr, uvIndex, dim, uvs, start, length, flags]); }
+    SetUvsImpl_uvIndex_dim_uvs_arrayStart_arraySize_flags(uvIndex, dim, uvs, arrayStart, arraySize, flags) { window.ctx.call("UnityEngine.Mesh", "SetUvsImpl_21024", [this.ptr, uvIndex, dim, uvs, arrayStart, arraySize, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferParams_vertexCount_attributes(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParams_21041", [this.ptr, vertexCount, attributes]); }
+    SetVertexBufferParams_vertexCount_attributes(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParams_21042", [this.ptr, vertexCount, attributes]); }
+    SetVertexBufferParamsFromArray(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromArray", [this.ptr, vertexCount, attributes]); }
+    static SetVertexBufferParamsFromArray_Injected(_unity_self, vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromArray_Injected", [_unity_self, vertexCount, attributes]); }
+    SetVertexBufferParamsFromPtr(vertexCount, attributesPtr, attributesCount) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromPtr", [this.ptr, vertexCount, attributesPtr, attributesCount]); }
+    static SetVertexBufferParamsFromPtr_Injected(_unity_self, vertexCount, attributesPtr, attributesCount) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromPtr_Injected", [_unity_self, vertexCount, attributesPtr, attributesCount]); }
+    SetVertices_inVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20981", [this.ptr, inVertices]); }
+    SetVertices_inVertices_start_length(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20982", [this.ptr, inVertices, start, length]); }
+    SetVertices_inVertices_start_length_flags(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20983", [this.ptr, inVertices, start, length, flags]); }
+    SetVertices_inVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20984", [this.ptr, inVertices]); }
+    SetVertices_inVertices_start_length(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20985", [this.ptr, inVertices, start, length]); }
+    SetVertices_inVertices_start_length_flags(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20986", [this.ptr, inVertices, start, length, flags]); }
+    SetVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices]); }
+    SetVertices(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices, start, length]); }
+    SetVertices(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices, start, length, flags]); }
+    UploadMeshData(markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshData", [this.ptr, markNoLongerReadable]); }
+    UploadMeshDataImpl(markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshDataImpl", [this.ptr, markNoLongerReadable]); }
+    static UploadMeshDataImpl_Injected(_unity_self, markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshDataImpl_Injected", [_unity_self, markNoLongerReadable]); }
+    ValidateCanWriteToLods() { window.ctx.call("UnityEngine.Mesh", "ValidateCanWriteToLods", [this.ptr]); }
+    ValidateLodIndex(level) { window.ctx.call("UnityEngine.Mesh", "ValidateLodIndex", [this.ptr, level]); }
+    ValidateSubMeshIndex(submesh) { window.ctx.call("UnityEngine.Mesh", "ValidateSubMeshIndex", [this.ptr, submesh]); }
+    static get_bindposeCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_bindposeCount_Injected", [_unity_self]).val(); }
+    static get_bindposes_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "get_bindposes_Injected", [_unity_self, ret]); }
+    static get_blendShapeCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_blendShapeCount_Injected", [_unity_self]).val(); }
+    static get_bounds_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "get_bounds_Injected", [_unity_self, ret]); }
+    static get_canAccess_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_canAccess_Injected", [_unity_self]).val() === 1; }
+    static get_indexBufferTarget_Injected(_unity_self) { return new Target(window.ctx.call("UnityEngine.Mesh", "get_indexBufferTarget_Injected", [_unity_self])); }
+    static get_indexFormat_Injected(_unity_self) { return new IndexFormat(window.ctx.call("UnityEngine.Mesh", "get_indexFormat_Injected", [_unity_self])); }
+    static get_isReadable_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_isReadable_Injected", [_unity_self]).val() === 1; }
+    static get_subMeshCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_subMeshCount_Injected", [_unity_self]).val(); }
+    static get_vertexBufferCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_vertexBufferCount_Injected", [_unity_self]).val(); }
+    static get_vertexBufferTarget_Injected(_unity_self) { return new Target(window.ctx.call("UnityEngine.Mesh", "get_vertexBufferTarget_Injected", [_unity_self])); }
+    static get_vertexCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_vertexCount_Injected", [_unity_self]).val(); }
+    static set_bindposes_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_bindposes_Injected", [_unity_self, value]); }
+    static set_bounds_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_bounds_Injected", [_unity_self, value]); }
+    static set_indexBufferTarget_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_indexBufferTarget_Injected", [_unity_self, value]); }
+    static set_indexFormat_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_indexFormat_Injected", [_unity_self, value]); }
+    static set_subMeshCount_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_subMeshCount_Injected", [_unity_self, value]); }
+    static set_vertexBufferTarget_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_vertexBufferTarget_Injected", [_unity_self, value]); }
+}
+
+export class KillFieldUIMessage {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get canvasGroup() { return new CanvasGroup(this.ptr.readField(0x20, 'i32')); }
+    set canvasGroup(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get dierText() { return new TMPText(this.ptr.readField(0x1C, 'i32')); }
+    set dierText(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get fallbackIcon() { return new Sprite(this.ptr.readField(0x18, 'i32')); }
+    set fallbackIcon(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get headshotGO() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set headshotGO(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get killerText() { return new TMPText(this.ptr.readField(0x10, 'i32')); }
+    set killerText(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get myPlayerFrame() { return new Image(this.ptr.readField(0x24, 'i32')); }
+    set myPlayerFrame(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get showTween() { return new Tween(this.ptr.readField(0x2C, 'i32')); }
+    set showTween(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get weaponRenderImg() { return new Image(this.ptr.readField(0x14, 'i32')); }
+    set weaponRenderImg(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    _ShowMessage_b_10_0() { window.ctx.call("KillFieldUIMessage", "<ShowMessage>b__10_0", [this.ptr]); }
+    _ShowMessage_b_10_1() { window.ctx.call("KillFieldUIMessage", "<ShowMessage>b__10_1", [this.ptr]); }
+    Init(message) { window.ctx.call("KillFieldUIMessage", "Init", [this.ptr, message]); }
+    OnDisable() { window.ctx.call("KillFieldUIMessage", "OnDisable", [this.ptr]); }
+    ResetMessage() { window.ctx.call("KillFieldUIMessage", "ResetMessage", [this.ptr]); }
+    ShowMessage() { window.ctx.call("KillFieldUIMessage", "ShowMessage", [this.ptr]); }
+}
+
+export class Rect {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get center() { return (()=>{
+					let structptr_69f992 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_center", [structptr_69f992, this.ptr]);
+					return structptr_69f992;
+				})(); }
+    get height() { return window.ctx.call("UnityEngine.Rect", "get_height", [this.ptr]).val(); }
+    set height(v) { window.ctx.call("UnityEngine.Rect", "set_height", [this.ptr, v]); }
+    get max() { return (()=>{
+					let structptr_ef99f5 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_max", [structptr_ef99f5, this.ptr]);
+					return structptr_ef99f5;
+				})(); }
+    get min() { return (()=>{
+					let structptr_7cfbd2 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_min", [structptr_7cfbd2, this.ptr]);
+					return structptr_7cfbd2;
+				})(); }
+    get position() { return (()=>{
+					let structptr_a94461 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_position", [structptr_a94461, this.ptr]);
+					return structptr_a94461;
+				})(); }
+    get size() { return (()=>{
+					let structptr_dd8f53 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_size", [structptr_dd8f53, this.ptr]);
+					return structptr_dd8f53;
+				})(); }
+    get width() { return window.ctx.call("UnityEngine.Rect", "get_width", [this.ptr]).val(); }
+    set width(v) { window.ctx.call("UnityEngine.Rect", "set_width", [this.ptr, v]); }
+    get x() { return window.ctx.call("UnityEngine.Rect", "get_x", [this.ptr]).val(); }
+    set x(v) { window.ctx.call("UnityEngine.Rect", "set_x", [this.ptr, v]); }
+    get xMax() { return window.ctx.call("UnityEngine.Rect", "get_xMax", [this.ptr]).val(); }
+    get xMin() { return window.ctx.call("UnityEngine.Rect", "get_xMin", [this.ptr]).val(); }
+    get y() { return window.ctx.call("UnityEngine.Rect", "get_y", [this.ptr]).val(); }
+    set y(v) { window.ctx.call("UnityEngine.Rect", "set_y", [this.ptr, v]); }
+    get yMax() { return window.ctx.call("UnityEngine.Rect", "get_yMax", [this.ptr]).val(); }
+    get yMin() { return window.ctx.call("UnityEngine.Rect", "get_yMin", [this.ptr]).val(); }
+    static get zero() { return (()=>{
+					let structptr_961e14 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "get_zero", [structptr_961e14, ]);
+					return structptr_961e14;
+				})(); }
+    get kZero() { return new Rect(this.ptr.readField(0x0, 'i32')); }
+    set kZero(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_Height() { return this.ptr.readField(0xC, 'f32').val(); }
+    set m_Height(v) { return this.ptr.writeField(0xC, 'f32', v); }
+    get m_Width() { return this.ptr.readField(0x8, 'f32').val(); }
+    set m_Width(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get m_XMin() { return this.ptr.readField(0x0, 'f32').val(); }
+    set m_XMin(v) { return this.ptr.writeField(0x0, 'f32', v); }
+    get m_YMin() { return this.ptr.readField(0x4, 'f32').val(); }
+    set m_YMin(v) { return this.ptr.writeField(0x4, 'f32', v); }
+    Contains(point) { return window.ctx.call("UnityEngine.Rect", "Contains", [this.ptr, point]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19525", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19526", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19527", [this.ptr, other]).val() === 1; }
+    GetHashCode() { return window.ctx.call("UnityEngine.Rect", "GetHashCode", [this.ptr]).val(); }
+    static MinMaxRect(xmin, ymin, xmax, ymax) { return (()=>{
+					let structptr_a4cbb3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "MinMaxRect", [structptr_a4cbb3, xmin, ymin, xmax, ymax]);
+					return structptr_a4cbb3;
+				})(); }
+    static OrderMinMax(rect) { return (()=>{
+					let structptr_19b6c1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "OrderMinMax", [structptr_19b6c1, rect]);
+					return structptr_19b6c1;
+				})(); }
+    Overlaps_other(other) { return window.ctx.call("UnityEngine.Rect", "Overlaps_19520", [this.ptr, other]).val() === 1; }
+    Overlaps_other_allowInverse(other, allowInverse) { return window.ctx.call("UnityEngine.Rect", "Overlaps_19521", [this.ptr, other, allowInverse]).val() === 1; }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Rect", "ToString_19528", [this.ptr]); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Rect", "ToString_19529", [this.ptr, format, formatProvider]); }
 }
 
 export class IAudioGenerator {
@@ -8366,6 +9369,48 @@ export class ShaderPropertyFlags {
 }
 
 export class ShaderPropertyType {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class WaypointUI {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get hideOnObstacle() { return this.ptr.readField(0x14, 'i32').val() === 1; }
+    set hideOnObstacle(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get internal_id() { return this.ptr.readField(0x10, 'i32').mstr(); }
+    set internal_id(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
+    get myObject() { return new BaseWaypointObject(this.ptr.readField(0x18, 'i32')); }
+    set myObject(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    Init(_myObject, id) { window.ctx.call("WaypointUI", "Init", [this.ptr, _myObject, id]); }
+}
+
+export class IndexFormat {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class SkinWeights {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class GraphicsBuffer {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get m_Ptr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_Ptr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    static DestroyBuffer(buf) { window.ctx.call("UnityEngine.GraphicsBuffer", "DestroyBuffer", [buf]); }
+    static DestroyBuffer_Injected(buf) { window.ctx.call("UnityEngine.GraphicsBuffer", "DestroyBuffer_Injected", [buf]); }
+    Dispose_pointer() { window.ctx.call("UnityEngine.GraphicsBuffer", "Dispose_20552", [this.ptr]); }
+    Dispose_disposing(disposing) { window.ctx.call("UnityEngine.GraphicsBuffer", "Dispose_20553", [this.ptr, disposing]); }
+    Finalize() { window.ctx.call("UnityEngine.GraphicsBuffer", "Finalize", [this.ptr]); }
+}
+
+export class MeshTopology {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class VertexAttribute {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class VertexAttributeFormat {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 

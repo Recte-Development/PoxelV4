@@ -1,8 +1,8 @@
-import { Weapon, DroppedTag, SpawnedItem, Object, ChickenController, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion, ColyVector3 } from "../../structs.js";
+import { Weapon, FlagObject, CursorController, MapUIManager, DroppedTag, SpawnedItem, Object, ChickenController, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion, ColyVector3 } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Vector3, nullCheck, ChatBypass, randomRange, QuaternionUtils } from "../utils.js";
 import { Chickens, Players } from "../../main.js";
-import { } from "../render.js";
+import { isTeamNum } from "../render.js";
 import { main, getTargets } from "../aimbot.js";
 import { humanBonePaths } from "../humanbodybones.js";
 import { TransformHierarchy } from "../network.js";
@@ -22,7 +22,7 @@ let _tpDeltaY = 0;
 let _tpWasActive = false;
 let _gfxGameObject = null;
 let _gfxPlayerPtr = null;
-
+export let curlock = null;
 function _getGfxGameObject() {
     if (_gfxGameObject && _gfxPlayerPtr === localPlayer?.ptr) return _gfxGameObject;
     _gfxGameObject = null;
@@ -53,6 +53,7 @@ function _normalizeAngle(a) {
 }
 
 let firstLoad = false;
+export let ctfmanager = null
 export function shooterhooks() {
     /*window.ctx.hookPrefix({
           typeName: "BattleLab.CustomPropertiesExtentions",
@@ -64,14 +65,13 @@ export function shooterhooks() {
       })*/
     try {
         console.log("Starting Hooks")
-        
+
         window.ctx.hookPrefix({
-        typeName: 'LobbyUIManager',
-        methodName: 'Start',
-        params: ['i32', 'i32']
+            typeName: 'LobbyUIManager',
+            methodName: 'Start',
+            params: ['i32', 'i32']
         }, (ptr) => {
-            if (!firstLoad)
-            {
+            if (!firstLoad) {
                 const isFirefox = typeof InstallTrigger !== 'undefined';
 
                 if (!isFirefox) {
@@ -90,9 +90,9 @@ export function shooterhooks() {
         });
 
         window.ctx.hookPrefix({
-        typeName: 'KinematicCharacterController.Examples.CharacterCamera',
-        methodName: 'Update',
-        params: ['i32', 'i32']
+            typeName: 'KinematicCharacterController.Examples.CharacterCamera',
+            methodName: 'Update',
+            params: ['i32', 'i32']
         }, (ptr) => {
             charcam = ptr;
 
@@ -153,11 +153,38 @@ export function shooterhooks() {
             return false;
         })
         window.ctx.hookPrefix({
-        typeName: 'ColyShooter',
-        methodName: 'CommitSuicide',
-        params: ['i32', 'i32']
+            typeName: 'ColyShooter',
+            methodName: 'CommitSuicide',
+            params: ['i32', 'i32']
         }, (ptr) => {
-        return !config.misc.neverSuicide;
+            return !config.misc.neverSuicide;
+        })
+        window.ctx.hookPrefix({
+            typeName: 'CursorController',
+            methodName: 'Start',
+            params: ['i32', 'i32']
+        }, (ptr) => {
+            var cc = new CursorController(ptr)
+
+            //var mum = new MapUIManager(ptr)
+            //console.log(mum.IsPaused)
+            //mum.isPaused = false
+            curlock = ptr
+
+        })
+        
+        window.ctx.hookPrefix({
+            typeName: 'CTFManager',
+            methodName: 'Initialize',
+            params: ['i32', 'i32']
+        }, (ptr) => {
+           
+            ctfmanager = ptr
+            //var mum = new MapUIManager(ptr)
+            //console.log(mum.IsPaused)
+            //mum.isPaused = false
+            
+
         })
 
         window.ctx.hookPrefix({
@@ -180,13 +207,40 @@ export function shooterhooks() {
         });
 
         window.ctx.hookPrefix({
+            typeName: "FlagObject",
+            methodName: "Update",
+            params: ['i32', 'i32']
+        }, (ptr) => {
+            var f = new FlagObject(ptr)
+            if (!isTeamNum(f.myFlag.teamId.val())) {
+                new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.SendPositionUpdate(new Component(ptr).transform.position, new Component(ptr).transform.rotation, 0)
+                console.log(f.ctfPoint.lastMyFlagCarriedBy)
+                //if (f.ctfPoint.lastMyFlagAtBase) {
+                    f.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
+                    f.ctfPoint.TryPickUpFlag()
+                    f.ctfPoint.UpdateFlagState()
+                //}
+            } else {
+                if (f.ctfPoint.lastMyFlagAtBase) {
+                    var myctfpointtrans = new Component(f.ctfPoint.ptr).transform;
+                    f.OnTriggerEnter()
+                    new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.SendPositionUpdate(myctfpointtrans.position, myctfpointtrans.rotation, 0)
+                    f.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
+                    
+                }
+            }
+
+        });
+
+
+        window.ctx.hookPrefix({
             typeName: 'ColyShooter',
             methodName: 'SendRPCShoot',
             params: ['i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32', 'i32']
         }, (ptr, targetsessionid, hitpos, hittype, damage, shotid, isSuicide) => {
             if (ignoreNextShoot) {
                 ignoreNextShoot = false;
-                return; 
+                return;
             }
 
             const targets = getTargets();
@@ -248,16 +302,16 @@ export function shooterhooks() {
             let mc = new MovementController(ptr);
             movementcontroller = mc;
             if (config.misc.infDash) mc.lastDashTime = 0;
-            if (config.misc.customDashForce){
+            if (config.misc.customDashForce) {
                 if (!defaultDashForce) defaultDashForce = mc.dashForce;
                 mc.dashForce = config.misc.dashForce;
             }
-            else{
+            else {
                 if (!defaultDashForce) return;
                 if (mc.dashForce != defaultDashForce) mc.dashForce = defaultDashForce
             }
 
-                
+
         });
         window.ctx.hookPrefix({
             typeName: "MuzzleFlash",
@@ -265,10 +319,10 @@ export function shooterhooks() {
             params: ['i32', 'i32', 'i32']
         }, (ptr, muzzleFlashSetParentNullTemp) => {
             return !config.misc.noflash
-          
+
         });
 
-        
+
 
 
         window.ctx.hookPrefix({
@@ -292,7 +346,7 @@ export function shooterhooks() {
         }, (ptr) => {
             if (config.misc.antiafk) new AFKManager(ptr).ResetInactivityTimer();
         });
-        
+
 
         window.ctx.hookPrefix({
             typeName: "AimManager",
@@ -301,11 +355,11 @@ export function shooterhooks() {
         }, (ptr) => {
             am = new AimManager(ptr);
             weaponCamera = am.weaponCamera.ptr
-            
-        });
-        
 
-        
+        });
+
+
+
 
         /*window.ctx.hookPrefix({
             typeName: "UnityEngine.Camera",
@@ -362,7 +416,7 @@ export function shooterhooks() {
                 }
                 inst.currentAmmo = 999;
             }
-            else{
+            else {
                 if (prevAmmoAmmounts.has(inst.id)) {
                     inst.currentAmmo = prevAmmoAmmounts.get(inst.id).ca;
                     prevAmmoAmmounts.delete(inst.id);
@@ -394,7 +448,7 @@ export function shooterhooks() {
             typeName: "Gun",
             methodName: "ApplyRecoil",
             params: ['i32', 'i32']
-        }, (ptr) =>{
+        }, (ptr) => {
             return !config.rage.noRecoil
         });
 
@@ -402,7 +456,7 @@ export function shooterhooks() {
             typeName: "ChickenController",
             methodName: "Update",
             params: ['i32', 'i32']
-        }, (ptr) =>{
+        }, (ptr) => {
 
             let id = new Object(ptr).GetInstanceID()
             if (!Chickens.has(id)) {
@@ -417,7 +471,7 @@ export function shooterhooks() {
             typeName: "ChickenController",
             methodName: "Die",
             params: ['i32', 'i32']
-        }, (ptr) =>{
+        }, (ptr) => {
 
             let id = new Object(ptr).GetInstanceID()
             if (Chickens.has(id)) {
@@ -430,7 +484,7 @@ export function shooterhooks() {
             typeName: "SpawnableItemsManager",
             methodName: "OnItemAdded",
             params: ['i32', 'i32', 'i32', 'i32']
-        }, (ptr, key, item) =>{
+        }, (ptr, key, item) => {
             //let it = new SpawnedItem(item).type
             //console.log(`Spawned Item! Key: ${key.mstr()} Item: ${it.mstr()}`)
         });
