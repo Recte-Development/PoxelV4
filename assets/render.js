@@ -21,11 +21,12 @@ import { config } from "./ui/config";
 import { humanBonePaths, boneLinks, chickenBoneLinks, chickenBonePaths } from "./humanbodybones";
 import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode, curlock } from "./hooks/hooks";
 import { TransformHierarchy } from "./network"
+import { ScreenNode } from "three/webgpu";
 window.offset = 2;
 export let onscreen = [];
 export let closestplayer = null;
 export let closestdist = Infinity;
-
+export let bullets = [];
 let _cam = null;
 let _camPos = null;
 let _camFwd = null;
@@ -72,21 +73,24 @@ function isVisible(player) {
 
 export function w2s(canvas, worldpoint) {
 	try {
-		if (!_cam) return new Vector3(0, 0, 0);
+		//if (!_cam) return new Vector3(0, 0, 0);
 		const wp = Vector3.readFrom(worldpoint);
-		const dot = (wp.x - _camPos.x) * _camFwd.x + (wp.y - _camPos.y) * _camFwd.y + (wp.z - _camPos.z) * _camFwd.z;
-		if (dot <= 0) return new Vector3(0, 0, 0);
+		//const dot = (wp.x - _camPos.x) * _camFwd.x + (wp.y - _camPos.y) * _camFwd.y + (wp.z - _camPos.z) * _camFwd.z;
+		//if (dot <= 0) return new Vector3(0, 0, 0);
 		const yea = Vector3.readFrom(_cam.WorldToViewportPoint_position(worldpoint));
+		//console.log("yea y", yea.y)
 		yea.x *= window.innerWidth;
 		yea.y *= window.innerHeight;
-		yea.y = canvas.height - yea.y;
-		yea.z = dot;
+		yea.y = window.innerHeight - yea.y;
+		//yea.z = dot;
 		return yea;
-	} catch {
+	} catch (e) {
+		console.log(e)
 		return Vector3.zero;
 	}
 }
 
+setInterval(() => { if (_ctx2d == undefined) return; _ctx2d.clearRect(0, 0, window.innerWidth, window.innerHeight); }, 100)
 function gettextscale(head, feet) {
 	const height = Math.abs(feet.y - head.y);
 	return Math.max(0.5, Math.min(1, height / 120));
@@ -146,6 +150,10 @@ export function onScreen(screenPos) {
 
 	return screenPos.x > 0.1 && screenPos.x < window.innerWidth - 5 && screenPos.y > 0.1 && screenPos.y < window.innerHeight - 5 && screenPos.z > 0;
 }
+export function onScreenZ(screenPos) {
+
+	return screenPos.z > 0;
+}
 
 const modes = ["FFA", "Megaheads", "Gun Gamble", "Rocket Arena"];
 
@@ -178,6 +186,7 @@ export function isTeamNum(flag) {
 
 
 export function esp() {
+
 	const { nametags, nametagsHealth, nametagsDistance, nametagsColor,
 		tracers, tracerTo, tracerFrom, tracerColor, tracerThickness,
 		boxes, boxType, boxThickness, boxColor,
@@ -341,7 +350,7 @@ export function esp() {
 				}
 			}
 
-		} catch { }
+		} catch (e) { console.log(e) }
 	});
 
 
@@ -374,13 +383,32 @@ export function esp() {
 			}
 		}
 	})
+	try {
 
+		const now = performance.now();
+		const delta = now - lastTime;
+		lastTime = now;
+		bullets.forEach((bullet) => {
+			//console.log(Vector3.readFrom(bullet.start), Vector3.readFrom(bullet.end))
+			bullet.timeSince += delta;
+			const t = Math.min(bullet.timeSince / 1000, 1);
+			//console.log(bullet)
+
+			//let screenp = w2s(_ctx2d, bullet.start)
+			let startS = w2s(_ctx2d, bullet.start)
+			let endS = w2s(_ctx2d, bullet.end)
+			if ( bullet.timeSince < 3000 && onScreenZ(startS) && onScreenZ(endS)) {
+				color = lerpHexColor("#ff0000", "#0000ff", t);
+				new ESPThings(_ctx2d, null, null).DrawLine(startS, endS, color, 5)
+			}
+			//console.log("w2s", screenp, "world", Vector3.readFrom(bullet.start))
+			//new ESPThings(_ctx2d, null, null).DrawText("BULLET", screenp.x, screenp.y, 3, "#ff0000")
+		})
+	} catch (e) { console.log(e) }
 	onscreen.length = 0;
-}
 
-function lerp(a, b, t) {
-	return a + (b - a) * t;
 }
+let lastTime = performance.now();
 
 export function lerpAngle(a, b, t) {
 	const delta = normalizeAngle(b - a);
@@ -393,12 +421,57 @@ export function normalizeAngle(a) {
 	if (a < -180) a += 360;
 	return a;
 }
+function lerp(a, b, t) {
+	return a + (b - a) * t;
+}
+
+
+
+function lerpHexColor(hex1, hex2, t) {
+	const c1 = hexToRgb(hex1);
+	const c2 = hexToRgb(hex2);
+
+	const r = Math.round(lerp(c1[0], c2[0], t));
+	const g = Math.round(lerp(c1[1], c2[1], t));
+	const b = Math.round(lerp(c1[2], c2[2], t));
+
+	return rgbToHex(r, g, b);
+}
+
+
+
+function hexToRgb(hex) {
+	hex = hex.replace("#", "");
+
+	// support shorthand like #f00
+	if (hex.length === 3) {
+		hex = hex.split("").map(c => c + c).join("");
+	}
+
+	const num = parseInt(hex, 16);
+
+	return [
+		(num >> 16) & 255,
+		(num >> 8) & 255,
+		num & 255
+	];
+}
+
+function rgbToHex(r, g, b) {
+	return (
+		"#" +
+		[r, g, b]
+			.map(v => v.toString(16).padStart(2, "0"))
+			.join("")
+	);
+}
+
 
 class ESPThings {
 	constructor(ctx, feetpos, headpos) {
 		this.feetpos = feetpos;
 		this.headpos = headpos;
-		this.ctx = ctx;
+		this.ctx = ctx
 	}
 
 	static getRainbowColor() {
@@ -586,6 +659,14 @@ class ESPThings {
 		this.ctx.strokeStyle = color;
 		this.ctx.lineWidth = lineWidth;
 		this.ctx.stroke();
+	}
+	static StaticDrawLine(from, to, color = "red", lineWidth = 2) {
+		_ctx2d.beginPath();
+		_ctx2d.moveTo(from.x, from.y);
+		_ctx2d.lineTo(to.x, to.y);
+		_ctx2d.strokeStyle = color;
+		_ctx2d.lineWidth = lineWidth;
+		_ctx2d.stroke();
 	}
 	DrawHealthBar(health, maxHealth = 150, barWidth = 4, color, shield) {
 		const height = this.feetpos.y - this.headpos.y;

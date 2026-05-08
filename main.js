@@ -3,7 +3,7 @@ import { MenuUI, allowTypingInLilGuiInputs } from "./assets/hooks/uimain.js";
 import { config } from "./assets/ui/config.js";
 import { chatManager, shooterhooks, localPlayer, localPlayerPtr, localPlayerSessionId, currentMode, ctfmanager } from "./assets/hooks/hooks.js";
 import {
-	Schema, MapUIManager, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
+	Schema, FlagStaticWaypointObject, MapUIManager, Spectator, AimManager, GameTimer, ColyShooter, ColyView, ColyBehaviour, Physics, ColyHealth, NeckController, ColyTeamMember, GameModeManager, GameModeData, GameMode, MyRoomState, NetworkManager,
 	RaycastHit, AFKManager, ChatUIManager, MovementController,
 	Camera, Time, Input,
 	Component, SettingsManager, SettingsConfiguration, NotificationManager,
@@ -88,7 +88,7 @@ loadAndInitPlugin().then((ctx) => {
 		ui.addSelectRow(tracers, "Body Location", ["Feet", "Head"], config.visuals, "tracerTo");
 
 
-		const chickens = ui.addSection(g, "Chickens", "misc");
+		const chickens = ui.addSection(g, "Chickens", "chicken");
 		ui.addToggleRow(chickens, "Nametags", config.visuals, "chickenNametags");
 		ui.addColorRow(chickens, "Nametag Color", config.visuals, "chickenNametagColor");
 		ui.addToggleRow(chickens, "Skeleton", config.visuals, "chickenSkeletons");
@@ -238,12 +238,16 @@ const toggleKeys = {
 	spinbot: false
 };
 
+let last = performance.now();
+let frames = 0;
+
+
 function mainloop(timestamp) {
 	try {
 		requestAnimationFrame(mainloop);
-		esp();
+		//esp();
 		main();
-		new CTFManager(ctfmanager).ShowPopupUI(ctx.createMstr("yay"))
+		//new CTFManager(ctfmanager).ShowPopupUI(ctx.createMstr("yay"))
 
 		if (!init) {
 			console.log("Recte Loaded & Shit"

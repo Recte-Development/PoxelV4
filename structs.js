@@ -1048,6 +1048,26 @@ export class Weapon {
     set weaponId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
+export class StaticWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get OnWaypointAdded() { return this.ptr.readField(0x18, 'i32'); }
+    set OnWaypointAdded(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get added() { return this.ptr.readField(0x1C, 'i32').val() === 1; }
+    set added(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    OnDisable() { window.ctx.call("StaticWaypointObject", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("StaticWaypointObject", "OnEnable", [this.ptr]); }
+    TryAddMyself() { window.ctx.call("StaticWaypointObject", "TryAddMyself", [this.ptr]); }
+}
+
+export class FlagStaticWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get myFlagObject() { return new FlagObject(this.ptr.readField(0x20, 'i32')); }
+    set myFlagObject(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    OnDisable() { window.ctx.call("FlagStaticWaypointObject", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("FlagStaticWaypointObject", "OnEnable", [this.ptr]); }
+    OnWaypointAddedHandler(waypointUI) { window.ctx.call("FlagStaticWaypointObject", "OnWaypointAddedHandler", [this.ptr, waypointUI]); }
+}
+
 export class FlagObject {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get blueMat() { return new Material(this.ptr.readField(0x14, 'i32')); }
@@ -2811,6 +2831,51 @@ export class ColyVector3 {
     set y(v) { return this.ptr.writeField(0x14, 'f32', v); }
     get z() { return this.ptr.readField(0x18, 'f32').val(); }
     set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
+}
+
+export class Bullet {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get bulletGfx() { return new GameObject(this.ptr.readField(0x54, 'i32')); }
+    set bulletGfx(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get hitName() { return new HitType(this.ptr.readField(0x5C, 'i32')); }
+    set hitName(v) { return this.ptr.writeField(0x5C, 'i32', v); }
+    get impactPrefab() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
+    set impactPrefab(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get initialSpeed() { return this.ptr.readField(0x24, 'f32').val(); }
+    set initialSpeed(v) { return this.ptr.writeField(0x24, 'f32', v); }
+    get initialized() { return this.ptr.readField(0x10, 'i32').val() === 1; }
+    set initialized(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get isGlobal() { return this.ptr.readField(0x18, 'i32').val() === 1; }
+    set isGlobal(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get lifeDistance() { return this.ptr.readField(0x3C, 'f32').val(); }
+    set lifeDistance(v) { return this.ptr.writeField(0x3C, 'f32', v); }
+    get lifeEnded() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set lifeEnded(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get mapLayerMask() { return new LayerMask(this.ptr.readField(0x14, 'i32')); }
+    set mapLayerMask(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get moveDir() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
+    set moveDir(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get myShotId() { return this.ptr.readField(0x6C, 'i32').val(); }
+    set myShotId(v) { return this.ptr.writeField(0x6C, 'i32', v); }
+    get shootAt() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
+    set shootAt(v) { return this.ptr.writeField(0x60, 'i32', v); }
+    get spawnTime() { return this.ptr.readField(0x50, 'f32').val(); }
+    set spawnTime(v) { return this.ptr.writeField(0x50, 'f32', v); }
+    get speed() { return this.ptr.readField(0x28, 'f32').val(); }
+    set speed(v) { return this.ptr.writeField(0x28, 'f32', v); }
+    get speedMultiCurve() { return new AnimationCurve(this.ptr.readField(0x2C, 'i32')); }
+    set speedMultiCurve(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get startingPosition() { return new Vector3(this.ptr.readField(0x44, 'i32')); }
+    set startingPosition(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get stop() { return this.ptr.readField(0x58, 'i32').val() === 1; }
+    set stop(v) { return this.ptr.writeField(0x58, 'i32', v); }
+    get trailRenderer() { return new TrailRenderer(this.ptr.readField(0x20, 'i32')); }
+    set trailRenderer(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    Init(shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward) { window.ctx.call("Bullet", "Init", [this.ptr, shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward]); }
+    OnDespawn() { window.ctx.call("Bullet", "OnDespawn", [this.ptr]); }
+    OnSpawn() { window.ctx.call("Bullet", "OnSpawn", [this.ptr]); }
+    TryEndLife(force, isNaturally) { window.ctx.call("Bullet", "TryEndLife", [this.ptr, force, isNaturally]); }
+    Update() { window.ctx.call("Bullet", "Update", [this.ptr]); }
 }
 
 export class Physics {
@@ -4868,15 +4933,6 @@ export class Flag {
     set teamId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
-export class FlagStaticWaypointObject {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get myFlagObject() { return new FlagObject(this.ptr.readField(0x20, 'i32')); }
-    set myFlagObject(v) { return this.ptr.writeField(0x20, 'i32', v); }
-    OnDisable() { window.ctx.call("FlagStaticWaypointObject", "OnDisable", [this.ptr]); }
-    OnEnable() { window.ctx.call("FlagStaticWaypointObject", "OnEnable", [this.ptr]); }
-    OnWaypointAddedHandler(waypointUI) { window.ctx.call("FlagStaticWaypointObject", "OnWaypointAddedHandler", [this.ptr, waypointUI]); }
-}
-
 export class CanvasGroup {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get alpha() { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha", [this.ptr]).val(); }
@@ -5783,51 +5839,6 @@ export class Color {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Color", "ToString_21995", [this.ptr, format, formatProvider]); }
 }
 
-export class Bullet {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get bulletGfx() { return new GameObject(this.ptr.readField(0x54, 'i32')); }
-    set bulletGfx(v) { return this.ptr.writeField(0x54, 'i32', v); }
-    get hitName() { return new HitType(this.ptr.readField(0x5C, 'i32')); }
-    set hitName(v) { return this.ptr.writeField(0x5C, 'i32', v); }
-    get impactPrefab() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
-    set impactPrefab(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get initialSpeed() { return this.ptr.readField(0x24, 'f32').val(); }
-    set initialSpeed(v) { return this.ptr.writeField(0x24, 'f32', v); }
-    get initialized() { return this.ptr.readField(0x10, 'i32').val() === 1; }
-    set initialized(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get isGlobal() { return this.ptr.readField(0x18, 'i32').val() === 1; }
-    set isGlobal(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get lifeDistance() { return this.ptr.readField(0x3C, 'f32').val(); }
-    set lifeDistance(v) { return this.ptr.writeField(0x3C, 'f32', v); }
-    get lifeEnded() { return this.ptr.readField(0x40, 'i32').val() === 1; }
-    set lifeEnded(v) { return this.ptr.writeField(0x40, 'i32', v); }
-    get mapLayerMask() { return new LayerMask(this.ptr.readField(0x14, 'i32')); }
-    set mapLayerMask(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get moveDir() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
-    set moveDir(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get myShotId() { return this.ptr.readField(0x6C, 'i32').val(); }
-    set myShotId(v) { return this.ptr.writeField(0x6C, 'i32', v); }
-    get shootAt() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
-    set shootAt(v) { return this.ptr.writeField(0x60, 'i32', v); }
-    get spawnTime() { return this.ptr.readField(0x50, 'f32').val(); }
-    set spawnTime(v) { return this.ptr.writeField(0x50, 'f32', v); }
-    get speed() { return this.ptr.readField(0x28, 'f32').val(); }
-    set speed(v) { return this.ptr.writeField(0x28, 'f32', v); }
-    get speedMultiCurve() { return new AnimationCurve(this.ptr.readField(0x2C, 'i32')); }
-    set speedMultiCurve(v) { return this.ptr.writeField(0x2C, 'i32', v); }
-    get startingPosition() { return new Vector3(this.ptr.readField(0x44, 'i32')); }
-    set startingPosition(v) { return this.ptr.writeField(0x44, 'i32', v); }
-    get stop() { return this.ptr.readField(0x58, 'i32').val() === 1; }
-    set stop(v) { return this.ptr.writeField(0x58, 'i32', v); }
-    get trailRenderer() { return new TrailRenderer(this.ptr.readField(0x20, 'i32')); }
-    set trailRenderer(v) { return this.ptr.writeField(0x20, 'i32', v); }
-    Init(shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward) { window.ctx.call("Bullet", "Init", [this.ptr, shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward]); }
-    OnDespawn() { window.ctx.call("Bullet", "OnDespawn", [this.ptr]); }
-    OnSpawn() { window.ctx.call("Bullet", "OnSpawn", [this.ptr]); }
-    TryEndLife(force, isNaturally) { window.ctx.call("Bullet", "TryEndLife", [this.ptr, force, isNaturally]); }
-    Update() { window.ctx.call("Bullet", "Update", [this.ptr]); }
-}
-
 export class RecoilData {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get aimJumpForceMulti() { return this.ptr.readField(0xC8, 'f32').val(); }
@@ -6459,6 +6470,156 @@ export class JSONNode {
     ToString_pointer() { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9269", [this.ptr]); }
     ToString_aIndent(aIndent) { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9270", [this.ptr, aIndent]); }
     WriteToStringBuilder(aSB, aIndent, aIndentInc, aMode) { window.ctx.call("SimpleJSON.JSONNode", "WriteToStringBuilder", [this.ptr, aSB, aIndent, aIndentInc, aMode]); }
+}
+
+export class TrailRenderer {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get alignment() { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment", [this.ptr])); }
+    set alignment(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment", [this.ptr, v]); }
+    get applyActiveColorSpace() { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace", [this.ptr]).val() === 1; }
+    set applyActiveColorSpace(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace", [this.ptr, v]); }
+    get autodestruct() { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct", [this.ptr]).val() === 1; }
+    set autodestruct(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct", [this.ptr, v]); }
+    get colorGradient() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "get_colorGradient", [this.ptr])); }
+    set colorGradient(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_colorGradient", [this.ptr, v]); }
+    get emitting() { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting", [this.ptr]).val() === 1; }
+    set emitting(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting", [this.ptr, v]); }
+    get endColor() { return (()=>{
+					let structptr_ae38ee = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_endColor", [structptr_ae38ee, this.ptr]);
+					return structptr_ae38ee;
+				})(); }
+    set endColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor", [this.ptr, v]); }
+    get endWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth", [this.ptr]).val(); }
+    set endWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth", [this.ptr, v]); }
+    get generateLightingData() { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData", [this.ptr]).val() === 1; }
+    set generateLightingData(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData", [this.ptr, v]); }
+    get maskInteraction() { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction", [this.ptr])); }
+    set maskInteraction(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction", [this.ptr, v]); }
+    get minVertexDistance() { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance", [this.ptr]).val(); }
+    set minVertexDistance(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance", [this.ptr, v]); }
+    get numCapVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices", [this.ptr]).val(); }
+    set numCapVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices", [this.ptr, v]); }
+    get numCornerVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices", [this.ptr]).val(); }
+    set numCornerVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices", [this.ptr, v]); }
+    get numPositions() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numPositions", [this.ptr]).val(); }
+    get positionCount() { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount", [this.ptr]).val(); }
+    get shadowBias() { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias", [this.ptr]).val(); }
+    set shadowBias(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias", [this.ptr, v]); }
+    get startColor() { return (()=>{
+					let structptr_2355e4 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_startColor", [structptr_2355e4, this.ptr]);
+					return structptr_2355e4;
+				})(); }
+    set startColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor", [this.ptr, v]); }
+    get startWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth", [this.ptr]).val(); }
+    set startWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth", [this.ptr, v]); }
+    get textureMode() { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode", [this.ptr])); }
+    set textureMode(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode", [this.ptr, v]); }
+    get textureScale() { return (()=>{
+					let structptr_c32d09 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale", [structptr_c32d09, this.ptr]);
+					return structptr_c32d09;
+				})(); }
+    set textureScale(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale", [this.ptr, v]); }
+    get time() { return window.ctx.call("UnityEngine.TrailRenderer", "get_time", [this.ptr]).val(); }
+    set time(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_time", [this.ptr, v]); }
+    get widthCurve() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "get_widthCurve", [this.ptr])); }
+    set widthCurve(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthCurve", [this.ptr, v]); }
+    get widthMultiplier() { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier", [this.ptr]).val(); }
+    set widthMultiplier(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier", [this.ptr, v]); }
+    AddPosition(position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition", [this.ptr, position]); }
+    static AddPosition_Injected(_unity_self, position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition_Injected", [_unity_self, position]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19768", [this.ptr, positions]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19775", [this.ptr, positions]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19776", [this.ptr, positions]); }
+    AddPositionsWithNativeContainer(positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer", [this.ptr, positions, length]); }
+    static AddPositionsWithNativeContainer_Injected(_unity_self, positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer_Injected", [_unity_self, positions, length]); }
+    static AddPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_Injected", [_unity_self, positions]); }
+    BakeMesh_mesh_useTransform(mesh, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19754", [this.ptr, mesh, useTransform]); }
+    BakeMesh_mesh_camera_useTransform(mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19755", [this.ptr, mesh, camera, useTransform]); }
+    static BakeMesh_Injected(_unity_self, mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_Injected", [_unity_self, mesh, camera, useTransform]); }
+    Clear() { window.ctx.call("UnityEngine.TrailRenderer", "Clear", [this.ptr]); }
+    static Clear_Injected(_unity_self) { window.ctx.call("UnityEngine.TrailRenderer", "Clear_Injected", [_unity_self]); }
+    GetColorGradientCopy() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy", [this.ptr])); }
+    static GetColorGradientCopy_Injected(_unity_self) { return (()=>{
+					let structptr_b86c4f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy_Injected", [structptr_b86c4f, _unity_self]);
+					return structptr_b86c4f;
+				})(); }
+    GetPosition(index) { return (()=>{
+					let structptr_e02ebe = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetPosition", [structptr_e02ebe, this.ptr, index]);
+					return structptr_e02ebe;
+				})(); }
+    static GetPosition_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.TrailRenderer", "GetPosition_Injected", [_unity_self, index, ret]); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19764", [this.ptr, positions]).val(); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19771", [this.ptr, positions]).val(); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19772", [this.ptr, positions]).val(); }
+    GetPositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
+    static GetPositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
+    static GetPositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_Injected", [_unity_self, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19765", [this.ptr, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19773", [this.ptr, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19774", [this.ptr, positions]).val(); }
+    GetVisiblePositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
+    static GetVisiblePositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
+    static GetVisiblePositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_Injected", [_unity_self, positions]).val(); }
+    GetWidthCurveCopy() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy", [this.ptr])); }
+    static GetWidthCurveCopy_Injected(_unity_self) { return (()=>{
+					let structptr_83b0a3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy_Injected", [structptr_83b0a3, _unity_self]);
+					return structptr_83b0a3;
+				})(); }
+    SetColorGradient(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient", [this.ptr, curve]); }
+    static SetColorGradient_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient_Injected", [_unity_self, curve]); }
+    SetPosition(index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition", [this.ptr, index, position]); }
+    static SetPosition_Injected(_unity_self, index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition_Injected", [_unity_self, index, position]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19766", [this.ptr, positions]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19769", [this.ptr, positions]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19770", [this.ptr, positions]); }
+    SetPositionsWithNativeContainer(positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer", [this.ptr, positions, count]); }
+    static SetPositionsWithNativeContainer_Injected(_unity_self, positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer_Injected", [_unity_self, positions, count]); }
+    static SetPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_Injected", [_unity_self, positions]); }
+    SetWidthCurve(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve", [this.ptr, curve]); }
+    static SetWidthCurve_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve_Injected", [_unity_self, curve]); }
+    static get_alignment_Injected(_unity_self) { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment_Injected", [_unity_self])); }
+    static get_applyActiveColorSpace_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace_Injected", [_unity_self]).val() === 1; }
+    static get_autodestruct_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct_Injected", [_unity_self]).val() === 1; }
+    static get_emitting_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting_Injected", [_unity_self]).val() === 1; }
+    static get_endColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_endColor_Injected", [_unity_self, ret]); }
+    static get_endWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth_Injected", [_unity_self]).val(); }
+    static get_generateLightingData_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData_Injected", [_unity_self]).val() === 1; }
+    static get_maskInteraction_Injected(_unity_self) { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction_Injected", [_unity_self])); }
+    static get_minVertexDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance_Injected", [_unity_self]).val(); }
+    static get_numCapVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices_Injected", [_unity_self]).val(); }
+    static get_numCornerVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices_Injected", [_unity_self]).val(); }
+    static get_positionCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount_Injected", [_unity_self]).val(); }
+    static get_shadowBias_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias_Injected", [_unity_self]).val(); }
+    static get_startColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_startColor_Injected", [_unity_self, ret]); }
+    static get_startWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth_Injected", [_unity_self]).val(); }
+    static get_textureMode_Injected(_unity_self) { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode_Injected", [_unity_self])); }
+    static get_textureScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale_Injected", [_unity_self, ret]); }
+    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_time_Injected", [_unity_self]).val(); }
+    static get_widthMultiplier_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier_Injected", [_unity_self]).val(); }
+    static set_alignment_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment_Injected", [_unity_self, value]); }
+    static set_applyActiveColorSpace_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace_Injected", [_unity_self, value]); }
+    static set_autodestruct_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct_Injected", [_unity_self, value]); }
+    static set_emitting_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting_Injected", [_unity_self, value]); }
+    static set_endColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor_Injected", [_unity_self, value]); }
+    static set_endWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth_Injected", [_unity_self, value]); }
+    static set_generateLightingData_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData_Injected", [_unity_self, value]); }
+    static set_maskInteraction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction_Injected", [_unity_self, value]); }
+    static set_minVertexDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance_Injected", [_unity_self, value]); }
+    static set_numCapVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices_Injected", [_unity_self, value]); }
+    static set_numCornerVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices_Injected", [_unity_self, value]); }
+    static set_shadowBias_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias_Injected", [_unity_self, value]); }
+    static set_startColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor_Injected", [_unity_self, value]); }
+    static set_startWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth_Injected", [_unity_self, value]); }
+    static set_textureMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode_Injected", [_unity_self, value]); }
+    static set_textureScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale_Injected", [_unity_self, value]); }
+    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_time_Injected", [_unity_self, value]); }
+    static set_widthMultiplier_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier_Injected", [_unity_self, value]); }
 }
 
 export class Collision {
@@ -8244,156 +8405,6 @@ export class RectTransform {
     static set_sizeDelta_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta_Injected", [_unity_self, value]); }
 }
 
-export class TrailRenderer {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get alignment() { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment", [this.ptr])); }
-    set alignment(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment", [this.ptr, v]); }
-    get applyActiveColorSpace() { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace", [this.ptr]).val() === 1; }
-    set applyActiveColorSpace(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace", [this.ptr, v]); }
-    get autodestruct() { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct", [this.ptr]).val() === 1; }
-    set autodestruct(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct", [this.ptr, v]); }
-    get colorGradient() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "get_colorGradient", [this.ptr])); }
-    set colorGradient(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_colorGradient", [this.ptr, v]); }
-    get emitting() { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting", [this.ptr]).val() === 1; }
-    set emitting(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting", [this.ptr, v]); }
-    get endColor() { return (()=>{
-					let structptr_ae38ee = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_endColor", [structptr_ae38ee, this.ptr]);
-					return structptr_ae38ee;
-				})(); }
-    set endColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor", [this.ptr, v]); }
-    get endWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth", [this.ptr]).val(); }
-    set endWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth", [this.ptr, v]); }
-    get generateLightingData() { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData", [this.ptr]).val() === 1; }
-    set generateLightingData(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData", [this.ptr, v]); }
-    get maskInteraction() { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction", [this.ptr])); }
-    set maskInteraction(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction", [this.ptr, v]); }
-    get minVertexDistance() { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance", [this.ptr]).val(); }
-    set minVertexDistance(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance", [this.ptr, v]); }
-    get numCapVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices", [this.ptr]).val(); }
-    set numCapVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices", [this.ptr, v]); }
-    get numCornerVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices", [this.ptr]).val(); }
-    set numCornerVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices", [this.ptr, v]); }
-    get numPositions() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numPositions", [this.ptr]).val(); }
-    get positionCount() { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount", [this.ptr]).val(); }
-    get shadowBias() { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias", [this.ptr]).val(); }
-    set shadowBias(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias", [this.ptr, v]); }
-    get startColor() { return (()=>{
-					let structptr_2355e4 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_startColor", [structptr_2355e4, this.ptr]);
-					return structptr_2355e4;
-				})(); }
-    set startColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor", [this.ptr, v]); }
-    get startWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth", [this.ptr]).val(); }
-    set startWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth", [this.ptr, v]); }
-    get textureMode() { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode", [this.ptr])); }
-    set textureMode(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode", [this.ptr, v]); }
-    get textureScale() { return (()=>{
-					let structptr_c32d09 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale", [structptr_c32d09, this.ptr]);
-					return structptr_c32d09;
-				})(); }
-    set textureScale(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale", [this.ptr, v]); }
-    get time() { return window.ctx.call("UnityEngine.TrailRenderer", "get_time", [this.ptr]).val(); }
-    set time(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_time", [this.ptr, v]); }
-    get widthCurve() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "get_widthCurve", [this.ptr])); }
-    set widthCurve(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthCurve", [this.ptr, v]); }
-    get widthMultiplier() { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier", [this.ptr]).val(); }
-    set widthMultiplier(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier", [this.ptr, v]); }
-    AddPosition(position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition", [this.ptr, position]); }
-    static AddPosition_Injected(_unity_self, position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition_Injected", [_unity_self, position]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19768", [this.ptr, positions]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19775", [this.ptr, positions]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19776", [this.ptr, positions]); }
-    AddPositionsWithNativeContainer(positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer", [this.ptr, positions, length]); }
-    static AddPositionsWithNativeContainer_Injected(_unity_self, positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer_Injected", [_unity_self, positions, length]); }
-    static AddPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_Injected", [_unity_self, positions]); }
-    BakeMesh_mesh_useTransform(mesh, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19754", [this.ptr, mesh, useTransform]); }
-    BakeMesh_mesh_camera_useTransform(mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19755", [this.ptr, mesh, camera, useTransform]); }
-    static BakeMesh_Injected(_unity_self, mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_Injected", [_unity_self, mesh, camera, useTransform]); }
-    Clear() { window.ctx.call("UnityEngine.TrailRenderer", "Clear", [this.ptr]); }
-    static Clear_Injected(_unity_self) { window.ctx.call("UnityEngine.TrailRenderer", "Clear_Injected", [_unity_self]); }
-    GetColorGradientCopy() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy", [this.ptr])); }
-    static GetColorGradientCopy_Injected(_unity_self) { return (()=>{
-					let structptr_b86c4f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy_Injected", [structptr_b86c4f, _unity_self]);
-					return structptr_b86c4f;
-				})(); }
-    GetPosition(index) { return (()=>{
-					let structptr_e02ebe = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetPosition", [structptr_e02ebe, this.ptr, index]);
-					return structptr_e02ebe;
-				})(); }
-    static GetPosition_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.TrailRenderer", "GetPosition_Injected", [_unity_self, index, ret]); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19764", [this.ptr, positions]).val(); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19771", [this.ptr, positions]).val(); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19772", [this.ptr, positions]).val(); }
-    GetPositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
-    static GetPositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
-    static GetPositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_Injected", [_unity_self, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19765", [this.ptr, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19773", [this.ptr, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19774", [this.ptr, positions]).val(); }
-    GetVisiblePositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
-    static GetVisiblePositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
-    static GetVisiblePositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_Injected", [_unity_self, positions]).val(); }
-    GetWidthCurveCopy() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy", [this.ptr])); }
-    static GetWidthCurveCopy_Injected(_unity_self) { return (()=>{
-					let structptr_83b0a3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy_Injected", [structptr_83b0a3, _unity_self]);
-					return structptr_83b0a3;
-				})(); }
-    SetColorGradient(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient", [this.ptr, curve]); }
-    static SetColorGradient_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient_Injected", [_unity_self, curve]); }
-    SetPosition(index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition", [this.ptr, index, position]); }
-    static SetPosition_Injected(_unity_self, index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition_Injected", [_unity_self, index, position]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19766", [this.ptr, positions]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19769", [this.ptr, positions]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19770", [this.ptr, positions]); }
-    SetPositionsWithNativeContainer(positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer", [this.ptr, positions, count]); }
-    static SetPositionsWithNativeContainer_Injected(_unity_self, positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer_Injected", [_unity_self, positions, count]); }
-    static SetPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_Injected", [_unity_self, positions]); }
-    SetWidthCurve(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve", [this.ptr, curve]); }
-    static SetWidthCurve_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve_Injected", [_unity_self, curve]); }
-    static get_alignment_Injected(_unity_self) { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment_Injected", [_unity_self])); }
-    static get_applyActiveColorSpace_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace_Injected", [_unity_self]).val() === 1; }
-    static get_autodestruct_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct_Injected", [_unity_self]).val() === 1; }
-    static get_emitting_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting_Injected", [_unity_self]).val() === 1; }
-    static get_endColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_endColor_Injected", [_unity_self, ret]); }
-    static get_endWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth_Injected", [_unity_self]).val(); }
-    static get_generateLightingData_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData_Injected", [_unity_self]).val() === 1; }
-    static get_maskInteraction_Injected(_unity_self) { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction_Injected", [_unity_self])); }
-    static get_minVertexDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance_Injected", [_unity_self]).val(); }
-    static get_numCapVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices_Injected", [_unity_self]).val(); }
-    static get_numCornerVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices_Injected", [_unity_self]).val(); }
-    static get_positionCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount_Injected", [_unity_self]).val(); }
-    static get_shadowBias_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias_Injected", [_unity_self]).val(); }
-    static get_startColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_startColor_Injected", [_unity_self, ret]); }
-    static get_startWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth_Injected", [_unity_self]).val(); }
-    static get_textureMode_Injected(_unity_self) { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode_Injected", [_unity_self])); }
-    static get_textureScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale_Injected", [_unity_self, ret]); }
-    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_time_Injected", [_unity_self]).val(); }
-    static get_widthMultiplier_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier_Injected", [_unity_self]).val(); }
-    static set_alignment_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment_Injected", [_unity_self, value]); }
-    static set_applyActiveColorSpace_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace_Injected", [_unity_self, value]); }
-    static set_autodestruct_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct_Injected", [_unity_self, value]); }
-    static set_emitting_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting_Injected", [_unity_self, value]); }
-    static set_endColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor_Injected", [_unity_self, value]); }
-    static set_endWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth_Injected", [_unity_self, value]); }
-    static set_generateLightingData_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData_Injected", [_unity_self, value]); }
-    static set_maskInteraction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction_Injected", [_unity_self, value]); }
-    static set_minVertexDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance_Injected", [_unity_self, value]); }
-    static set_numCapVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices_Injected", [_unity_self, value]); }
-    static set_numCornerVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices_Injected", [_unity_self, value]); }
-    static set_shadowBias_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias_Injected", [_unity_self, value]); }
-    static set_startColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor_Injected", [_unity_self, value]); }
-    static set_startWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth_Injected", [_unity_self, value]); }
-    static set_textureMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode_Injected", [_unity_self, value]); }
-    static set_textureScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale_Injected", [_unity_self, value]); }
-    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_time_Injected", [_unity_self, value]); }
-    static set_widthMultiplier_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier_Injected", [_unity_self, value]); }
-}
-
 export class ShakePreset {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get FadeIn() { return window.ctx.call("MilkShake.ShakePreset", "get_FadeIn", [this.ptr]).val(); }
@@ -9218,6 +9229,18 @@ export class JSONNodeType {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
+export class LineAlignment {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class SpriteMaskInteraction {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class LineTextureMode {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class ContactPairHeader {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get body() { return new Component(window.ctx.call("UnityEngine.ContactPairHeader", "get_body", [this.ptr])); }
@@ -9415,18 +9438,6 @@ export class VertexAttributeFormat {
 }
 
 export class DrivenTransformProperties {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class LineAlignment {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class SpriteMaskInteraction {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class LineTextureMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 

@@ -1,8 +1,8 @@
-import { Weapon, FlagObject, CursorController, MapUIManager, DroppedTag, SpawnedItem, Object, ChickenController, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion, ColyVector3 } from "../../structs.js";
+import { Weapon, StaticWaypointObject, FlagStaticWaypointObject, FlagObject, CursorController, MapUIManager, DroppedTag, SpawnedItem, Object, ChickenController, SettingsManager, NotificationManager, SettingsConfiguration, Camera, GameObject, Input, Time, Transform, MovementController, Player, ColyShooter, Spectator, ColyBehaviour, ColyView, ColyTeamMember, AFKManager, GameModeManager, MyRoomState, Gun, Component, ChatUIManager, GameModeData, NetworkManager, GameTimer, AimManager, CharacterCamera, Quaternion, ColyVector3, Bullet } from "../../structs.js";
 import { config } from "../ui/config.js";
 import { keysPressed, LocalArray, Vector3, nullCheck, ChatBypass, randomRange, QuaternionUtils } from "../utils.js";
 import { Chickens, Players } from "../../main.js";
-import { isTeamNum } from "../render.js";
+import { bullets, esp, isTeamNum } from "../render.js";
 import { main, getTargets } from "../aimbot.js";
 import { humanBonePaths } from "../humanbodybones.js";
 import { TransformHierarchy } from "../network.js";
@@ -12,11 +12,12 @@ export let localPlayerPtr = null;
 export let localPlayerSessionId = null;
 export let chatManager = null;
 export let weaponCamera = null;
+export let currBulletID = 0
 export let settingsConfig = null;
 let ignoreNextShoot = false;
 export let movementcontroller = null;
 export let charcam = null;
-
+export let ctfcollider = null;
 let _tpDeltaX = 0;
 let _tpDeltaY = 0;
 let _tpWasActive = false;
@@ -96,6 +97,7 @@ export function shooterhooks() {
         }, (ptr) => {
             charcam = ptr;
 
+
             const tpActive = config.misc.thirdPerson;
 
             if (tpActive) {
@@ -172,26 +174,28 @@ export function shooterhooks() {
             curlock = ptr
 
         })
-        
+
         window.ctx.hookPrefix({
             typeName: 'CTFManager',
             methodName: 'Initialize',
             params: ['i32', 'i32']
         }, (ptr) => {
-           
+
             ctfmanager = ptr
             //var mum = new MapUIManager(ptr)
             //console.log(mum.IsPaused)
             //mum.isPaused = false
-            
+
 
         })
+
 
         window.ctx.hookPrefix({
             typeName: "ColyShooter",
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
+
             let player = new ColyBehaviour(ptr).colyView; // this no error
             let shooter = new ColyShooter(ptr);
             if (!Players.has(player.sessionId) && !player.isMine) {
@@ -206,27 +210,45 @@ export function shooterhooks() {
             if (config.rage.killAll && !player.isMine) shooter.CommitSuicide();
         });
 
+        window.ctx.hookPostfix({
+            typeName: "ColyShooter",
+            methodName: "Update",
+            params: ['i32', 'i32']
+        }, (ptr) => {
+
+
+        });
+
+
         window.ctx.hookPrefix({
             typeName: "FlagObject",
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
+            if (!config.rage.autoCTF) return true
             var f = new FlagObject(ptr)
             if (!isTeamNum(f.myFlag.teamId.val())) {
                 new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.SendPositionUpdate(new Component(ptr).transform.position, new Component(ptr).transform.rotation, 0)
                 console.log(f.ctfPoint.lastMyFlagCarriedBy)
                 //if (f.ctfPoint.lastMyFlagAtBase) {
-                    f.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
-                    f.ctfPoint.TryPickUpFlag()
-                    f.ctfPoint.UpdateFlagState()
+                f.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
+                f.ctfPoint.TryPickUpFlag()
+                f.ctfPoint.UpdateFlagState()
                 //}
             } else {
+                //f.ctfPoint.lastTriggerTime = 0
+                //console.log(f.ctfPoint.lastTriggerTime)
                 if (f.ctfPoint.lastMyFlagAtBase) {
                     var myctfpointtrans = new Component(f.ctfPoint.ptr).transform;
-                    f.OnTriggerEnter()
+                    //f.OnTriggerEnter()
                     new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.SendPositionUpdate(myctfpointtrans.position, myctfpointtrans.rotation, 0)
                     f.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
-                    
+
+                    f.ctfPoint.OnPlayerTouched(new ColyBehaviour(localPlayerPtr).colyView.ptr)
+                    f.ctfPoint.UpdateFlagState()
+                    f.ctfPoint.ReinitializeWaypoint()
+                    new StaticWaypointObject(f.myWaypointObject.ptr).TryAddMyself()
+                    //f.ctfPoint.TryPickUpFlag()
                 }
             }
 
@@ -299,6 +321,7 @@ export function shooterhooks() {
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
+
             let mc = new MovementController(ptr);
             movementcontroller = mc;
             if (config.misc.infDash) mc.lastDashTime = 0;
@@ -345,7 +368,57 @@ export function shooterhooks() {
             params: ['i32', 'i32']
         }, (ptr) => {
             if (config.misc.antiafk) new AFKManager(ptr).ResetInactivityTimer();
+
         });
+
+        window.ctx.hookPrefix({
+            typeName: "Bullet",
+            methodName: "OnSpawn",
+            params: ['i32', 'i32']
+        }, (ptr) => {
+            console.log("spawn called")
+            //console.log("start pos", Vector3.readFrom(new Component(ptr).transform.position))
+            let curpos = new Component(ptr).transform.position
+            //console.log("start", Vector3.readFrom(curpos))
+              var endadd = Vector3.readFrom(new Component(ptr).transform.forward).multiply(new Bullet(ptr).lifeDistance)
+                var endpos = Vector3.readFrom(new Component(ptr).transform.position)
+                  endpos.add(endadd.x, endadd.y, endadd.z)
+                  
+            //let needtochangey = Vector3.readFrom(curpos)
+            //needtochangey.y = Vector3.readFrom(new Component(Camera.main.ptr).transform.position).y
+            let st = new Bullet(ptr).spawnTime
+            //console.log(st)
+            bullets.push({ start: curpos, end: endpos.createPtr(), id: st, ended: false, timeSince:0 /*to be determined*/ })
+           // currBulletID++;
+        });
+
+ /*       window.ctx.hookPrefix({
+            typeName: "Bullet",
+            methodName: "Update",
+            params: ['i32', 'i32']
+        }, (ptr) => {
+            let inst = new Bullet(ptr)
+            bullets.forEach((bullet) => {
+                
+                //console.log(new Object(ptr).GetInstanceID(), bullet.id)
+                console.log(inst.spawnTime)
+                let trans = new Component(ptr).transform
+                if (inst.spawnTime == bullet.id) {
+                    var endadd = Vector3.readFrom(trans.forward).multiply(inst.lifeDistance)
+                    var endpos = Vector3.readFrom(trans.position)
+                    endpos.add(endadd.x, endadd.y, endadd.z)
+                  
+                    bullet.end = endpos.createPtr()
+                    if (inst.lifeEnded) {
+                        bullet.ended = true
+                        
+                    } 
+                }
+            })
+        });
+
+      */
+
 
 
         window.ctx.hookPrefix({
@@ -353,8 +426,17 @@ export function shooterhooks() {
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
+            try { esp(); } catch (e) { console.log(e) }
             am = new AimManager(ptr);
             weaponCamera = am.weaponCamera.ptr
+
+
+        });
+        window.ctx.hookPrefix({
+            typeName: "PlayerInput",
+            methodName: "Update",
+            params: ['i32', 'i32']
+        }, (ptr) => {
 
         });
 
@@ -405,6 +487,7 @@ export function shooterhooks() {
             methodName: "Update",
             params: ['i32', 'i32']
         }, (ptr) => {
+
             let inst = new Gun(ptr);
             if (!inst) return;
             if (nullCheck(inst.shooter)) return;
