@@ -90,6 +90,13 @@ loadAndInitPlugin().then((ctx) => {
 		
 
 
+		const bulletTracers = ui.addSection(g, "Bullet Tracers", "zap");
+		ui.addToggleRow(bulletTracers, "Enabled", config.visuals, "bulletTracers");
+		ui.addColorRow(bulletTracers, "Start Color", config.visuals, "bulletTracerStartColor");
+		ui.addColorRow(bulletTracers, "End Color", config.visuals, "bulletTracerEndColor");
+		ui.addSliderRow(bulletTracers, "Thickness", config.visuals, "bulletTracerThickness", 1, 10, .5);
+		ui.addSliderRow(bulletTracers, "Lifetime (ms)", config.visuals, "bulletTracerLifetime", 100, 10000, 100);
+
 		const chickens = ui.addSection(g, "Chickens", "chicken");
 		ui.addToggleRow(chickens, "Nametags", config.visuals, "chickenNametags");
 		ui.addColorRow(chickens, "Nametag Color", config.visuals, "chickenNametagColor");

@@ -376,20 +376,19 @@ export function shooterhooks() {
             methodName: "OnSpawn",
             params: ['i32', 'i32']
         }, (ptr) => {
-            console.log("spawn called")
-            //console.log("start pos", Vector3.readFrom(new Component(ptr).transform.position))
-            let curpos = new Component(ptr).transform.position
-            //console.log("start", Vector3.readFrom(curpos))
-              var endadd = Vector3.readFrom(new Component(ptr).transform.forward).multiply(new Bullet(ptr).lifeDistance)
-                var endpos = Vector3.readFrom(new Component(ptr).transform.position)
-                  endpos.add(endadd.x, endadd.y, endadd.z)
-                  
-            //let needtochangey = Vector3.readFrom(curpos)
-            //needtochangey.y = Vector3.readFrom(new Component(Camera.main.ptr).transform.position).y
-            let st = new Bullet(ptr).spawnTime
-            //console.log(st)
-            bullets.push({ start: curpos, end: endpos.createPtr(), id: st, ended: false, timeSince:0 /*to be determined*/ })
-           // currBulletID++;
+            try {
+                const comp = new Component(ptr);
+                const bul = new Bullet(ptr);
+                const startWorld = Vector3.readFrom(comp.transform.position);
+                const fwd = Vector3.readFrom(comp.transform.forward);
+                const dist = bul.lifeDistance;
+                const endWorld = new Vector3(
+                    startWorld.x + fwd.x * dist,
+                    startWorld.y + fwd.y * dist,
+                    startWorld.z + fwd.z * dist
+                );
+                bullets.push({ start: startWorld.createPtr(), end: endWorld.createPtr(), timeSince: 0 });
+            } catch (e) { console.log(e); }
         });
 
  /*       window.ctx.hookPrefix({

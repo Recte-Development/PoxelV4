@@ -349,7 +349,7 @@ export function esp() {
 				}
 			}
 
-		} catch (e) { console.log(e) }
+		} catch (e) {Players.splice(Players.indexOf(player), 1); console.log(e)  }
 	});
 
 
@@ -382,28 +382,25 @@ export function esp() {
 			}
 		}
 	})
-	try {
+	const now = performance.now();
+	const frameDelta = now - lastTime;
+	lastTime = now;
 
-		const now = performance.now();
-		const delta = now - lastTime;
-		lastTime = now;
-		let lifeDur = 3000;
+	if (config.visuals.bulletTracers) try {
+		const { bulletTracerStartColor, bulletTracerEndColor, bulletTracerThickness, bulletTracerLifetime: lifeDur } = config.visuals;
+		const tracer = new ESPThings(_ctx2d, null, null);
 		bullets.forEach((bullet) => {
-			//console.log(Vector3.readFrom(bullet.start), Vector3.readFrom(bullet.end))
-			bullet.timeSince += delta;
-			const t = Math.min(bullet.timeSince / 1000, 1);
-			//console.log(bullet)
-
-			//let screenp = w2s(_ctx2d, bullet.start)
-			let startS = w2s(_ctx2d, bullet.start)
-			let endS = w2s(_ctx2d, bullet.end)
-			if ( bullet.timeSince < lifeDur && onScreenZ(startS) && onScreenZ(endS)) {
-				color = lerpHexColor("#ff0000", "#0000ff", t);
-				new ESPThings(_ctx2d, null, null).DrawLine(startS, endS, color, 5)
+			bullet.timeSince += frameDelta;
+			if (bullet.timeSince > lifeDur) {
+				bullets.splice(bullets.indexOf(bullet), 1);
+				return;
 			}
-			//console.log("w2s", screenp, "world", Vector3.readFrom(bullet.start))
-			//new ESPThings(_ctx2d, null, null).DrawText("BULLET", screenp.x, screenp.y, 3, "#ff0000")
-		})
+			const startS = w2s(canvas, bullet.start);
+			const endS = w2s(canvas, bullet.end);
+			if (!onScreenZ(startS) || !onScreenZ(endS)) return;
+			const t = bullet.timeSince / lifeDur;
+			tracer.DrawLine(startS, endS, lerpHexColor(bulletTracerStartColor, bulletTracerEndColor, t), bulletTracerThickness);
+		});
 	} catch (e) { console.log(e) }
 	onscreen.length = 0;
 
@@ -440,21 +437,14 @@ function lerpHexColor(hex1, hex2, t) {
 
 
 
-function hexToRgb(hex) {
-	hex = hex.replace("#", "");
-
-	// support shorthand like #f00
-	if (hex.length === 3) {
-		hex = hex.split("").map(c => c + c).join("");
-	}
-
+function hexToRgb(color) {
+	const rgba = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+	if (rgba) return [+rgba[1], +rgba[2], +rgba[3]];
+	let hex = color.replace("#", "");
+	if (hex.length === 3) hex = hex.split("").map(c => c + c).join("");
+	if (hex.length === 8) hex = hex.slice(0, 6);
 	const num = parseInt(hex, 16);
-
-	return [
-		(num >> 16) & 255,
-		(num >> 8) & 255,
-		num & 255
-	];
+	return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
 }
 
 function rgbToHex(r, g, b) {

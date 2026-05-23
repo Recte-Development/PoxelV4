@@ -103,7 +103,13 @@ export let config = {
         arrowrainbow: false,
         offscreenarrows: true,
         arrowdist: 200,
-        arrowcolor:  "#2600ff",
+        arrowcolor: "#2600ff",
+
+        bulletTracers: false,
+        bulletTracerStartColor: "#ff0000",
+        bulletTracerEndColor: "#0000ff",
+        bulletTracerThickness: 5,
+        bulletTracerLifetime: 1500,
         
     },
     client: {
