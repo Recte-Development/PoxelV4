@@ -25,7 +25,7 @@ export function getTargets() {
     const screenCenterX = canvas.width / 2;
     const screenCenterY = canvas.height / 2;
     const sortingMode = config.rage.aimbotSorting;
-    const boneKey = window.ctx.createMstr(humanBonePaths[config.rage.aimBone]);
+    const boneKey = humanBonePaths[config.rage.aimBone];
 
     const selfTransform = new Component(localPlayer.ptr).transform;
     if (!selfTransform) return [];
@@ -125,14 +125,14 @@ export function main(){
         case "Silent": {
             // weaponCamera is only active whenever you're aiming in
             // switching to the CharacterCamera instance is active regardless of aim
-            new CharacterCamera(charcam).Transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+            new CharacterCamera(charcam).Transform.LookAt_worldPosition(comp1.transform.Find(humanBonePaths[config.rage.aimBone]).position);
             
             
             //new Component(weaponCamera).transform.LookAt_worldPosition(comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
             break;
         }
         case "Mouse": {
-            let screenPos = w2s(canvas, comp1.transform.Find(window.ctx.createMstr(humanBonePaths[config.rage.aimBone])).position);
+            let screenPos = w2s(canvas, comp1.transform.Find(humanBonePaths[config.rage.aimBone]).position);
 
             let smoothing = config.rage.aimSpeed;
             let moveX = (screenPos.x - centerOfScreen().x) * smoothing;
