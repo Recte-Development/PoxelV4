@@ -94,7 +94,10 @@ async function buildAndServe() {
           ext === ".html" ? "text/html" :
           ext === ".js"   ? "application/javascript" :
                             "text/plain";
-        res.writeHead(200, { "Content-Type": contentType });
+        res.writeHead(200, {
+          "Content-Type": contentType,
+          "Access-Control-Allow-Origin": "*"
+        });
         res.end(content);
       });
     });

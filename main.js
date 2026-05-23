@@ -98,7 +98,7 @@ export const ui = new MenuUI("Poxel", "4.0");
       ui.addSelectRow(aimbot, "Type", ["Silent", "Mouse", "Magic", "Internal"], config.rage, "aimbotType");
       ui.addSelectRow(aimbot, "Aim Bone", ["Neck", "Chest", "Hips"], config.rage, "aimBone");
       ui.addSelectRow(aimbot, "Sort Mode", ["Screen", "World"], config.rage, "aimbotSorting");
-      ui.addSelectRow(aimbot, "Aim Key", keyOptions, config.rage, "aimKey");
+      ui.addSelectRow(aimbot, "Aim Key", config.settings.keyOptions, config.rage, "aimKey");
       ui.addSliderRow(aimbot, "Aim Speed", config.rage, "aimSpeed", .01, 1, .01);
 
       const fov = ui.addSection(g, "FOV", "eye");
