@@ -349,7 +349,7 @@ export function esp() {
 				}
 			}
 
-		} catch (e) { console.log(e) }
+		} catch (e) {Players.splice(Players.indexOf(player), 1); console.log(e)  }
 	});
 
 
@@ -387,7 +387,7 @@ export function esp() {
 		const now = performance.now();
 		const delta = now - lastTime;
 		lastTime = now;
-		let lifeDur = 3000;
+		let lifeDur = 2000;
 		bullets.forEach((bullet) => {
 			//console.log(Vector3.readFrom(bullet.start), Vector3.readFrom(bullet.end))
 			bullet.timeSince += delta;
@@ -400,6 +400,9 @@ export function esp() {
 			if ( bullet.timeSince < lifeDur && onScreenZ(startS) && onScreenZ(endS)) {
 				color = lerpHexColor("#ff0000", "#0000ff", t);
 				new ESPThings(_ctx2d, null, null).DrawLine(startS, endS, color, 5)
+			} 
+			if (bullet.timeSince > lifeDur) {
+				bullets.splice(bullets.indexOf(bullet), 1);
 			}
 			//console.log("w2s", screenp, "world", Vector3.readFrom(bullet.start))
 			//new ESPThings(_ctx2d, null, null).DrawText("BULLET", screenp.x, screenp.y, 3, "#ff0000")
