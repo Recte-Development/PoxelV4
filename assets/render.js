@@ -151,8 +151,7 @@ export function onScreen(screenPos) {
 	return screenPos.x > 0.1 && screenPos.x < window.innerWidth - 5 && screenPos.y > 0.1 && screenPos.y < window.innerHeight - 5 && screenPos.z > 0;
 }
 export function onScreenZ(screenPos) {
-
-	return screenPos.z > 0;
+	return screenPos.z > -1;
 }
 
 const modes = ["FFA", "Megaheads", "Gun Gamble", "Rocket Arena"];
@@ -250,10 +249,10 @@ export function esp() {
 	}
 
 	// Pre-compute all mstrs once per frame, not per player
-	const neckMstr = window.ctx.createMstr(humanBonePaths.Neck);
+	const neckMstr = humanBonePaths.Neck;
 	const boneLinkMstrs = skeleton ? boneLinks.map(({ from, to }) => ({
-		from: window.ctx.createMstr(from),
-		to: window.ctx.createMstr(to),
+		from: from,
+		to: to,
 	})) : null;
 
 	// Lazy-init reusable head position buffer (avoids per-player malloc)
@@ -315,7 +314,7 @@ export function esp() {
 
 			if (nametags) {
 				const health = playerState.health.val() - 65536;
-				let text = strip(colyView.Nickname.mstr());
+				let text = strip(colyView.Nickname);
 				if (nametagsHealth) text += `\n[${health}hp]`;
 				if (selfPos) {
 					const fp = Vector3.readFrom(footWorldPos);
@@ -355,8 +354,8 @@ export function esp() {
 
 
 	const chickenBoneLinkmStrs = config.visuals.chickenSkeletons ? chickenBoneLinks.map(({ from, to }) => ({
-		from: window.ctx.createMstr(from),
-		to: window.ctx.createMstr(to),
+		from: from,
+		to: to,
 	})) : null;
 	Chickens.forEach((chicken) => {
 		const comp = new Component(chicken.ptr);
@@ -388,6 +387,7 @@ export function esp() {
 		const now = performance.now();
 		const delta = now - lastTime;
 		lastTime = now;
+		let lifeDur = 3000;
 		bullets.forEach((bullet) => {
 			//console.log(Vector3.readFrom(bullet.start), Vector3.readFrom(bullet.end))
 			bullet.timeSince += delta;
@@ -397,7 +397,7 @@ export function esp() {
 			//let screenp = w2s(_ctx2d, bullet.start)
 			let startS = w2s(_ctx2d, bullet.start)
 			let endS = w2s(_ctx2d, bullet.end)
-			if ( bullet.timeSince < 3000 && onScreenZ(startS) && onScreenZ(endS)) {
+			if ( bullet.timeSince < lifeDur && onScreenZ(startS) && onScreenZ(endS)) {
 				color = lerpHexColor("#ff0000", "#0000ff", t);
 				new ESPThings(_ctx2d, null, null).DrawLine(startS, endS, color, 5)
 			}

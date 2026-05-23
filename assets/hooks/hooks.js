@@ -31,7 +31,7 @@ function _getGfxGameObject() {
     if (!localPlayer) return null;
     try {
         const playerTrans = new Component(localPlayer.ptr).transform;
-        const gfxTrans = playerTrans.Find(window.ctx.createMstr("Global/Root/gfx"));
+        const gfxTrans = playerTrans.Find("Global/Root/gfx");
         if (nullCheck(gfxTrans)) return null;
         _gfxGameObject = new Component(gfxTrans.ptr).gameObject;
         _gfxPlayerPtr = localPlayer.ptr;
@@ -76,10 +76,10 @@ export function shooterhooks() {
                 const isFirefox = typeof InstallTrigger !== 'undefined';
 
                 if (!isFirefox) {
-                    NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr("You're not using FireFox.\nSome cheats may not work please use Firefox for support"), 0)
+                    NotificationManager.Show("Recte","You're not using FireFox.\nSome cheats may not work please use Firefox for support", 0)
                 }
 
-                NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr(`Recte has been injected\nPress: ${config.settings.toggle} to toggle the UI`), 3)
+                NotificationManager.Show("Recte", `Recte has been injected\nPress: ${config.settings.toggle} to toggle the UI`, 3)
                 firstLoad = true
             }
             document.querySelectorAll('.banner-container').forEach(el => el.remove())
@@ -135,7 +135,7 @@ export function shooterhooks() {
                 // Get player head position
                 const playerTrans = new Component(localPlayer.ptr).transform;
                 const headPos = Vector3.readFrom(
-                    playerTrans.Find(window.ctx.createMstr(humanBonePaths.Neck)).position
+                    playerTrans.Find(humanBonePaths.Neck).position
                 );
 
                 const dist = config.misc.thirdPersonDist;
@@ -273,12 +273,12 @@ export function shooterhooks() {
 
             if (config.rage.aimbotType === "Magic" && config.rage.aimbot) {
                 hitpos = new Component(target.ptr).transform.position
-                targetsessionid = ctx.createMstr(new ColyBehaviour(target.ptr).colyView.sessionId)
+                targetsessionid = new ColyBehaviour(target.ptr).colyView.sessionId
             }
 
 
-            if (target && config.rage.wallBang && targetsessionid.mstr() === "") {
-                targetsessionid = ctx.createMstr(new ColyBehaviour(target.ptr).colyView.sessionId);
+            if (target && config.rage.wallBang && targetsessionid === "") {
+                targetsessionid = new ColyBehaviour(target.ptr).colyView.sessionId;
             }
 
             let finalTarget = targetsessionid;
@@ -286,10 +286,10 @@ export function shooterhooks() {
             let finalDamage = damage.val();
 
             if (config.rage.randomHit) {
-                if (targetsessionid.mstr() === "") {
+                if (targetsessionid === "") {
                     const player = Players[Math.floor(Math.random() * Players.length)];
 
-                    finalTarget = ctx.createMstr(new ColyBehaviour(player.ptr).colyView.sessionId);
+                    finalTarget = new ColyBehaviour(player.ptr).colyView.sessionId;
                     finalHitPos = new Component(player.ptr).transform.position
                     hittype = 4;
                 }

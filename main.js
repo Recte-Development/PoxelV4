@@ -139,11 +139,11 @@ loadAndInitPlugin().then((ctx) => {
 		const exploits = ui.addSection(g, "Exploits", "misc");
 		ui.addToggleRow(exploits, "Kill All", config.rage, "killAll");
 		ui.addButton(exploits, "God Mode (Self)", "Execute", "Execute", () => {
-			new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+			new ColyShooter(localPlayerPtr).SendRPCShoot(localPlayerSessionId, Vector3.zero().createPtr(), 3, -999999999, null, false);
 		});
 		ui.addButton(exploits, "God Mode (All)", "Execute", "Execute", () => {
 			Players.forEach((player) => {
-				new ColyShooter(player.ptr).SendRPCShoot(ctx.createMstr(new ColyBehaviour(player).colyView.sessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+				new ColyShooter(player.ptr).SendRPCShoot(new ColyBehaviour(player).colyView.sessionId, Vector3.zero().createPtr(), 3, -999999999, null, false);
 			});
 		});
 	});
@@ -176,7 +176,7 @@ loadAndInitPlugin().then((ctx) => {
       ui.addTextRow(chat, "Spam Message", config.misc, "chatSpamMessage", "recte.cc");
       ui.addButton(chat, "Send Message", "Execute", "Execute1", () => {
         let instance = new ChatUIManager(chatManager);
-        instance.SendChatMessage(window.ctx.createMstr(config.misc.chatSpamMessage));
+        instance.SendChatMessage(config.misc.chatSpamMessage);
       });
     });
 
@@ -258,10 +258,10 @@ function mainloop(timestamp) {
 
 	if (keysPressed[config.settings.godmodekey.toLowerCase()]) {
 		if (!toggleKeys.godmode) {
-			new ColyShooter(localPlayerPtr).SendRPCShoot(ctx.createMstr(localPlayerSessionId), Vector3.zero().createPtr(), 3, -999999999, null, false);
+			new ColyShooter(localPlayerPtr).SendRPCShoot(localPlayerSessionId, Vector3.zero().createPtr(), 3, -999999999, null, false);
 
 			toggleKeys.godmode = true;
-			NotificationManager.Show(ctx.createMstr("Recte"), ctx.createMstr("God Mode Enabled"), 3)
+			NotificationManager.Show("Recte", "God Mode Enabled", 3)
 		}
 	} else {
 		toggleKeys.godmode = false;
