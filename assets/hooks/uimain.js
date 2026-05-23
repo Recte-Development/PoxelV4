@@ -156,6 +156,26 @@ const ico = {
     key: `<svg viewBox="0 0 24 24"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>`,
     snow: `<svg viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/><polyline points="8 4 12 2 16 4"/><polyline points="8 20 12 22 16 20"/><polyline points="20 8 22 12 20 16"/><polyline points="4 8 2 12 4 16"/></svg>`,
     palette: `<svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
+
+    chicken: `<svg viewBox="0 0 24 24">
+    <!-- body -->
+    <path d="M6 14c0-4 3-7 7-7 2 0 4 1 5 3 2 0 3 2 3 4 0 3-2 6-6 6H11c-3 0-5-2-5-6z"/>
+    
+    <!-- tail -->
+    <path d="M13 7c2-3 5-3 6-1-1 0-2 1-2 2 1 0 2 1 2 2-2 0-4-1-6-3z"/>
+    
+    <!-- comb -->
+    <path d="M12 5c0-1 1-2 2-2s2 1 2 2c0-1 1-2 2-2s2 1 2 2"/>
+    
+    <!-- beak -->
+    <path d="M18 10l3-1-1 2"/>
+    
+    <!-- eye -->
+    <circle cx="16" cy="11" r="1"/>
+    
+    <!-- legs -->
+    <path d="M10 20l-1.5 3M14 20l1.5 3"/>
+</svg>`,
 };
 
 function mkIco(id) { return `<span class="rm-tab-icon">${ico[id] || ico.misc}</span>`; }

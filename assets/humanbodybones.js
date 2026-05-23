@@ -34,7 +34,7 @@ export const humanBonePaths = {
 
 export const boneLinks = [
     // Spine & torso
-    { from: humanBonePaths.Hips,       to: humanBonePaths.Spine },
+   // { from: humanBonePaths.Hips,       to: humanBonePaths.Spine },
     { from: humanBonePaths.Spine,      to: humanBonePaths.Chest },
     { from: humanBonePaths.Chest,      to: humanBonePaths.Neck },
     //{ from: humanBonePaths.Neck,       to: humanBonePaths.Head },
@@ -51,12 +51,12 @@ export const boneLinks = [
     { from: humanBonePaths.LeftLowerArm, to: humanBonePaths.LeftHand },
 
     // Right leg
-    { from: humanBonePaths.Hips,          to: humanBonePaths.RightUpperLeg },
+    { from: humanBonePaths.Spine,          to: humanBonePaths.RightUpperLeg },
     { from: humanBonePaths.RightUpperLeg, to: humanBonePaths.RightLowerLeg },
     { from: humanBonePaths.RightLowerLeg, to: humanBonePaths.RightFoot },
 
     // Left leg
-    { from: humanBonePaths.Hips,         to: humanBonePaths.LeftUpperLeg },
+    { from: humanBonePaths.Spine,         to: humanBonePaths.LeftUpperLeg },
     { from: humanBonePaths.LeftUpperLeg, to: humanBonePaths.LeftLowerLeg },
     { from: humanBonePaths.LeftLowerLeg, to: humanBonePaths.LeftFoot },
 ];

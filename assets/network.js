@@ -3,7 +3,7 @@ import {Object } from "../structs.js"
 export function TransformHierarchy(parent, indent = "", isLast = true) {
 
     let prefix = indent + (isLast ? "└─ " : "├─ ");
-    console.log(prefix + new Object(parent.ptr).name.mstr());
+    console.log(prefix + new Object(parent.ptr).name);
 
     let newIndent = indent + (isLast ? "   " : "│  ");
 

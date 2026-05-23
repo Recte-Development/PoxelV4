@@ -48,21 +48,21 @@ export class ColyShooter {
     _OnNetworkSpawned_b_27_1(index, weapon) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_1", [this.ptr, index, weapon]); }
     _OnNetworkSpawned_b_27_3(index, weapon) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_3", [this.ptr, index, weapon]); }
     _OnNetworkSpawned_b_27_5(current, previous) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_5", [this.ptr, current, previous]); }
-    _OnNetworkSpawned_b_27_6(originalTarget) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_6", [this.ptr, originalTarget]); }
+    _OnNetworkSpawned_b_27_6(originalTarget) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_6", [this.ptr, window.ctx.createMstr(originalTarget)]); }
     _OnNetworkSpawned_b_27_7(data) { window.ctx.call("ColyShooter", "<OnNetworkSpawned>b__27_7", [this.ptr, data]); }
     AddItemToInventory(weapon, switchToNew) { window.ctx.call("ColyShooter", "AddItemToInventory", [this.ptr, weapon, switchToNew]); }
     CanPickWeapon(weaponId) { return window.ctx.call("ColyShooter", "CanPickWeapon", [this.ptr, weaponId]).val() === 1; }
     ChangeGun(newGunIndex) { window.ctx.call("ColyShooter", "ChangeGun", [this.ptr, newGunIndex]); }
     CleanupGunsOnGlobalPlayer() { window.ctx.call("ColyShooter", "CleanupGunsOnGlobalPlayer", [this.ptr]); }
     CommitSuicide() { window.ctx.call("ColyShooter", "CommitSuicide", [this.ptr]); }
-    HandleShotRejectedByServer(targetSessionId) { window.ctx.call("ColyShooter", "HandleShotRejectedByServer", [this.ptr, targetSessionId]); }
+    HandleShotRejectedByServer(targetSessionId) { window.ctx.call("ColyShooter", "HandleShotRejectedByServer", [this.ptr, window.ctx.createMstr(targetSessionId)]); }
     InitInventory(inventory, initialWeapon) { window.ctx.call("ColyShooter", "InitInventory", [this.ptr, inventory, initialWeapon]); }
     IntervalHitIdentification() { window.ctx.call("ColyShooter", "IntervalHitIdentification", [this.ptr]); }
     IsAbleToShoot(maxRange, opticDotPosition) { return window.ctx.call("ColyShooter", "IsAbleToShoot", [this.ptr, maxRange, opticDotPosition]).val() === 1; }
     OnDisable() { window.ctx.call("ColyShooter", "OnDisable", [this.ptr]); }
     OnNetworkSpawned(spawnInfo) { window.ctx.call("ColyShooter", "OnNetworkSpawned", [this.ptr, spawnInfo]); }
     RegularShoot(maxRange, opticDotPosition) { window.ctx.call("ColyShooter", "RegularShoot", [this.ptr, maxRange, opticDotPosition]); }
-    SendRPCShoot(targetSessionId, hitPos, hitType, damage, shotId, isSuicide) { window.ctx.call("ColyShooter", "SendRPCShoot", [this.ptr, targetSessionId, hitPos, hitType, damage, shotId, isSuicide]); }
+    SendRPCShoot(targetSessionId, hitPos, hitType, damage, shotId, isSuicide) { window.ctx.call("ColyShooter", "SendRPCShoot", [this.ptr, window.ctx.createMstr(targetSessionId), hitPos, hitType, damage, shotId, isSuicide]); }
     SetCurrentGunLocalIndex(index) { window.ctx.call("ColyShooter", "SetCurrentGunLocalIndex", [this.ptr, index]); }
     ShotgunShoot(shotgun, maxRange, opticDotPosition) { window.ctx.call("ColyShooter", "ShotgunShoot", [this.ptr, shotgun, maxRange, opticDotPosition]); }
     ShowCurrentGunOnGlobalPlayer() { window.ctx.call("ColyShooter", "ShowCurrentGunOnGlobalPlayer", [this.ptr]); }
@@ -86,9 +86,9 @@ export class ColyBehaviour {
 export class Component {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get gameObject() { return new GameObject(window.ctx.call("UnityEngine.Component", "get_gameObject", [this.ptr])); }
-    get tag() { return window.ctx.call("UnityEngine.Component", "get_tag", [this.ptr]); }
+    get tag() { return window.ctx.call("UnityEngine.Component", "get_tag", [this.ptr]).mstr(); }
     get transform() { return new Transform(window.ctx.call("UnityEngine.Component", "get_transform", [this.ptr])); }
-    CompareTag(tag) { return window.ctx.call("UnityEngine.Component", "CompareTag", [this.ptr, tag]).val() === 1; }
+    CompareTag(tag) { return window.ctx.call("UnityEngine.Component", "CompareTag", [this.ptr, window.ctx.createMstr(tag)]).val() === 1; }
     GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.Component", "GetComponent_22491", [this.ptr, type])); }
     GetComponent() { return window.ctx.call("UnityEngine.Component", "GetComponent", [this.ptr]); }
     GetComponentInChildren_t_includeInactive(t, includeInactive) { return new Component(window.ctx.call("UnityEngine.Component", "GetComponentInChildren_22493", [this.ptr, t, includeInactive])); }
@@ -110,14 +110,14 @@ export class Component {
     TryGetComponent_type_component(type, component) { return window.ctx.call("UnityEngine.Component", "TryGetComponent_22492", [this.ptr, type, component]).val() === 1; }
     TryGetComponent(component) { return window.ctx.call("UnityEngine.Component", "TryGetComponent", [this.ptr, component]).val() === 1; }
     static get_gameObject_Injected(_unity_self) { return (()=>{
-					let structptr_edb09d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Component", "get_gameObject_Injected", [structptr_edb09d, _unity_self]);
-					return structptr_edb09d;
+					let structptr_cf39fd = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Component", "get_gameObject_Injected", [structptr_cf39fd, _unity_self]);
+					return structptr_cf39fd;
 				})(); }
     static get_transform_Injected(_unity_self) { return (()=>{
-					let structptr_dbbc89 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Component", "get_transform_Injected", [structptr_dbbc89, _unity_self]);
-					return structptr_dbbc89;
+					let structptr_482c95 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Component", "get_transform_Injected", [structptr_482c95, _unity_self]);
+					return structptr_482c95;
 				})(); }
 }
 
@@ -141,9 +141,9 @@ export class Camera {
     get aspect() { return window.ctx.call("UnityEngine.Camera", "get_aspect", [this.ptr]).val(); }
     set aspect(v) { window.ctx.call("UnityEngine.Camera", "set_aspect", [this.ptr, v]); }
     get backgroundColor() { return (()=>{
-					let structptr_1503ec = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Camera", "get_backgroundColor", [structptr_1503ec, this.ptr]);
-					return structptr_1503ec;
+					let structptr_71f709 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Camera", "get_backgroundColor", [structptr_71f709, this.ptr]);
+					return structptr_71f709;
 				})(); }
     set backgroundColor(v) { window.ctx.call("UnityEngine.Camera", "set_backgroundColor", [this.ptr, v]); }
     get barrelClipping() { return window.ctx.call("UnityEngine.Camera", "get_barrelClipping", [this.ptr]).val(); }
@@ -151,9 +151,9 @@ export class Camera {
     get bladeCount() { return window.ctx.call("UnityEngine.Camera", "get_bladeCount", [this.ptr]).val(); }
     set bladeCount(v) { window.ctx.call("UnityEngine.Camera", "set_bladeCount", [this.ptr, v]); }
     get cameraToWorldMatrix() { return (()=>{
-					let structptr_55e104 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_cameraToWorldMatrix", [structptr_55e104, this.ptr]);
-					return structptr_55e104;
+					let structptr_790748 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_cameraToWorldMatrix", [structptr_790748, this.ptr]);
+					return structptr_790748;
 				})(); }
     get cameraType() { return new CameraType(window.ctx.call("UnityEngine.Camera", "get_cameraType", [this.ptr])); }
     set cameraType(v) { window.ctx.call("UnityEngine.Camera", "set_cameraType", [this.ptr, v]); }
@@ -165,17 +165,18 @@ export class Camera {
     get cullingMask() { return window.ctx.call("UnityEngine.Camera", "get_cullingMask", [this.ptr]).val(); }
     set cullingMask(v) { window.ctx.call("UnityEngine.Camera", "set_cullingMask", [this.ptr, v]); }
     get cullingMatrix() { return (()=>{
-					let structptr_5ac598 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_cullingMatrix", [structptr_5ac598, this.ptr]);
-					return structptr_5ac598;
+					let structptr_d9b8e5 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_cullingMatrix", [structptr_d9b8e5, this.ptr]);
+					return structptr_d9b8e5;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     set cullingMatrix(v) { window.ctx.call("UnityEngine.Camera", "set_cullingMatrix", [this.ptr, v]); }
     static get current() { return new Camera(window.ctx.call("UnityEngine.Camera", "get_current", [])); }
     static get currentInternal() { return new Camera(window.ctx.call("UnityEngine.Camera", "get_currentInternal", [])); }
     get curvature() { return (()=>{
-					let structptr_5ff3d1 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Camera", "get_curvature", [structptr_5ff3d1, this.ptr]);
-					return structptr_5ff3d1;
+					let structptr_971af2 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Camera", "get_curvature", [structptr_971af2, this.ptr]);
+					return structptr_971af2;
 				})(); }
     set curvature(v) { window.ctx.call("UnityEngine.Camera", "set_curvature", [this.ptr, v]); }
     get depth() { return window.ctx.call("UnityEngine.Camera", "get_depth", [this.ptr]).val(); }
@@ -206,18 +207,18 @@ export class Camera {
     get layerCullSphericalInternal() { return window.ctx.call("UnityEngine.Camera", "get_layerCullSphericalInternal", [this.ptr]).val() === 1; }
     set layerCullSphericalInternal(v) { window.ctx.call("UnityEngine.Camera", "set_layerCullSphericalInternal", [this.ptr, v]); }
     get lensShift() { return (()=>{
-					let structptr_52c70b = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Camera", "get_lensShift", [structptr_52c70b, this.ptr]);
-					return structptr_52c70b;
+					let structptr_35a112 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Camera", "get_lensShift", [structptr_35a112, this.ptr]);
+					return structptr_35a112;
 				})(); }
     set lensShift(v) { window.ctx.call("UnityEngine.Camera", "set_lensShift", [this.ptr, v]); }
     static get main() { return new Camera(window.ctx.call("UnityEngine.Camera", "get_main", [])); }
     get nearClipPlane() { return window.ctx.call("UnityEngine.Camera", "get_nearClipPlane", [this.ptr]).val(); }
     set nearClipPlane(v) { window.ctx.call("UnityEngine.Camera", "set_nearClipPlane", [this.ptr, v]); }
     get nonJitteredProjectionMatrix() { return (()=>{
-					let structptr_a8a7d0 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_nonJitteredProjectionMatrix", [structptr_a8a7d0, this.ptr]);
-					return structptr_a8a7d0;
+					let structptr_8e126b = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_nonJitteredProjectionMatrix", [structptr_8e126b, this.ptr]);
+					return structptr_8e126b;
 				})(); }
     set nonJitteredProjectionMatrix(v) { window.ctx.call("UnityEngine.Camera", "set_nonJitteredProjectionMatrix", [this.ptr, v]); }
     get opaqueSortMode() { return new OpaqueSortMode(window.ctx.call("UnityEngine.Camera", "get_opaqueSortMode", [this.ptr])); }
@@ -230,29 +231,29 @@ export class Camera {
     set overrideSceneCullingMask(v) { window.ctx.call("UnityEngine.Camera", "set_overrideSceneCullingMask", [this.ptr, v]); }
     get pixelHeight() { return window.ctx.call("UnityEngine.Camera", "get_pixelHeight", [this.ptr]).val(); }
     get pixelRect() { return (()=>{
-					let structptr_1f5f22 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_pixelRect", [structptr_1f5f22, this.ptr]);
-					return structptr_1f5f22;
+					let structptr_c167c1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_pixelRect", [structptr_c167c1, this.ptr]);
+					return structptr_c167c1;
 				})(); }
     set pixelRect(v) { window.ctx.call("UnityEngine.Camera", "set_pixelRect", [this.ptr, v]); }
     get pixelWidth() { return window.ctx.call("UnityEngine.Camera", "get_pixelWidth", [this.ptr]).val(); }
     static get PreviewCullingLayer() { return window.ctx.call("UnityEngine.Camera", "get_PreviewCullingLayer", []).val(); }
     get previousViewProjectionMatrix() { return (()=>{
-					let structptr_c4ff48 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_previousViewProjectionMatrix", [structptr_c4ff48, this.ptr]);
-					return structptr_c4ff48;
+					let structptr_50fd5f = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_previousViewProjectionMatrix", [structptr_50fd5f, this.ptr]);
+					return structptr_50fd5f;
 				})(); }
     get projectionMatrix() { return (()=>{
-					let structptr_cff614 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_projectionMatrix", [structptr_cff614, this.ptr]);
-					return structptr_cff614;
+					let structptr_d54a2c = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_projectionMatrix", [structptr_d54a2c, this.ptr]);
+					return structptr_d54a2c;
 				})(); }
     set projectionMatrix(v) { window.ctx.call("UnityEngine.Camera", "set_projectionMatrix", [this.ptr, v]); }
     get projectionMatrixMode() { return new ProjectionMatrixMode(window.ctx.call("UnityEngine.Camera", "get_projectionMatrixMode", [this.ptr])); }
     get rect() { return (()=>{
-					let structptr_edcde4 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_rect", [structptr_edcde4, this.ptr]);
-					return structptr_edcde4;
+					let structptr_398cdd = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_rect", [structptr_398cdd, this.ptr]);
+					return structptr_398cdd;
 				})(); }
     set rect(v) { window.ctx.call("UnityEngine.Camera", "set_rect", [this.ptr, v]); }
     get renderCloudsInSceneView() { return window.ctx.call("UnityEngine.Camera", "get_renderCloudsInSceneView", [this.ptr]).val() === 1; }
@@ -262,17 +263,17 @@ export class Camera {
     get scaledPixelHeight() { return window.ctx.call("UnityEngine.Camera", "get_scaledPixelHeight", [this.ptr]).val(); }
     get scaledPixelWidth() { return window.ctx.call("UnityEngine.Camera", "get_scaledPixelWidth", [this.ptr]).val(); }
     get scene() { return (()=>{
-					let structptr_11958f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_scene", [structptr_11958f, this.ptr]);
-					return structptr_11958f;
+					let structptr_270b6c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_scene", [structptr_270b6c, this.ptr]);
+					return structptr_270b6c;
 				})(); }
     set scene(v) { window.ctx.call("UnityEngine.Camera", "set_scene", [this.ptr, v]); }
     get sceneCullingMask() { return window.ctx.call("UnityEngine.Camera", "get_sceneCullingMask", [this.ptr]).val(); }
     get sceneViewFilterMode() { return new SceneViewFilterMode(window.ctx.call("UnityEngine.Camera", "get_sceneViewFilterMode", [this.ptr])); }
     get sensorSize() { return (()=>{
-					let structptr_3ee0ba = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Camera", "get_sensorSize", [structptr_3ee0ba, this.ptr]);
-					return structptr_3ee0ba;
+					let structptr_172248 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Camera", "get_sensorSize", [structptr_172248, this.ptr]);
+					return structptr_172248;
 				})(); }
     set sensorSize(v) { window.ctx.call("UnityEngine.Camera", "set_sensorSize", [this.ptr, v]); }
     get shutterSpeed() { return window.ctx.call("UnityEngine.Camera", "get_shutterSpeed", [this.ptr]).val(); }
@@ -293,9 +294,9 @@ export class Camera {
     get targetTexture() { return new RenderTexture(window.ctx.call("UnityEngine.Camera", "get_targetTexture", [this.ptr])); }
     set targetTexture(v) { window.ctx.call("UnityEngine.Camera", "set_targetTexture", [this.ptr, v]); }
     get transparencySortAxis() { return (()=>{
-					let structptr_f6b18b = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "get_transparencySortAxis", [structptr_f6b18b, this.ptr]);
-					return structptr_f6b18b;
+					let structptr_9ffa9b = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "get_transparencySortAxis", [structptr_9ffa9b, this.ptr]);
+					return structptr_9ffa9b;
 				})(); }
     set transparencySortAxis(v) { window.ctx.call("UnityEngine.Camera", "set_transparencySortAxis", [this.ptr, v]); }
     get transparencySortMode() { return new TransparencySortMode(window.ctx.call("UnityEngine.Camera", "get_transparencySortMode", [this.ptr])); }
@@ -309,17 +310,17 @@ export class Camera {
     get usePhysicalProperties() { return window.ctx.call("UnityEngine.Camera", "get_usePhysicalProperties", [this.ptr]).val() === 1; }
     set usePhysicalProperties(v) { window.ctx.call("UnityEngine.Camera", "set_usePhysicalProperties", [this.ptr, v]); }
     get velocity() { return (()=>{
-					let structptr_4bcd6a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "get_velocity", [structptr_4bcd6a, this.ptr]);
-					return structptr_4bcd6a;
+					let structptr_3a4360 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "get_velocity", [structptr_3a4360, this.ptr]);
+					return structptr_3a4360;
 				})(); }
     get worldToCameraMatrix() { return (()=>{
-					let structptr_78f405 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "get_worldToCameraMatrix", [structptr_78f405, this.ptr]);
-					return structptr_78f405;
+					let structptr_b88a5b = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "get_worldToCameraMatrix", [structptr_b88a5b, this.ptr]);
+					return structptr_b88a5b;
 				})(); }
     set worldToCameraMatrix(v) { window.ctx.call("UnityEngine.Camera", "set_worldToCameraMatrix", [this.ptr, v]); }
-    get m_NonSerializedVersion() { return this.ptr.readField(0xC, 'i32'); }
+    get m_NonSerializedVersion() { return this.ptr.readField(0xC, 'i32').val(); }
     set m_NonSerializedVersion(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get onPostRender() { return new CameraCallback(this.ptr.readField(0x8, 'i32')); }
     set onPostRender(v) { return this.ptr.writeField(0x8, 'i32', v); }
@@ -338,9 +339,9 @@ export class Camera {
     CalculateFrustumCornersInternal(viewport, z, eye, outCorners) { window.ctx.call("UnityEngine.Camera", "CalculateFrustumCornersInternal", [this.ptr, viewport, z, eye, outCorners]); }
     static CalculateFrustumCornersInternal_Injected(_unity_self, viewport, z, eye, outCorners) { window.ctx.call("UnityEngine.Camera", "CalculateFrustumCornersInternal_Injected", [_unity_self, viewport, z, eye, outCorners]); }
     CalculateObliqueMatrix(clipPlane) { return (()=>{
-					let structptr_c004b4 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "CalculateObliqueMatrix", [structptr_c004b4, this.ptr, clipPlane]);
-					return structptr_c004b4;
+					let structptr_39b40b = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "CalculateObliqueMatrix", [structptr_39b40b, this.ptr, clipPlane]);
+					return structptr_39b40b;
 				})(); }
     static CalculateObliqueMatrix_Injected(_unity_self, clipPlane, ret) { window.ctx.call("UnityEngine.Camera", "CalculateObliqueMatrix_Injected", [_unity_self, clipPlane, ret]); }
     static CalculateProjectionMatrixFromPhysicalProperties(output, focalLength, sensorSize, lensShift, nearClip, farClip, gateFitParameters) { window.ctx.call("UnityEngine.Camera", "CalculateProjectionMatrixFromPhysicalProperties", [output, focalLength, sensorSize, lensShift, nearClip, farClip, gateFitParameters]); }
@@ -369,43 +370,43 @@ export class Camera {
     GetFilterMode() { return window.ctx.call("UnityEngine.Camera", "GetFilterMode", [this.ptr]).val(); }
     static GetFilterMode_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "GetFilterMode_Injected", [_unity_self]).val(); }
     GetFrustumPlaneSizeAt(distance) { return (()=>{
-					let structptr_2b6369 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Camera", "GetFrustumPlaneSizeAt", [structptr_2b6369, this.ptr, distance]);
-					return structptr_2b6369;
+					let structptr_1f3568 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Camera", "GetFrustumPlaneSizeAt", [structptr_1f3568, this.ptr, distance]);
+					return structptr_1f3568;
 				})(); }
     static GetFrustumPlaneSizeAt_Injected(_unity_self, distance, ret) { window.ctx.call("UnityEngine.Camera", "GetFrustumPlaneSizeAt_Injected", [_unity_self, distance, ret]); }
     GetGateFittedFieldOfView() { return window.ctx.call("UnityEngine.Camera", "GetGateFittedFieldOfView", [this.ptr]).val(); }
     static GetGateFittedFieldOfView_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "GetGateFittedFieldOfView_Injected", [_unity_self]).val(); }
     GetGateFittedLensShift() { return (()=>{
-					let structptr_e8f0ef = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Camera", "GetGateFittedLensShift", [structptr_e8f0ef, this.ptr]);
-					return structptr_e8f0ef;
+					let structptr_0693b5 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Camera", "GetGateFittedLensShift", [structptr_0693b5, this.ptr]);
+					return structptr_0693b5;
 				})(); }
     static GetGateFittedLensShift_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "GetGateFittedLensShift_Injected", [_unity_self, ret]); }
     GetLayerCullDistances() { return window.ctx.call("UnityEngine.Camera", "GetLayerCullDistances", [this.ptr]); }
     static GetLayerCullDistances_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "GetLayerCullDistances_Injected", [_unity_self, ret]); }
     GetLocalSpaceAim() { return (()=>{
-					let structptr_3d7ed5 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "GetLocalSpaceAim", [structptr_3d7ed5, this.ptr]);
-					return structptr_3d7ed5;
+					let structptr_b87e11 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "GetLocalSpaceAim", [structptr_b87e11, this.ptr]);
+					return structptr_b87e11;
 				})(); }
     static GetLocalSpaceAim_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "GetLocalSpaceAim_Injected", [_unity_self, ret]); }
     GetStereoNonJitteredProjectionMatrix(eye) { return (()=>{
-					let structptr_937fcf = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "GetStereoNonJitteredProjectionMatrix", [structptr_937fcf, this.ptr, eye]);
-					return structptr_937fcf;
+					let structptr_fdb312 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "GetStereoNonJitteredProjectionMatrix", [structptr_fdb312, this.ptr, eye]);
+					return structptr_fdb312;
 				})(); }
     static GetStereoNonJitteredProjectionMatrix_Injected(_unity_self, eye, ret) { window.ctx.call("UnityEngine.Camera", "GetStereoNonJitteredProjectionMatrix_Injected", [_unity_self, eye, ret]); }
     GetStereoProjectionMatrix(eye) { return (()=>{
-					let structptr_b77b47 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "GetStereoProjectionMatrix", [structptr_b77b47, this.ptr, eye]);
-					return structptr_b77b47;
+					let structptr_5425de = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "GetStereoProjectionMatrix", [structptr_5425de, this.ptr, eye]);
+					return structptr_5425de;
 				})(); }
     static GetStereoProjectionMatrix_Injected(_unity_self, eye, ret) { window.ctx.call("UnityEngine.Camera", "GetStereoProjectionMatrix_Injected", [_unity_self, eye, ret]); }
     GetStereoViewMatrix(eye) { return (()=>{
-					let structptr_62027a = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Camera", "GetStereoViewMatrix", [structptr_62027a, this.ptr, eye]);
-					return structptr_62027a;
+					let structptr_1e5734 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Camera", "GetStereoViewMatrix", [structptr_1e5734, this.ptr, eye]);
+					return structptr_1e5734;
 				})(); }
     static GetStereoViewMatrix_Injected(_unity_self, eye, ret) { window.ctx.call("UnityEngine.Camera", "GetStereoViewMatrix_Injected", [_unity_self, eye, ret]); }
     static HorizontalToVerticalFieldOfView(horizontalFieldOfView, aspectRatio) { return window.ctx.call("UnityEngine.Camera", "HorizontalToVerticalFieldOfView", [horizontalFieldOfView, aspectRatio]).val(); }
@@ -432,7 +433,7 @@ export class Camera {
     static RenderToCubemapEyeImpl_Injected(_unity_self, cubemap, faceMask, stereoEye) { return window.ctx.call("UnityEngine.Camera", "RenderToCubemapEyeImpl_Injected", [_unity_self, cubemap, faceMask, stereoEye]).val() === 1; }
     RenderToCubemapImpl(tex, faceMask) { return window.ctx.call("UnityEngine.Camera", "RenderToCubemapImpl", [this.ptr, tex, faceMask]).val() === 1; }
     static RenderToCubemapImpl_Injected(_unity_self, tex, faceMask) { return window.ctx.call("UnityEngine.Camera", "RenderToCubemapImpl_Injected", [_unity_self, tex, faceMask]).val() === 1; }
-    RenderWithShader(shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "RenderWithShader", [this.ptr, shader, replacementTag]); }
+    RenderWithShader(shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "RenderWithShader", [this.ptr, shader, window.ctx.createMstr(replacementTag)]); }
     static RenderWithShader_Injected(_unity_self, shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "RenderWithShader_Injected", [_unity_self, shader, replacementTag]); }
     static Render_Injected(_unity_self) { window.ctx.call("UnityEngine.Camera", "Render_Injected", [_unity_self]); }
     Reset() { window.ctx.call("UnityEngine.Camera", "Reset", [this.ptr]); }
@@ -454,41 +455,41 @@ export class Camera {
     static ResetWorldToCameraMatrix_Injected(_unity_self) { window.ctx.call("UnityEngine.Camera", "ResetWorldToCameraMatrix_Injected", [_unity_self]); }
     static Reset_Injected(_unity_self) { window.ctx.call("UnityEngine.Camera", "Reset_Injected", [_unity_self]); }
     ScreenPointToRay_pos_eye(pos, eye) { return (()=>{
-					let structptr_70f93b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19146", [structptr_70f93b, this.ptr, pos, eye]);
-					return structptr_70f93b;
+					let structptr_7805b8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19146", [structptr_7805b8, this.ptr, pos, eye]);
+					return structptr_7805b8;
 				})(); }
     ScreenPointToRay_pos_eye(pos, eye) { return (()=>{
-					let structptr_d109c8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19147", [structptr_d109c8, this.ptr, pos, eye]);
-					return structptr_d109c8;
+					let structptr_341085 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19147", [structptr_341085, this.ptr, pos, eye]);
+					return structptr_341085;
 				})(); }
     ScreenPointToRay_pos(pos) { return (()=>{
-					let structptr_8b1376 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19148", [structptr_8b1376, this.ptr, pos]);
-					return structptr_8b1376;
+					let structptr_3b91a4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_19148", [structptr_3b91a4, this.ptr, pos]);
+					return structptr_3b91a4;
 				})(); }
     static ScreenPointToRay_Injected(_unity_self, pos, eye, ret) { window.ctx.call("UnityEngine.Camera", "ScreenPointToRay_Injected", [_unity_self, pos, eye, ret]); }
     ScreenToViewportPoint(position) { return (()=>{
-					let structptr_98b513 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ScreenToViewportPoint", [structptr_98b513, this.ptr, position]);
-					return structptr_98b513;
+					let structptr_f210bc = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ScreenToViewportPoint", [structptr_f210bc, this.ptr, position]);
+					return structptr_f210bc;
 				})(); }
     static ScreenToViewportPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Camera", "ScreenToViewportPoint_Injected", [_unity_self, position, ret]); }
     ScreenToWorldPoint_position_eye(position, eye) { return (()=>{
-					let structptr_794c12 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ScreenToWorldPoint_19136", [structptr_794c12, this.ptr, position, eye]);
-					return structptr_794c12;
+					let structptr_5ecb98 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ScreenToWorldPoint_19136", [structptr_5ecb98, this.ptr, position, eye]);
+					return structptr_5ecb98;
 				})(); }
     ScreenToWorldPoint_position(position) { return (()=>{
-					let structptr_45264f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ScreenToWorldPoint_19139", [structptr_45264f, this.ptr, position]);
-					return structptr_45264f;
+					let structptr_1aa8a6 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ScreenToWorldPoint_19139", [structptr_1aa8a6, this.ptr, position]);
+					return structptr_1aa8a6;
 				})(); }
     static ScreenToWorldPoint_Injected(_unity_self, position, eye, ret) { window.ctx.call("UnityEngine.Camera", "ScreenToWorldPoint_Injected", [_unity_self, position, eye, ret]); }
     SetLayerCullDistances(d) { window.ctx.call("UnityEngine.Camera", "SetLayerCullDistances", [this.ptr, d]); }
     static SetLayerCullDistances_Injected(_unity_self, d) { window.ctx.call("UnityEngine.Camera", "SetLayerCullDistances_Injected", [_unity_self, d]); }
-    SetReplacementShader(shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "SetReplacementShader", [this.ptr, shader, replacementTag]); }
+    SetReplacementShader(shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "SetReplacementShader", [this.ptr, shader, window.ctx.createMstr(replacementTag)]); }
     static SetReplacementShader_Injected(_unity_self, shader, replacementTag) { window.ctx.call("UnityEngine.Camera", "SetReplacementShader_Injected", [_unity_self, shader, replacementTag]); }
     SetStereoProjectionMatrix(eye, matrix) { window.ctx.call("UnityEngine.Camera", "SetStereoProjectionMatrix", [this.ptr, eye, matrix]); }
     static SetStereoProjectionMatrix_Injected(_unity_self, eye, matrix) { window.ctx.call("UnityEngine.Camera", "SetStereoProjectionMatrix_Injected", [_unity_self, eye, matrix]); }
@@ -511,64 +512,64 @@ export class Camera {
     TryGetCullingParameters_stereoAware_cullingParameters(stereoAware, cullingParameters) { return window.ctx.call("UnityEngine.Camera", "TryGetCullingParameters_19225", [this.ptr, stereoAware, cullingParameters]).val() === 1; }
     static VerticalToHorizontalFieldOfView(verticalFieldOfView, aspectRatio) { return window.ctx.call("UnityEngine.Camera", "VerticalToHorizontalFieldOfView", [verticalFieldOfView, aspectRatio]).val(); }
     ViewportPointToRay_pos_eye(pos, eye) { return (()=>{
-					let structptr_cebe08 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19143", [structptr_cebe08, this.ptr, pos, eye]);
-					return structptr_cebe08;
+					let structptr_8b7eec = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19143", [structptr_8b7eec, this.ptr, pos, eye]);
+					return structptr_8b7eec;
 				})(); }
     ViewportPointToRay_pos_eye(pos, eye) { return (()=>{
-					let structptr_0c8eaf = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19144", [structptr_0c8eaf, this.ptr, pos, eye]);
-					return structptr_0c8eaf;
+					let structptr_65ddf4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19144", [structptr_65ddf4, this.ptr, pos, eye]);
+					return structptr_65ddf4;
 				})(); }
     ViewportPointToRay_pos(pos) { return (()=>{
-					let structptr_004d4c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19145", [structptr_004d4c, this.ptr, pos]);
-					return structptr_004d4c;
+					let structptr_aee9e1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_19145", [structptr_aee9e1, this.ptr, pos]);
+					return structptr_aee9e1;
 				})(); }
     static ViewportPointToRay_Injected(_unity_self, pos, eye, ret) { window.ctx.call("UnityEngine.Camera", "ViewportPointToRay_Injected", [_unity_self, pos, eye, ret]); }
     ViewportToScreenPoint(position) { return (()=>{
-					let structptr_4f01fc = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ViewportToScreenPoint", [structptr_4f01fc, this.ptr, position]);
-					return structptr_4f01fc;
+					let structptr_242721 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ViewportToScreenPoint", [structptr_242721, this.ptr, position]);
+					return structptr_242721;
 				})(); }
     static ViewportToScreenPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Camera", "ViewportToScreenPoint_Injected", [_unity_self, position, ret]); }
     ViewportToWorldPoint_position_eye(position, eye) { return (()=>{
-					let structptr_1eb245 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ViewportToWorldPoint_19135", [structptr_1eb245, this.ptr, position, eye]);
-					return structptr_1eb245;
+					let structptr_f23dad = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ViewportToWorldPoint_19135", [structptr_f23dad, this.ptr, position, eye]);
+					return structptr_f23dad;
 				})(); }
     ViewportToWorldPoint_position(position) { return (()=>{
-					let structptr_e19ebb = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "ViewportToWorldPoint_19138", [structptr_e19ebb, this.ptr, position]);
-					return structptr_e19ebb;
+					let structptr_7bfd7a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "ViewportToWorldPoint_19138", [structptr_7bfd7a, this.ptr, position]);
+					return structptr_7bfd7a;
 				})(); }
     static ViewportToWorldPoint_Injected(_unity_self, position, eye, ret) { window.ctx.call("UnityEngine.Camera", "ViewportToWorldPoint_Injected", [_unity_self, position, eye, ret]); }
     WorldToScreenPoint_position_eye(position, eye) { return (()=>{
-					let structptr_82830c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "WorldToScreenPoint_19133", [structptr_82830c, this.ptr, position, eye]);
-					return structptr_82830c;
+					let structptr_663c3f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "WorldToScreenPoint_19133", [structptr_663c3f, this.ptr, position, eye]);
+					return structptr_663c3f;
 				})(); }
     WorldToScreenPoint_position(position) { return (()=>{
-					let structptr_4b5424 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "WorldToScreenPoint_2062", [structptr_4b5424, this.ptr, position]);
-					return structptr_4b5424;
+					let structptr_b23750 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "WorldToScreenPoint_2062", [structptr_b23750, this.ptr, position]);
+					return structptr_b23750;
 				})(); }
     static WorldToScreenPoint_Injected(_unity_self, position, eye, ret) { window.ctx.call("UnityEngine.Camera", "WorldToScreenPoint_Injected", [_unity_self, position, eye, ret]); }
     WorldToViewportPoint_position_eye(position, eye) { return (()=>{
-					let structptr_1f8ccd = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "WorldToViewportPoint_19134", [structptr_1f8ccd, this.ptr, position, eye]);
-					return structptr_1f8ccd;
+					let structptr_c70b95 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "WorldToViewportPoint_19134", [structptr_c70b95, this.ptr, position, eye]);
+					return structptr_c70b95;
 				})(); }
     WorldToViewportPoint_position(position) { return (()=>{
-					let structptr_eb02a5 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Camera", "WorldToViewportPoint_19137", [structptr_eb02a5, this.ptr, position]);
-					return structptr_eb02a5;
+					let structptr_71a713 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Camera", "WorldToViewportPoint_19137", [structptr_71a713, this.ptr, position]);
+					return structptr_71a713;
 				})(); }
     static WorldToViewportPoint_Injected(_unity_self, position, eye, ret) { window.ctx.call("UnityEngine.Camera", "WorldToViewportPoint_Injected", [_unity_self, position, eye, ret]); }
     static get_activeTexture_Injected(_unity_self) { return (()=>{
-					let structptr_30d372 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_activeTexture_Injected", [structptr_30d372, _unity_self]);
-					return structptr_30d372;
+					let structptr_3b78cc = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_activeTexture_Injected", [structptr_3b78cc, _unity_self]);
+					return structptr_3b78cc;
 				})(); }
     static get_actualRenderingPath_Injected(_unity_self) { return new RenderingPath(window.ctx.call("UnityEngine.Camera", "get_actualRenderingPath_Injected", [_unity_self])); }
     static get_allowDynamicResolution_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_allowDynamicResolution_Injected", [_unity_self]).val() === 1; }
@@ -589,9 +590,9 @@ export class Camera {
     static get_cullingMask_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_cullingMask_Injected", [_unity_self]).val(); }
     static get_cullingMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_cullingMatrix_Injected", [_unity_self, ret]); }
     static get_currentInternal_Injected() { return (()=>{
-					let structptr_ee7e50 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_currentInternal_Injected", [structptr_ee7e50, ]);
-					return structptr_ee7e50;
+					let structptr_92fea0 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_currentInternal_Injected", [structptr_92fea0, ]);
+					return structptr_92fea0;
 				})(); }
     static get_curvature_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_curvature_Injected", [_unity_self, ret]); }
     static get_depthTextureMode_Injected(_unity_self) { return new DepthTextureMode(window.ctx.call("UnityEngine.Camera", "get_depthTextureMode_Injected", [_unity_self])); }
@@ -608,9 +609,9 @@ export class Camera {
     static get_layerCullSphericalInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_layerCullSphericalInternal_Injected", [_unity_self]).val() === 1; }
     static get_lensShift_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_lensShift_Injected", [_unity_self, ret]); }
     static get_main_Injected() { return (()=>{
-					let structptr_045af3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_main_Injected", [structptr_045af3, ]);
-					return structptr_045af3;
+					let structptr_a44714 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_main_Injected", [structptr_a44714, ]);
+					return structptr_a44714;
 				})(); }
     static get_nearClipPlane_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_nearClipPlane_Injected", [_unity_self]).val(); }
     static get_nonJitteredProjectionMatrix_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_nonJitteredProjectionMatrix_Injected", [_unity_self, ret]); }
@@ -634,9 +635,9 @@ export class Camera {
     static get_sensorSize_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_sensorSize_Injected", [_unity_self, ret]); }
     static get_shutterSpeed_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_shutterSpeed_Injected", [_unity_self]).val(); }
     static get_skyboxMaterial_Injected(_unity_self) { return (()=>{
-					let structptr_cdbe86 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_skyboxMaterial_Injected", [structptr_cdbe86, _unity_self]);
-					return structptr_cdbe86;
+					let structptr_b737d8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_skyboxMaterial_Injected", [structptr_b737d8, _unity_self]);
+					return structptr_b737d8;
 				})(); }
     static get_stereoActiveEye_Injected(_unity_self) { return new MonoOrStereoscopicEye(window.ctx.call("UnityEngine.Camera", "get_stereoActiveEye_Injected", [_unity_self])); }
     static get_stereoConvergence_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_stereoConvergence_Injected", [_unity_self]).val(); }
@@ -645,9 +646,9 @@ export class Camera {
     static get_stereoTargetEyeInternal_Injected(_unity_self) { return new StereoTargetEyeMask(window.ctx.call("UnityEngine.Camera", "get_stereoTargetEyeInternal_Injected", [_unity_self])); }
     static get_targetDisplay_Injected(_unity_self) { return window.ctx.call("UnityEngine.Camera", "get_targetDisplay_Injected", [_unity_self]).val(); }
     static get_targetTexture_Injected(_unity_self) { return (()=>{
-					let structptr_bac0ad = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Camera", "get_targetTexture_Injected", [structptr_bac0ad, _unity_self]);
-					return structptr_bac0ad;
+					let structptr_6d0d29 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Camera", "get_targetTexture_Injected", [structptr_6d0d29, _unity_self]);
+					return structptr_6d0d29;
 				})(); }
     static get_transparencySortAxis_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Camera", "get_transparencySortAxis_Injected", [_unity_self, ret]); }
     static get_transparencySortMode_Injected(_unity_self) { return new TransparencySortMode(window.ctx.call("UnityEngine.Camera", "get_transparencySortMode_Injected", [_unity_self])); }
@@ -718,15 +719,15 @@ export class Transform {
     get constrainProportionsScale() { return window.ctx.call("UnityEngine.Transform", "get_constrainProportionsScale", [this.ptr]).val() === 1; }
     set constrainProportionsScale(v) { window.ctx.call("UnityEngine.Transform", "set_constrainProportionsScale", [this.ptr, v]); }
     get eulerAngles() { return (()=>{
-					let structptr_4bd05c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_eulerAngles", [structptr_4bd05c, this.ptr]);
-					return structptr_4bd05c;
+					let structptr_1e2651 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_eulerAngles", [structptr_1e2651, this.ptr]);
+					return structptr_1e2651;
 				})(); }
     set eulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_eulerAngles", [this.ptr, v]); }
     get forward() { return (()=>{
-					let structptr_c85deb = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_forward", [structptr_c85deb, this.ptr]);
-					return structptr_c85deb;
+					let structptr_701ed7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_forward", [structptr_701ed7, this.ptr]);
+					return structptr_701ed7;
 				})(); }
     set forward(v) { window.ctx.call("UnityEngine.Transform", "set_forward", [this.ptr, v]); }
     get hasChanged() { return window.ctx.call("UnityEngine.Transform", "get_hasChanged", [this.ptr]).val() === 1; }
@@ -735,115 +736,115 @@ export class Transform {
     set hierarchyCapacity(v) { window.ctx.call("UnityEngine.Transform", "set_hierarchyCapacity", [this.ptr, v]); }
     get hierarchyCount() { return window.ctx.call("UnityEngine.Transform", "get_hierarchyCount", [this.ptr]).val(); }
     get localEulerAngles() { return (()=>{
-					let structptr_8dd476 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localEulerAngles", [structptr_8dd476, this.ptr]);
-					return structptr_8dd476;
+					let structptr_73b4bd = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localEulerAngles", [structptr_73b4bd, this.ptr]);
+					return structptr_73b4bd;
 				})(); }
     set localEulerAngles(v) { window.ctx.call("UnityEngine.Transform", "set_localEulerAngles", [this.ptr, v]); }
     get localPosition() { return (()=>{
-					let structptr_a91c3f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localPosition", [structptr_a91c3f, this.ptr]);
-					return structptr_a91c3f;
+					let structptr_16d03f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localPosition", [structptr_16d03f, this.ptr]);
+					return structptr_16d03f;
 				})(); }
     set localPosition(v) { window.ctx.call("UnityEngine.Transform", "set_localPosition", [this.ptr, v]); }
     get localRotation() { return (()=>{
-					let structptr_145f34 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Transform", "get_localRotation", [structptr_145f34, this.ptr]);
-					return structptr_145f34;
+					let structptr_7b54ed = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Transform", "get_localRotation", [structptr_7b54ed, this.ptr]);
+					return structptr_7b54ed;
 				})(); }
     set localRotation(v) { window.ctx.call("UnityEngine.Transform", "set_localRotation", [this.ptr, v]); }
     get localScale() { return (()=>{
-					let structptr_7c9732 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_localScale", [structptr_7c9732, this.ptr]);
-					return structptr_7c9732;
+					let structptr_31d4ac = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_localScale", [structptr_31d4ac, this.ptr]);
+					return structptr_31d4ac;
 				})(); }
     set localScale(v) { window.ctx.call("UnityEngine.Transform", "set_localScale", [this.ptr, v]); }
     get localToWorldMatrix() { return (()=>{
-					let structptr_bdd001 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix", [structptr_bdd001, this.ptr]);
-					return structptr_bdd001;
+					let structptr_99a98f = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Transform", "get_localToWorldMatrix", [structptr_99a98f, this.ptr]);
+					return structptr_99a98f;
 				})(); }
     get lossyScale() { return (()=>{
-					let structptr_27d04d = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_lossyScale", [structptr_27d04d, this.ptr]);
-					return structptr_27d04d;
+					let structptr_bbaef7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_lossyScale", [structptr_bbaef7, this.ptr]);
+					return structptr_bbaef7;
 				})(); }
     get parent() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parent", [this.ptr])); }
     set parent(v) { window.ctx.call("UnityEngine.Transform", "set_parent", [this.ptr, v]); }
     get parentInternal() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_parentInternal", [this.ptr])); }
     set parentInternal(v) { window.ctx.call("UnityEngine.Transform", "set_parentInternal", [this.ptr, v]); }
     get position() { return (()=>{
-					let structptr_96ab7d = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_position", [structptr_96ab7d, this.ptr]);
-					return structptr_96ab7d;
+					let structptr_54950c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_position", [structptr_54950c, this.ptr]);
+					return structptr_54950c;
 				})(); }
     set position(v) { window.ctx.call("UnityEngine.Transform", "set_position", [this.ptr, v]); }
     get right() { return (()=>{
-					let structptr_6296d3 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_right", [structptr_6296d3, this.ptr]);
-					return structptr_6296d3;
+					let structptr_38a9e7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_right", [structptr_38a9e7, this.ptr]);
+					return structptr_38a9e7;
 				})(); }
     set right(v) { window.ctx.call("UnityEngine.Transform", "set_right", [this.ptr, v]); }
     get root() { return new Transform(window.ctx.call("UnityEngine.Transform", "get_root", [this.ptr])); }
     get rotation() { return (()=>{
-					let structptr_acb1a2 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Transform", "get_rotation", [structptr_acb1a2, this.ptr]);
-					return structptr_acb1a2;
+					let structptr_f1f2a3 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Transform", "get_rotation", [structptr_f1f2a3, this.ptr]);
+					return structptr_f1f2a3;
 				})(); }
     set rotation(v) { window.ctx.call("UnityEngine.Transform", "set_rotation", [this.ptr, v]); }
     get rotationOrder() { return new RotationOrder(window.ctx.call("UnityEngine.Transform", "get_rotationOrder", [this.ptr])); }
     set rotationOrder(v) { window.ctx.call("UnityEngine.Transform", "set_rotationOrder", [this.ptr, v]); }
     get up() { return (()=>{
-					let structptr_319359 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "get_up", [structptr_319359, this.ptr]);
-					return structptr_319359;
+					let structptr_d2c55d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "get_up", [structptr_d2c55d, this.ptr]);
+					return structptr_d2c55d;
 				})(); }
     set up(v) { window.ctx.call("UnityEngine.Transform", "set_up", [this.ptr, v]); }
     get worldToLocalMatrix() { return (()=>{
-					let structptr_afad39 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix", [structptr_afad39, this.ptr]);
-					return structptr_afad39;
+					let structptr_63753e = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Transform", "get_worldToLocalMatrix", [structptr_63753e, this.ptr]);
+					return structptr_63753e;
 				})(); }
     DetachChildren() { window.ctx.call("UnityEngine.Transform", "DetachChildren", [this.ptr]); }
     static DetachChildren_Injected(_unity_self) { window.ctx.call("UnityEngine.Transform", "DetachChildren_Injected", [_unity_self]); }
-    Find(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "Find", [this.ptr, n])); }
-    FindChild(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindChild", [this.ptr, n])); }
-    FindRelativeTransformWithPath(path, isActiveOnly) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath", [this.ptr, path, isActiveOnly])); }
+    Find(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "Find", [this.ptr, window.ctx.createMstr(n)])); }
+    FindChild(n) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindChild", [this.ptr, window.ctx.createMstr(n)])); }
+    FindRelativeTransformWithPath(path, isActiveOnly) { return new Transform(window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath", [this.ptr, window.ctx.createMstr(path), isActiveOnly])); }
     static FindRelativeTransformWithPath_Injected(_unity_self, path, isActiveOnly) { return (()=>{
-					let structptr_df5806 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath_Injected", [structptr_df5806, _unity_self, path, isActiveOnly]);
-					return structptr_df5806;
+					let structptr_b884dc = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "FindRelativeTransformWithPath_Injected", [structptr_b884dc, _unity_self, path, isActiveOnly]);
+					return structptr_b884dc;
 				})(); }
     GetChild(index) { return new Transform(window.ctx.call("UnityEngine.Transform", "GetChild", [this.ptr, index])); }
     GetChildCount() { return window.ctx.call("UnityEngine.Transform", "GetChildCount", [this.ptr]).val(); }
     static GetChildCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetChildCount_Injected", [_unity_self]).val(); }
     static GetChild_Injected(_unity_self, index) { return (()=>{
-					let structptr_f6e7b6 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetChild_Injected", [structptr_f6e7b6, _unity_self, index]);
-					return structptr_f6e7b6;
+					let structptr_00f000 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetChild_Injected", [structptr_00f000, _unity_self, index]);
+					return structptr_00f000;
 				})(); }
     GetEnumerator() { return new IEnumerator(window.ctx.call("UnityEngine.Transform", "GetEnumerator", [this.ptr])); }
     GetLocalEulerAngles(order) { return (()=>{
-					let structptr_8873a7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles", [structptr_8873a7, this.ptr, order]);
-					return structptr_8873a7;
+					let structptr_245546 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles", [structptr_245546, this.ptr, order]);
+					return structptr_245546;
 				})(); }
     static GetLocalEulerAngles_Injected(_unity_self, order, ret) { window.ctx.call("UnityEngine.Transform", "GetLocalEulerAngles_Injected", [_unity_self, order, ret]); }
     GetLocalPositionAndRotation(localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation", [this.ptr, localPosition, localRotation]); }
     static GetLocalPositionAndRotation_Injected(_unity_self, localPosition, localRotation) { window.ctx.call("UnityEngine.Transform", "GetLocalPositionAndRotation_Injected", [_unity_self, localPosition, localRotation]); }
     GetParent() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetParent", [this.ptr])); }
     static GetParent_Injected(_unity_self) { return (()=>{
-					let structptr_ea1bb5 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetParent_Injected", [structptr_ea1bb5, _unity_self]);
-					return structptr_ea1bb5;
+					let structptr_29baed = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetParent_Injected", [structptr_29baed, _unity_self]);
+					return structptr_29baed;
 				})(); }
     GetPositionAndRotation(position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation", [this.ptr, position, rotation]); }
     static GetPositionAndRotation_Injected(_unity_self, position, rotation) { window.ctx.call("UnityEngine.Transform", "GetPositionAndRotation_Injected", [_unity_self, position, rotation]); }
     GetRoot() { return new Transform(window.ctx.call("UnityEngine.Transform", "GetRoot", [this.ptr])); }
     static GetRoot_Injected(_unity_self) { return (()=>{
-					let structptr_d7e434 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Transform", "GetRoot_Injected", [structptr_d7e434, _unity_self]);
-					return structptr_d7e434;
+					let structptr_437470 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Transform", "GetRoot_Injected", [structptr_437470, _unity_self]);
+					return structptr_437470;
 				})(); }
     GetRotationOrderInternal() { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal", [this.ptr]).val(); }
     static GetRotationOrderInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Transform", "GetRotationOrderInternal_Injected", [_unity_self]).val(); }
@@ -852,14 +853,14 @@ export class Transform {
     Internal_LookAt(worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt", [this.ptr, worldPosition, worldUp]); }
     static Internal_LookAt_Injected(_unity_self, worldPosition, worldUp) { window.ctx.call("UnityEngine.Transform", "Internal_LookAt_Injected", [_unity_self, worldPosition, worldUp]); }
     InverseTransformDirection_direction(direction) { return (()=>{
-					let structptr_d56170 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_2243", [structptr_d56170, this.ptr, direction]);
-					return structptr_d56170;
+					let structptr_f51ba0 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_2243", [structptr_f51ba0, this.ptr, direction]);
+					return structptr_f51ba0;
 				})(); }
     InverseTransformDirection_x_y_z(x, y, z) { return (()=>{
-					let structptr_5131e4 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_23040", [structptr_5131e4, this.ptr, x, y, z]);
-					return structptr_5131e4;
+					let structptr_347966 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_23040", [structptr_347966, this.ptr, x, y, z]);
+					return structptr_347966;
 				})(); }
     static InverseTransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirection_Injected", [_unity_self, direction, ret]); }
     InverseTransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirections_23042", [this.ptr, directions, transformedDirections]); }
@@ -867,14 +868,14 @@ export class Transform {
     InverseTransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
     static InverseTransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "InverseTransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
     InverseTransformPoint_position(position) { return (()=>{
-					let structptr_20466b = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_23059", [structptr_20466b, this.ptr, position]);
-					return structptr_20466b;
+					let structptr_6d3d38 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_23059", [structptr_6d3d38, this.ptr, position]);
+					return structptr_6d3d38;
 				})(); }
     InverseTransformPoint_x_y_z(x, y, z) { return (()=>{
-					let structptr_4145f0 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_23060", [structptr_4145f0, this.ptr, x, y, z]);
-					return structptr_4145f0;
+					let structptr_a1ef09 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_23060", [structptr_a1ef09, this.ptr, x, y, z]);
+					return structptr_a1ef09;
 				})(); }
     static InverseTransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoint_Injected", [_unity_self, position, ret]); }
     InverseTransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPoints_23062", [this.ptr, positions, transformedPositions]); }
@@ -882,14 +883,14 @@ export class Transform {
     InverseTransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal", [this.ptr, positions, transformedPositions]); }
     static InverseTransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "InverseTransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
     InverseTransformVector_vector(vector) { return (()=>{
-					let structptr_a9d72e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_23049", [structptr_a9d72e, this.ptr, vector]);
-					return structptr_a9d72e;
+					let structptr_0bb016 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_23049", [structptr_0bb016, this.ptr, vector]);
+					return structptr_0bb016;
 				})(); }
     InverseTransformVector_x_y_z(x, y, z) { return (()=>{
-					let structptr_78705e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_23050", [structptr_78705e, this.ptr, x, y, z]);
-					return structptr_78705e;
+					let structptr_cf922c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "InverseTransformVector_23050", [structptr_cf922c, this.ptr, x, y, z]);
+					return structptr_cf922c;
 				})(); }
     static InverseTransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "InverseTransformVector_Injected", [_unity_self, vector, ret]); }
     InverseTransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "InverseTransformVectors_23052", [this.ptr, vectors, transformedVectors]); }
@@ -945,14 +946,14 @@ export class Transform {
     SetSiblingIndex(index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex", [this.ptr, index]); }
     static SetSiblingIndex_Injected(_unity_self, index) { window.ctx.call("UnityEngine.Transform", "SetSiblingIndex_Injected", [_unity_self, index]); }
     TransformDirection_direction(direction) { return (()=>{
-					let structptr_53ea72 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformDirection_23035", [structptr_53ea72, this.ptr, direction]);
-					return structptr_53ea72;
+					let structptr_b6b209 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformDirection_23035", [structptr_b6b209, this.ptr, direction]);
+					return structptr_b6b209;
 				})(); }
     TransformDirection_x_y_z(x, y, z) { return (()=>{
-					let structptr_216532 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformDirection_23036", [structptr_216532, this.ptr, x, y, z]);
-					return structptr_216532;
+					let structptr_b994e3 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformDirection_23036", [structptr_b994e3, this.ptr, x, y, z]);
+					return structptr_b994e3;
 				})(); }
     static TransformDirection_Injected(_unity_self, direction, ret) { window.ctx.call("UnityEngine.Transform", "TransformDirection_Injected", [_unity_self, direction, ret]); }
     TransformDirections_directions_transformedDirections(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirections_23038", [this.ptr, directions, transformedDirections]); }
@@ -960,14 +961,14 @@ export class Transform {
     TransformDirectionsInternal(directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal", [this.ptr, directions, transformedDirections]); }
     static TransformDirectionsInternal_Injected(_unity_self, directions, transformedDirections) { window.ctx.call("UnityEngine.Transform", "TransformDirectionsInternal_Injected", [_unity_self, directions, transformedDirections]); }
     TransformPoint_position(position) { return (()=>{
-					let structptr_450fc3 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformPoint_23054", [structptr_450fc3, this.ptr, position]);
-					return structptr_450fc3;
+					let structptr_254fcb = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformPoint_23054", [structptr_254fcb, this.ptr, position]);
+					return structptr_254fcb;
 				})(); }
     TransformPoint_x_y_z(x, y, z) { return (()=>{
-					let structptr_6d2ab2 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformPoint_23055", [structptr_6d2ab2, this.ptr, x, y, z]);
-					return structptr_6d2ab2;
+					let structptr_95bf6e = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformPoint_23055", [structptr_95bf6e, this.ptr, x, y, z]);
+					return structptr_95bf6e;
 				})(); }
     static TransformPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Transform", "TransformPoint_Injected", [_unity_self, position, ret]); }
     TransformPoints_positions_transformedPositions(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPoints_23057", [this.ptr, positions, transformedPositions]); }
@@ -975,14 +976,14 @@ export class Transform {
     TransformPointsInternal(positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal", [this.ptr, positions, transformedPositions]); }
     static TransformPointsInternal_Injected(_unity_self, positions, transformedPositions) { window.ctx.call("UnityEngine.Transform", "TransformPointsInternal_Injected", [_unity_self, positions, transformedPositions]); }
     TransformVector_vector(vector) { return (()=>{
-					let structptr_53005e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformVector_23044", [structptr_53005e, this.ptr, vector]);
-					return structptr_53005e;
+					let structptr_4dde70 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformVector_23044", [structptr_4dde70, this.ptr, vector]);
+					return structptr_4dde70;
 				})(); }
     TransformVector_x_y_z(x, y, z) { return (()=>{
-					let structptr_31e58e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Transform", "TransformVector_23045", [structptr_31e58e, this.ptr, x, y, z]);
-					return structptr_31e58e;
+					let structptr_3e5d86 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Transform", "TransformVector_23045", [structptr_3e5d86, this.ptr, x, y, z]);
+					return structptr_3e5d86;
 				})(); }
     static TransformVector_Injected(_unity_self, vector, ret) { window.ctx.call("UnityEngine.Transform", "TransformVector_Injected", [_unity_self, vector, ret]); }
     TransformVectors_vectors_transformedVectors(vectors, transformedVectors) { window.ctx.call("UnityEngine.Transform", "TransformVectors_23047", [this.ptr, vectors, transformedVectors]); }
@@ -1042,10 +1043,138 @@ export class CharacterCamera {
 
 export class Weapon {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get skinId() { return this.ptr.readField(0x12, 'i32'); }
+    get skinId() { return this.ptr.readField(0x12, 'i32').val(); }
     set skinId(v) { return this.ptr.writeField(0x12, 'i32', v); }
-    get weaponId() { return this.ptr.readField(0x10, 'i32'); }
+    get weaponId() { return this.ptr.readField(0x10, 'i32').val(); }
     set weaponId(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
+export class StaticWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get OnWaypointAdded() { return this.ptr.readField(0x18, 'i32'); }
+    set OnWaypointAdded(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get added() { return this.ptr.readField(0x1C, 'i32').val() === 1; }
+    set added(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    OnDisable() { window.ctx.call("StaticWaypointObject", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("StaticWaypointObject", "OnEnable", [this.ptr]); }
+    TryAddMyself() { window.ctx.call("StaticWaypointObject", "TryAddMyself", [this.ptr]); }
+}
+
+export class FlagStaticWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get myFlagObject() { return new FlagObject(this.ptr.readField(0x20, 'i32')); }
+    set myFlagObject(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    OnDisable() { window.ctx.call("FlagStaticWaypointObject", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("FlagStaticWaypointObject", "OnEnable", [this.ptr]); }
+    OnWaypointAddedHandler(waypointUI) { window.ctx.call("FlagStaticWaypointObject", "OnWaypointAddedHandler", [this.ptr, waypointUI]); }
+}
+
+export class FlagObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get blueMat() { return new Material(this.ptr.readField(0x14, 'i32')); }
+    set blueMat(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get ctfPoint() { return new CTFPoint(this.ptr.readField(0x18, 'i32')); }
+    set ctfPoint(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get flagMeshRenderer() { return new MeshRenderer(this.ptr.readField(0x28, 'i32')); }
+    set flagMeshRenderer(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get isAtBaseCache() { return this.ptr.readField(0x2C, 'i32').val() === 1; }
+    set isAtBaseCache(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get lastTriggerTime() { return this.ptr.readField(0x20, 'f32').val(); }
+    set lastTriggerTime(v) { return this.ptr.writeField(0x20, 'f32', v); }
+    get myFlag() { return new Flag(this.ptr.readField(0x1C, 'i32')); }
+    set myFlag(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get myWaypointObject() { return new FlagStaticWaypointObject(this.ptr.readField(0x24, 'i32')); }
+    set myWaypointObject(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get redMat() { return new Material(this.ptr.readField(0x10, 'i32')); }
+    set redMat(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    GetFlag() { return new Flag(window.ctx.call("FlagObject", "GetFlag", [this.ptr])); }
+    Initialize(ctfPoint, flag) { window.ctx.call("FlagObject", "Initialize", [this.ptr, ctfPoint, flag]); }
+    OnPlayerTouched(view) { window.ctx.call("FlagObject", "OnPlayerTouched", [this.ptr, view]); }
+    OnTriggerEnter(other) { window.ctx.call("FlagObject", "OnTriggerEnter", [this.ptr, other]); }
+    Update() { window.ctx.call("FlagObject", "Update", [this.ptr]); }
+}
+
+export class CursorController {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static get canLock() { return window.ctx.call("CursorController", "get_canLock", []).val() === 1; }
+    static get isCursorLocked() { return window.ctx.call("CursorController", "get_isCursorLocked", []).val() === 1; }
+    static set isCursorLocked(v) { window.ctx.call("CursorController", "set_isCursorLocked", [v]); }
+    get _isCursorLocked_k_BackingField() { return this.ptr.readField(0x0, 'i32').val() === 1; }
+    set _isCursorLocked_k_BackingField(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get OnLockState() { return new Action(this.ptr.readField(0xC, 'i32')); }
+    set OnLockState(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get instance() { return new CursorController(this.ptr.readField(0x4, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get lastLockTime() { return this.ptr.readField(0x8, 'f32').val(); }
+    set lastLockTime(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    static GetLastLockTime() { return window.ctx.call("CursorController", "GetLastLockTime", []).val(); }
+    static LockJs() { window.ctx.call("CursorController", "LockJs", []); }
+    OnLockChange(isLocked) { window.ctx.call("CursorController", "OnLockChange", [this.ptr, window.ctx.createMstr(isLocked)]); }
+    static SetCursorStyle(style) { window.ctx.call("CursorController", "SetCursorStyle", [window.ctx.createMstr(style)]); }
+    Start() { window.ctx.call("CursorController", "Start", [this.ptr]); }
+    static TryLockCursor(newLock) { return window.ctx.call("CursorController", "TryLockCursor", [newLock]).val() === 1; }
+    static UnlockJs() { window.ctx.call("CursorController", "UnlockJs", []); }
+}
+
+export class MapUIManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get IsPaused() { return window.ctx.call("MapUIManager", "get_IsPaused", [this.ptr]).val() === 1; }
+    set IsPaused(v) { window.ctx.call("MapUIManager", "set_IsPaused", [this.ptr, v]); }
+    get OnPause() { return this.ptr.readField(0x4, 'i32').val() === 1; }
+    set OnPause(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get canvasGroup() { return new CanvasGroup(this.ptr.readField(0x3C, 'i32')); }
+    set canvasGroup(v) { return this.ptr.writeField(0x3C, 'i32', v); }
+    get chatUIManager() { return new ChatUIManager(this.ptr.readField(0x34, 'i32')); }
+    set chatUIManager(v) { return this.ptr.writeField(0x34, 'i32', v); }
+    get clickToPlaySpinner() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
+    set clickToPlaySpinner(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get clickToPlayTxt() { return new TMPText(this.ptr.readField(0x14, 'i32')); }
+    set clickToPlayTxt(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get enableTime() { return this.ptr.readField(0x20, 'f32').val(); }
+    set enableTime(v) { return this.ptr.writeField(0x20, 'f32', v); }
+    get guiParent() { return new GameObject(this.ptr.readField(0x38, 'i32')); }
+    set guiParent(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get instance() { return new MapUIManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get isPaused() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set isPaused(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get killFieldUIManager() { return new KillFieldUIManager(this.ptr.readField(0x30, 'i32')); }
+    set killFieldUIManager(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get lastResumeTime() { return this.ptr.readField(0x8, 'f32').val(); }
+    set lastResumeTime(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get pausedPanel() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set pausedPanel(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get playerPausedShowElems() { return JSArray(this.ptr.readField(0x2C, 'i32')); }
+    set playerPausedShowElems(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get playerRawImage() { return new RawImage(this.ptr.readField(0x24, 'i32')); }
+    set playerRawImage(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get spectateBtn() { return new GameObject(this.ptr.readField(0x10, 'i32')); }
+    set spectateBtn(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get spectatorPrefab() { return new GameObject(this.ptr.readField(0x44, 'i32')); }
+    set spectatorPrefab(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get yourRoomTxt() { return new TMPText(this.ptr.readField(0x18, 'i32')); }
+    set yourRoomTxt(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    Awake() { window.ctx.call("MapUIManager", "Awake", [this.ptr]); }
+    ExternalCall(funcName) { window.ctx.call("MapUIManager", "ExternalCall", [this.ptr, window.ctx.createMstr(funcName)]); }
+    LoadClassesPanel() { window.ctx.call("MapUIManager", "LoadClassesPanel", [this.ptr]); }
+    LoadFriendsPanel() { window.ctx.call("MapUIManager", "LoadFriendsPanel", [this.ptr]); }
+    LoadInviteFriendsPanel() { window.ctx.call("MapUIManager", "LoadInviteFriendsPanel", [this.ptr]); }
+    LoadServersPanel() { window.ctx.call("MapUIManager", "LoadServersPanel", [this.ptr]); }
+    LoadSettingsPanel() { window.ctx.call("MapUIManager", "LoadSettingsPanel", [this.ptr]); }
+    OnCursorLocked() { window.ctx.call("MapUIManager", "OnCursorLocked", [this.ptr]); }
+    OnCursorStateChangedTick() { window.ctx.call("MapUIManager", "OnCursorStateChangedTick", [this.ptr]); }
+    OnCursorUnlocked() { window.ctx.call("MapUIManager", "OnCursorUnlocked", [this.ptr]); }
+    OnDisable() { window.ctx.call("MapUIManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("MapUIManager", "OnEnable", [this.ptr]); }
+    PWADownload() { window.ctx.call("MapUIManager", "PWADownload", [this.ptr]); }
+    PlayPressed_pointer() { window.ctx.call("MapUIManager", "PlayPressed_7406", [this.ptr]); }
+    PlayPressed_isJoystick(isJoystick) { window.ctx.call("MapUIManager", "PlayPressed_7407", [this.ptr, isJoystick]); }
+    PostGameEnded() { window.ctx.call("MapUIManager", "PostGameEnded", [this.ptr]); }
+    SetGUIParent(active) { window.ctx.call("MapUIManager", "SetGUIParent", [this.ptr, active]); }
+    SlowUpdate() { window.ctx.call("MapUIManager", "SlowUpdate", [this.ptr]); }
+    Spectate() { window.ctx.call("MapUIManager", "Spectate", [this.ptr]); }
+    Start() { window.ctx.call("MapUIManager", "Start", [this.ptr]); }
+    Update() { window.ctx.call("MapUIManager", "Update", [this.ptr]); }
 }
 
 export class DroppedTag {
@@ -1056,7 +1185,7 @@ export class DroppedTag {
     set id(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
     get position() { return new ColyVector3(this.ptr.readField(0x14, 'i32')); }
     set position(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get teamId() { return this.ptr.readField(0x18, 'i32'); }
+    get teamId() { return this.ptr.readField(0x18, 'i32').val(); }
     set teamId(v) { return this.ptr.writeField(0x18, 'i32', v); }
 }
 
@@ -1064,7 +1193,7 @@ export class SpawnedItem {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get id() { return this.ptr.readField(0x24, 'i32').mstr(); }
     set id(v) { return this.ptr.writeField(0x24, 'i32', window.ctx.createMstr(v)); }
-    get rewardParam() { return this.ptr.readField(0x20, 'i32'); }
+    get rewardParam() { return this.ptr.readField(0x20, 'i32').val(); }
     set rewardParam(v) { return this.ptr.writeField(0x20, 'i32', v); }
     get type() { return this.ptr.readField(0x1C, 'i32').mstr(); }
     set type(v) { return this.ptr.writeField(0x1C, 'i32', window.ctx.createMstr(v)); }
@@ -1080,13 +1209,13 @@ export class Object {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get hideFlags() { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags", [this.ptr])); }
     set hideFlags(v) { window.ctx.call("UnityEngine.Object", "set_hideFlags", [this.ptr, v]); }
-    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]); }
-    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, v]); }
+    get name() { return window.ctx.call("UnityEngine.Object", "get_name", [this.ptr]).mstr(); }
+    set name(v) { window.ctx.call("UnityEngine.Object", "set_name", [this.ptr, window.ctx.createMstr(v)]); }
     get OffsetOfInstanceIDInCPlusPlusObject() { return this.ptr.readField(0x0, 'i32').val(); }
     set OffsetOfInstanceIDInCPlusPlusObject(v) { return this.ptr.writeField(0x0, 'i32', v); }
     get m_CachedPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
     set m_CachedPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, message]); }
+    static CheckNullArgument(arg, message) { window.ctx.call("UnityEngine.Object", "CheckNullArgument", [arg, window.ctx.createMstr(message)]); }
     static CompareBaseObjects(lhs, rhs) { return window.ctx.call("UnityEngine.Object", "CompareBaseObjects", [lhs, rhs]).val() === 1; }
     static CurrentThreadIsMainThread() { return window.ctx.call("UnityEngine.Object", "CurrentThreadIsMainThread", []).val() === 1; }
     static Destroy_obj_t(obj, t) { window.ctx.call("UnityEngine.Object", "Destroy_22767", [obj, t]); }
@@ -1113,9 +1242,9 @@ export class Object {
     static FindFirstObjectByType_type_findObjectsInactive(type, findObjectsInactive) { return new Object(window.ctx.call("UnityEngine.Object", "FindFirstObjectByType_22787", [type, findObjectsInactive])); }
     static FindObjectFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID", [instanceID])); }
     static FindObjectFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_d6b7ff = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_d6b7ff, instanceID]);
-					return structptr_d6b7ff;
+					let structptr_a7fec3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "FindObjectFromInstanceID_Injected", [structptr_a7fec3, instanceID]);
+					return structptr_a7fec3;
 				})(); }
     static FindObjectOfType() { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", []); }
     static FindObjectOfType(includeInactive) { return window.ctx.call("UnityEngine.Object", "FindObjectOfType", [includeInactive]); }
@@ -1134,34 +1263,34 @@ export class Object {
     static FindSceneObjectsOfType(type) { return window.ctx.call("UnityEngine.Object", "FindSceneObjectsOfType", [type]); }
     static ForceLoadFromInstanceID(instanceID) { return new Object(window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID", [instanceID])); }
     static ForceLoadFromInstanceID_Injected(instanceID) { return (()=>{
-					let structptr_9ef373 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_9ef373, instanceID]);
-					return structptr_9ef373;
+					let structptr_ddbeb6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "ForceLoadFromInstanceID_Injected", [structptr_ddbeb6, instanceID]);
+					return structptr_ddbeb6;
 				})(); }
     GetCachedPtr() { return (()=>{
-					let structptr_e3d564 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_e3d564, this.ptr]);
-					return structptr_e3d564;
+					let structptr_a88dae = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetCachedPtr", [structptr_a88dae, this.ptr]);
+					return structptr_a88dae;
 				})(); }
     GetEntityId() { return (()=>{
-					let structptr_775b7b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_775b7b, this.ptr]);
-					return structptr_775b7b;
+					let structptr_b1fa5b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetEntityId", [structptr_b1fa5b, this.ptr]);
+					return structptr_b1fa5b;
 				})(); }
     GetHashCode() { return window.ctx.call("UnityEngine.Object", "GetHashCode", [this.ptr]).val(); }
     GetInstanceID() { return window.ctx.call("UnityEngine.Object", "GetInstanceID", [this.ptr]).val(); }
-    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]); }
+    GetName() { return window.ctx.call("UnityEngine.Object", "GetName", [this.ptr]).mstr(); }
     static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Object", "GetName_Injected", [_unity_self, ret]); }
     static GetOffsetOfInstanceIDInCPlusPlusObject() { return window.ctx.call("UnityEngine.Object", "GetOffsetOfInstanceIDInCPlusPlusObject", []).val(); }
     static GetPtrFromInstanceID(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_0ac695 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_0ac695, instanceID, objectType, isMonoBehaviour]);
-					return structptr_0ac695;
+					let structptr_c4483b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID", [structptr_c4483b, instanceID, objectType, isMonoBehaviour]);
+					return structptr_c4483b;
 				})(); }
     static GetPtrFromInstanceID_Injected(instanceID, objectType, isMonoBehaviour) { return (()=>{
-					let structptr_92421c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_92421c, instanceID, objectType, isMonoBehaviour]);
-					return structptr_92421c;
+					let structptr_0be09b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "GetPtrFromInstanceID_Injected", [structptr_0be09b, instanceID, objectType, isMonoBehaviour]);
+					return structptr_0be09b;
 				})(); }
     static Instantiate_original_position_rotation(original, position, rotation) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22761", [original, position, rotation])); }
     static Instantiate_original_position_rotation_parent(original, position, rotation, parent) { return new Object(window.ctx.call("UnityEngine.Object", "Instantiate_22762", [original, position, rotation, parent])); }
@@ -1196,64 +1325,64 @@ export class Object {
     static Internal_CloneSingle(data) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingle", [data])); }
     static Internal_CloneSingleWithParams(data, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams", [data, parameters])); }
     static Internal_CloneSingleWithParams_Injected(data, parameters) { return (()=>{
-					let structptr_e13b4b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_e13b4b, data, parameters]);
-					return structptr_e13b4b;
+					let structptr_7496c5 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParams_Injected", [structptr_7496c5, data, parameters]);
+					return structptr_7496c5;
 				})(); }
     static Internal_CloneSingleWithParent(data, parent, worldPositionStays) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent", [data, parent, worldPositionStays])); }
     static Internal_CloneSingleWithParent_Injected(data, parent, worldPositionStays) { return (()=>{
-					let structptr_5c544d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_5c544d, data, parent, worldPositionStays]);
-					return structptr_5c544d;
+					let structptr_4aa571 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithParent_Injected", [structptr_4aa571, data, parent, worldPositionStays]);
+					return structptr_4aa571;
 				})(); }
     static Internal_CloneSingleWithScene(data, scene) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene", [data, scene])); }
     static Internal_CloneSingleWithScene_Injected(data, scene) { return (()=>{
-					let structptr_0077ee = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_0077ee, data, scene]);
-					return structptr_0077ee;
+					let structptr_311fee = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingleWithScene_Injected", [structptr_311fee, data, scene]);
+					return structptr_311fee;
 				})(); }
     static Internal_CloneSingle_Injected(data) { return (()=>{
-					let structptr_bcf3cd = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_bcf3cd, data]);
-					return structptr_bcf3cd;
+					let structptr_a10fa7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_CloneSingle_Injected", [structptr_a10fa7, data]);
+					return structptr_a10fa7;
 				})(); }
     static Internal_InstantiateAsyncWithParams(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_5afec8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_5afec8, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_5afec8;
+					let structptr_390ed0 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams", [structptr_390ed0, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_390ed0;
 				})(); }
     static Internal_InstantiateAsyncWithParams_Injected(original, count, parameters, positions, positionsCount, rotations, rotationsCount) { return (()=>{
-					let structptr_777a74 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_777a74, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
-					return structptr_777a74;
+					let structptr_209238 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateAsyncWithParams_Injected", [structptr_209238, original, count, parameters, positions, positionsCount, rotations, rotationsCount]);
+					return structptr_209238;
 				})(); }
     static Internal_InstantiateSingle(data, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle", [data, pos, rot])); }
     static Internal_InstantiateSingleWithParams(data, position, rotation, parameters) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams", [data, position, rotation, parameters])); }
     static Internal_InstantiateSingleWithParams_Injected(data, position, rotation, parameters) { return (()=>{
-					let structptr_fd48e5 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_fd48e5, data, position, rotation, parameters]);
-					return structptr_fd48e5;
+					let structptr_2e8a3a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParams_Injected", [structptr_2e8a3a, data, position, rotation, parameters]);
+					return structptr_2e8a3a;
 				})(); }
     static Internal_InstantiateSingleWithParent(data, parent, pos, rot) { return new Object(window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent", [data, parent, pos, rot])); }
     static Internal_InstantiateSingleWithParent_Injected(data, parent, pos, rot) { return (()=>{
-					let structptr_9e1c82 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_9e1c82, data, parent, pos, rot]);
-					return structptr_9e1c82;
+					let structptr_80ccf9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingleWithParent_Injected", [structptr_80ccf9, data, parent, pos, rot]);
+					return structptr_80ccf9;
 				})(); }
     static Internal_InstantiateSingle_Injected(data, pos, rot) { return (()=>{
-					let structptr_35eb1d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_35eb1d, data, pos, rot]);
-					return structptr_35eb1d;
+					let structptr_164baa = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Object", "Internal_InstantiateSingle_Injected", [structptr_164baa, data, pos, rot]);
+					return structptr_164baa;
 				})(); }
     static IsNativeObjectAlive(o) { return window.ctx.call("UnityEngine.Object", "IsNativeObjectAlive", [o]).val() === 1; }
     static IsPersistent(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent", [obj]).val() === 1; }
     static IsPersistent_Injected(obj) { return window.ctx.call("UnityEngine.Object", "IsPersistent_Injected", [obj]).val() === 1; }
     MarkDirty() { window.ctx.call("UnityEngine.Object", "MarkDirty", [this.ptr]); }
     static MarkDirty_Injected(_unity_self) { window.ctx.call("UnityEngine.Object", "MarkDirty_Injected", [_unity_self]); }
-    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, name]); }
+    SetName(name) { window.ctx.call("UnityEngine.Object", "SetName", [this.ptr, window.ctx.createMstr(name)]); }
     static SetName_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Object", "SetName_Injected", [_unity_self, name]); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22789", [this.ptr]); }
-    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22800", [obj]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Object", "ToString_22789", [this.ptr]).mstr(); }
+    static ToString_obj(obj) { return window.ctx.call("UnityEngine.Object", "ToString_22800", [obj]).mstr(); }
     static ToString_Injected(obj, ret) { window.ctx.call("UnityEngine.Object", "ToString_Injected", [obj, ret]); }
     static get_hideFlags_Injected(_unity_self) { return new HideFlags(window.ctx.call("UnityEngine.Object", "get_hideFlags_Injected", [_unity_self])); }
     static set_hideFlags_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Object", "set_hideFlags_Injected", [_unity_self, value]); }
@@ -1311,13 +1440,13 @@ export class SettingsManager {
     set OnSettingsChanged(v) { return this.ptr.writeField(0x0, 'i32', v); }
     get settings() { return new SettingsConfiguration(this.ptr.readField(0x4, 'i32')); }
     set settings(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    static ExportSettings() { return window.ctx.call("SettingsManager", "ExportSettings", []); }
+    static ExportSettings() { return window.ctx.call("SettingsManager", "ExportSettings", []).mstr(); }
     static GetSettings() { return new SettingsConfiguration(window.ctx.call("SettingsManager", "GetSettings", [])); }
-    static ImportSettings(json) { window.ctx.call("SettingsManager", "ImportSettings", [json]); }
+    static ImportSettings(json) { window.ctx.call("SettingsManager", "ImportSettings", [window.ctx.createMstr(json)]); }
     static SaveSettings() { window.ctx.call("SettingsManager", "SaveSettings", []); }
-    static SetBool(settingName, value) { window.ctx.call("SettingsManager", "SetBool", [settingName, value]); }
-    static SetFloat(settingName, value) { window.ctx.call("SettingsManager", "SetFloat", [settingName, value]); }
-    static SetInt(settingName, value) { window.ctx.call("SettingsManager", "SetInt", [settingName, value]); }
+    static SetBool(settingName, value) { window.ctx.call("SettingsManager", "SetBool", [window.ctx.createMstr(settingName), value]); }
+    static SetFloat(settingName, value) { window.ctx.call("SettingsManager", "SetFloat", [window.ctx.createMstr(settingName), value]); }
+    static SetInt(settingName, value) { window.ctx.call("SettingsManager", "SetInt", [window.ctx.createMstr(settingName), value]); }
 }
 
 export class NotificationManager {
@@ -1327,8 +1456,8 @@ export class NotificationManager {
     get notificationPool() { return JSArray(this.ptr.readField(0x10, 'i32')); }
     set notificationPool(v) { return this.ptr.writeField(0x10, 'i32', v); }
     Awake() { window.ctx.call("NotificationManager", "Awake", [this.ptr]); }
-    IShowNotification(title, body, style) { window.ctx.call("NotificationManager", "IShowNotification", [this.ptr, title, body, style]); }
-    static Show(title, body, style) { window.ctx.call("NotificationManager", "Show", [title, body, style]); }
+    IShowNotification(title, body, style) { window.ctx.call("NotificationManager", "IShowNotification", [this.ptr, window.ctx.createMstr(title), window.ctx.createMstr(body), style]); }
+    static Show(title, body, style) { window.ctx.call("NotificationManager", "Show", [window.ctx.createMstr(title), window.ctx.createMstr(body), style]); }
 }
 
 export class SettingsConfiguration {
@@ -1424,8 +1553,8 @@ export class SettingsConfiguration {
     set weaponFOV(v) { return this.ptr.writeField(0x1C, 'f32', v); }
     get weaponLeaning() { return this.ptr.readField(0xC, 'f32').val(); }
     set weaponLeaning(v) { return this.ptr.writeField(0xC, 'f32', v); }
-    static FromString(json) { return new SettingsConfiguration(window.ctx.call("SettingsConfiguration", "FromString", [json])); }
-    ToString() { return window.ctx.call("SettingsConfiguration", "ToString", [this.ptr]); }
+    static FromString(json) { return new SettingsConfiguration(window.ctx.call("SettingsConfiguration", "FromString", [window.ctx.createMstr(json)])); }
+    ToString() { return window.ctx.call("SettingsConfiguration", "ToString", [this.ptr]).mstr(); }
 }
 
 export class GameObject {
@@ -1441,78 +1570,78 @@ export class GameObject {
     get layer() { return window.ctx.call("UnityEngine.GameObject", "get_layer", [this.ptr]).val(); }
     set layer(v) { window.ctx.call("UnityEngine.GameObject", "set_layer", [this.ptr, v]); }
     get scene() { return (()=>{
-					let structptr_1b107f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_scene", [structptr_1b107f, this.ptr]);
-					return structptr_1b107f;
+					let structptr_ec5878 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_scene", [structptr_ec5878, this.ptr]);
+					return structptr_ec5878;
 				})(); }
     get sceneCullingMask() { return window.ctx.call("UnityEngine.GameObject", "get_sceneCullingMask", [this.ptr]).val(); }
-    get tag() { return window.ctx.call("UnityEngine.GameObject", "get_tag", [this.ptr]); }
-    set tag(v) { window.ctx.call("UnityEngine.GameObject", "set_tag", [this.ptr, v]); }
+    get tag() { return window.ctx.call("UnityEngine.GameObject", "get_tag", [this.ptr]).mstr(); }
+    set tag(v) { window.ctx.call("UnityEngine.GameObject", "set_tag", [this.ptr, window.ctx.createMstr(v)]); }
     get transform() { return new Transform(window.ctx.call("UnityEngine.GameObject", "get_transform", [this.ptr])); }
     get transformHandle() { return (()=>{
-					let structptr_c2a301 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_transformHandle", [structptr_c2a301, this.ptr]);
-					return structptr_c2a301;
+					let structptr_fd04bf = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_transformHandle", [structptr_fd04bf, this.ptr]);
+					return structptr_fd04bf;
 				})(); }
     AddComponent_componentType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponent_22543", [this.ptr, componentType])); }
     AddComponent() { return window.ctx.call("UnityEngine.GameObject", "AddComponent", [this.ptr]); }
-    AddComponentInternal(className) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponentInternal", [this.ptr, className])); }
+    AddComponentInternal(className) { return new Component(window.ctx.call("UnityEngine.GameObject", "AddComponentInternal", [this.ptr, window.ctx.createMstr(className)])); }
     static AddComponentInternal_Injected(_unity_self, className) { return (()=>{
-					let structptr_587c0a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "AddComponentInternal_Injected", [structptr_587c0a, _unity_self, className]);
-					return structptr_587c0a;
+					let structptr_3a947c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "AddComponentInternal_Injected", [structptr_3a947c, _unity_self, className]);
+					return structptr_3a947c;
 				})(); }
-    BroadcastMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22540", [this.ptr, methodName, options]); }
-    BroadcastMessage_methodName_parameter_options(methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22569", [this.ptr, methodName, parameter, options]); }
-    BroadcastMessage_methodName_parameter(methodName, parameter) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22570", [this.ptr, methodName, parameter]); }
-    BroadcastMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22571", [this.ptr, methodName]); }
+    BroadcastMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22540", [this.ptr, window.ctx.createMstr(methodName), options]); }
+    BroadcastMessage_methodName_parameter_options(methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22569", [this.ptr, window.ctx.createMstr(methodName), parameter, options]); }
+    BroadcastMessage_methodName_parameter(methodName, parameter) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22570", [this.ptr, window.ctx.createMstr(methodName), parameter]); }
+    BroadcastMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_22571", [this.ptr, window.ctx.createMstr(methodName)]); }
     static BroadcastMessage_Injected(_unity_self, methodName, parameter, options) { window.ctx.call("UnityEngine.GameObject", "BroadcastMessage_Injected", [_unity_self, methodName, parameter, options]); }
-    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22557", [this.ptr, tag]).val() === 1; }
+    CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22557", [this.ptr, window.ctx.createMstr(tag)]).val() === 1; }
     CompareTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_22558", [this.ptr, tag]).val() === 1; }
     CompareTagHandle_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal", [this.ptr, tag]).val() === 1; }
     static CompareTagHandle_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTagHandle_Internal_Injected", [_unity_self, tag]).val() === 1; }
-    CompareTag_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal", [this.ptr, tag]).val() === 1; }
+    CompareTag_Internal(tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal", [this.ptr, window.ctx.createMstr(tag)]).val() === 1; }
     static CompareTag_Internal_Injected(_unity_self, tag) { return window.ctx.call("UnityEngine.GameObject", "CompareTag_Internal_Injected", [_unity_self, tag]).val() === 1; }
     static CreatePrimitive(type) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "CreatePrimitive", [type])); }
     static CreatePrimitive_Injected(type) { return (()=>{
-					let structptr_099c1a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "CreatePrimitive_Injected", [structptr_099c1a, type]);
-					return structptr_099c1a;
+					let structptr_089a80 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "CreatePrimitive_Injected", [structptr_089a80, type]);
+					return structptr_089a80;
 				})(); }
-    static Find(name) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "Find", [name])); }
-    static FindGameObjectWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag", [tag])); }
+    static Find(name) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "Find", [window.ctx.createMstr(name)])); }
+    static FindGameObjectWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag", [window.ctx.createMstr(tag)])); }
     static FindGameObjectWithTag_Injected(tag) { return (()=>{
-					let structptr_4bd487 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag_Injected", [structptr_4bd487, tag]);
-					return structptr_4bd487;
+					let structptr_126c9a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "FindGameObjectWithTag_Injected", [structptr_126c9a, tag]);
+					return structptr_126c9a;
 				})(); }
-    static FindGameObjectsWithTag_tag_results(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22537", [tag, results]); }
-    static FindGameObjectsWithTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22562", [tag]); }
-    static FindGameObjectsWithTagForListInternal(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal", [tag, results]); }
+    static FindGameObjectsWithTag_tag_results(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22537", [window.ctx.createMstr(tag), results]); }
+    static FindGameObjectsWithTag_tag(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_22562", [window.ctx.createMstr(tag)]); }
+    static FindGameObjectsWithTagForListInternal(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal", [window.ctx.createMstr(tag), results]); }
     static FindGameObjectsWithTagForListInternal_Injected(tag, results) { window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTagForListInternal_Injected", [tag, results]); }
     static FindGameObjectsWithTag_Injected(tag) { return window.ctx.call("UnityEngine.GameObject", "FindGameObjectsWithTag_Injected", [tag]); }
-    static FindWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindWithTag", [tag])); }
+    static FindWithTag(tag) { return new GameObject(window.ctx.call("UnityEngine.GameObject", "FindWithTag", [window.ctx.createMstr(tag)])); }
     static Find_Injected(name) { return (()=>{
-					let structptr_cbda96 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "Find_Injected", [structptr_cbda96, name]);
-					return structptr_cbda96;
+					let structptr_230eb6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "Find_Injected", [structptr_230eb6, name]);
+					return structptr_230eb6;
 				})(); }
     GetComponent() { return window.ctx.call("UnityEngine.GameObject", "GetComponent", [this.ptr]); }
     GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22516", [this.ptr, type])); }
-    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22520", [this.ptr, type])); }
+    GetComponent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponent_22520", [this.ptr, window.ctx.createMstr(type)])); }
     GetComponentAtIndex_index(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex_22546", [this.ptr, index])); }
     GetComponentAtIndex(index) { return window.ctx.call("UnityEngine.GameObject", "GetComponentAtIndex", [this.ptr, index]); }
-    GetComponentByName(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByName", [this.ptr, type])); }
-    GetComponentByNameWithCase(type, caseSensitive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase", [this.ptr, type, caseSensitive])); }
+    GetComponentByName(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByName", [this.ptr, window.ctx.createMstr(type)])); }
+    GetComponentByNameWithCase(type, caseSensitive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase", [this.ptr, window.ctx.createMstr(type), caseSensitive])); }
     static GetComponentByNameWithCase_Injected(_unity_self, type, caseSensitive) { return (()=>{
-					let structptr_392597 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase_Injected", [structptr_392597, _unity_self, type, caseSensitive]);
-					return structptr_392597;
+					let structptr_80c7d9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentByNameWithCase_Injected", [structptr_80c7d9, _unity_self, type, caseSensitive]);
+					return structptr_80c7d9;
 				})(); }
     static GetComponentByName_Injected(_unity_self, type) { return (()=>{
-					let structptr_2b285d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentByName_Injected", [structptr_2b285d, _unity_self, type]);
-					return structptr_2b285d;
+					let structptr_620682 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentByName_Injected", [structptr_620682, _unity_self, type]);
+					return structptr_620682;
 				})(); }
     GetComponentCount() { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount", [this.ptr]).val(); }
     static GetComponentCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "GetComponentCount_Injected", [_unity_self]).val(); }
@@ -1523,25 +1652,25 @@ export class GameObject {
     GetComponentInChildren() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr]); }
     GetComponentInChildren(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren", [this.ptr, includeInactive]); }
     static GetComponentInChildren_Injected(_unity_self, type, includeInactive) { return (()=>{
-					let structptr_862f3f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_Injected", [structptr_862f3f, _unity_self, type, includeInactive]);
-					return structptr_862f3f;
+					let structptr_465f15 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentInChildren_Injected", [structptr_465f15, _unity_self, type, includeInactive]);
+					return structptr_465f15;
 				})(); }
     GetComponentInParent_type_includeInactive(type, includeInactive) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22523", [this.ptr, type, includeInactive])); }
     GetComponentInParent_type(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_22524", [this.ptr, type])); }
     GetComponentInParent() { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr]); }
     GetComponentInParent(includeInactive) { return window.ctx.call("UnityEngine.GameObject", "GetComponentInParent", [this.ptr, includeInactive]); }
     static GetComponentInParent_Injected(_unity_self, type, includeInactive) { return (()=>{
-					let structptr_33541b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_Injected", [structptr_33541b, _unity_self, type, includeInactive]);
-					return structptr_33541b;
+					let structptr_479860 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponentInParent_Injected", [structptr_479860, _unity_self, type, includeInactive]);
+					return structptr_479860;
 				})(); }
     GetComponentIndex(component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex", [this.ptr, component]).val(); }
     static GetComponentIndex_Injected(_unity_self, component) { return window.ctx.call("UnityEngine.GameObject", "GetComponentIndex_Injected", [_unity_self, component]).val(); }
     static GetComponent_Injected(_unity_self, type) { return (()=>{
-					let structptr_da9d81 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetComponent_Injected", [structptr_da9d81, _unity_self, type]);
-					return structptr_da9d81;
+					let structptr_37fb52 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetComponent_Injected", [structptr_37fb52, _unity_self, type]);
+					return structptr_37fb52;
 				})(); }
     GetComponents_type(type) { return window.ctx.call("UnityEngine.GameObject", "GetComponents_22526", [this.ptr, type]); }
     GetComponents() { return window.ctx.call("UnityEngine.GameObject", "GetComponents", [this.ptr]); }
@@ -1561,19 +1690,19 @@ export class GameObject {
     GetComponentsInternal(type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return new Array(window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal", [this.ptr, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList])); }
     static GetComponentsInternal_Injected(_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList) { return new Array(window.ctx.call("UnityEngine.GameObject", "GetComponentsInternal_Injected", [_unity_self, type, useSearchTypeAsArrayReturnType, recursive, includeInactive, reverse, resultList])); }
     static GetScene_instanceID(instanceID) { return (()=>{
-					let structptr_82cde9 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetScene_22585", [structptr_82cde9, instanceID]);
-					return structptr_82cde9;
+					let structptr_0ec4e6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetScene_22585", [structptr_0ec4e6, instanceID]);
+					return structptr_0ec4e6;
 				})(); }
     static GetScene_entityId(entityId) { return (()=>{
-					let structptr_4c3125 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetScene_22587", [structptr_4c3125, entityId]);
-					return structptr_4c3125;
+					let structptr_5e7d5a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetScene_22587", [structptr_5e7d5a, entityId]);
+					return structptr_5e7d5a;
 				})(); }
     static GetSceneInternal(entityId) { return (()=>{
-					let structptr_b43a59 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "GetSceneInternal", [structptr_b43a59, entityId]);
-					return structptr_b43a59;
+					let structptr_9bfa5b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "GetSceneInternal", [structptr_9bfa5b, entityId]);
+					return structptr_9bfa5b;
 				})(); }
     static GetSceneInternal_Injected(entityId, ret) { window.ctx.call("UnityEngine.GameObject", "GetSceneInternal_Injected", [entityId, ret]); }
     static InstantiateGameObjects_sourceInstanceID_newInstanceIDs_newTransformInstanceIDs_count_destinationScene(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_22582", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
@@ -1582,26 +1711,26 @@ export class GameObject {
     static InstantiateGameObjects_Injected(sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene) { window.ctx.call("UnityEngine.GameObject", "InstantiateGameObjects_Injected", [sourceInstanceID, newInstanceIDs, newTransformInstanceIDs, count, destinationScene]); }
     Internal_AddComponentWithType(componentType) { return new Component(window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType", [this.ptr, componentType])); }
     static Internal_AddComponentWithType_Injected(_unity_self, componentType) { return (()=>{
-					let structptr_fb3742 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType_Injected", [structptr_fb3742, _unity_self, componentType]);
-					return structptr_fb3742;
+					let structptr_8ad29f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "Internal_AddComponentWithType_Injected", [structptr_8ad29f, _unity_self, componentType]);
+					return structptr_8ad29f;
 				})(); }
-    static Internal_CreateGameObject(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject", [self, name]); }
+    static Internal_CreateGameObject(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject", [self, window.ctx.createMstr(name)]); }
     static Internal_CreateGameObject_Injected(self, name) { window.ctx.call("UnityEngine.GameObject", "Internal_CreateGameObject_Injected", [self, name]); }
     QueryComponentAtIndex(index) { return new Component(window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex", [this.ptr, index])); }
     static QueryComponentAtIndex_Injected(_unity_self, index) { return (()=>{
-					let structptr_c1701c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex_Injected", [structptr_c1701c, _unity_self, index]);
-					return structptr_c1701c;
+					let structptr_e6bb64 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "QueryComponentAtIndex_Injected", [structptr_e6bb64, _unity_self, index]);
+					return structptr_e6bb64;
 				})(); }
-    SendMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22539", [this.ptr, methodName, options]); }
-    SendMessage_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22566", [this.ptr, methodName, value, options]); }
-    SendMessage_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22567", [this.ptr, methodName, value]); }
-    SendMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22568", [this.ptr, methodName]); }
-    SendMessageUpwards_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22538", [this.ptr, methodName, options]); }
-    SendMessageUpwards_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22563", [this.ptr, methodName, value, options]); }
-    SendMessageUpwards_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22564", [this.ptr, methodName, value]); }
-    SendMessageUpwards_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22565", [this.ptr, methodName]); }
+    SendMessage_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22539", [this.ptr, window.ctx.createMstr(methodName), options]); }
+    SendMessage_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22566", [this.ptr, window.ctx.createMstr(methodName), value, options]); }
+    SendMessage_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22567", [this.ptr, window.ctx.createMstr(methodName), value]); }
+    SendMessage_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessage_22568", [this.ptr, window.ctx.createMstr(methodName)]); }
+    SendMessageUpwards_methodName_options(methodName, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22538", [this.ptr, window.ctx.createMstr(methodName), options]); }
+    SendMessageUpwards_methodName_value_options(methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22563", [this.ptr, window.ctx.createMstr(methodName), value, options]); }
+    SendMessageUpwards_methodName_value(methodName, value) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22564", [this.ptr, window.ctx.createMstr(methodName), value]); }
+    SendMessageUpwards_methodName(methodName) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_22565", [this.ptr, window.ctx.createMstr(methodName)]); }
     static SendMessageUpwards_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessageUpwards_Injected", [_unity_self, methodName, value, options]); }
     static SendMessage_Injected(_unity_self, methodName, value, options) { window.ctx.call("UnityEngine.GameObject", "SendMessage_Injected", [_unity_self, methodName, value, options]); }
     SetActive(value) { window.ctx.call("UnityEngine.GameObject", "SetActive", [this.ptr, value]); }
@@ -1619,9 +1748,9 @@ export class GameObject {
     static TryGetComponentFastPath_Injected(_unity_self, type, oneFurtherThanResultValue) { window.ctx.call("UnityEngine.GameObject", "TryGetComponentFastPath_Injected", [_unity_self, type, oneFurtherThanResultValue]); }
     TryGetComponentInternal(type) { return new Component(window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal", [this.ptr, type])); }
     static TryGetComponentInternal_Injected(_unity_self, type) { return (()=>{
-					let structptr_be183e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal_Injected", [structptr_be183e, _unity_self, type]);
-					return structptr_be183e;
+					let structptr_efc436 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "TryGetComponentInternal_Injected", [structptr_efc436, _unity_self, type]);
+					return structptr_efc436;
 				})(); }
     static get_activeInHierarchy_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeInHierarchy_Injected", [_unity_self]).val() === 1; }
     static get_activeSelf_Injected(_unity_self) { return window.ctx.call("UnityEngine.GameObject", "get_activeSelf_Injected", [_unity_self]).val() === 1; }
@@ -1634,9 +1763,9 @@ export class GameObject {
     static get_tag_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_tag_Injected", [_unity_self, ret]); }
     static get_transformHandle_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.GameObject", "get_transformHandle_Injected", [_unity_self, ret]); }
     static get_transform_Injected(_unity_self) { return (()=>{
-					let structptr_8b1065 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.GameObject", "get_transform_Injected", [structptr_8b1065, _unity_self]);
-					return structptr_8b1065;
+					let structptr_78bfbc = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.GameObject", "get_transform_Injected", [structptr_78bfbc, _unity_self]);
+					return structptr_78bfbc;
 				})(); }
     static set_active_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_active_Injected", [_unity_self, value]); }
     static set_isStatic_Injected(_unity_self, value) { window.ctx.call("UnityEngine.GameObject", "set_isStatic_Injected", [_unity_self, value]); }
@@ -1648,15 +1777,22 @@ export class Input {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get anyKeyDown() { return window.ctx.call("UnityEngine.Input", "get_anyKeyDown", []).val() === 1; }
     static get compositionCursorPos() { return (()=>{
+<<<<<<< HEAD
 					let structptr_d5f3bd = window.ctx.malloc(8);
 					window.ctx.call("UnityEngine.Input", "get_compositionCursorPos", [structptr_d5f3bd, ]);
 					return structptr_d5f3bd;
+=======
+					let structptr_2eeb65 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Input", "get_compositionCursorPos", [structptr_2eeb65, ]);
+					return structptr_2eeb65;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static set compositionCursorPos(v) { window.ctx.call("UnityEngine.Input", "set_compositionCursorPos", [v]); }
-    static get compositionString() { return window.ctx.call("UnityEngine.Input", "get_compositionString", []); }
+    static get compositionString() { return window.ctx.call("UnityEngine.Input", "get_compositionString", []).mstr(); }
     static get imeCompositionMode() { return new IMECompositionMode(window.ctx.call("UnityEngine.Input", "get_imeCompositionMode", [])); }
     static set imeCompositionMode(v) { window.ctx.call("UnityEngine.Input", "set_imeCompositionMode", [v]); }
     static get mousePosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_2d27fb = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Input", "get_mousePosition", [structptr_2d27fb, ]);
 					return structptr_2d27fb;
@@ -1666,6 +1802,17 @@ export class Input {
 					let structptr_bb7b68 = window.ctx.malloc(8);
 					window.ctx.call("UnityEngine.Input", "get_mouseScrollDelta", [structptr_bb7b68, ]);
 					return structptr_bb7b68;
+=======
+					let structptr_411d45 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Input", "get_mousePosition", [structptr_411d45, ]);
+					return structptr_411d45;
+				})(); }
+    static get mousePresent() { return window.ctx.call("UnityEngine.Input", "get_mousePresent", []).val() === 1; }
+    static get mouseScrollDelta() { return (()=>{
+					let structptr_774a57 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Input", "get_mouseScrollDelta", [structptr_774a57, ]);
+					return structptr_774a57;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static get simulateTouchEnabled() { return window.ctx.call("UnityEngine.Input", "get_simulateTouchEnabled", []).val() === 1; }
     static get touchCount() { return window.ctx.call("UnityEngine.Input", "get_touchCount", []).val(); }
@@ -1673,9 +1820,9 @@ export class Input {
     get _simulateTouchEnabled_k_BackingField() { return this.ptr.readField(0x0, 'i32').val() === 1; }
     set _simulateTouchEnabled_k_BackingField(v) { return this.ptr.writeField(0x0, 'i32', v); }
     static CheckDisabled() { return window.ctx.call("UnityEngine.Input", "CheckDisabled", []).val() === 1; }
-    static GetAxis(axisName) { return window.ctx.call("UnityEngine.Input", "GetAxis", [axisName]).val(); }
-    static GetAxisRaw(axisName) { return window.ctx.call("UnityEngine.Input", "GetAxisRaw", [axisName]).val(); }
-    static GetButtonDown(buttonName) { return window.ctx.call("UnityEngine.Input", "GetButtonDown", [buttonName]).val() === 1; }
+    static GetAxis(axisName) { return window.ctx.call("UnityEngine.Input", "GetAxis", [window.ctx.createMstr(axisName)]).val(); }
+    static GetAxisRaw(axisName) { return window.ctx.call("UnityEngine.Input", "GetAxisRaw", [window.ctx.createMstr(axisName)]).val(); }
+    static GetButtonDown(buttonName) { return window.ctx.call("UnityEngine.Input", "GetButtonDown", [window.ctx.createMstr(buttonName)]).val() === 1; }
     static GetJoystickNames() { return window.ctx.call("UnityEngine.Input", "GetJoystickNames", []); }
     static GetKey(key) { return window.ctx.call("UnityEngine.Input", "GetKey", [key]).val() === 1; }
     static GetKeyDown(key) { return window.ctx.call("UnityEngine.Input", "GetKeyDown", [key]).val() === 1; }
@@ -1688,9 +1835,15 @@ export class Input {
     static GetMouseButtonUp(button) { return window.ctx.call("UnityEngine.Input", "GetMouseButtonUp", [button]).val() === 1; }
     static GetMousePresentInternal() { return window.ctx.call("UnityEngine.Input", "GetMousePresentInternal", []).val() === 1; }
     static GetTouch(index) { return (()=>{
+<<<<<<< HEAD
 					let structptr_12b625 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Input", "GetTouch", [structptr_12b625, index]);
 					return structptr_12b625;
+=======
+					let structptr_a17d60 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Input", "GetTouch", [structptr_a17d60, index]);
+					return structptr_a17d60;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static GetTouchSupportedInternal() { return window.ctx.call("UnityEngine.Input", "GetTouchSupportedInternal", []).val() === 1; }
     static GetTouch_Injected(index, ret) { window.ctx.call("UnityEngine.Input", "GetTouch_Injected", [index, ret]); }
@@ -1824,6 +1977,7 @@ export class MovementController {
     EnterLadder(ladderCollider) { window.ctx.call("KinematicCharacterController.Examples.MovementController", "EnterLadder", [this.ptr, ladderCollider]); }
     ExitLadder() { window.ctx.call("KinematicCharacterController.Examples.MovementController", "ExitLadder", [this.ptr]); }
     GetCharacterBottomWorld() { return (()=>{
+<<<<<<< HEAD
 					let structptr_8e75c6 = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetCharacterBottomWorld", [structptr_8e75c6, this.ptr]);
 					return structptr_8e75c6;
@@ -1842,6 +1996,26 @@ export class MovementController {
 					let structptr_adf025 = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetLadderRight", [structptr_adf025, this.ptr]);
 					return structptr_adf025;
+=======
+					let structptr_0648e6 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetCharacterBottomWorld", [structptr_0648e6, this.ptr]);
+					return structptr_0648e6;
+				})(); }
+    GetCharacterTopWorld() { return (()=>{
+					let structptr_574a84 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetCharacterTopWorld", [structptr_574a84, this.ptr]);
+					return structptr_574a84;
+				})(); }
+    GetLadderOut() { return (()=>{
+					let structptr_8e720d = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetLadderOut", [structptr_8e720d, this.ptr]);
+					return structptr_8e720d;
+				})(); }
+    GetLadderRight() { return (()=>{
+					let structptr_c95cb3 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.Examples.MovementController", "GetLadderRight", [structptr_c95cb3, this.ptr]);
+					return structptr_c95cb3;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     IsAtLadderBottom() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "IsAtLadderBottom", [this.ptr]).val() === 1; }
     IsAtLadderTop() { return window.ctx.call("KinematicCharacterController.Examples.MovementController", "IsAtLadderTop", [this.ptr]).val() === 1; }
@@ -1866,7 +2040,7 @@ export class MovementController {
 
 export class Player {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get back() { return this.ptr.readField(0x2C, 'i32'); }
+    get back() { return this.ptr.readField(0x2C, 'i32').val(); }
     set back(v) { return this.ptr.writeField(0x2C, 'i32', v); }
     get crouching() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
     set crouching(v) { return this.ptr.writeField(0x3C, 'i32', v); }
@@ -1874,21 +2048,21 @@ export class Player {
     set currentKillStreak(v) { return this.ptr.writeField(0x58, 'f32', v); }
     get dashing() { return this.ptr.readField(0x3B, 'i32').val() === 1; }
     set dashing(v) { return this.ptr.writeField(0x3B, 'i32', v); }
-    get deaths() { return this.ptr.readField(0x26, 'i32'); }
+    get deaths() { return this.ptr.readField(0x26, 'i32').val(); }
     set deaths(v) { return this.ptr.writeField(0x26, 'i32', v); }
     get elo() { return this.ptr.readField(0x20, 'f32').val(); }
     set elo(v) { return this.ptr.writeField(0x20, 'f32', v); }
-    get hat() { return this.ptr.readField(0x2A, 'i32'); }
+    get hat() { return this.ptr.readField(0x2A, 'i32').val(); }
     set hat(v) { return this.ptr.writeField(0x2A, 'i32', v); }
     get headshots() { return this.ptr.readField(0x60, 'f32').val(); }
     set headshots(v) { return this.ptr.writeField(0x60, 'f32', v); }
-    get health() { return this.ptr.readField(0x38, 'i32'); }
+    get health() { return this.ptr.readField(0x38, 'i32').val(); }
     set health(v) { return this.ptr.writeField(0x38, 'i32', v); }
     get healthProtected() { return this.ptr.readField(0x40, 'i32').val() === 1; }
     set healthProtected(v) { return this.ptr.writeField(0x40, 'i32', v); }
     get inventory() { return this.ptr.readField(0x44, 'i32'); }
     set inventory(v) { return this.ptr.writeField(0x44, 'i32', v); }
-    get kills() { return this.ptr.readField(0x24, 'i32'); }
+    get kills() { return this.ptr.readField(0x24, 'i32').val(); }
     set kills(v) { return this.ptr.writeField(0x24, 'i32', v); }
     get killsWithWeapon() { return this.ptr.readField(0x5C, 'f32').val(); }
     set killsWithWeapon(v) { return this.ptr.writeField(0x5C, 'f32', v); }
@@ -1898,9 +2072,9 @@ export class Player {
     set lastShootTime(v) { return this.ptr.writeField(0x6C, 'f32', v); }
     get lastShotTime() { return this.ptr.readField(0x68, 'f32').val(); }
     set lastShotTime(v) { return this.ptr.writeField(0x68, 'f32', v); }
-    get localWeaponIndex() { return this.ptr.readField(0x3E, 'i32'); }
+    get localWeaponIndex() { return this.ptr.readField(0x3E, 'i32').val(); }
     set localWeaponIndex(v) { return this.ptr.writeField(0x3E, 'i32', v); }
-    get maxKillStreak() { return this.ptr.readField(0x30, 'i32'); }
+    get maxKillStreak() { return this.ptr.readField(0x30, 'i32').val(); }
     set maxKillStreak(v) { return this.ptr.writeField(0x30, 'i32', v); }
     get nickname() { return this.ptr.readField(0x18, 'i32').mstr(); }
     set nickname(v) { return this.ptr.writeField(0x18, 'i32', window.ctx.createMstr(v)); }
@@ -1912,25 +2086,25 @@ export class Player {
     set rigid(v) { return this.ptr.writeField(0x34, 'i32', v); }
     get sceneLoaded() { return this.ptr.readField(0x3D, 'i32').val() === 1; }
     set sceneLoaded(v) { return this.ptr.writeField(0x3D, 'i32', v); }
-    get score() { return this.ptr.readField(0x1C, 'i32'); }
+    get score() { return this.ptr.readField(0x1C, 'i32').val(); }
     set score(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get selectedGunSkins() { return this.ptr.readField(0x10, 'i32'); }
+    get selectedGunSkins() { return this.ptr.readField(0x10, 'i32').val(); }
     set selectedGunSkins(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get skin() { return this.ptr.readField(0x28, 'i32'); }
+    get skin() { return this.ptr.readField(0x28, 'i32').val(); }
     set skin(v) { return this.ptr.writeField(0x28, 'i32', v); }
     get spawned() { return this.ptr.readField(0x3A, 'i32').val() === 1; }
     set spawned(v) { return this.ptr.writeField(0x3A, 'i32', v); }
     get startPlayTime() { return this.ptr.readField(0x64, 'f32').val(); }
     set startPlayTime(v) { return this.ptr.writeField(0x64, 'f32', v); }
-    get team() { return this.ptr.readField(0x3F, 'i32'); }
+    get team() { return this.ptr.readField(0x3F, 'i32').val(); }
     set team(v) { return this.ptr.writeField(0x3F, 'i32', v); }
     get user() { return new PublicUserData(this.ptr.readField(0x50, 'i32')); }
     set user(v) { return this.ptr.writeField(0x50, 'i32', v); }
     get userId() { return this.ptr.readField(0x48, 'i32').mstr(); }
     set userId(v) { return this.ptr.writeField(0x48, 'i32', window.ctx.createMstr(v)); }
-    get weaponClass() { return this.ptr.readField(0x39, 'i32'); }
+    get weaponClass() { return this.ptr.readField(0x39, 'i32').val(); }
     set weaponClass(v) { return this.ptr.writeField(0x39, 'i32', v); }
-    get weaponsCollected() { return this.ptr.readField(0x2E, 'i32'); }
+    get weaponsCollected() { return this.ptr.readField(0x2E, 'i32').val(); }
     set weaponsCollected(v) { return this.ptr.writeField(0x2E, 'i32', v); }
 }
 
@@ -2014,7 +2188,7 @@ export class ColyView {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get ActorNumber() { return window.ctx.call("ColyView", "get_ActorNumber", [this.ptr]).val(); }
     static get Mine() { return new ColyView(window.ctx.call("ColyView", "get_Mine", [])); }
-    get Nickname() { return window.ctx.call("ColyView", "get_Nickname", [this.ptr]); }
+    get Nickname() { return window.ctx.call("ColyView", "get_Nickname", [this.ptr]).mstr(); }
     get BeforeDespawn() { return new Action(this.ptr.readField(0x18, 'i32')); }
     set BeforeDespawn(v) { return this.ptr.writeField(0x18, 'i32', v); }
     get IsAI() { return this.ptr.readField(0x10, 'i32').val() === 1; }
@@ -2031,17 +2205,17 @@ export class ColyView {
     set sessionId(v) { return this.ptr.writeField(0x20, 'i32', window.ctx.createMstr(v)); }
     get spawnTime() { return this.ptr.readField(0x2C, 'f32').val(); }
     set spawnTime(v) { return this.ptr.writeField(0x2C, 'f32', v); }
-    static Find(viewId) { return new ColyView(window.ctx.call("ColyView", "Find", [viewId])); }
+    static Find(viewId) { return new ColyView(window.ctx.call("ColyView", "Find", [window.ctx.createMstr(viewId)])); }
     HandleBeforeDespawn() { window.ctx.call("ColyView", "HandleBeforeDespawn", [this.ptr]); }
     Init(spawnInfo) { window.ctx.call("ColyView", "Init", [this.ptr, spawnInfo]); }
-    static TryFind(viewId, foundView) { return window.ctx.call("ColyView", "TryFind", [viewId, foundView]).val() === 1; }
+    static TryFind(viewId, foundView) { return window.ctx.call("ColyView", "TryFind", [window.ctx.createMstr(viewId), foundView]).val() === 1; }
     static TryFindMine(view) { return window.ctx.call("ColyView", "TryFindMine", [view]).val() === 1; }
     TryGetColyBehaviour(behaviour) { return window.ctx.call("ColyView", "TryGetColyBehaviour", [this.ptr, behaviour]).val() === 1; }
 }
 
 export class ColyTeamMember {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get OnTeamChanged() { return this.ptr.readField(0x2C, 'i32'); }
+    get OnTeamChanged() { return this.ptr.readField(0x2C, 'i32').val(); }
     set OnTeamChanged(v) { return this.ptr.writeField(0x2C, 'i32', v); }
     get globalFlagHolderTransform() { return new Transform(this.ptr.readField(0x14, 'i32')); }
     set globalFlagHolderTransform(v) { return this.ptr.writeField(0x14, 'i32', v); }
@@ -2053,7 +2227,7 @@ export class ColyTeamMember {
     set localFlagHolderTransform(v) { return this.ptr.writeField(0x18, 'i32', v); }
     get team() { return new Team(this.ptr.readField(0x24, 'i32')); }
     set team(v) { return this.ptr.writeField(0x24, 'i32', v); }
-    get teamIndex() { return this.ptr.readField(0x1C, 'i32'); }
+    get teamIndex() { return this.ptr.readField(0x1C, 'i32').val(); }
     set teamIndex(v) { return this.ptr.writeField(0x1C, 'i32', v); }
     get unregisterOnTeamChange() { return new Action(this.ptr.readField(0x28, 'i32')); }
     set unregisterOnTeamChange(v) { return this.ptr.writeField(0x28, 'i32', v); }
@@ -2094,7 +2268,7 @@ export class GameModeManager {
     set gameModeDatas(v) { return this.ptr.writeField(0x10, 'i32', v); }
     get instance() { return new GameModeManager(this.ptr.readField(0x0, 'i32')); }
     set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get previousModeSbyte() { return this.ptr.readField(0x14, 'i32'); }
+    get previousModeSbyte() { return this.ptr.readField(0x14, 'i32').val(); }
     set previousModeSbyte(v) { return this.ptr.writeField(0x14, 'i32', v); }
     Awake() { window.ctx.call("GameModeManager", "Awake", [this.ptr]); }
     static GetGameModeFromSbyte(newModeSbyte) { return new GameModeData(window.ctx.call("GameModeManager", "GetGameModeFromSbyte", [newModeSbyte])); }
@@ -2117,24 +2291,24 @@ export class MyRoomState {
     set flags(v) { return this.ptr.writeField(0x40, 'i32', v); }
     get grenades() { return this.ptr.readField(0x38, 'i32'); }
     set grenades(v) { return this.ptr.writeField(0x38, 'i32', v); }
-    get light() { return this.ptr.readField(0x19, 'i32'); }
+    get light() { return this.ptr.readField(0x19, 'i32').val(); }
     set light(v) { return this.ptr.writeField(0x19, 'i32', v); }
-    get map() { return this.ptr.readField(0x18, 'i32'); }
+    get map() { return this.ptr.readField(0x18, 'i32').val(); }
     set map(v) { return this.ptr.writeField(0x18, 'i32', v); }
     get matchLength() { return this.ptr.readField(0x1C, 'i32').val(); }
     set matchLength(v) { return this.ptr.writeField(0x1C, 'i32', v); }
     get maxPlayers() { return this.ptr.readField(0x20, 'i32').val(); }
     set maxPlayers(v) { return this.ptr.writeField(0x20, 'i32', v); }
-    get mode() { return this.ptr.readField(0x1A, 'i32'); }
+    get mode() { return this.ptr.readField(0x1A, 'i32').val(); }
     set mode(v) { return this.ptr.writeField(0x1A, 'i32', v); }
     get players() { return this.ptr.readField(0x14, 'i32'); }
     set players(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get region() { return this.ptr.readField(0x24, 'i32'); }
+    get region() { return this.ptr.readField(0x24, 'i32').val(); }
     set region(v) { return this.ptr.writeField(0x24, 'i32', v); }
     get spawnedItems() { return this.ptr.readField(0x34, 'i32'); }
     set spawnedItems(v) { return this.ptr.writeField(0x34, 'i32', v); }
-    get startTime() { return this.ptr.readField(0x28, 'i32'); }
-    set startTime(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get startTime() { return this.ptr.readField(0x28, 'f64').val(); }
+    set startTime(v) { return this.ptr.writeField(0x28, 'f64', v); }
     get teamScores() { return this.ptr.readField(0x30, 'i32').val(); }
     set teamScores(v) { return this.ptr.writeField(0x30, 'i32', v); }
 }
@@ -2303,12 +2477,18 @@ export class Gun {
     DelayedReloadStart(reloadDuration) { return new IEnumerator(window.ctx.call("Gun", "DelayedReloadStart", [this.ptr, reloadDuration])); }
     EnsureLayer() { window.ctx.call("Gun", "EnsureLayer", [this.ptr]); }
     FreeMyAudio() { window.ctx.call("Gun", "FreeMyAudio", [this.ptr]); }
-    GetAnimationDuration(animName) { return window.ctx.call("Gun", "GetAnimationDuration", [this.ptr, animName]).val(); }
+    GetAnimationDuration(animName) { return window.ctx.call("Gun", "GetAnimationDuration", [this.ptr, window.ctx.createMstr(animName)]).val(); }
     GetBaseDamage() { return window.ctx.call("Gun", "GetBaseDamage", [this.ptr]).val(); }
     GetColor() { return (()=>{
+<<<<<<< HEAD
 					let structptr_87a49e = window.ctx.malloc(16);
 					window.ctx.call("Gun", "GetColor", [structptr_87a49e, this.ptr]);
 					return structptr_87a49e;
+=======
+					let structptr_4b49d1 = window.ctx.malloc(16);
+					window.ctx.call("Gun", "GetColor", [structptr_4b49d1, this.ptr]);
+					return structptr_4b49d1;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetFinalRenderAddressableName() { return window.ctx.call("Gun", "GetFinalRenderAddressableName", [this.ptr]); }
     GetFinalSkinId() { return window.ctx.call("Gun", "GetFinalSkinId", [this.ptr]).val(); }
@@ -2330,9 +2510,9 @@ export class Gun {
     PlayShotAudio() { window.ctx.call("Gun", "PlayShotAudio", [this.ptr]); }
     PlaySoundSequence(sounds) { return new IEnumerator(window.ctx.call("Gun", "PlaySoundSequence", [this.ptr, sounds])); }
     ReAllocateMyAudio() { window.ctx.call("Gun", "ReAllocateMyAudio", [this.ptr]); }
-    SetAnimationFloat(keyName, value) { window.ctx.call("Gun", "SetAnimationFloat", [this.ptr, keyName, value]); }
-    SetAnimationTrigger(triggerName) { window.ctx.call("Gun", "SetAnimationTrigger", [this.ptr, triggerName]); }
-    Shoot(shotId, at, hitname, animationName) { window.ctx.call("Gun", "Shoot", [this.ptr, shotId, at, hitname, animationName]); }
+    SetAnimationFloat(keyName, value) { window.ctx.call("Gun", "SetAnimationFloat", [this.ptr, window.ctx.createMstr(keyName), value]); }
+    SetAnimationTrigger(triggerName) { window.ctx.call("Gun", "SetAnimationTrigger", [this.ptr, window.ctx.createMstr(triggerName)]); }
+    Shoot(shotId, at, hitname, animationName) { window.ctx.call("Gun", "Shoot", [this.ptr, shotId, at, hitname, window.ctx.createMstr(animationName)]); }
     static TryGetCurrent(_gun) { return window.ctx.call("Gun", "TryGetCurrent", [_gun]).val() === 1; }
     TryInspect() { window.ctx.call("Gun", "TryInspect", [this.ptr]); }
     TryReload() { window.ctx.call("Gun", "TryReload", [this.ptr]); }
@@ -2352,16 +2532,16 @@ export class ChatUIManager {
     get messageTimestamps() { return this.ptr.readField(0x20, 'f32').val(); }
     set messageTimestamps(v) { return this.ptr.writeField(0x20, 'f32', v); }
     _Start_b_11_0(data) { window.ctx.call("ChatUIManager", "<Start>b__11_0", [this.ptr, data]); }
-    AddMessage(text) { window.ctx.call("ChatUIManager", "AddMessage", [this.ptr, text]); }
+    AddMessage(text) { window.ctx.call("ChatUIManager", "AddMessage", [this.ptr, window.ctx.createMstr(text)]); }
     GetAvailableMessage() { return new ChatUIMessage(window.ctx.call("ChatUIManager", "GetAvailableMessage", [this.ptr])); }
     HandlePlayerCountChange(change, player) { window.ctx.call("ChatUIManager", "HandlePlayerCountChange", [this.ptr, change, player]); }
-    LookForCommands(rawText) { window.ctx.call("ChatUIManager", "LookForCommands", [this.ptr, rawText]); }
+    LookForCommands(rawText) { window.ctx.call("ChatUIManager", "LookForCommands", [this.ptr, window.ctx.createMstr(rawText)]); }
     OnDisable() { window.ctx.call("ChatUIManager", "OnDisable", [this.ptr]); }
     OnEnable() { window.ctx.call("ChatUIManager", "OnEnable", [this.ptr]); }
     OnLockStateTick() { window.ctx.call("ChatUIManager", "OnLockStateTick", [this.ptr]); }
     OnSettingsChanged(newConf) { window.ctx.call("ChatUIManager", "OnSettingsChanged", [this.ptr, newConf]); }
     ProcessMessageAndAdd(data) { window.ctx.call("ChatUIManager", "ProcessMessageAndAdd", [this.ptr, data]); }
-    SendChatMessage(body) { window.ctx.call("ChatUIManager", "SendChatMessage", [this.ptr, body]); }
+    SendChatMessage(body) { window.ctx.call("ChatUIManager", "SendChatMessage", [this.ptr, window.ctx.createMstr(body)]); }
     SetChat(newActive) { window.ctx.call("ChatUIManager", "SetChat", [this.ptr, newActive]); }
     SetChatGfx(newActive) { window.ctx.call("ChatUIManager", "SetChatGfx", [this.ptr, newActive]); }
     Start() { window.ctx.call("ChatUIManager", "Start", [this.ptr]); }
@@ -2389,8 +2569,8 @@ export class NetworkManager {
     static get InRoom() { return window.ctx.call("NetworkManager", "get_InRoom", []).val() === 1; }
     static get IsConnected() { return window.ctx.call("NetworkManager", "get_IsConnected", []).val() === 1; }
     static get MyActorNumber() { return window.ctx.call("NetworkManager", "get_MyActorNumber", []).val(); }
-    static get MyPlayerID() { return window.ctx.call("NetworkManager", "get_MyPlayerID", []); }
-    get NickName() { return window.ctx.call("NetworkManager", "get_NickName", [this.ptr]); }
+    static get MyPlayerID() { return window.ctx.call("NetworkManager", "get_MyPlayerID", []).mstr(); }
+    get NickName() { return window.ctx.call("NetworkManager", "get_NickName", [this.ptr]).mstr(); }
     static get OfflineMode() { return window.ctx.call("NetworkManager", "get_OfflineMode", []).val() === 1; }
     get OnClientChanged() { return new Action(this.ptr.readField(0x10, 'i32')); }
     set OnClientChanged(v) { return this.ptr.writeField(0x10, 'i32', v); }
@@ -2410,52 +2590,52 @@ export class NetworkManager {
     set isMatchmaking(v) { return this.ptr.writeField(0x19, 'i32', v); }
     get nickname() { return this.ptr.readField(0x14, 'i32').mstr(); }
     set nickname(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
-    static ActorNumberOf(session) { return window.ctx.call("NetworkManager", "ActorNumberOf", [session]).val(); }
+    static ActorNumberOf(session) { return window.ctx.call("NetworkManager", "ActorNumberOf", [window.ctx.createMstr(session)]).val(); }
     Awake() { window.ctx.call("NetworkManager", "Awake", [this.ptr]); }
     static ConvertToDictionaryString(source) { return window.ctx.call("NetworkManager", "ConvertToDictionaryString", [source]); }
-    CreateCustom(regionIndex, filters, onProgress) { window.ctx.call("NetworkManager", "CreateCustom", [this.ptr, regionIndex, filters, onProgress]); }
-    CreateRoomOnServer(roomType, filters, customRoomId) { return window.ctx.call("NetworkManager", "CreateRoomOnServer", [this.ptr, roomType, filters, customRoomId]); }
+    CreateCustom(regionIndex, filters, onProgress) { window.ctx.call("NetworkManager", "CreateCustom", [this.ptr, regionIndex, filters, window.ctx.createMstr(onProgress)]); }
+    CreateRoomOnServer(roomType, filters, customRoomId) { return window.ctx.call("NetworkManager", "CreateRoomOnServer", [this.ptr, window.ctx.createMstr(roomType), filters, window.ctx.createMstr(customRoomId)]); }
     Disconnect() { window.ctx.call("NetworkManager", "Disconnect", [this.ptr]); }
     static FindLobbyReservation(options) { return window.ctx.call("NetworkManager", "FindLobbyReservation", [options]); }
-    FindRoomOnServer(roomType, turnstileToken, onProgress, filters, attemptedRegions) { return window.ctx.call("NetworkManager", "FindRoomOnServer", [this.ptr, roomType, turnstileToken, onProgress, filters, attemptedRegions]); }
-    static GetBaseUrl(forceMasterURL) { return window.ctx.call("NetworkManager", "GetBaseUrl", [forceMasterURL]); }
+    FindRoomOnServer(roomType, turnstileToken, onProgress, filters, attemptedRegions) { return window.ctx.call("NetworkManager", "FindRoomOnServer", [this.ptr, window.ctx.createMstr(roomType), window.ctx.createMstr(turnstileToken), window.ctx.createMstr(onProgress), filters, attemptedRegions]); }
+    static GetBaseUrl(forceMasterURL) { return window.ctx.call("NetworkManager", "GetBaseUrl", [forceMasterURL]).mstr(); }
     static GetClient() { return new ColyseusClient(window.ctx.call("NetworkManager", "GetClient", [])); }
     static GetIsMatchmaking() { return window.ctx.call("NetworkManager", "GetIsMatchmaking", []).val() === 1; }
     GetOptionsForRoom() { return window.ctx.call("NetworkManager", "GetOptionsForRoom", [this.ptr]); }
-    GetRoomCloseErrorInfo(code) { return window.ctx.call("NetworkManager", "GetRoomCloseErrorInfo", [this.ptr, code]); }
+    GetRoomCloseErrorInfo(code) { return window.ctx.call("NetworkManager", "GetRoomCloseErrorInfo", [this.ptr, code]).mstr(); }
     InitializeClient() { return new Task(window.ctx.call("NetworkManager", "InitializeClient", [this.ptr])); }
-    static IsRoomValidToJoinPreflight(roomId) { return window.ctx.call("NetworkManager", "IsRoomValidToJoinPreflight", [roomId]); }
-    JoinFromReservation(reservation, fallbackToOffline, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "JoinFromReservation", [this.ptr, reservation, fallbackToOffline, onProgress, createIfNotFound]); }
-    JoinRoomByIdOnServer(roomId) { return window.ctx.call("NetworkManager", "JoinRoomByIdOnServer", [this.ptr, roomId]); }
-    JoinRoomForce(fallbackToOffline, response, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "JoinRoomForce", [this.ptr, fallbackToOffline, response, onProgress, createIfNotFound]); }
-    static NickNameOf(sessionId) { return window.ctx.call("NetworkManager", "NickNameOf", [sessionId]); }
+    static IsRoomValidToJoinPreflight(roomId) { return window.ctx.call("NetworkManager", "IsRoomValidToJoinPreflight", [window.ctx.createMstr(roomId)]); }
+    JoinFromReservation(reservation, fallbackToOffline, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "JoinFromReservation", [this.ptr, reservation, fallbackToOffline, window.ctx.createMstr(onProgress), createIfNotFound]); }
+    JoinRoomByIdOnServer(roomId) { return window.ctx.call("NetworkManager", "JoinRoomByIdOnServer", [this.ptr, window.ctx.createMstr(roomId)]); }
+    JoinRoomForce(fallbackToOffline, response, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "JoinRoomForce", [this.ptr, fallbackToOffline, response, window.ctx.createMstr(onProgress), createIfNotFound]); }
+    static NickNameOf(sessionId) { return window.ctx.call("NetworkManager", "NickNameOf", [window.ctx.createMstr(sessionId)]).mstr(); }
     OnApplicationQuit() { window.ctx.call("NetworkManager", "OnApplicationQuit", [this.ptr]); }
     OnDestroy() { window.ctx.call("NetworkManager", "OnDestroy", [this.ptr]); }
-    Play(fallbackToOffline, roomType, providedRoomId, filters, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "Play", [this.ptr, fallbackToOffline, roomType, providedRoomId, filters, onProgress, createIfNotFound]); }
-    PlayOffline(reason, map, mode, onProgress) { window.ctx.call("NetworkManager", "PlayOffline", [this.ptr, reason, map, mode, onProgress]); }
+    Play(fallbackToOffline, roomType, providedRoomId, filters, onProgress, createIfNotFound) { window.ctx.call("NetworkManager", "Play", [this.ptr, fallbackToOffline, window.ctx.createMstr(roomType), window.ctx.createMstr(providedRoomId), filters, window.ctx.createMstr(onProgress), createIfNotFound]); }
+    PlayOffline(reason, map, mode, onProgress) { window.ctx.call("NetworkManager", "PlayOffline", [this.ptr, window.ctx.createMstr(reason), map, mode, window.ctx.createMstr(onProgress)]); }
     static SerializeValue(value) { return new JSONNode(window.ctx.call("NetworkManager", "SerializeValue", [value])); }
-    SetNickname(newNickname) { window.ctx.call("NetworkManager", "SetNickname", [this.ptr, newNickname]); }
+    SetNickname(newNickname) { window.ctx.call("NetworkManager", "SetNickname", [this.ptr, window.ctx.createMstr(newNickname)]); }
     Start() { window.ctx.call("NetworkManager", "Start", [this.ptr]); }
-    static ToJSON(dict) { return window.ctx.call("NetworkManager", "ToJSON", [dict]); }
+    static ToJSON(dict) { return window.ctx.call("NetworkManager", "ToJSON", [dict]).mstr(); }
     static TryGetMyPlayer(player) { return window.ctx.call("NetworkManager", "TryGetMyPlayer", [player]).val() === 1; }
-    static TryGetPlayer(sessionId, player) { return window.ctx.call("NetworkManager", "TryGetPlayer", [sessionId, player]).val() === 1; }
+    static TryGetPlayer(sessionId, player) { return window.ctx.call("NetworkManager", "TryGetPlayer", [window.ctx.createMstr(sessionId), player]).val() === 1; }
     WaitForFrames(frameCount) { return new Task(window.ctx.call("NetworkManager", "WaitForFrames", [this.ptr, frameCount])); }
 }
 
 export class GameTimer {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get OnTimerChange() { return this.ptr.readField(0x0, 'i32'); }
-    set OnTimerChange(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get gameStartTime() { return this.ptr.readField(0x18, 'i32'); }
-    set gameStartTime(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get initialSecondsFrom2024() { return this.ptr.readField(0x8, 'i32'); }
-    set initialSecondsFrom2024(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get OnTimerChange() { return this.ptr.readField(0x0, 'f64').val(); }
+    set OnTimerChange(v) { return this.ptr.writeField(0x0, 'f64', v); }
+    get gameStartTime() { return this.ptr.readField(0x18, 'f64').val(); }
+    set gameStartTime(v) { return this.ptr.writeField(0x18, 'f64', v); }
+    get initialSecondsFrom2024() { return this.ptr.readField(0x8, 'f64').val(); }
+    set initialSecondsFrom2024(v) { return this.ptr.writeField(0x8, 'f64', v); }
     get instance() { return new GameTimer(this.ptr.readField(0x4, 'i32')); }
     set instance(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get map() { return this.ptr.readField(0x45, 'i32'); }
+    get map() { return this.ptr.readField(0x45, 'i32').val(); }
     set map(v) { return this.ptr.writeField(0x45, 'i32', v); }
-    get matchLength() { return this.ptr.readField(0x20, 'i32'); }
-    set matchLength(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get matchLength() { return this.ptr.readField(0x20, 'i64').val(); }
+    set matchLength(v) { return this.ptr.writeField(0x20, 'i64', v); }
     get mode() { return this.ptr.readField(0x38, 'i32').mstr(); }
     set mode(v) { return this.ptr.writeField(0x38, 'i32', window.ctx.createMstr(v)); }
     get playtestText() { return this.ptr.readField(0x3C, 'i32').mstr(); }
@@ -2464,7 +2644,7 @@ export class GameTimer {
     set preparedGameEndedPanel(v) { return this.ptr.writeField(0x46, 'i32', v); }
     get rankInfo() { return this.ptr.readField(0x40, 'i32').mstr(); }
     set rankInfo(v) { return this.ptr.writeField(0x40, 'i32', window.ctx.createMstr(v)); }
-    get region() { return this.ptr.readField(0x44, 'i32'); }
+    get region() { return this.ptr.readField(0x44, 'i32').val(); }
     set region(v) { return this.ptr.writeField(0x44, 'i32', v); }
     get setSlowMo() { return this.ptr.readField(0x47, 'i32').val() === 1; }
     set setSlowMo(v) { return this.ptr.writeField(0x47, 'i32', v); }
@@ -2472,8 +2652,8 @@ export class GameTimer {
     set textColorGradient(v) { return this.ptr.writeField(0x2C, 'i32', v); }
     get textFormats() { return JSArray(this.ptr.readField(0x28, 'i32')); }
     set textFormats(v) { return this.ptr.writeField(0x28, 'i32', v); }
-    get timeOffset() { return this.ptr.readField(0x18, 'i32'); }
-    set timeOffset(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get timeOffset() { return this.ptr.readField(0x18, 'f64').val(); }
+    set timeOffset(v) { return this.ptr.writeField(0x18, 'f64', v); }
     get timerTxts() { return JSArray(this.ptr.readField(0x10, 'i32')); }
     set timerTxts(v) { return this.ptr.writeField(0x10, 'i32', v); }
     get unregisterMatchLengthChange() { return new Action(this.ptr.readField(0x34, 'i32')); }
@@ -2484,11 +2664,17 @@ export class GameTimer {
     _OnEnable_b_21_3(current, previous) { window.ctx.call("GameTimer", "<OnEnable>b__21_3", [this.ptr, current, previous]); }
     static DelayedCall(t, x) { window.ctx.call("GameTimer", "DelayedCall", [t, x]); }
     static DelayedFrameCall(frameCount, x) { window.ctx.call("GameTimer", "DelayedFrameCall", [frameCount, x]); }
-    FormatTimeLeft(index, timeLeftInSeconds) { return window.ctx.call("GameTimer", "FormatTimeLeft", [this.ptr, index, timeLeftInSeconds]); }
+    FormatTimeLeft(index, timeLeftInSeconds) { return window.ctx.call("GameTimer", "FormatTimeLeft", [this.ptr, index, timeLeftInSeconds]).mstr(); }
     GetModeAndRegionAndMap() { return (()=>{
+<<<<<<< HEAD
 					let structptr_1e6190 = window.ctx.malloc(50);
 					window.ctx.call("GameTimer", "GetModeAndRegionAndMap", [structptr_1e6190, this.ptr]);
 					return structptr_1e6190;
+=======
+					let structptr_16c481 = window.ctx.malloc(50);
+					window.ctx.call("GameTimer", "GetModeAndRegionAndMap", [structptr_16c481, this.ptr]);
+					return structptr_16c481;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static GetNetworkTime() { return window.ctx.call("GameTimer", "GetNetworkTime", []).val(); }
     static GetPreciseMatchLife() { return window.ctx.call("GameTimer", "GetPreciseMatchLife", []).val(); }
@@ -2567,14 +2753,14 @@ export class AimManager {
 export class Quaternion {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get eulerAngles() { return (()=>{
-					let structptr_502310 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Quaternion", "get_eulerAngles", [structptr_502310, this.ptr]);
-					return structptr_502310;
+					let structptr_d21062 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Quaternion", "get_eulerAngles", [structptr_d21062, this.ptr]);
+					return structptr_d21062;
 				})(); }
     static get identity() { return (()=>{
-					let structptr_e0b197 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "get_identity", [structptr_e0b197, ]);
-					return structptr_e0b197;
+					let structptr_6fd2d1 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "get_identity", [structptr_6fd2d1, ]);
+					return structptr_6fd2d1;
 				})(); }
     get identityQuaternion() { return new Quaternion(this.ptr.readField(0x0, 'i32')); }
     set identityQuaternion(v) { return this.ptr.writeField(0x0, 'i32', v); }
@@ -2588,111 +2774,111 @@ export class Quaternion {
     set z(v) { return this.ptr.writeField(0x8, 'f32', v); }
     static Angle(a, b) { return window.ctx.call("UnityEngine.Quaternion", "Angle", [a, b]).val(); }
     static AngleAxis(angle, axis) { return (()=>{
-					let structptr_fd3e29 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "AngleAxis", [structptr_fd3e29, angle, axis]);
-					return structptr_fd3e29;
+					let structptr_650f5c = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "AngleAxis", [structptr_650f5c, angle, axis]);
+					return structptr_650f5c;
 				})(); }
     static Dot(a, b) { return window.ctx.call("UnityEngine.Quaternion", "Dot", [a, b]).val(); }
     Equals_other(other) { return window.ctx.call("UnityEngine.Quaternion", "Equals_22156", [this.ptr, other]).val() === 1; }
     Equals_other(other) { return window.ctx.call("UnityEngine.Quaternion", "Equals_22157", [this.ptr, other]).val() === 1; }
     Equals_other(other) { return window.ctx.call("UnityEngine.Quaternion", "Equals_22158", [this.ptr, other]).val() === 1; }
     static Euler_x_y_z(x, y, z) { return (()=>{
-					let structptr_936232 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Euler_22153", [structptr_936232, x, y, z]);
-					return structptr_936232;
+					let structptr_47bf2a = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Euler_22153", [structptr_47bf2a, x, y, z]);
+					return structptr_47bf2a;
 				})(); }
     static Euler_euler(euler) { return (()=>{
-					let structptr_e173fa = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Euler_22154", [structptr_e173fa, euler]);
-					return structptr_e173fa;
+					let structptr_6c829b = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Euler_22154", [structptr_6c829b, euler]);
+					return structptr_6c829b;
 				})(); }
     static FromToRotation(fromDirection, toDirection) { return (()=>{
-					let structptr_670ac0 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "FromToRotation", [structptr_670ac0, fromDirection, toDirection]);
-					return structptr_670ac0;
+					let structptr_8d18d5 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "FromToRotation", [structptr_8d18d5, fromDirection, toDirection]);
+					return structptr_8d18d5;
 				})(); }
     GetHashCode() { return window.ctx.call("UnityEngine.Quaternion", "GetHashCode", [this.ptr]).val(); }
     static Internal_AngleAxis(angle, axis) { return (()=>{
-					let structptr_ea209d = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_AngleAxis", [structptr_ea209d, angle, axis]);
-					return structptr_ea209d;
+					let structptr_075405 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_AngleAxis", [structptr_075405, angle, axis]);
+					return structptr_075405;
 				})(); }
     static Internal_AngleAxis_Injected(angle, axis, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_AngleAxis_Injected", [angle, axis, ret]); }
     static Internal_FromEulerRad(euler) { return (()=>{
-					let structptr_3de50c = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_FromEulerRad", [structptr_3de50c, euler]);
-					return structptr_3de50c;
+					let structptr_2d4d55 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_FromEulerRad", [structptr_2d4d55, euler]);
+					return structptr_2d4d55;
 				})(); }
     static Internal_FromEulerRad_Injected(euler, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_FromEulerRad_Injected", [euler, ret]); }
     static Internal_FromToRotation(fromDirection, toDirection) { return (()=>{
-					let structptr_ab3878 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_FromToRotation", [structptr_ab3878, fromDirection, toDirection]);
-					return structptr_ab3878;
+					let structptr_e2712b = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_FromToRotation", [structptr_e2712b, fromDirection, toDirection]);
+					return structptr_e2712b;
 				})(); }
     static Internal_FromToRotation_Injected(fromDirection, toDirection, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_FromToRotation_Injected", [fromDirection, toDirection, ret]); }
     static Internal_Inverse(rotation) { return (()=>{
-					let structptr_e26e17 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_Inverse", [structptr_e26e17, rotation]);
-					return structptr_e26e17;
+					let structptr_7457dd = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_Inverse", [structptr_7457dd, rotation]);
+					return structptr_7457dd;
 				})(); }
     static Internal_Inverse_Injected(rotation, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_Inverse_Injected", [rotation, ret]); }
     static Internal_Lerp(a, b, t) { return (()=>{
-					let structptr_4f0153 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_Lerp", [structptr_4f0153, a, b, t]);
-					return structptr_4f0153;
+					let structptr_1c5d6e = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_Lerp", [structptr_1c5d6e, a, b, t]);
+					return structptr_1c5d6e;
 				})(); }
     static Internal_Lerp_Injected(a, b, t, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_Lerp_Injected", [a, b, t, ret]); }
     static Internal_LookRotation(forward, upwards) { return (()=>{
-					let structptr_378d29 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_LookRotation", [structptr_378d29, forward, upwards]);
-					return structptr_378d29;
+					let structptr_3344c4 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_LookRotation", [structptr_3344c4, forward, upwards]);
+					return structptr_3344c4;
 				})(); }
     static Internal_LookRotation_Injected(forward, upwards, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_LookRotation_Injected", [forward, upwards, ret]); }
     static Internal_MakePositive(euler) { return (()=>{
-					let structptr_2d422c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_MakePositive", [structptr_2d422c, euler]);
-					return structptr_2d422c;
+					let structptr_1b584f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_MakePositive", [structptr_1b584f, euler]);
+					return structptr_1b584f;
 				})(); }
     static Internal_Slerp(a, b, t) { return (()=>{
-					let structptr_ea783a = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_Slerp", [structptr_ea783a, a, b, t]);
-					return structptr_ea783a;
+					let structptr_803e2d = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_Slerp", [structptr_803e2d, a, b, t]);
+					return structptr_803e2d;
 				})(); }
     static Internal_Slerp_Injected(a, b, t, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_Slerp_Injected", [a, b, t, ret]); }
     static Internal_ToEulerRad(rotation) { return (()=>{
-					let structptr_68f21a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Quaternion", "Internal_ToEulerRad", [structptr_68f21a, rotation]);
-					return structptr_68f21a;
+					let structptr_69c3d6 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Quaternion", "Internal_ToEulerRad", [structptr_69c3d6, rotation]);
+					return structptr_69c3d6;
 				})(); }
     static Internal_ToEulerRad_Injected(rotation, ret) { window.ctx.call("UnityEngine.Quaternion", "Internal_ToEulerRad_Injected", [rotation, ret]); }
     static Inverse(rotation) { return (()=>{
-					let structptr_fc09f8 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Inverse", [structptr_fc09f8, rotation]);
-					return structptr_fc09f8;
+					let structptr_df5e52 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Inverse", [structptr_df5e52, rotation]);
+					return structptr_df5e52;
 				})(); }
     static IsEqualUsingDot(dot) { return window.ctx.call("UnityEngine.Quaternion", "IsEqualUsingDot", [dot]).val() === 1; }
     static Lerp(a, b, t) { return (()=>{
-					let structptr_a55fcd = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Lerp", [structptr_a55fcd, a, b, t]);
-					return structptr_a55fcd;
+					let structptr_0a1c21 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Lerp", [structptr_0a1c21, a, b, t]);
+					return structptr_0a1c21;
 				})(); }
     static LookRotation_forward_upwards(forward, upwards) { return (()=>{
-					let structptr_92f19b = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "LookRotation_22140", [structptr_92f19b, forward, upwards]);
-					return structptr_92f19b;
+					let structptr_8bd377 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "LookRotation_22140", [structptr_8bd377, forward, upwards]);
+					return structptr_8bd377;
 				})(); }
     static LookRotation_forward(forward) { return (()=>{
-					let structptr_ff39ec = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "LookRotation_22141", [structptr_ff39ec, forward]);
-					return structptr_ff39ec;
+					let structptr_700a01 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "LookRotation_22141", [structptr_700a01, forward]);
+					return structptr_700a01;
 				})(); }
     static Slerp(a, b, t) { return (()=>{
-					let structptr_34a9d6 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Quaternion", "Slerp", [structptr_34a9d6, a, b, t]);
-					return structptr_34a9d6;
+					let structptr_e13270 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Quaternion", "Slerp", [structptr_e13270, a, b, t]);
+					return structptr_e13270;
 				})(); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Quaternion", "ToString_22159", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Quaternion", "ToString_22160", [this.ptr, format, formatProvider]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Quaternion", "ToString_22159", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Quaternion", "ToString_22160", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
 }
 
 export class ColyVector3 {
@@ -2705,17 +2891,62 @@ export class ColyVector3 {
     set z(v) { return this.ptr.writeField(0x18, 'f32', v); }
 }
 
+export class Bullet {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get bulletGfx() { return new GameObject(this.ptr.readField(0x54, 'i32')); }
+    set bulletGfx(v) { return this.ptr.writeField(0x54, 'i32', v); }
+    get hitName() { return new HitType(this.ptr.readField(0x5C, 'i32')); }
+    set hitName(v) { return this.ptr.writeField(0x5C, 'i32', v); }
+    get impactPrefab() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
+    set impactPrefab(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get initialSpeed() { return this.ptr.readField(0x24, 'f32').val(); }
+    set initialSpeed(v) { return this.ptr.writeField(0x24, 'f32', v); }
+    get initialized() { return this.ptr.readField(0x10, 'i32').val() === 1; }
+    set initialized(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get isGlobal() { return this.ptr.readField(0x18, 'i32').val() === 1; }
+    set isGlobal(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get lifeDistance() { return this.ptr.readField(0x3C, 'f32').val(); }
+    set lifeDistance(v) { return this.ptr.writeField(0x3C, 'f32', v); }
+    get lifeEnded() { return this.ptr.readField(0x40, 'i32').val() === 1; }
+    set lifeEnded(v) { return this.ptr.writeField(0x40, 'i32', v); }
+    get mapLayerMask() { return new LayerMask(this.ptr.readField(0x14, 'i32')); }
+    set mapLayerMask(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get moveDir() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
+    set moveDir(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get myShotId() { return this.ptr.readField(0x6C, 'i32').val(); }
+    set myShotId(v) { return this.ptr.writeField(0x6C, 'i32', v); }
+    get shootAt() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
+    set shootAt(v) { return this.ptr.writeField(0x60, 'i32', v); }
+    get spawnTime() { return this.ptr.readField(0x50, 'f32').val(); }
+    set spawnTime(v) { return this.ptr.writeField(0x50, 'f32', v); }
+    get speed() { return this.ptr.readField(0x28, 'f32').val(); }
+    set speed(v) { return this.ptr.writeField(0x28, 'f32', v); }
+    get speedMultiCurve() { return new AnimationCurve(this.ptr.readField(0x2C, 'i32')); }
+    set speedMultiCurve(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get startingPosition() { return new Vector3(this.ptr.readField(0x44, 'i32')); }
+    set startingPosition(v) { return this.ptr.writeField(0x44, 'i32', v); }
+    get stop() { return this.ptr.readField(0x58, 'i32').val() === 1; }
+    set stop(v) { return this.ptr.writeField(0x58, 'i32', v); }
+    get trailRenderer() { return new TrailRenderer(this.ptr.readField(0x20, 'i32')); }
+    set trailRenderer(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    Init(shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward) { window.ctx.call("Bullet", "Init", [this.ptr, shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward]); }
+    OnDespawn() { window.ctx.call("Bullet", "OnDespawn", [this.ptr]); }
+    OnSpawn() { window.ctx.call("Bullet", "OnSpawn", [this.ptr]); }
+    TryEndLife(force, isNaturally) { window.ctx.call("Bullet", "TryEndLife", [this.ptr, force, isNaturally]); }
+    Update() { window.ctx.call("Bullet", "Update", [this.ptr]); }
+}
+
 export class Physics {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get defaultPhysicsScene() { return (()=>{
-					let structptr_60623d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "get_defaultPhysicsScene", [structptr_60623d, ]);
-					return structptr_60623d;
+					let structptr_4c2f62 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "get_defaultPhysicsScene", [structptr_4c2f62, ]);
+					return structptr_4c2f62;
 				})(); }
     static get gravity() { return (()=>{
-					let structptr_4a15c5 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Physics", "get_gravity", [structptr_4a15c5, ]);
-					return structptr_4a15c5;
+					let structptr_ffbd1a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Physics", "get_gravity", [structptr_ffbd1a, ]);
+					return structptr_ffbd1a;
 				})(); }
     static get invokeCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_invokeCollisionCallbacks", []).val() === 1; }
     static get reuseCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_reuseCollisionCallbacks", []).val() === 1; }
@@ -2733,15 +2964,15 @@ export class Physics {
     static ComputePenetration(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "ComputePenetration", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
     static GetBodyByInstanceID(entityId) { return new Component(window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID", [entityId])); }
     static GetBodyByInstanceID_Injected(entityId) { return (()=>{
-					let structptr_750c1e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID_Injected", [structptr_750c1e, entityId]);
-					return structptr_750c1e;
+					let structptr_749e2b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID_Injected", [structptr_749e2b, entityId]);
+					return structptr_749e2b;
 				})(); }
     static GetColliderByInstanceID(entityId) { return new Collider(window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID", [entityId])); }
     static GetColliderByInstanceID_Injected(entityId) { return (()=>{
-					let structptr_f6d74a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID_Injected", [structptr_f6d74a, entityId]);
-					return structptr_f6d74a;
+					let structptr_c06f6a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID_Injected", [structptr_c06f6a, entityId]);
+					return structptr_c06f6a;
 				})(); }
     static GetCollisionToReport(header, pair, flipped) { return new Collision(window.ctx.call("UnityEngine.Physics", "GetCollisionToReport", [header, pair, flipped])); }
     static GetIgnoreLayerCollision(layer1, layer2) { return window.ctx.call("UnityEngine.Physics", "GetIgnoreLayerCollision", [layer1, layer2]).val() === 1; }
@@ -2806,14 +3037,14 @@ export class RaycastHit {
     get distance() { return window.ctx.call("UnityEngine.RaycastHit", "get_distance", [this.ptr]).val(); }
     set distance(v) { window.ctx.call("UnityEngine.RaycastHit", "set_distance", [this.ptr, v]); }
     get normal() { return (()=>{
-					let structptr_fc0260 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.RaycastHit", "get_normal", [structptr_fc0260, this.ptr]);
-					return structptr_fc0260;
+					let structptr_f850d3 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.RaycastHit", "get_normal", [structptr_f850d3, this.ptr]);
+					return structptr_f850d3;
 				})(); }
     get point() { return (()=>{
-					let structptr_3f03c9 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.RaycastHit", "get_point", [structptr_3f03c9, this.ptr]);
-					return structptr_3f03c9;
+					let structptr_36b26b = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.RaycastHit", "get_point", [structptr_36b26b, this.ptr]);
+					return structptr_36b26b;
 				})(); }
     get rigidbody() { return new Rigidbody(window.ctx.call("UnityEngine.RaycastHit", "get_rigidbody", [this.ptr])); }
     get transform() { return new Transform(window.ctx.call("UnityEngine.RaycastHit", "get_transform", [this.ptr])); }
@@ -2821,7 +3052,7 @@ export class RaycastHit {
     set m_Collider(v) { return this.ptr.writeField(0x28, 'i32', v); }
     get m_Distance() { return this.ptr.readField(0x1C, 'f32').val(); }
     set m_Distance(v) { return this.ptr.writeField(0x1C, 'f32', v); }
-    get m_FaceID() { return this.ptr.readField(0x18, 'i32'); }
+    get m_FaceID() { return this.ptr.readField(0x18, 'i32').val(); }
     set m_FaceID(v) { return this.ptr.writeField(0x18, 'i32', v); }
     get m_Normal() { return new Vector3(this.ptr.readField(0xC, 'i32')); }
     set m_Normal(v) { return this.ptr.writeField(0xC, 'i32', v); }
@@ -2834,26 +3065,26 @@ export class RaycastHit {
 export class Ray {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get direction() { return (()=>{
-					let structptr_3ed81f = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Ray", "get_direction", [structptr_3ed81f, this.ptr]);
-					return structptr_3ed81f;
+					let structptr_064f65 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Ray", "get_direction", [structptr_064f65, this.ptr]);
+					return structptr_064f65;
 				})(); }
     get origin() { return (()=>{
-					let structptr_398a42 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Ray", "get_origin", [structptr_398a42, this.ptr]);
-					return structptr_398a42;
+					let structptr_efe4f5 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Ray", "get_origin", [structptr_efe4f5, this.ptr]);
+					return structptr_efe4f5;
 				})(); }
     get m_Direction() { return new Vector3(this.ptr.readField(0xC, 'i32')); }
     set m_Direction(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get m_Origin() { return new Vector3(this.ptr.readField(0x0, 'i32')); }
     set m_Origin(v) { return this.ptr.writeField(0x0, 'i32', v); }
     GetPoint(distance) { return (()=>{
-					let structptr_73ec1e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Ray", "GetPoint", [structptr_73ec1e, this.ptr, distance]);
-					return structptr_73ec1e;
+					let structptr_1f2f19 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Ray", "GetPoint", [structptr_1f2f19, this.ptr, distance]);
+					return structptr_1f2f19;
 				})(); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Ray", "ToString_19496", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Ray", "ToString_19497", [this.ptr, format, formatProvider]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Ray", "ToString_19496", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Ray", "ToString_19497", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
 }
 
 export class Collider {
@@ -2863,15 +3094,15 @@ export class Collider {
     set isTrigger(v) { window.ctx.call("UnityEngine.Collider", "set_isTrigger", [this.ptr, v]); }
     set sharedMaterial(v) { window.ctx.call("UnityEngine.Collider", "set_sharedMaterial", [this.ptr, v]); }
     ClosestPoint(position) { return (()=>{
-					let structptr_c40988 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Collider", "ClosestPoint", [structptr_c40988, this.ptr, position]);
-					return structptr_c40988;
+					let structptr_536adc = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Collider", "ClosestPoint", [structptr_536adc, this.ptr, position]);
+					return structptr_536adc;
 				})(); }
     static ClosestPoint_Injected(_unity_self, position, ret) { window.ctx.call("UnityEngine.Collider", "ClosestPoint_Injected", [_unity_self, position, ret]); }
     static get_attachedRigidbody_Injected(_unity_self) { return (()=>{
-					let structptr_ad60a4 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody_Injected", [structptr_ad60a4, _unity_self]);
-					return structptr_ad60a4;
+					let structptr_46e46f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Collider", "get_attachedRigidbody_Injected", [structptr_46e46f, _unity_self]);
+					return structptr_46e46f;
 				})(); }
     static set_enabled_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_enabled_Injected", [_unity_self, value]); }
     static set_isTrigger_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Collider", "set_isTrigger_Injected", [_unity_self, value]); }
@@ -2936,8 +3167,8 @@ export class ColyTransform {
     set lastSentPosition(v) { return this.ptr.writeField(0x24, 'i32', v); }
     get lastSentRotation() { return new Quaternion(this.ptr.readField(0x30, 'i32')); }
     set lastSentRotation(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get lastServerTime() { return this.ptr.readField(0x60, 'i32'); }
-    set lastServerTime(v) { return this.ptr.writeField(0x60, 'i32', v); }
+    get lastServerTime() { return this.ptr.readField(0x60, 'f64').val(); }
+    set lastServerTime(v) { return this.ptr.writeField(0x60, 'f64', v); }
     get movementCooldown() { return this.ptr.readField(0x14, 'f32').val(); }
     set movementCooldown(v) { return this.ptr.writeField(0x14, 'f32', v); }
     get neckController() { return new NeckController(this.ptr.readField(0x20, 'i32')); }
@@ -3010,14 +3241,61 @@ export class Schema {
     GetFieldChildTypes() { return window.ctx.call("Colyseus.Schema.Schema", "GetFieldChildTypes", [this.ptr]); }
 }
 
+export class CTFManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get currentCTFPoints() { return this.ptr.readField(0x18, 'i32'); }
+    set currentCTFPoints(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get instance() { return new CTFManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get isInitializing() { return this.ptr.readField(0x20, 'i32').val() === 1; }
+    set isInitializing(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get popupTxt() { return new TMPText(this.ptr.readField(0x10, 'i32')); }
+    set popupTxt(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get popupUI() { return new CanvasGroup(this.ptr.readField(0x14, 'i32')); }
+    set popupUI(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get schemaCallbacks() { return this.ptr.readField(0x1C, 'i32'); }
+    set schemaCallbacks(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    _Initialize_b_14_1(key, flag) { window.ctx.call("CTFManager", "<Initialize>b__14_1", [this.ptr, window.ctx.createMstr(key), flag]); }
+    _Initialize_b_14_3(key, flag) { window.ctx.call("CTFManager", "<Initialize>b__14_3", [this.ptr, window.ctx.createMstr(key), flag]); }
+    _ShowPopupUI_b_3_0() { window.ctx.call("CTFManager", "<ShowPopupUI>b__3_0", [this.ptr]); }
+    Awake() { window.ctx.call("CTFManager", "Awake", [this.ptr]); }
+    CleanupAllFlags() { window.ctx.call("CTFManager", "CleanupAllFlags", [this.ptr]); }
+    DebouncedInitialize() { return (()=>{
+<<<<<<< HEAD
+					let structptr_1b3114 = window.ctx.malloc(50);
+					window.ctx.call("CTFManager", "DebouncedInitialize", [structptr_1b3114, this.ptr]);
+					return structptr_1b3114;
+=======
+					let structptr_57637d = window.ctx.malloc(50);
+					window.ctx.call("CTFManager", "DebouncedInitialize", [structptr_57637d, this.ptr]);
+					return structptr_57637d;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
+				})(); }
+    ForceRedrawAllPoints() { window.ctx.call("CTFManager", "ForceRedrawAllPoints", [this.ptr]); }
+    HandleWaypointReset() { window.ctx.call("CTFManager", "HandleWaypointReset", [this.ptr]); }
+    Initialize() { window.ctx.call("CTFManager", "Initialize", [this.ptr]); }
+    IsCarryingAnyFlag(playerId) { return window.ctx.call("CTFManager", "IsCarryingAnyFlag", [this.ptr, window.ctx.createMstr(playerId)]).val() === 1; }
+    OnDisable() { window.ctx.call("CTFManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("CTFManager", "OnEnable", [this.ptr]); }
+    OnFlagAdded(key, flag) { window.ctx.call("CTFManager", "OnFlagAdded", [this.ptr, window.ctx.createMstr(key), flag]); }
+    OnFlagRemoved(key, flag) { window.ctx.call("CTFManager", "OnFlagRemoved", [this.ptr, window.ctx.createMstr(key), flag]); }
+    ShowPopupUI(txt) { window.ctx.call("CTFManager", "ShowPopupUI", [this.ptr, window.ctx.createMstr(txt)]); }
+}
+
 export class Animator {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get allowConstantClipSamplingOptimization() { return window.ctx.call("UnityEngine.Animator", "get_allowConstantClipSamplingOptimization", [this.ptr]).val() === 1; }
     set allowConstantClipSamplingOptimization(v) { window.ctx.call("UnityEngine.Animator", "set_allowConstantClipSamplingOptimization", [this.ptr, v]); }
     get angularVelocity() { return (()=>{
+<<<<<<< HEAD
 					let structptr_628dd2 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_angularVelocity", [structptr_628dd2, this.ptr]);
 					return structptr_628dd2;
+=======
+					let structptr_54b4b4 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_angularVelocity", [structptr_54b4b4, this.ptr]);
+					return structptr_54b4b4;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get animatePhysics() { return window.ctx.call("UnityEngine.Animator", "get_animatePhysics", [this.ptr]).val() === 1; }
     set animatePhysics(v) { window.ctx.call("UnityEngine.Animator", "set_animatePhysics", [this.ptr, v]); }
@@ -3027,6 +3305,7 @@ export class Animator {
     set avatar(v) { window.ctx.call("UnityEngine.Animator", "set_avatar", [this.ptr, v]); }
     get avatarRoot() { return new Transform(window.ctx.call("UnityEngine.Animator", "get_avatarRoot", [this.ptr])); }
     get bodyPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_322a0e = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_bodyPosition", [structptr_322a0e, this.ptr]);
 					return structptr_322a0e;
@@ -3048,11 +3327,35 @@ export class Animator {
 					let structptr_86dd2c = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "get_bodyRotationInternal", [structptr_86dd2c, this.ptr]);
 					return structptr_86dd2c;
+=======
+					let structptr_08031c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_bodyPosition", [structptr_08031c, this.ptr]);
+					return structptr_08031c;
+				})(); }
+    set bodyPosition(v) { window.ctx.call("UnityEngine.Animator", "set_bodyPosition", [this.ptr, v]); }
+    get bodyPositionInternal() { return (()=>{
+					let structptr_5dbfb5 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_bodyPositionInternal", [structptr_5dbfb5, this.ptr]);
+					return structptr_5dbfb5;
+				})(); }
+    set bodyPositionInternal(v) { window.ctx.call("UnityEngine.Animator", "set_bodyPositionInternal", [this.ptr, v]); }
+    get bodyRotation() { return (()=>{
+					let structptr_25ea40 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "get_bodyRotation", [structptr_25ea40, this.ptr]);
+					return structptr_25ea40;
+				})(); }
+    set bodyRotation(v) { window.ctx.call("UnityEngine.Animator", "set_bodyRotation", [this.ptr, v]); }
+    get bodyRotationInternal() { return (()=>{
+					let structptr_0df1a4 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "get_bodyRotationInternal", [structptr_0df1a4, this.ptr]);
+					return structptr_0df1a4;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     set bodyRotationInternal(v) { window.ctx.call("UnityEngine.Animator", "set_bodyRotationInternal", [this.ptr, v]); }
     get cullingMode() { return new AnimatorCullingMode(window.ctx.call("UnityEngine.Animator", "get_cullingMode", [this.ptr])); }
     set cullingMode(v) { window.ctx.call("UnityEngine.Animator", "set_cullingMode", [this.ptr, v]); }
     get deltaPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_1d6528 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_deltaPosition", [structptr_1d6528, this.ptr]);
 					return structptr_1d6528;
@@ -3061,6 +3364,16 @@ export class Animator {
 					let structptr_35da83 = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "get_deltaRotation", [structptr_35da83, this.ptr]);
 					return structptr_35da83;
+=======
+					let structptr_7a7c02 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_deltaPosition", [structptr_7a7c02, this.ptr]);
+					return structptr_7a7c02;
+				})(); }
+    get deltaRotation() { return (()=>{
+					let structptr_7f177d = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "get_deltaRotation", [structptr_7f177d, this.ptr]);
+					return structptr_7f177d;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get feetPivotActive() { return window.ctx.call("UnityEngine.Animator", "get_feetPivotActive", [this.ptr]).val(); }
     set feetPivotActive(v) { window.ctx.call("UnityEngine.Animator", "set_feetPivotActive", [this.ptr, v]); }
@@ -3091,6 +3404,7 @@ export class Animator {
     get parameterCount() { return window.ctx.call("UnityEngine.Animator", "get_parameterCount", [this.ptr]).val(); }
     get parameters() { return window.ctx.call("UnityEngine.Animator", "get_parameters", [this.ptr]); }
     get pivotPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_5f5cd9 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_pivotPosition", [structptr_5f5cd9, this.ptr]);
 					return structptr_5f5cd9;
@@ -3100,6 +3414,17 @@ export class Animator {
 					let structptr_a03542 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "get_playableGraph", [structptr_a03542, this.ptr]);
 					return structptr_a03542;
+=======
+					let structptr_783aae = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_pivotPosition", [structptr_783aae, this.ptr]);
+					return structptr_783aae;
+				})(); }
+    get pivotWeight() { return window.ctx.call("UnityEngine.Animator", "get_pivotWeight", [this.ptr]).val(); }
+    get playableGraph() { return (()=>{
+					let structptr_fe3054 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "get_playableGraph", [structptr_fe3054, this.ptr]);
+					return structptr_fe3054;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get playbackTime() { return window.ctx.call("UnityEngine.Animator", "get_playbackTime", [this.ptr]).val(); }
     set playbackTime(v) { window.ctx.call("UnityEngine.Animator", "set_playbackTime", [this.ptr, v]); }
@@ -3110,6 +3435,7 @@ export class Animator {
     set recorderStopTime(v) { window.ctx.call("UnityEngine.Animator", "set_recorderStopTime", [this.ptr, v]); }
     get rightFeetBottomHeight() { return window.ctx.call("UnityEngine.Animator", "get_rightFeetBottomHeight", [this.ptr]).val(); }
     get rootPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_da0689 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_rootPosition", [structptr_da0689, this.ptr]);
 					return structptr_da0689;
@@ -3119,6 +3445,17 @@ export class Animator {
 					let structptr_a30b1c = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "get_rootRotation", [structptr_a30b1c, this.ptr]);
 					return structptr_a30b1c;
+=======
+					let structptr_c6799d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_rootPosition", [structptr_c6799d, this.ptr]);
+					return structptr_c6799d;
+				})(); }
+    set rootPosition(v) { window.ctx.call("UnityEngine.Animator", "set_rootPosition", [this.ptr, v]); }
+    get rootRotation() { return (()=>{
+					let structptr_223d29 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "get_rootRotation", [structptr_223d29, this.ptr]);
+					return structptr_223d29;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     set rootRotation(v) { window.ctx.call("UnityEngine.Animator", "set_rootRotation", [this.ptr, v]); }
     get runtimeAnimatorController() { return new RuntimeAnimatorController(window.ctx.call("UnityEngine.Animator", "get_runtimeAnimatorController", [this.ptr])); }
@@ -3129,6 +3466,7 @@ export class Animator {
     set stabilizeFeet(v) { window.ctx.call("UnityEngine.Animator", "set_stabilizeFeet", [this.ptr, v]); }
     get supportsOnAnimatorMove() { return window.ctx.call("UnityEngine.Animator", "get_supportsOnAnimatorMove", [this.ptr]).val() === 1; }
     get targetPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_fabcb0 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_targetPosition", [structptr_fabcb0, this.ptr]);
 					return structptr_fabcb0;
@@ -3137,13 +3475,29 @@ export class Animator {
 					let structptr_b982a5 = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "get_targetRotation", [structptr_b982a5, this.ptr]);
 					return structptr_b982a5;
+=======
+					let structptr_452ca1 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_targetPosition", [structptr_452ca1, this.ptr]);
+					return structptr_452ca1;
+				})(); }
+    get targetRotation() { return (()=>{
+					let structptr_c0fe49 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "get_targetRotation", [structptr_c0fe49, this.ptr]);
+					return structptr_c0fe49;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get updateMode() { return new AnimatorUpdateMode(window.ctx.call("UnityEngine.Animator", "get_updateMode", [this.ptr])); }
     set updateMode(v) { window.ctx.call("UnityEngine.Animator", "set_updateMode", [this.ptr, v]); }
     get velocity() { return (()=>{
+<<<<<<< HEAD
 					let structptr_0a2faa = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "get_velocity", [structptr_0a2faa, this.ptr]);
 					return structptr_0a2faa;
+=======
+					let structptr_460a52 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "get_velocity", [structptr_460a52, this.ptr]);
+					return structptr_460a52;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get writeDefaultValuesOnDisable() { return window.ctx.call("UnityEngine.Animator", "get_writeDefaultValuesOnDisable", [this.ptr]).val() === 1; }
     set writeDefaultValuesOnDisable(v) { window.ctx.call("UnityEngine.Animator", "set_writeDefaultValuesOnDisable", [this.ptr, v]); }
@@ -3153,18 +3507,32 @@ export class Animator {
     ClearInternalControllerPlayable() { window.ctx.call("UnityEngine.Animator", "ClearInternalControllerPlayable", [this.ptr]); }
     static ClearInternalControllerPlayable_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "ClearInternalControllerPlayable_Injected", [_unity_self]); }
     static ConvertStateMachineBehaviour(rawObjects) { return window.ctx.call("UnityEngine.Animator", "ConvertStateMachineBehaviour", [rawObjects]); }
+<<<<<<< HEAD
     CrossFade_stateName_normalizedTransitionDuration_layer_normalizedTimeOffset(stateName, normalizedTransitionDuration, layer, normalizedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFade_17963", [this.ptr, stateName, normalizedTransitionDuration, layer, normalizedTimeOffset]); }
     CrossFade_stateName_normalizedTransitionDuration_layer(stateName, normalizedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFade_17964", [this.ptr, stateName, normalizedTransitionDuration, layer]); }
     CrossFade_stateName_normalizedTransitionDuration(stateName, normalizedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFade_17965", [this.ptr, stateName, normalizedTransitionDuration]); }
     CrossFade_stateName_normalizedTransitionDuration_layer_normalizedTimeOffset_normalizedTransitionTime(stateName, normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime) { window.ctx.call("UnityEngine.Animator", "CrossFade_17966", [this.ptr, stateName, normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime]); }
+=======
+    CrossFade_stateName_normalizedTransitionDuration_layer_normalizedTimeOffset(stateName, normalizedTransitionDuration, layer, normalizedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFade_17963", [this.ptr, window.ctx.createMstr(stateName), normalizedTransitionDuration, layer, normalizedTimeOffset]); }
+    CrossFade_stateName_normalizedTransitionDuration_layer(stateName, normalizedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFade_17964", [this.ptr, window.ctx.createMstr(stateName), normalizedTransitionDuration, layer]); }
+    CrossFade_stateName_normalizedTransitionDuration(stateName, normalizedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFade_17965", [this.ptr, window.ctx.createMstr(stateName), normalizedTransitionDuration]); }
+    CrossFade_stateName_normalizedTransitionDuration_layer_normalizedTimeOffset_normalizedTransitionTime(stateName, normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime) { window.ctx.call("UnityEngine.Animator", "CrossFade_17966", [this.ptr, window.ctx.createMstr(stateName), normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     CrossFade_stateHashName_normalizedTransitionDuration_layer_normalizedTimeOffset_normalizedTransitionTime(stateHashName, normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime) { window.ctx.call("UnityEngine.Animator", "CrossFade_17967", [this.ptr, stateHashName, normalizedTransitionDuration, layer, normalizedTimeOffset, normalizedTransitionTime]); }
     CrossFade_stateHashName_normalizedTransitionDuration_layer_normalizedTimeOffset(stateHashName, normalizedTransitionDuration, layer, normalizedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFade_17968", [this.ptr, stateHashName, normalizedTransitionDuration, layer, normalizedTimeOffset]); }
     CrossFade_stateHashName_normalizedTransitionDuration_layer(stateHashName, normalizedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFade_17969", [this.ptr, stateHashName, normalizedTransitionDuration, layer]); }
     CrossFade_stateHashName_normalizedTransitionDuration(stateHashName, normalizedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFade_17970", [this.ptr, stateHashName, normalizedTransitionDuration]); }
+<<<<<<< HEAD
     CrossFadeInFixedTime_stateName_fixedTransitionDuration(stateName, fixedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17954", [this.ptr, stateName, fixedTransitionDuration]); }
     CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer(stateName, fixedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17955", [this.ptr, stateName, fixedTransitionDuration, layer]); }
     CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer_fixedTimeOffset(stateName, fixedTransitionDuration, layer, fixedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17956", [this.ptr, stateName, fixedTransitionDuration, layer, fixedTimeOffset]); }
     CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer_fixedTimeOffset_normalizedTransitionTime(stateName, fixedTransitionDuration, layer, fixedTimeOffset, normalizedTransitionTime) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17957", [this.ptr, stateName, fixedTransitionDuration, layer, fixedTimeOffset, normalizedTransitionTime]); }
+=======
+    CrossFadeInFixedTime_stateName_fixedTransitionDuration(stateName, fixedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17954", [this.ptr, window.ctx.createMstr(stateName), fixedTransitionDuration]); }
+    CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer(stateName, fixedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17955", [this.ptr, window.ctx.createMstr(stateName), fixedTransitionDuration, layer]); }
+    CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer_fixedTimeOffset(stateName, fixedTransitionDuration, layer, fixedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17956", [this.ptr, window.ctx.createMstr(stateName), fixedTransitionDuration, layer, fixedTimeOffset]); }
+    CrossFadeInFixedTime_stateName_fixedTransitionDuration_layer_fixedTimeOffset_normalizedTransitionTime(stateName, fixedTransitionDuration, layer, fixedTimeOffset, normalizedTransitionTime) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17957", [this.ptr, window.ctx.createMstr(stateName), fixedTransitionDuration, layer, fixedTimeOffset, normalizedTransitionTime]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     CrossFadeInFixedTime_stateHashName_fixedTransitionDuration_layer_fixedTimeOffset(stateHashName, fixedTransitionDuration, layer, fixedTimeOffset) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17958", [this.ptr, stateHashName, fixedTransitionDuration, layer, fixedTimeOffset]); }
     CrossFadeInFixedTime_stateHashName_fixedTransitionDuration_layer(stateHashName, fixedTransitionDuration, layer) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17959", [this.ptr, stateHashName, fixedTransitionDuration, layer]); }
     CrossFadeInFixedTime_stateHashName_fixedTransitionDuration(stateHashName, fixedTransitionDuration) { window.ctx.call("UnityEngine.Animator", "CrossFadeInFixedTime_17960", [this.ptr, stateHashName, fixedTransitionDuration]); }
@@ -3181,42 +3549,63 @@ export class Animator {
     static GetAnimatorClipInfoInternal_Injected(_unity_self, layerIndex, isCurrent, clips) { window.ctx.call("UnityEngine.Animator", "GetAnimatorClipInfoInternal_Injected", [_unity_self, layerIndex, isCurrent, clips]); }
     GetAnimatorStateInfo(layerIndex, stateInfoIndex, info) { window.ctx.call("UnityEngine.Animator", "GetAnimatorStateInfo", [this.ptr, layerIndex, stateInfoIndex, info]); }
     static GetAnimatorStateInfo_Injected(_unity_self, layerIndex, stateInfoIndex, info) { window.ctx.call("UnityEngine.Animator", "GetAnimatorStateInfo_Injected", [_unity_self, layerIndex, stateInfoIndex, info]); }
-    GetAnimatorStateName(layerIndex, current) { return window.ctx.call("UnityEngine.Animator", "GetAnimatorStateName", [this.ptr, layerIndex, current]); }
+    GetAnimatorStateName(layerIndex, current) { return window.ctx.call("UnityEngine.Animator", "GetAnimatorStateName", [this.ptr, layerIndex, current]).mstr(); }
     static GetAnimatorStateName_Injected(_unity_self, layerIndex, current, ret) { window.ctx.call("UnityEngine.Animator", "GetAnimatorStateName_Injected", [_unity_self, layerIndex, current, ret]); }
     GetAnimatorTransitionInfo_layerIndex_info(layerIndex, info) { window.ctx.call("UnityEngine.Animator", "GetAnimatorTransitionInfo_17926", [this.ptr, layerIndex, info]); }
     GetAnimatorTransitionInfo_layerIndex(layerIndex) { return (()=>{
+<<<<<<< HEAD
 					let structptr_e482aa = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "GetAnimatorTransitionInfo_17927", [structptr_e482aa, this.ptr, layerIndex]);
 					return structptr_e482aa;
+=======
+					let structptr_a45181 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "GetAnimatorTransitionInfo_17927", [structptr_a45181, this.ptr, layerIndex]);
+					return structptr_a45181;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static GetAnimatorTransitionInfo_Injected(_unity_self, layerIndex, info) { window.ctx.call("UnityEngine.Animator", "GetAnimatorTransitionInfo_Injected", [_unity_self, layerIndex, info]); }
     GetBehaviour_type(type) { return new ScriptableObject(window.ctx.call("UnityEngine.Animator", "GetBehaviour_17912", [this.ptr, type])); }
     GetBehaviour() { return window.ctx.call("UnityEngine.Animator", "GetBehaviour", [this.ptr]); }
     static GetBehaviour_Injected(_unity_self, type) { return (()=>{
+<<<<<<< HEAD
 					let structptr_501c23 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "GetBehaviour_Injected", [structptr_501c23, _unity_self, type]);
 					return structptr_501c23;
+=======
+					let structptr_737398 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "GetBehaviour_Injected", [structptr_737398, _unity_self, type]);
+					return structptr_737398;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetBehaviours() { return window.ctx.call("UnityEngine.Animator", "GetBehaviours", [this.ptr]); }
     GetBehaviours_fullPathHash_layerIndex(fullPathHash, layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetBehaviours_17914", [this.ptr, fullPathHash, layerIndex]); }
     GetBoneTransform(humanBoneId) { return new Transform(window.ctx.call("UnityEngine.Animator", "GetBoneTransform", [this.ptr, humanBoneId])); }
     GetBoneTransformInternal(humanBoneId) { return new Transform(window.ctx.call("UnityEngine.Animator", "GetBoneTransformInternal", [this.ptr, humanBoneId])); }
     static GetBoneTransformInternal_Injected(_unity_self, humanBoneId) { return (()=>{
+<<<<<<< HEAD
 					let structptr_541741 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "GetBoneTransformInternal_Injected", [structptr_541741, _unity_self, humanBoneId]);
 					return structptr_541741;
 				})(); }
     GetBool_name(name) { return window.ctx.call("UnityEngine.Animator", "GetBool_17836", [this.ptr, name]).val() === 1; }
+=======
+					let structptr_6a9e09 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "GetBoneTransformInternal_Injected", [structptr_6a9e09, _unity_self, humanBoneId]);
+					return structptr_6a9e09;
+				})(); }
+    GetBool_name(name) { return window.ctx.call("UnityEngine.Animator", "GetBool_17836", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     GetBool_id(id) { return window.ctx.call("UnityEngine.Animator", "GetBool_17837", [this.ptr, id]).val() === 1; }
     GetBoolID(id) { return window.ctx.call("UnityEngine.Animator", "GetBoolID", [this.ptr, id]).val() === 1; }
     static GetBoolID_Injected(_unity_self, id) { return window.ctx.call("UnityEngine.Animator", "GetBoolID_Injected", [_unity_self, id]).val() === 1; }
-    GetBoolString(name) { return window.ctx.call("UnityEngine.Animator", "GetBoolString", [this.ptr, name]).val() === 1; }
+    GetBoolString(name) { return window.ctx.call("UnityEngine.Animator", "GetBoolString", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     static GetBoolString_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Animator", "GetBoolString_Injected", [_unity_self, name]).val() === 1; }
     GetCurrentAnimatorClipInfo_layerIndex(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorClipInfo_17931", [this.ptr, layerIndex]); }
     GetCurrentAnimatorClipInfo_layerIndex_clips(layerIndex, clips) { window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorClipInfo_17933", [this.ptr, layerIndex, clips]); }
     GetCurrentAnimatorClipInfoCount(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorClipInfoCount", [this.ptr, layerIndex]).val(); }
     static GetCurrentAnimatorClipInfo_Injected(_unity_self, layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorClipInfo_Injected", [_unity_self, layerIndex]); }
     GetCurrentAnimatorStateInfo(layerIndex) { return (()=>{
+<<<<<<< HEAD
 					let structptr_9c21f7 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorStateInfo", [structptr_9c21f7, this.ptr, layerIndex]);
 					return structptr_9c21f7;
@@ -3225,12 +3614,23 @@ export class Animator {
     static GetCurrentGraph_Injected(_unity_self, graph) { window.ctx.call("UnityEngine.Animator", "GetCurrentGraph_Injected", [_unity_self, graph]); }
     GetCurrentStateName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetCurrentStateName", [this.ptr, layerIndex]); }
     GetFloat_name(name) { return window.ctx.call("UnityEngine.Animator", "GetFloat_17830", [this.ptr, name]).val(); }
+=======
+					let structptr_b27f07 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "GetCurrentAnimatorStateInfo", [structptr_b27f07, this.ptr, layerIndex]);
+					return structptr_b27f07;
+				})(); }
+    GetCurrentGraph(graph) { window.ctx.call("UnityEngine.Animator", "GetCurrentGraph", [this.ptr, graph]); }
+    static GetCurrentGraph_Injected(_unity_self, graph) { window.ctx.call("UnityEngine.Animator", "GetCurrentGraph_Injected", [_unity_self, graph]); }
+    GetCurrentStateName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetCurrentStateName", [this.ptr, layerIndex]).mstr(); }
+    GetFloat_name(name) { return window.ctx.call("UnityEngine.Animator", "GetFloat_17830", [this.ptr, window.ctx.createMstr(name)]).val(); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     GetFloat_id(id) { return window.ctx.call("UnityEngine.Animator", "GetFloat_17831", [this.ptr, id]).val(); }
     GetFloatID(id) { return window.ctx.call("UnityEngine.Animator", "GetFloatID", [this.ptr, id]).val(); }
     static GetFloatID_Injected(_unity_self, id) { return window.ctx.call("UnityEngine.Animator", "GetFloatID_Injected", [_unity_self, id]).val(); }
-    GetFloatString(name) { return window.ctx.call("UnityEngine.Animator", "GetFloatString", [this.ptr, name]).val(); }
+    GetFloatString(name) { return window.ctx.call("UnityEngine.Animator", "GetFloatString", [this.ptr, window.ctx.createMstr(name)]).val(); }
     static GetFloatString_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Animator", "GetFloatString_Injected", [_unity_self, name]).val(); }
     GetGoalPosition(goal) { return (()=>{
+<<<<<<< HEAD
 					let structptr_75ae8b = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "GetGoalPosition", [structptr_75ae8b, this.ptr, goal]);
 					return structptr_75ae8b;
@@ -3240,6 +3640,17 @@ export class Animator {
 					let structptr_30187a = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "GetGoalRotation", [structptr_30187a, this.ptr, goal]);
 					return structptr_30187a;
+=======
+					let structptr_9b7513 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetGoalPosition", [structptr_9b7513, this.ptr, goal]);
+					return structptr_9b7513;
+				})(); }
+    static GetGoalPosition_Injected(_unity_self, goal, ret) { window.ctx.call("UnityEngine.Animator", "GetGoalPosition_Injected", [_unity_self, goal, ret]); }
+    GetGoalRotation(goal) { return (()=>{
+					let structptr_c7e871 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "GetGoalRotation", [structptr_c7e871, this.ptr, goal]);
+					return structptr_c7e871;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static GetGoalRotation_Injected(_unity_self, goal, ret) { window.ctx.call("UnityEngine.Animator", "GetGoalRotation_Injected", [_unity_self, goal, ret]); }
     GetGoalWeightPosition(goal) { return window.ctx.call("UnityEngine.Animator", "GetGoalWeightPosition", [this.ptr, goal]).val(); }
@@ -3247,14 +3658,21 @@ export class Animator {
     GetGoalWeightRotation(goal) { return window.ctx.call("UnityEngine.Animator", "GetGoalWeightRotation", [this.ptr, goal]).val(); }
     static GetGoalWeightRotation_Injected(_unity_self, goal) { return window.ctx.call("UnityEngine.Animator", "GetGoalWeightRotation_Injected", [_unity_self, goal]).val(); }
     GetHintPosition(hint) { return (()=>{
+<<<<<<< HEAD
 					let structptr_a77e03 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "GetHintPosition", [structptr_a77e03, this.ptr, hint]);
 					return structptr_a77e03;
+=======
+					let structptr_aab62f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetHintPosition", [structptr_aab62f, this.ptr, hint]);
+					return structptr_aab62f;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static GetHintPosition_Injected(_unity_self, hint, ret) { window.ctx.call("UnityEngine.Animator", "GetHintPosition_Injected", [_unity_self, hint, ret]); }
     GetHintWeightPosition(hint) { return window.ctx.call("UnityEngine.Animator", "GetHintWeightPosition", [this.ptr, hint]).val(); }
     static GetHintWeightPosition_Injected(_unity_self, hint) { return window.ctx.call("UnityEngine.Animator", "GetHintWeightPosition_Injected", [_unity_self, hint]).val(); }
     GetIKHintPosition(hint) { return (()=>{
+<<<<<<< HEAD
 					let structptr_c977be = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "GetIKHintPosition", [structptr_c977be, this.ptr, hint]);
 					return structptr_c977be;
@@ -3273,14 +3691,34 @@ export class Animator {
 				})(); }
     GetIKRotationWeight(goal) { return window.ctx.call("UnityEngine.Animator", "GetIKRotationWeight", [this.ptr, goal]).val(); }
     GetInteger_name(name) { return window.ctx.call("UnityEngine.Animator", "GetInteger_17840", [this.ptr, name]).val(); }
+=======
+					let structptr_c37042 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetIKHintPosition", [structptr_c37042, this.ptr, hint]);
+					return structptr_c37042;
+				})(); }
+    GetIKHintPositionWeight(hint) { return window.ctx.call("UnityEngine.Animator", "GetIKHintPositionWeight", [this.ptr, hint]).val(); }
+    GetIKPosition(goal) { return (()=>{
+					let structptr_2afb3a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetIKPosition", [structptr_2afb3a, this.ptr, goal]);
+					return structptr_2afb3a;
+				})(); }
+    GetIKPositionWeight(goal) { return window.ctx.call("UnityEngine.Animator", "GetIKPositionWeight", [this.ptr, goal]).val(); }
+    GetIKRotation(goal) { return (()=>{
+					let structptr_d44f33 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "GetIKRotation", [structptr_d44f33, this.ptr, goal]);
+					return structptr_d44f33;
+				})(); }
+    GetIKRotationWeight(goal) { return window.ctx.call("UnityEngine.Animator", "GetIKRotationWeight", [this.ptr, goal]).val(); }
+    GetInteger_name(name) { return window.ctx.call("UnityEngine.Animator", "GetInteger_17840", [this.ptr, window.ctx.createMstr(name)]).val(); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     GetInteger_id(id) { return window.ctx.call("UnityEngine.Animator", "GetInteger_17841", [this.ptr, id]).val(); }
     GetIntegerID(id) { return window.ctx.call("UnityEngine.Animator", "GetIntegerID", [this.ptr, id]).val(); }
     static GetIntegerID_Injected(_unity_self, id) { return window.ctx.call("UnityEngine.Animator", "GetIntegerID_Injected", [_unity_self, id]).val(); }
-    GetIntegerString(name) { return window.ctx.call("UnityEngine.Animator", "GetIntegerString", [this.ptr, name]).val(); }
+    GetIntegerString(name) { return window.ctx.call("UnityEngine.Animator", "GetIntegerString", [this.ptr, window.ctx.createMstr(name)]).val(); }
     static GetIntegerString_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Animator", "GetIntegerString_Injected", [_unity_self, name]).val(); }
-    GetLayerIndex(layerName) { return window.ctx.call("UnityEngine.Animator", "GetLayerIndex", [this.ptr, layerName]).val(); }
+    GetLayerIndex(layerName) { return window.ctx.call("UnityEngine.Animator", "GetLayerIndex", [this.ptr, window.ctx.createMstr(layerName)]).val(); }
     static GetLayerIndex_Injected(_unity_self, layerName) { return window.ctx.call("UnityEngine.Animator", "GetLayerIndex_Injected", [_unity_self, layerName]).val(); }
-    GetLayerName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetLayerName", [this.ptr, layerIndex]); }
+    GetLayerName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetLayerName", [this.ptr, layerIndex]).mstr(); }
     static GetLayerName_Injected(_unity_self, layerIndex, ret) { window.ctx.call("UnityEngine.Animator", "GetLayerName_Injected", [_unity_self, layerIndex, ret]); }
     GetLayerWeight(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetLayerWeight", [this.ptr, layerIndex]).val(); }
     static GetLayerWeight_Injected(_unity_self, layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetLayerWeight_Injected", [_unity_self, layerIndex]).val(); }
@@ -3289,15 +3727,22 @@ export class Animator {
     GetNextAnimatorClipInfoCount(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetNextAnimatorClipInfoCount", [this.ptr, layerIndex]).val(); }
     static GetNextAnimatorClipInfo_Injected(_unity_self, layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetNextAnimatorClipInfo_Injected", [_unity_self, layerIndex]); }
     GetNextAnimatorStateInfo(layerIndex) { return (()=>{
+<<<<<<< HEAD
 					let structptr_81fa95 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "GetNextAnimatorStateInfo", [structptr_81fa95, this.ptr, layerIndex]);
 					return structptr_81fa95;
+=======
+					let structptr_f46364 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "GetNextAnimatorStateInfo", [structptr_f46364, this.ptr, layerIndex]);
+					return structptr_f46364;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
-    GetNextStateName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetNextStateName", [this.ptr, layerIndex]); }
+    GetNextStateName(layerIndex) { return window.ctx.call("UnityEngine.Animator", "GetNextStateName", [this.ptr, layerIndex]).mstr(); }
     GetParameter(index) { return new AnimatorControllerParameter(window.ctx.call("UnityEngine.Animator", "GetParameter", [this.ptr, index])); }
     GetParameterInternal(index) { return new AnimatorControllerParameter(window.ctx.call("UnityEngine.Animator", "GetParameterInternal", [this.ptr, index])); }
     static GetParameterInternal_Injected(_unity_self, index) { return new AnimatorControllerParameter(window.ctx.call("UnityEngine.Animator", "GetParameterInternal_Injected", [_unity_self, index])); }
     GetQuaternion_name(name) { return (()=>{
+<<<<<<< HEAD
 					let structptr_79138f = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "GetQuaternion_18071", [structptr_79138f, this.ptr, name]);
 					return structptr_79138f;
@@ -3306,14 +3751,25 @@ export class Animator {
 					let structptr_88de79 = window.ctx.malloc(16);
 					window.ctx.call("UnityEngine.Animator", "GetQuaternion_18072", [structptr_88de79, this.ptr, id]);
 					return structptr_88de79;
+=======
+					let structptr_cfbbc6 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "GetQuaternion_18071", [structptr_cfbbc6, this.ptr, name]);
+					return structptr_cfbbc6;
+				})(); }
+    GetQuaternion_id(id) { return (()=>{
+					let structptr_b1643c = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Animator", "GetQuaternion_18072", [structptr_b1643c, this.ptr, id]);
+					return structptr_b1643c;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetRecorderStartTime() { return window.ctx.call("UnityEngine.Animator", "GetRecorderStartTime", [this.ptr]).val(); }
     static GetRecorderStartTime_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "GetRecorderStartTime_Injected", [_unity_self]).val(); }
     GetRecorderStopTime() { return window.ctx.call("UnityEngine.Animator", "GetRecorderStopTime", [this.ptr]).val(); }
     static GetRecorderStopTime_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "GetRecorderStopTime_Injected", [_unity_self]).val(); }
-    GetStats() { return window.ctx.call("UnityEngine.Animator", "GetStats", [this.ptr]); }
+    GetStats() { return window.ctx.call("UnityEngine.Animator", "GetStats", [this.ptr]).mstr(); }
     static GetStats_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Animator", "GetStats_Injected", [_unity_self, ret]); }
     GetVector_name(name) { return (()=>{
+<<<<<<< HEAD
 					let structptr_ec4c90 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "GetVector_18067", [structptr_ec4c90, this.ptr, name]);
 					return structptr_ec4c90;
@@ -3322,6 +3778,16 @@ export class Animator {
 					let structptr_486b05 = window.ctx.malloc(12);
 					window.ctx.call("UnityEngine.Animator", "GetVector_18068", [structptr_486b05, this.ptr, id]);
 					return structptr_486b05;
+=======
+					let structptr_8baa42 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetVector_18067", [structptr_8baa42, this.ptr, name]);
+					return structptr_8baa42;
+				})(); }
+    GetVector_id(id) { return (()=>{
+					let structptr_3e105b = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Animator", "GetVector_18068", [structptr_3e105b, this.ptr, id]);
+					return structptr_3e105b;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     HasState(layerIndex, stateID) { return window.ctx.call("UnityEngine.Animator", "HasState", [this.ptr, layerIndex, stateID]).val() === 1; }
     static HasState_Injected(_unity_self, layerIndex, stateID) { return window.ctx.call("UnityEngine.Animator", "HasState_Injected", [_unity_self, layerIndex, stateID]).val() === 1; }
@@ -3339,11 +3805,15 @@ export class Animator {
     static IsInIKPass_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "IsInIKPass_Injected", [_unity_self]).val() === 1; }
     IsInTransition(layerIndex) { return window.ctx.call("UnityEngine.Animator", "IsInTransition", [this.ptr, layerIndex]).val() === 1; }
     static IsInTransition_Injected(_unity_self, layerIndex) { return window.ctx.call("UnityEngine.Animator", "IsInTransition_Injected", [_unity_self, layerIndex]).val() === 1; }
+<<<<<<< HEAD
     IsParameterControlledByCurve_name(name) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurve_17848", [this.ptr, name]).val() === 1; }
+=======
+    IsParameterControlledByCurve_name(name) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurve_17848", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     IsParameterControlledByCurve_id(id) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurve_17849", [this.ptr, id]).val() === 1; }
     IsParameterControlledByCurveID(id) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurveID", [this.ptr, id]).val() === 1; }
     static IsParameterControlledByCurveID_Injected(_unity_self, id) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurveID_Injected", [_unity_self, id]).val() === 1; }
-    IsParameterControlledByCurveString(name) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurveString", [this.ptr, name]).val() === 1; }
+    IsParameterControlledByCurveString(name) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurveString", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     static IsParameterControlledByCurveString_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Animator", "IsParameterControlledByCurveString_Injected", [_unity_self, name]).val() === 1; }
     MatchTarget_matchPosition_matchRotation_targetBodyPart_weightMask_startNormalizedTime_targetNormalizedTime_completeMatch(matchPosition, matchRotation, targetBodyPart, weightMask, startNormalizedTime, targetNormalizedTime, completeMatch) { window.ctx.call("UnityEngine.Animator", "MatchTarget_17945", [this.ptr, matchPosition, matchRotation, targetBodyPart, weightMask, startNormalizedTime, targetNormalizedTime, completeMatch]); }
     MatchTarget_matchPosition_matchRotation_targetBodyPart_weightMask_startNormalizedTime(matchPosition, matchRotation, targetBodyPart, weightMask, startNormalizedTime) { window.ctx.call("UnityEngine.Animator", "MatchTarget_17946", [this.ptr, matchPosition, matchRotation, targetBodyPart, weightMask, startNormalizedTime]); }
@@ -3354,6 +3824,7 @@ export class Animator {
     static OnCullingModeChanged_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "OnCullingModeChanged_Injected", [_unity_self]); }
     OnUpdateModeChanged() { window.ctx.call("UnityEngine.Animator", "OnUpdateModeChanged", [this.ptr]); }
     static OnUpdateModeChanged_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "OnUpdateModeChanged_Injected", [_unity_self]); }
+<<<<<<< HEAD
     Play_stateName_layer(stateName, layer) { window.ctx.call("UnityEngine.Animator", "Play_17977", [this.ptr, stateName, layer]); }
     Play_stateName(stateName) { window.ctx.call("UnityEngine.Animator", "Play_17978", [this.ptr, stateName]); }
     Play_stateName_layer_normalizedTime(stateName, layer, normalizedTime) { window.ctx.call("UnityEngine.Animator", "Play_1636", [this.ptr, stateName, layer, normalizedTime]); }
@@ -3363,6 +3834,17 @@ export class Animator {
     PlayInFixedTime_stateName_layer(stateName, layer) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17971", [this.ptr, stateName, layer]); }
     PlayInFixedTime_stateName(stateName) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17972", [this.ptr, stateName]); }
     PlayInFixedTime_stateName_layer_fixedTime(stateName, layer, fixedTime) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17973", [this.ptr, stateName, layer, fixedTime]); }
+=======
+    Play_stateName_layer(stateName, layer) { window.ctx.call("UnityEngine.Animator", "Play_17977", [this.ptr, window.ctx.createMstr(stateName), layer]); }
+    Play_stateName(stateName) { window.ctx.call("UnityEngine.Animator", "Play_17978", [this.ptr, window.ctx.createMstr(stateName)]); }
+    Play_stateName_layer_normalizedTime(stateName, layer, normalizedTime) { window.ctx.call("UnityEngine.Animator", "Play_1636", [this.ptr, window.ctx.createMstr(stateName), layer, normalizedTime]); }
+    Play_stateNameHash_layer_normalizedTime(stateNameHash, layer, normalizedTime) { window.ctx.call("UnityEngine.Animator", "Play_17979", [this.ptr, stateNameHash, layer, normalizedTime]); }
+    Play_stateNameHash_layer(stateNameHash, layer) { window.ctx.call("UnityEngine.Animator", "Play_17980", [this.ptr, stateNameHash, layer]); }
+    Play_stateNameHash(stateNameHash) { window.ctx.call("UnityEngine.Animator", "Play_17981", [this.ptr, stateNameHash]); }
+    PlayInFixedTime_stateName_layer(stateName, layer) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17971", [this.ptr, window.ctx.createMstr(stateName), layer]); }
+    PlayInFixedTime_stateName(stateName) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17972", [this.ptr, window.ctx.createMstr(stateName)]); }
+    PlayInFixedTime_stateName_layer_fixedTime(stateName, layer, fixedTime) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17973", [this.ptr, window.ctx.createMstr(stateName), layer, fixedTime]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     PlayInFixedTime_stateNameHash_layer_fixedTime(stateNameHash, layer, fixedTime) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17974", [this.ptr, stateNameHash, layer, fixedTime]); }
     PlayInFixedTime_stateNameHash_layer(stateNameHash, layer) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17975", [this.ptr, stateNameHash, layer]); }
     PlayInFixedTime_stateNameHash(stateNameHash) { window.ctx.call("UnityEngine.Animator", "PlayInFixedTime_17976", [this.ptr, stateNameHash]); }
@@ -3373,33 +3855,46 @@ export class Animator {
     static Rebind_Injected(_unity_self, writeDefaultValues) { window.ctx.call("UnityEngine.Animator", "Rebind_Injected", [_unity_self, writeDefaultValues]); }
     ResetControllerState(resetParameters) { window.ctx.call("UnityEngine.Animator", "ResetControllerState", [this.ptr, resetParameters]); }
     static ResetControllerState_Injected(_unity_self, resetParameters) { window.ctx.call("UnityEngine.Animator", "ResetControllerState_Injected", [_unity_self, resetParameters]); }
+<<<<<<< HEAD
     ResetTrigger_name(name) { window.ctx.call("UnityEngine.Animator", "ResetTrigger_17846", [this.ptr, name]); }
+=======
+    ResetTrigger_name(name) { window.ctx.call("UnityEngine.Animator", "ResetTrigger_17846", [this.ptr, window.ctx.createMstr(name)]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     ResetTrigger_id(id) { window.ctx.call("UnityEngine.Animator", "ResetTrigger_17847", [this.ptr, id]); }
     ResetTriggerID(id) { window.ctx.call("UnityEngine.Animator", "ResetTriggerID", [this.ptr, id]); }
     static ResetTriggerID_Injected(_unity_self, id) { window.ctx.call("UnityEngine.Animator", "ResetTriggerID_Injected", [_unity_self, id]); }
-    ResetTriggerString(name) { window.ctx.call("UnityEngine.Animator", "ResetTriggerString", [this.ptr, name]); }
+    ResetTriggerString(name) { window.ctx.call("UnityEngine.Animator", "ResetTriggerString", [this.ptr, window.ctx.createMstr(name)]); }
     static ResetTriggerString_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Animator", "ResetTriggerString_Injected", [_unity_self, name]); }
-    ResolveHash(hash) { return window.ctx.call("UnityEngine.Animator", "ResolveHash", [this.ptr, hash]); }
+    ResolveHash(hash) { return window.ctx.call("UnityEngine.Animator", "ResolveHash", [this.ptr, hash]).mstr(); }
     static ResolveHash_Injected(_unity_self, hash, ret) { window.ctx.call("UnityEngine.Animator", "ResolveHash_Injected", [_unity_self, hash, ret]); }
     SetBoneLocalRotation(humanBoneId, rotation) { window.ctx.call("UnityEngine.Animator", "SetBoneLocalRotation", [this.ptr, humanBoneId, rotation]); }
     SetBoneLocalRotationInternal(humanBoneId, rotation) { window.ctx.call("UnityEngine.Animator", "SetBoneLocalRotationInternal", [this.ptr, humanBoneId, rotation]); }
     static SetBoneLocalRotationInternal_Injected(_unity_self, humanBoneId, rotation) { window.ctx.call("UnityEngine.Animator", "SetBoneLocalRotationInternal_Injected", [_unity_self, humanBoneId, rotation]); }
+<<<<<<< HEAD
     SetBool_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetBool_17838", [this.ptr, name, value]); }
+=======
+    SetBool_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetBool_17838", [this.ptr, window.ctx.createMstr(name), value]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     SetBool_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetBool_17839", [this.ptr, id, value]); }
     SetBoolID(id, value) { window.ctx.call("UnityEngine.Animator", "SetBoolID", [this.ptr, id, value]); }
     static SetBoolID_Injected(_unity_self, id, value) { window.ctx.call("UnityEngine.Animator", "SetBoolID_Injected", [_unity_self, id, value]); }
-    SetBoolString(name, value) { window.ctx.call("UnityEngine.Animator", "SetBoolString", [this.ptr, name, value]); }
+    SetBoolString(name, value) { window.ctx.call("UnityEngine.Animator", "SetBoolString", [this.ptr, window.ctx.createMstr(name), value]); }
     static SetBoolString_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Animator", "SetBoolString_Injected", [_unity_self, name, value]); }
+<<<<<<< HEAD
     SetFloat_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetFloat_17832", [this.ptr, name, value]); }
     SetFloat_name_value_dampTime_deltaTime(name, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloat_17833", [this.ptr, name, value, dampTime, deltaTime]); }
+=======
+    SetFloat_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetFloat_17832", [this.ptr, window.ctx.createMstr(name), value]); }
+    SetFloat_name_value_dampTime_deltaTime(name, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloat_17833", [this.ptr, window.ctx.createMstr(name), value, dampTime, deltaTime]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     SetFloat_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetFloat_17834", [this.ptr, id, value]); }
     SetFloat_id_value_dampTime_deltaTime(id, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloat_17835", [this.ptr, id, value, dampTime, deltaTime]); }
     SetFloatID(id, value) { window.ctx.call("UnityEngine.Animator", "SetFloatID", [this.ptr, id, value]); }
     SetFloatIDDamp(id, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloatIDDamp", [this.ptr, id, value, dampTime, deltaTime]); }
     static SetFloatIDDamp_Injected(_unity_self, id, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloatIDDamp_Injected", [_unity_self, id, value, dampTime, deltaTime]); }
     static SetFloatID_Injected(_unity_self, id, value) { window.ctx.call("UnityEngine.Animator", "SetFloatID_Injected", [_unity_self, id, value]); }
-    SetFloatString(name, value) { window.ctx.call("UnityEngine.Animator", "SetFloatString", [this.ptr, name, value]); }
-    SetFloatStringDamp(name, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloatStringDamp", [this.ptr, name, value, dampTime, deltaTime]); }
+    SetFloatString(name, value) { window.ctx.call("UnityEngine.Animator", "SetFloatString", [this.ptr, window.ctx.createMstr(name), value]); }
+    SetFloatStringDamp(name, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloatStringDamp", [this.ptr, window.ctx.createMstr(name), value, dampTime, deltaTime]); }
     static SetFloatStringDamp_Injected(_unity_self, name, value, dampTime, deltaTime) { window.ctx.call("UnityEngine.Animator", "SetFloatStringDamp_Injected", [_unity_self, name, value, dampTime, deltaTime]); }
     static SetFloatString_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Animator", "SetFloatString_Injected", [_unity_self, name, value]); }
     SetGoalPosition(goal, goalPosition) { window.ctx.call("UnityEngine.Animator", "SetGoalPosition", [this.ptr, goal, goalPosition]); }
@@ -3420,11 +3915,15 @@ export class Animator {
     SetIKPositionWeight(goal, value) { window.ctx.call("UnityEngine.Animator", "SetIKPositionWeight", [this.ptr, goal, value]); }
     SetIKRotation(goal, goalRotation) { window.ctx.call("UnityEngine.Animator", "SetIKRotation", [this.ptr, goal, goalRotation]); }
     SetIKRotationWeight(goal, value) { window.ctx.call("UnityEngine.Animator", "SetIKRotationWeight", [this.ptr, goal, value]); }
+<<<<<<< HEAD
     SetInteger_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetInteger_17842", [this.ptr, name, value]); }
+=======
+    SetInteger_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetInteger_17842", [this.ptr, window.ctx.createMstr(name), value]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     SetInteger_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetInteger_17843", [this.ptr, id, value]); }
     SetIntegerID(id, value) { window.ctx.call("UnityEngine.Animator", "SetIntegerID", [this.ptr, id, value]); }
     static SetIntegerID_Injected(_unity_self, id, value) { window.ctx.call("UnityEngine.Animator", "SetIntegerID_Injected", [_unity_self, id, value]); }
-    SetIntegerString(name, value) { window.ctx.call("UnityEngine.Animator", "SetIntegerString", [this.ptr, name, value]); }
+    SetIntegerString(name, value) { window.ctx.call("UnityEngine.Animator", "SetIntegerString", [this.ptr, window.ctx.createMstr(name), value]); }
     static SetIntegerString_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Animator", "SetIntegerString_Injected", [_unity_self, name, value]); }
     SetLayerWeight(layerIndex, weight) { window.ctx.call("UnityEngine.Animator", "SetLayerWeight", [this.ptr, layerIndex, weight]); }
     static SetLayerWeight_Injected(_unity_self, layerIndex, weight) { window.ctx.call("UnityEngine.Animator", "SetLayerWeight_Injected", [_unity_self, layerIndex, weight]); }
@@ -3438,17 +3937,29 @@ export class Animator {
     SetLookAtWeight_weight_bodyWeight_headWeight_eyesWeight_clampWeight(weight, bodyWeight, headWeight, eyesWeight, clampWeight) { window.ctx.call("UnityEngine.Animator", "SetLookAtWeight_17908", [this.ptr, weight, bodyWeight, headWeight, eyesWeight, clampWeight]); }
     SetLookAtWeightInternal(weight, bodyWeight, headWeight, eyesWeight, clampWeight) { window.ctx.call("UnityEngine.Animator", "SetLookAtWeightInternal", [this.ptr, weight, bodyWeight, headWeight, eyesWeight, clampWeight]); }
     static SetLookAtWeightInternal_Injected(_unity_self, weight, bodyWeight, headWeight, eyesWeight, clampWeight) { window.ctx.call("UnityEngine.Animator", "SetLookAtWeightInternal_Injected", [_unity_self, weight, bodyWeight, headWeight, eyesWeight, clampWeight]); }
+<<<<<<< HEAD
     SetQuaternion_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetQuaternion_18073", [this.ptr, name, value]); }
     SetQuaternion_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetQuaternion_18074", [this.ptr, id, value]); }
     SetTarget(targetIndex, targetNormalizedTime) { window.ctx.call("UnityEngine.Animator", "SetTarget", [this.ptr, targetIndex, targetNormalizedTime]); }
     static SetTarget_Injected(_unity_self, targetIndex, targetNormalizedTime) { window.ctx.call("UnityEngine.Animator", "SetTarget_Injected", [_unity_self, targetIndex, targetNormalizedTime]); }
     SetTrigger_name(name) { window.ctx.call("UnityEngine.Animator", "SetTrigger_17844", [this.ptr, name]); }
+=======
+    SetQuaternion_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetQuaternion_18073", [this.ptr, window.ctx.createMstr(name), value]); }
+    SetQuaternion_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetQuaternion_18074", [this.ptr, id, value]); }
+    SetTarget(targetIndex, targetNormalizedTime) { window.ctx.call("UnityEngine.Animator", "SetTarget", [this.ptr, targetIndex, targetNormalizedTime]); }
+    static SetTarget_Injected(_unity_self, targetIndex, targetNormalizedTime) { window.ctx.call("UnityEngine.Animator", "SetTarget_Injected", [_unity_self, targetIndex, targetNormalizedTime]); }
+    SetTrigger_name(name) { window.ctx.call("UnityEngine.Animator", "SetTrigger_17844", [this.ptr, window.ctx.createMstr(name)]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     SetTrigger_id(id) { window.ctx.call("UnityEngine.Animator", "SetTrigger_17845", [this.ptr, id]); }
     SetTriggerID(id) { window.ctx.call("UnityEngine.Animator", "SetTriggerID", [this.ptr, id]); }
     static SetTriggerID_Injected(_unity_self, id) { window.ctx.call("UnityEngine.Animator", "SetTriggerID_Injected", [_unity_self, id]); }
-    SetTriggerString(name) { window.ctx.call("UnityEngine.Animator", "SetTriggerString", [this.ptr, name]); }
+    SetTriggerString(name) { window.ctx.call("UnityEngine.Animator", "SetTriggerString", [this.ptr, window.ctx.createMstr(name)]); }
     static SetTriggerString_Injected(_unity_self, name) { window.ctx.call("UnityEngine.Animator", "SetTriggerString_Injected", [_unity_self, name]); }
+<<<<<<< HEAD
     SetVector_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetVector_18069", [this.ptr, name, value]); }
+=======
+    SetVector_name_value(name, value) { window.ctx.call("UnityEngine.Animator", "SetVector_18069", [this.ptr, window.ctx.createMstr(name), value]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     SetVector_id_value(id, value) { window.ctx.call("UnityEngine.Animator", "SetVector_18070", [this.ptr, id, value]); }
     StartPlayback() { window.ctx.call("UnityEngine.Animator", "StartPlayback", [this.ptr]); }
     static StartPlayback_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "StartPlayback_Injected", [_unity_self]); }
@@ -3458,7 +3969,7 @@ export class Animator {
     static StopPlayback_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "StopPlayback_Injected", [_unity_self]); }
     StopRecording() { window.ctx.call("UnityEngine.Animator", "StopRecording", [this.ptr]); }
     static StopRecording_Injected(_unity_self) { window.ctx.call("UnityEngine.Animator", "StopRecording_Injected", [_unity_self]); }
-    static StringToHash(name) { return window.ctx.call("UnityEngine.Animator", "StringToHash", [name]).val(); }
+    static StringToHash(name) { return window.ctx.call("UnityEngine.Animator", "StringToHash", [window.ctx.createMstr(name)]).val(); }
     static StringToHash_Injected(name) { return window.ctx.call("UnityEngine.Animator", "StringToHash_Injected", [name]).val(); }
     Update(deltaTime) { window.ctx.call("UnityEngine.Animator", "Update", [this.ptr, deltaTime]); }
     static Update_Injected(_unity_self, deltaTime) { window.ctx.call("UnityEngine.Animator", "Update_Injected", [_unity_self, deltaTime]); }
@@ -3471,6 +3982,7 @@ export class Animator {
     static get_animatePhysics_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "get_animatePhysics_Injected", [_unity_self]).val() === 1; }
     static get_applyRootMotion_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "get_applyRootMotion_Injected", [_unity_self]).val() === 1; }
     static get_avatarRoot_Injected(_unity_self) { return (()=>{
+<<<<<<< HEAD
 					let structptr_3d1fa2 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "get_avatarRoot_Injected", [structptr_3d1fa2, _unity_self]);
 					return structptr_3d1fa2;
@@ -3479,6 +3991,16 @@ export class Animator {
 					let structptr_cd6f1c = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "get_avatar_Injected", [structptr_cd6f1c, _unity_self]);
 					return structptr_cd6f1c;
+=======
+					let structptr_853a51 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "get_avatarRoot_Injected", [structptr_853a51, _unity_self]);
+					return structptr_853a51;
+				})(); }
+    static get_avatar_Injected(_unity_self) { return (()=>{
+					let structptr_fdec41 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "get_avatar_Injected", [structptr_fdec41, _unity_self]);
+					return structptr_fdec41;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static get_bodyPositionInternal_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Animator", "get_bodyPositionInternal_Injected", [_unity_self, ret]); }
     static get_bodyRotationInternal_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Animator", "get_bodyRotationInternal_Injected", [_unity_self, ret]); }
@@ -3513,9 +4035,15 @@ export class Animator {
     static get_rootPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Animator", "get_rootPosition_Injected", [_unity_self, ret]); }
     static get_rootRotation_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Animator", "get_rootRotation_Injected", [_unity_self, ret]); }
     static get_runtimeAnimatorController_Injected(_unity_self) { return (()=>{
+<<<<<<< HEAD
 					let structptr_21a7d5 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Animator", "get_runtimeAnimatorController_Injected", [structptr_21a7d5, _unity_self]);
 					return structptr_21a7d5;
+=======
+					let structptr_c59448 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Animator", "get_runtimeAnimatorController_Injected", [structptr_c59448, _unity_self]);
+					return structptr_c59448;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static get_speed_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "get_speed_Injected", [_unity_self]).val(); }
     static get_stabilizeFeet_Injected(_unity_self) { return window.ctx.call("UnityEngine.Animator", "get_stabilizeFeet_Injected", [_unity_self]).val() === 1; }
@@ -3655,20 +4183,20 @@ export class Image {
     GenerateSprite(vh, lPreserveAspect) { window.ctx.call("UnityEngine.UI.Image", "GenerateSprite", [this.ptr, vh, lPreserveAspect]); }
     GenerateTiledSprite(toFill) { window.ctx.call("UnityEngine.UI.Image", "GenerateTiledSprite", [this.ptr, toFill]); }
     GetAdjustedBorders(border, adjustedRect) { return (()=>{
-					let structptr_0fa24a = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.UI.Image", "GetAdjustedBorders", [structptr_0fa24a, this.ptr, border, adjustedRect]);
-					return structptr_0fa24a;
+					let structptr_b50727 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.UI.Image", "GetAdjustedBorders", [structptr_b50727, this.ptr, border, adjustedRect]);
+					return structptr_b50727;
 				})(); }
     GetDrawingDimensions(shouldPreserveAspect) { return (()=>{
-					let structptr_a55ce4 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.UI.Image", "GetDrawingDimensions", [structptr_a55ce4, this.ptr, shouldPreserveAspect]);
-					return structptr_a55ce4;
+					let structptr_5e16f5 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.UI.Image", "GetDrawingDimensions", [structptr_5e16f5, this.ptr, shouldPreserveAspect]);
+					return structptr_5e16f5;
 				})(); }
     IsRaycastLocationValid(screenPoint, eventCamera) { return window.ctx.call("UnityEngine.UI.Image", "IsRaycastLocationValid", [this.ptr, screenPoint, eventCamera]).val() === 1; }
     MapCoordinate(local, rect) { return (()=>{
-					let structptr_47cb60 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.UI.Image", "MapCoordinate", [structptr_47cb60, this.ptr, local, rect]);
-					return structptr_47cb60;
+					let structptr_67f378 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.UI.Image", "MapCoordinate", [structptr_67f378, this.ptr, local, rect]);
+					return structptr_67f378;
 				})(); }
     OnAfterDeserialize() { window.ctx.call("UnityEngine.UI.Image", "OnAfterDeserialize", [this.ptr]); }
     OnBeforeSerialize() { window.ctx.call("UnityEngine.UI.Image", "OnBeforeSerialize", [this.ptr]); }
@@ -3694,7 +4222,7 @@ export class LayerMask {
     get m_Mask() { return this.ptr.readField(0x0, 'i32').val(); }
     set m_Mask(v) { return this.ptr.writeField(0x0, 'i32', v); }
     static GetMask(layerNames) { return window.ctx.call("UnityEngine.LayerMask", "GetMask", [layerNames]).val(); }
-    static NameToLayer(layerName) { return window.ctx.call("UnityEngine.LayerMask", "NameToLayer", [layerName]).val(); }
+    static NameToLayer(layerName) { return window.ctx.call("UnityEngine.LayerMask", "NameToLayer", [window.ctx.createMstr(layerName)]).val(); }
     static NameToLayer_Injected(layerName) { return window.ctx.call("UnityEngine.LayerMask", "NameToLayer_Injected", [layerName]).val(); }
 }
 
@@ -3725,7 +4253,7 @@ export class MovementStateManager {
     get weaponParent() { return new Spring(this.ptr.readField(0x18, 'i32')); }
     set weaponParent(v) { return this.ptr.writeField(0x18, 'i32', v); }
     ApplyRecoil() { window.ctx.call("MovementStateManager", "ApplyRecoil", [this.ptr]); }
-    ApplyRecoilCustom(type) { window.ctx.call("MovementStateManager", "ApplyRecoilCustom", [this.ptr, type]); }
+    ApplyRecoilCustom(type) { window.ctx.call("MovementStateManager", "ApplyRecoilCustom", [this.ptr, window.ctx.createMstr(type)]); }
     InitRecoil(weaponRecoil, cameraRecoil) { window.ctx.call("MovementStateManager", "InitRecoil", [this.ptr, weaponRecoil, cameraRecoil]); }
     OnDisable() { window.ctx.call("MovementStateManager", "OnDisable", [this.ptr]); }
     OnEnable() { window.ctx.call("MovementStateManager", "OnEnable", [this.ptr]); }
@@ -3780,14 +4308,21 @@ export class Spring {
     get velocityY() { return this.ptr.readField(0x74, 'f32').val(); }
     set velocityY(v) { return this.ptr.writeField(0x74, 'f32', v); }
     ApplyPerlinNoise(originalForce, noise) { return (()=>{
+<<<<<<< HEAD
 					let structptr_fe551a = window.ctx.malloc(12);
 					window.ctx.call("Spring", "ApplyPerlinNoise", [structptr_fe551a, this.ptr, originalForce, noise]);
 					return structptr_fe551a;
+=======
+					let structptr_97003c = window.ctx.malloc(12);
+					window.ctx.call("Spring", "ApplyPerlinNoise", [structptr_97003c, this.ptr, originalForce, noise]);
+					return structptr_97003c;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     ApplyRecoil() { window.ctx.call("Spring", "ApplyRecoil", [this.ptr]); }
-    ApplyRecoilCustom(type) { window.ctx.call("Spring", "ApplyRecoilCustom", [this.ptr, type]); }
+    ApplyRecoilCustom(type) { window.ctx.call("Spring", "ApplyRecoilCustom", [this.ptr, window.ctx.createMstr(type)]); }
     GetCurrentTransitionSpeed() { return window.ctx.call("Spring", "GetCurrentTransitionSpeed", [this.ptr]).val(); }
     GetTargetPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_dbee77 = window.ctx.malloc(12);
 					window.ctx.call("Spring", "GetTargetPosition", [structptr_dbee77, this.ptr]);
 					return structptr_dbee77;
@@ -3796,6 +4331,16 @@ export class Spring {
 					let structptr_c076c9 = window.ctx.malloc(16);
 					window.ctx.call("Spring", "GetTargetRotation", [structptr_c076c9, this.ptr]);
 					return structptr_c076c9;
+=======
+					let structptr_80c59a = window.ctx.malloc(12);
+					window.ctx.call("Spring", "GetTargetPosition", [structptr_80c59a, this.ptr]);
+					return structptr_80c59a;
+				})(); }
+    GetTargetRotation() { return (()=>{
+					let structptr_8162ef = window.ctx.malloc(16);
+					window.ctx.call("Spring", "GetTargetRotation", [structptr_8162ef, this.ptr]);
+					return structptr_8162ef;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     Initialize(recoilData) { window.ctx.call("Spring", "Initialize", [this.ptr, recoilData]); }
     OnDisable() { window.ctx.call("Spring", "OnDisable", [this.ptr]); }
@@ -3816,23 +4361,23 @@ export class RenderTexture {
     get bindTextureMS() { return window.ctx.call("UnityEngine.RenderTexture", "get_bindTextureMS", [this.ptr]).val() === 1; }
     set bindTextureMS(v) { window.ctx.call("UnityEngine.RenderTexture", "set_bindTextureMS", [this.ptr, v]); }
     get colorBuffer() { return (()=>{
-					let structptr_d1bcab = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "get_colorBuffer", [structptr_d1bcab, this.ptr]);
-					return structptr_d1bcab;
+					let structptr_15cce1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "get_colorBuffer", [structptr_15cce1, this.ptr]);
+					return structptr_15cce1;
 				})(); }
     get depth() { return window.ctx.call("UnityEngine.RenderTexture", "get_depth", [this.ptr]).val(); }
     set depth(v) { window.ctx.call("UnityEngine.RenderTexture", "set_depth", [this.ptr, v]); }
     get depthBuffer() { return (()=>{
-					let structptr_c344a8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "get_depthBuffer", [structptr_c344a8, this.ptr]);
-					return structptr_c344a8;
+					let structptr_3e2231 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "get_depthBuffer", [structptr_3e2231, this.ptr]);
+					return structptr_3e2231;
 				})(); }
     get depthStencilFormat() { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "get_depthStencilFormat", [this.ptr])); }
     set depthStencilFormat(v) { window.ctx.call("UnityEngine.RenderTexture", "set_depthStencilFormat", [this.ptr, v]); }
     get descriptor() { return (()=>{
-					let structptr_d41176 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "get_descriptor", [structptr_d41176, this.ptr]);
-					return structptr_d41176;
+					let structptr_bfc3b7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "get_descriptor", [structptr_bfc3b7, this.ptr]);
+					return structptr_bfc3b7;
 				})(); }
     set descriptor(v) { window.ctx.call("UnityEngine.RenderTexture", "set_descriptor", [this.ptr, v]); }
     get dimension() { return new TextureDimension(window.ctx.call("UnityEngine.RenderTexture", "get_dimension", [this.ptr])); }
@@ -3885,14 +4430,14 @@ export class RenderTexture {
     static GenerateMips_Injected(_unity_self) { window.ctx.call("UnityEngine.RenderTexture", "GenerateMips_Injected", [_unity_self]); }
     static GetActive() { return new RenderTexture(window.ctx.call("UnityEngine.RenderTexture", "GetActive", [])); }
     static GetActive_Injected() { return (()=>{
-					let structptr_1a6c63 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetActive_Injected", [structptr_1a6c63, ]);
-					return structptr_1a6c63;
+					let structptr_963801 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetActive_Injected", [structptr_963801, ]);
+					return structptr_963801;
 				})(); }
     GetColorBuffer() { return (()=>{
-					let structptr_72b140 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetColorBuffer", [structptr_72b140, this.ptr]);
-					return structptr_72b140;
+					let structptr_3a61fb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetColorBuffer", [structptr_3a61fb, this.ptr]);
+					return structptr_3a61fb;
 				})(); }
     static GetColorBuffer_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RenderTexture", "GetColorBuffer_Injected", [_unity_self, ret]); }
     GetColorFormat(suppressWarnings) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetColorFormat", [this.ptr, suppressWarnings])); }
@@ -3901,9 +4446,9 @@ export class RenderTexture {
     static GetDefaultColorFormat(format) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetDefaultColorFormat", [format])); }
     static GetDefaultDepthStencilFormat(format, depth) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetDefaultDepthStencilFormat", [format, depth])); }
     GetDepthBuffer() { return (()=>{
-					let structptr_6c1e84 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetDepthBuffer", [structptr_6c1e84, this.ptr]);
-					return structptr_6c1e84;
+					let structptr_8c1736 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetDepthBuffer", [structptr_8c1736, this.ptr]);
+					return structptr_8c1736;
 				})(); }
     static GetDepthBuffer_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RenderTexture", "GetDepthBuffer_Injected", [_unity_self, ret]); }
     static GetDepthStencilFormatLegacy_depthBits_colorFormat(depthBits, colorFormat) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetDepthStencilFormatLegacy_21742", [depthBits, colorFormat])); }
@@ -3912,22 +4457,22 @@ export class RenderTexture {
     static GetDepthStencilFormatLegacy_depthBits_shadowSamplingMode(depthBits, shadowSamplingMode) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetDepthStencilFormatLegacy_21745", [depthBits, shadowSamplingMode])); }
     static GetDepthStencilFormatLegacy_depthBits_requestedShadowMap(depthBits, requestedShadowMap) { return new GraphicsFormat(window.ctx.call("UnityEngine.RenderTexture", "GetDepthStencilFormatLegacy_21746", [depthBits, requestedShadowMap])); }
     GetDescriptor() { return (()=>{
-					let structptr_51f3f7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetDescriptor", [structptr_51f3f7, this.ptr]);
-					return structptr_51f3f7;
+					let structptr_8791e4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetDescriptor", [structptr_8791e4, this.ptr]);
+					return structptr_8791e4;
 				})(); }
     static GetDescriptor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RenderTexture", "GetDescriptor_Injected", [_unity_self, ret]); }
     GetIsPowerOfTwo() { return window.ctx.call("UnityEngine.RenderTexture", "GetIsPowerOfTwo", [this.ptr]).val() === 1; }
     static GetIsPowerOfTwo_Injected(_unity_self) { return window.ctx.call("UnityEngine.RenderTexture", "GetIsPowerOfTwo_Injected", [_unity_self]).val() === 1; }
     GetNativeDepthBufferPtr() { return (()=>{
-					let structptr_46c2c7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetNativeDepthBufferPtr", [structptr_46c2c7, this.ptr]);
-					return structptr_46c2c7;
+					let structptr_ab5af9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetNativeDepthBufferPtr", [structptr_ab5af9, this.ptr]);
+					return structptr_ab5af9;
 				})(); }
     static GetNativeDepthBufferPtr_Injected(_unity_self) { return (()=>{
-					let structptr_6e0336 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetNativeDepthBufferPtr_Injected", [structptr_6e0336, _unity_self]);
-					return structptr_6e0336;
+					let structptr_ce52b7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetNativeDepthBufferPtr_Injected", [structptr_ce52b7, _unity_self]);
+					return structptr_ce52b7;
 				})(); }
     static GetShadowSamplingModeForFormat_format(format) { return new ShadowSamplingMode(window.ctx.call("UnityEngine.RenderTexture", "GetShadowSamplingModeForFormat_21752", [format])); }
     static GetShadowSamplingModeForFormat_format(format) { return new ShadowSamplingMode(window.ctx.call("UnityEngine.RenderTexture", "GetShadowSamplingModeForFormat_21753", [format])); }
@@ -3948,14 +4493,14 @@ export class RenderTexture {
     static GetTemporaryImpl(width, height, depthStencilFormat, colorFormat, antiAliasing, memorylessMode, vrUsage, useDynamicScale, shadowSamplingMode) { return new RenderTexture(window.ctx.call("UnityEngine.RenderTexture", "GetTemporaryImpl", [width, height, depthStencilFormat, colorFormat, antiAliasing, memorylessMode, vrUsage, useDynamicScale, shadowSamplingMode])); }
     static GetTemporary_Internal(desc) { return new RenderTexture(window.ctx.call("UnityEngine.RenderTexture", "GetTemporary_Internal", [desc])); }
     static GetTemporary_Internal_Injected(desc) { return (()=>{
-					let structptr_eb99aa = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RenderTexture", "GetTemporary_Internal_Injected", [structptr_eb99aa, desc]);
-					return structptr_eb99aa;
+					let structptr_837a69 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RenderTexture", "GetTemporary_Internal_Injected", [structptr_837a69, desc]);
+					return structptr_837a69;
 				})(); }
     GetTexelOffset() { return (()=>{
-					let structptr_77e584 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RenderTexture", "GetTexelOffset", [structptr_77e584, this.ptr]);
-					return structptr_77e584;
+					let structptr_3abf6c = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RenderTexture", "GetTexelOffset", [structptr_3abf6c, this.ptr]);
+					return structptr_3abf6c;
 				})(); }
     Initialize(width, height, depth, format, readWrite, mipCount) { window.ctx.call("UnityEngine.RenderTexture", "Initialize", [this.ptr, width, height, depth, format, readWrite, mipCount]); }
     static Internal_Create(rt) { window.ctx.call("UnityEngine.RenderTexture", "Internal_Create", [rt]); }
@@ -3977,7 +4522,7 @@ export class RenderTexture {
     static SetActive_Injected(rt) { window.ctx.call("UnityEngine.RenderTexture", "SetActive_Injected", [rt]); }
     SetColorFormat(format) { window.ctx.call("UnityEngine.RenderTexture", "SetColorFormat", [this.ptr, format]); }
     static SetColorFormat_Injected(_unity_self, format) { window.ctx.call("UnityEngine.RenderTexture", "SetColorFormat_Injected", [_unity_self, format]); }
-    SetGlobalShaderProperty(propertyName) { window.ctx.call("UnityEngine.RenderTexture", "SetGlobalShaderProperty", [this.ptr, propertyName]); }
+    SetGlobalShaderProperty(propertyName) { window.ctx.call("UnityEngine.RenderTexture", "SetGlobalShaderProperty", [this.ptr, window.ctx.createMstr(propertyName)]); }
     static SetGlobalShaderProperty_Injected(_unity_self, propertyName) { window.ctx.call("UnityEngine.RenderTexture", "SetGlobalShaderProperty_Injected", [_unity_self, propertyName]); }
     SetMipMapCount(count) { window.ctx.call("UnityEngine.RenderTexture", "SetMipMapCount", [this.ptr, count]); }
     static SetMipMapCount_Injected(_unity_self, count) { window.ctx.call("UnityEngine.RenderTexture", "SetMipMapCount_Injected", [_unity_self, count]); }
@@ -4051,9 +4596,9 @@ export class OpaqueSortMode {
 export class Material {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get color() { return (()=>{
-					let structptr_4c3cd9 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "get_color", [structptr_4c3cd9, this.ptr]);
-					return structptr_4c3cd9;
+					let structptr_6cbd28 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "get_color", [structptr_6cbd28, this.ptr]);
+					return structptr_6cbd28;
 				})(); }
     set color(v) { window.ctx.call("UnityEngine.Material", "set_color", [this.ptr, v]); }
     get doubleSidedGI() { return window.ctx.call("UnityEngine.Material", "get_doubleSidedGI", [this.ptr]).val() === 1; }
@@ -4067,15 +4612,15 @@ export class Material {
     get mainTexture() { return new Texture(window.ctx.call("UnityEngine.Material", "get_mainTexture", [this.ptr])); }
     set mainTexture(v) { window.ctx.call("UnityEngine.Material", "set_mainTexture", [this.ptr, v]); }
     get mainTextureOffset() { return (()=>{
-					let structptr_5af012 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "get_mainTextureOffset", [structptr_5af012, this.ptr]);
-					return structptr_5af012;
+					let structptr_64bf30 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "get_mainTextureOffset", [structptr_64bf30, this.ptr]);
+					return structptr_64bf30;
 				})(); }
     set mainTextureOffset(v) { window.ctx.call("UnityEngine.Material", "set_mainTextureOffset", [this.ptr, v]); }
     get mainTextureScale() { return (()=>{
-					let structptr_fb3fa3 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "get_mainTextureScale", [structptr_fb3fa3, this.ptr]);
-					return structptr_fb3fa3;
+					let structptr_f022d9 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "get_mainTextureScale", [structptr_f022d9, this.ptr]);
+					return structptr_f022d9;
 				})(); }
     set mainTextureScale(v) { window.ctx.call("UnityEngine.Material", "set_mainTextureScale", [this.ptr, v]); }
     get passCount() { return window.ctx.call("UnityEngine.Material", "get_passCount", [this.ptr]).val(); }
@@ -4096,17 +4641,17 @@ export class Material {
     static CopyMatchingPropertiesFromMaterial_Injected(_unity_self, mat) { window.ctx.call("UnityEngine.Material", "CopyMatchingPropertiesFromMaterial_Injected", [_unity_self, mat]); }
     CopyPropertiesFromMaterial(mat) { window.ctx.call("UnityEngine.Material", "CopyPropertiesFromMaterial", [this.ptr, mat]); }
     static CopyPropertiesFromMaterial_Injected(_unity_self, mat) { window.ctx.call("UnityEngine.Material", "CopyPropertiesFromMaterial_Injected", [_unity_self, mat]); }
-    static Create(scriptContents) { return new Material(window.ctx.call("UnityEngine.Material", "Create", [scriptContents])); }
+    static Create(scriptContents) { return new Material(window.ctx.call("UnityEngine.Material", "Create", [window.ctx.createMstr(scriptContents)])); }
     static CreateWithMaterial(self, source) { window.ctx.call("UnityEngine.Material", "CreateWithMaterial", [self, source]); }
     static CreateWithMaterial_Injected(self, source) { window.ctx.call("UnityEngine.Material", "CreateWithMaterial_Injected", [self, source]); }
     static CreateWithShader(self, shader) { window.ctx.call("UnityEngine.Material", "CreateWithShader", [self, shader]); }
     static CreateWithShader_Injected(self, shader) { window.ctx.call("UnityEngine.Material", "CreateWithShader_Injected", [self, shader]); }
-    DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "DisableKeyword_20287", [this.ptr, keyword]); }
+    DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "DisableKeyword_20287", [this.ptr, window.ctx.createMstr(keyword)]); }
     DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "DisableKeyword_20294", [this.ptr, keyword]); }
     static DisableKeyword_Injected(_unity_self, keyword) { window.ctx.call("UnityEngine.Material", "DisableKeyword_Injected", [_unity_self, keyword]); }
     DisableLocalKeyword(keyword) { window.ctx.call("UnityEngine.Material", "DisableLocalKeyword", [this.ptr, keyword]); }
     static DisableLocalKeyword_Injected(_unity_self, keyword) { window.ctx.call("UnityEngine.Material", "DisableLocalKeyword_Injected", [_unity_self, keyword]); }
-    EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "EnableKeyword_2077", [this.ptr, keyword]); }
+    EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "EnableKeyword_2077", [this.ptr, window.ctx.createMstr(keyword)]); }
     EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Material", "EnableKeyword_20293", [this.ptr, keyword]); }
     static EnableKeyword_Injected(_unity_self, keyword) { window.ctx.call("UnityEngine.Material", "EnableKeyword_Injected", [_unity_self, keyword]); }
     EnableLocalKeyword(keyword) { window.ctx.call("UnityEngine.Material", "EnableLocalKeyword", [this.ptr, keyword]); }
@@ -4123,81 +4668,81 @@ export class Material {
     ExtractVectorArray(name, values) { window.ctx.call("UnityEngine.Material", "ExtractVectorArray", [this.ptr, name, values]); }
     ExtractVectorArrayImpl(name, val) { window.ctx.call("UnityEngine.Material", "ExtractVectorArrayImpl", [this.ptr, name, val]); }
     static ExtractVectorArrayImpl_Injected(_unity_self, name, val) { window.ctx.call("UnityEngine.Material", "ExtractVectorArrayImpl_Injected", [_unity_self, name, val]); }
-    FindPass(passName) { return window.ctx.call("UnityEngine.Material", "FindPass", [this.ptr, passName]).val(); }
+    FindPass(passName) { return window.ctx.call("UnityEngine.Material", "FindPass", [this.ptr, window.ctx.createMstr(passName)]).val(); }
     static FindPass_Injected(_unity_self, passName) { return window.ctx.call("UnityEngine.Material", "FindPass_Injected", [_unity_self, passName]).val(); }
     GetBuffer(name) { return (()=>{
-					let structptr_2484a3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetBuffer", [structptr_2484a3, this.ptr, name]);
-					return structptr_2484a3;
+					let structptr_a70cff = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetBuffer", [structptr_a70cff, this.ptr, name]);
+					return structptr_a70cff;
 				})(); }
     GetBufferImpl(name) { return (()=>{
-					let structptr_521b3f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetBufferImpl", [structptr_521b3f, this.ptr, name]);
-					return structptr_521b3f;
+					let structptr_de85d9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetBufferImpl", [structptr_de85d9, this.ptr, name]);
+					return structptr_de85d9;
 				})(); }
     static GetBufferImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetBufferImpl_Injected", [_unity_self, name, ret]); }
     GetColor_name(name) { return (()=>{
-					let structptr_12834b = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetColor_20423", [structptr_12834b, this.ptr, name]);
-					return structptr_12834b;
+					let structptr_5b538f = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetColor_20423", [structptr_5b538f, this.ptr, name]);
+					return structptr_5b538f;
 				})(); }
     GetColor_nameID(nameID) { return (()=>{
-					let structptr_e008af = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetColor_20424", [structptr_e008af, this.ptr, nameID]);
-					return structptr_e008af;
+					let structptr_3963ad = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetColor_20424", [structptr_3963ad, this.ptr, nameID]);
+					return structptr_3963ad;
 				})(); }
-    GetColorArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetColorArray_20435", [this.ptr, name]); }
+    GetColorArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetColorArray_20435", [this.ptr, window.ctx.createMstr(name)]); }
     GetColorArray_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetColorArray_20436", [this.ptr, nameID]); }
-    GetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetColorArray_20443", [this.ptr, name, values]); }
+    GetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetColorArray_20443", [this.ptr, window.ctx.createMstr(name), values]); }
     GetColorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "GetColorArray_20444", [this.ptr, nameID, values]); }
     GetColorArrayCountImpl(name) { return window.ctx.call("UnityEngine.Material", "GetColorArrayCountImpl", [this.ptr, name]).val(); }
     static GetColorArrayCountImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetColorArrayCountImpl_Injected", [_unity_self, name]).val(); }
     GetColorArrayImpl(name) { return window.ctx.call("UnityEngine.Material", "GetColorArrayImpl", [this.ptr, name]); }
     static GetColorArrayImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetColorArrayImpl_Injected", [_unity_self, name, ret]); }
     GetColorImpl(name) { return (()=>{
-					let structptr_15e73e = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetColorImpl", [structptr_15e73e, this.ptr, name]);
-					return structptr_15e73e;
+					let structptr_5d14ab = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetColorImpl", [structptr_5d14ab, this.ptr, name]);
+					return structptr_5d14ab;
 				})(); }
     static GetColorImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetColorImpl_Injected", [_unity_self, name, ret]); }
     GetConstantBuffer(name) { return (()=>{
-					let structptr_2909f8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetConstantBuffer", [structptr_2909f8, this.ptr, name]);
-					return structptr_2909f8;
+					let structptr_2f9621 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetConstantBuffer", [structptr_2f9621, this.ptr, name]);
+					return structptr_2f9621;
 				})(); }
     GetConstantBufferImpl(name) { return (()=>{
-					let structptr_2580e8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetConstantBufferImpl", [structptr_2580e8, this.ptr, name]);
-					return structptr_2580e8;
+					let structptr_909c3d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetConstantBufferImpl", [structptr_909c3d, this.ptr, name]);
+					return structptr_909c3d;
 				})(); }
     static GetConstantBufferImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetConstantBufferImpl_Injected", [_unity_self, name, ret]); }
     static GetDefaultLineMaterial() { return new Material(window.ctx.call("UnityEngine.Material", "GetDefaultLineMaterial", [])); }
     static GetDefaultLineMaterial_Injected() { return (()=>{
-					let structptr_4f2de9 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetDefaultLineMaterial_Injected", [structptr_4f2de9, ]);
-					return structptr_4f2de9;
+					let structptr_b5a2e2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetDefaultLineMaterial_Injected", [structptr_b5a2e2, ]);
+					return structptr_b5a2e2;
 				})(); }
     static GetDefaultMaterial() { return new Material(window.ctx.call("UnityEngine.Material", "GetDefaultMaterial", [])); }
     static GetDefaultMaterial_Injected() { return (()=>{
-					let structptr_934fde = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetDefaultMaterial_Injected", [structptr_934fde, ]);
-					return structptr_934fde;
+					let structptr_fc9cb4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetDefaultMaterial_Injected", [structptr_fc9cb4, ]);
+					return structptr_fc9cb4;
 				})(); }
     static GetDefaultParticleMaterial() { return new Material(window.ctx.call("UnityEngine.Material", "GetDefaultParticleMaterial", [])); }
     static GetDefaultParticleMaterial_Injected() { return (()=>{
-					let structptr_100bfe = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetDefaultParticleMaterial_Injected", [structptr_100bfe, ]);
-					return structptr_100bfe;
+					let structptr_ae1ff6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetDefaultParticleMaterial_Injected", [structptr_ae1ff6, ]);
+					return structptr_ae1ff6;
 				})(); }
     GetEnabledKeywords() { return window.ctx.call("UnityEngine.Material", "GetEnabledKeywords", [this.ptr]); }
     static GetEnabledKeywords_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "GetEnabledKeywords_Injected", [_unity_self]); }
     GetFirstPropertyNameIdByAttribute(attributeFlag) { return window.ctx.call("UnityEngine.Material", "GetFirstPropertyNameIdByAttribute", [this.ptr, attributeFlag]).val(); }
     static GetFirstPropertyNameIdByAttribute_Injected(_unity_self, attributeFlag) { return window.ctx.call("UnityEngine.Material", "GetFirstPropertyNameIdByAttribute_Injected", [_unity_self, attributeFlag]).val(); }
-    GetFloat_name(name) { return window.ctx.call("UnityEngine.Material", "GetFloat_20419", [this.ptr, name]).val(); }
+    GetFloat_name(name) { return window.ctx.call("UnityEngine.Material", "GetFloat_20419", [this.ptr, window.ctx.createMstr(name)]).val(); }
     GetFloat_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetFloat_20420", [this.ptr, nameID]).val(); }
-    GetFloatArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetFloatArray_20433", [this.ptr, name]); }
+    GetFloatArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetFloatArray_20433", [this.ptr, window.ctx.createMstr(name)]); }
     GetFloatArray_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetFloatArray_20434", [this.ptr, nameID]); }
-    GetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetFloatArray_20441", [this.ptr, name, values]); }
+    GetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetFloatArray_20441", [this.ptr, window.ctx.createMstr(name), values]); }
     GetFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "GetFloatArray_20442", [this.ptr, nameID, values]); }
     GetFloatArrayCountImpl(name) { return window.ctx.call("UnityEngine.Material", "GetFloatArrayCountImpl", [this.ptr, name]).val(); }
     static GetFloatArrayCountImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetFloatArrayCountImpl_Injected", [_unity_self, name]).val(); }
@@ -4205,37 +4750,37 @@ export class Material {
     static GetFloatArrayImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetFloatArrayImpl_Injected", [_unity_self, name, ret]); }
     GetFloatImpl(name) { return window.ctx.call("UnityEngine.Material", "GetFloatImpl", [this.ptr, name]).val(); }
     static GetFloatImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetFloatImpl_Injected", [_unity_self, name]).val(); }
-    GetInt_name(name) { return window.ctx.call("UnityEngine.Material", "GetInt_20417", [this.ptr, name]).val(); }
+    GetInt_name(name) { return window.ctx.call("UnityEngine.Material", "GetInt_20417", [this.ptr, window.ctx.createMstr(name)]).val(); }
     GetInt_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetInt_20418", [this.ptr, nameID]).val(); }
     GetIntImpl(name) { return window.ctx.call("UnityEngine.Material", "GetIntImpl", [this.ptr, name]).val(); }
     static GetIntImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetIntImpl_Injected", [_unity_self, name]).val(); }
-    GetInteger_name(name) { return window.ctx.call("UnityEngine.Material", "GetInteger_20421", [this.ptr, name]).val(); }
+    GetInteger_name(name) { return window.ctx.call("UnityEngine.Material", "GetInteger_20421", [this.ptr, window.ctx.createMstr(name)]).val(); }
     GetInteger_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetInteger_20422", [this.ptr, nameID]).val(); }
     GetMatrix_name(name) { return (()=>{
-					let structptr_534492 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Material", "GetMatrix_20427", [structptr_534492, this.ptr, name]);
-					return structptr_534492;
+					let structptr_a629ba = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Material", "GetMatrix_20427", [structptr_a629ba, this.ptr, name]);
+					return structptr_a629ba;
 				})(); }
     GetMatrix_nameID(nameID) { return (()=>{
-					let structptr_7c9cf6 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Material", "GetMatrix_20428", [structptr_7c9cf6, this.ptr, nameID]);
-					return structptr_7c9cf6;
+					let structptr_e7c389 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Material", "GetMatrix_20428", [structptr_e7c389, this.ptr, nameID]);
+					return structptr_e7c389;
 				})(); }
-    GetMatrixArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetMatrixArray_20439", [this.ptr, name]); }
+    GetMatrixArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetMatrixArray_20439", [this.ptr, window.ctx.createMstr(name)]); }
     GetMatrixArray_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetMatrixArray_20440", [this.ptr, nameID]); }
-    GetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetMatrixArray_20447", [this.ptr, name, values]); }
+    GetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetMatrixArray_20447", [this.ptr, window.ctx.createMstr(name), values]); }
     GetMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "GetMatrixArray_20448", [this.ptr, nameID, values]); }
     GetMatrixArrayCountImpl(name) { return window.ctx.call("UnityEngine.Material", "GetMatrixArrayCountImpl", [this.ptr, name]).val(); }
     static GetMatrixArrayCountImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetMatrixArrayCountImpl_Injected", [_unity_self, name]).val(); }
     GetMatrixArrayImpl(name) { return window.ctx.call("UnityEngine.Material", "GetMatrixArrayImpl", [this.ptr, name]); }
     static GetMatrixArrayImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetMatrixArrayImpl_Injected", [_unity_self, name, ret]); }
     GetMatrixImpl(name) { return (()=>{
-					let structptr_ab1dcb = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Material", "GetMatrixImpl", [structptr_ab1dcb, this.ptr, name]);
-					return structptr_ab1dcb;
+					let structptr_053f4a = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Material", "GetMatrixImpl", [structptr_053f4a, this.ptr, name]);
+					return structptr_053f4a;
 				})(); }
     static GetMatrixImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetMatrixImpl_Injected", [_unity_self, name, ret]); }
-    GetPassName(pass) { return window.ctx.call("UnityEngine.Material", "GetPassName", [this.ptr, pass]); }
+    GetPassName(pass) { return window.ctx.call("UnityEngine.Material", "GetPassName", [this.ptr, pass]).mstr(); }
     static GetPassName_Injected(_unity_self, pass, ret) { window.ctx.call("UnityEngine.Material", "GetPassName_Injected", [_unity_self, pass, ret]); }
     GetPropertyCount() { return window.ctx.call("UnityEngine.Material", "GetPropertyCount", [this.ptr]).val(); }
     static GetPropertyCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "GetPropertyCount_Injected", [_unity_self]).val(); }
@@ -4244,29 +4789,29 @@ export class Material {
     static GetPropertyNamesImpl_Injected(_unity_self, propertyType) { return window.ctx.call("UnityEngine.Material", "GetPropertyNamesImpl_Injected", [_unity_self, propertyType]); }
     GetShaderKeywords() { return window.ctx.call("UnityEngine.Material", "GetShaderKeywords", [this.ptr]); }
     static GetShaderKeywords_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "GetShaderKeywords_Injected", [_unity_self]); }
-    GetShaderPassEnabled(passName) { return window.ctx.call("UnityEngine.Material", "GetShaderPassEnabled", [this.ptr, passName]).val() === 1; }
+    GetShaderPassEnabled(passName) { return window.ctx.call("UnityEngine.Material", "GetShaderPassEnabled", [this.ptr, window.ctx.createMstr(passName)]).val() === 1; }
     static GetShaderPassEnabled_Injected(_unity_self, passName) { return window.ctx.call("UnityEngine.Material", "GetShaderPassEnabled_Injected", [_unity_self, passName]).val() === 1; }
-    GetTag_tag_searchFallbacks_defaultValue(tag, searchFallbacks, defaultValue) { return window.ctx.call("UnityEngine.Material", "GetTag_20314", [this.ptr, tag, searchFallbacks, defaultValue]); }
-    GetTag_tag_searchFallbacks(tag, searchFallbacks) { return window.ctx.call("UnityEngine.Material", "GetTag_20315", [this.ptr, tag, searchFallbacks]); }
-    GetTagImpl(tag, currentSubShaderOnly, defaultValue) { return window.ctx.call("UnityEngine.Material", "GetTagImpl", [this.ptr, tag, currentSubShaderOnly, defaultValue]); }
+    GetTag_tag_searchFallbacks_defaultValue(tag, searchFallbacks, defaultValue) { return window.ctx.call("UnityEngine.Material", "GetTag_20314", [this.ptr, window.ctx.createMstr(tag), searchFallbacks, window.ctx.createMstr(defaultValue)]).mstr(); }
+    GetTag_tag_searchFallbacks(tag, searchFallbacks) { return window.ctx.call("UnityEngine.Material", "GetTag_20315", [this.ptr, window.ctx.createMstr(tag), searchFallbacks]).mstr(); }
+    GetTagImpl(tag, currentSubShaderOnly, defaultValue) { return window.ctx.call("UnityEngine.Material", "GetTagImpl", [this.ptr, window.ctx.createMstr(tag), currentSubShaderOnly, window.ctx.createMstr(defaultValue)]).mstr(); }
     static GetTagImpl_Injected(_unity_self, tag, currentSubShaderOnly, defaultValue, ret) { window.ctx.call("UnityEngine.Material", "GetTagImpl_Injected", [_unity_self, tag, currentSubShaderOnly, defaultValue, ret]); }
-    GetTexture_name(name) { return new Texture(window.ctx.call("UnityEngine.Material", "GetTexture_20429", [this.ptr, name])); }
+    GetTexture_name(name) { return new Texture(window.ctx.call("UnityEngine.Material", "GetTexture_20429", [this.ptr, window.ctx.createMstr(name)])); }
     GetTexture_nameID(nameID) { return new Texture(window.ctx.call("UnityEngine.Material", "GetTexture_20430", [this.ptr, nameID])); }
     GetTextureImpl(name) { return new Texture(window.ctx.call("UnityEngine.Material", "GetTextureImpl", [this.ptr, name])); }
     static GetTextureImpl_Injected(_unity_self, name) { return (()=>{
-					let structptr_9da0a2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "GetTextureImpl_Injected", [structptr_9da0a2, _unity_self, name]);
-					return structptr_9da0a2;
+					let structptr_64d4af = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "GetTextureImpl_Injected", [structptr_64d4af, _unity_self, name]);
+					return structptr_64d4af;
 				})(); }
     GetTextureOffset_name(name) { return (()=>{
-					let structptr_21e7c0 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "GetTextureOffset_20453", [structptr_21e7c0, this.ptr, name]);
-					return structptr_21e7c0;
+					let structptr_2dde1e = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "GetTextureOffset_20453", [structptr_2dde1e, this.ptr, name]);
+					return structptr_2dde1e;
 				})(); }
     GetTextureOffset_nameID(nameID) { return (()=>{
-					let structptr_fab0ab = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "GetTextureOffset_20454", [structptr_fab0ab, this.ptr, nameID]);
-					return structptr_fab0ab;
+					let structptr_3b1933 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "GetTextureOffset_20454", [structptr_3b1933, this.ptr, nameID]);
+					return structptr_3b1933;
 				})(); }
     GetTexturePropertyNameIDs_pointer() { return window.ctx.call("UnityEngine.Material", "GetTexturePropertyNameIDs_20328", [this.ptr]); }
     GetTexturePropertyNameIDs_outNames(outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNameIDs_20332", [this.ptr, outNames]); }
@@ -4274,106 +4819,106 @@ export class Material {
     static GetTexturePropertyNameIDsInternal_Injected(_unity_self, outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNameIDsInternal_Injected", [_unity_self, outNames]); }
     static GetTexturePropertyNameIDs_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNameIDs_Injected", [_unity_self, ret]); }
     GetTexturePropertyNames_pointer() { return window.ctx.call("UnityEngine.Material", "GetTexturePropertyNames_20327", [this.ptr]); }
-    GetTexturePropertyNames_outNames(outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNames_20331", [this.ptr, outNames]); }
+    GetTexturePropertyNames_outNames(outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNames_20331", [this.ptr, window.ctx.createMstr(outNames)]); }
     GetTexturePropertyNamesInternal(outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNamesInternal", [this.ptr, outNames]); }
     static GetTexturePropertyNamesInternal_Injected(_unity_self, outNames) { window.ctx.call("UnityEngine.Material", "GetTexturePropertyNamesInternal_Injected", [_unity_self, outNames]); }
     static GetTexturePropertyNames_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "GetTexturePropertyNames_Injected", [_unity_self]); }
     GetTextureScale_name(name) { return (()=>{
-					let structptr_e0e983 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "GetTextureScale_20455", [structptr_e0e983, this.ptr, name]);
-					return structptr_e0e983;
+					let structptr_3e03d7 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "GetTextureScale_20455", [structptr_3e03d7, this.ptr, name]);
+					return structptr_3e03d7;
 				})(); }
     GetTextureScale_nameID(nameID) { return (()=>{
-					let structptr_6012a1 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Material", "GetTextureScale_20456", [structptr_6012a1, this.ptr, nameID]);
-					return structptr_6012a1;
+					let structptr_ea443b = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Material", "GetTextureScale_20456", [structptr_ea443b, this.ptr, nameID]);
+					return structptr_ea443b;
 				})(); }
     GetTextureScaleAndOffsetImpl(name) { return (()=>{
-					let structptr_ea1c4c = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetTextureScaleAndOffsetImpl", [structptr_ea1c4c, this.ptr, name]);
-					return structptr_ea1c4c;
+					let structptr_e2c43d = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetTextureScaleAndOffsetImpl", [structptr_e2c43d, this.ptr, name]);
+					return structptr_e2c43d;
 				})(); }
     static GetTextureScaleAndOffsetImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetTextureScaleAndOffsetImpl_Injected", [_unity_self, name, ret]); }
     GetVector_name(name) { return (()=>{
-					let structptr_300f6f = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetVector_20425", [structptr_300f6f, this.ptr, name]);
-					return structptr_300f6f;
+					let structptr_a9e406 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetVector_20425", [structptr_a9e406, this.ptr, name]);
+					return structptr_a9e406;
 				})(); }
     GetVector_nameID(nameID) { return (()=>{
-					let structptr_89c442 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Material", "GetVector_20426", [structptr_89c442, this.ptr, nameID]);
-					return structptr_89c442;
+					let structptr_0be92b = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Material", "GetVector_20426", [structptr_0be92b, this.ptr, nameID]);
+					return structptr_0be92b;
 				})(); }
-    GetVectorArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetVectorArray_20437", [this.ptr, name]); }
+    GetVectorArray_name(name) { return window.ctx.call("UnityEngine.Material", "GetVectorArray_20437", [this.ptr, window.ctx.createMstr(name)]); }
     GetVectorArray_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "GetVectorArray_20438", [this.ptr, nameID]); }
-    GetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetVectorArray_20445", [this.ptr, name, values]); }
+    GetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "GetVectorArray_20445", [this.ptr, window.ctx.createMstr(name), values]); }
     GetVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "GetVectorArray_20446", [this.ptr, nameID, values]); }
     GetVectorArrayCountImpl(name) { return window.ctx.call("UnityEngine.Material", "GetVectorArrayCountImpl", [this.ptr, name]).val(); }
     static GetVectorArrayCountImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "GetVectorArrayCountImpl_Injected", [_unity_self, name]).val(); }
     GetVectorArrayImpl(name) { return window.ctx.call("UnityEngine.Material", "GetVectorArrayImpl", [this.ptr, name]); }
     static GetVectorArrayImpl_Injected(_unity_self, name, ret) { window.ctx.call("UnityEngine.Material", "GetVectorArrayImpl_Injected", [_unity_self, name, ret]); }
-    HasBuffer_name(name) { return window.ctx.call("UnityEngine.Material", "HasBuffer_20279", [this.ptr, name]).val() === 1; }
+    HasBuffer_name(name) { return window.ctx.call("UnityEngine.Material", "HasBuffer_20279", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasBuffer_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasBuffer_20280", [this.ptr, nameID]).val() === 1; }
     HasBufferImpl(name) { return window.ctx.call("UnityEngine.Material", "HasBufferImpl", [this.ptr, name]).val() === 1; }
     static HasBufferImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasBufferImpl_Injected", [_unity_self, name]).val() === 1; }
-    HasColor_name(name) { return window.ctx.call("UnityEngine.Material", "HasColor_20276", [this.ptr, name]).val() === 1; }
+    HasColor_name(name) { return window.ctx.call("UnityEngine.Material", "HasColor_20276", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasColor_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasColor_20277", [this.ptr, nameID]).val() === 1; }
-    HasConstantBuffer_name(name) { return window.ctx.call("UnityEngine.Material", "HasConstantBuffer_20282", [this.ptr, name]).val() === 1; }
+    HasConstantBuffer_name(name) { return window.ctx.call("UnityEngine.Material", "HasConstantBuffer_20282", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasConstantBuffer_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasConstantBuffer_20283", [this.ptr, nameID]).val() === 1; }
     HasConstantBufferImpl(name) { return window.ctx.call("UnityEngine.Material", "HasConstantBufferImpl", [this.ptr, name]).val() === 1; }
     static HasConstantBufferImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasConstantBufferImpl_Injected", [_unity_self, name]).val() === 1; }
-    HasFloat_name(name) { return window.ctx.call("UnityEngine.Material", "HasFloat_20260", [this.ptr, name]).val() === 1; }
+    HasFloat_name(name) { return window.ctx.call("UnityEngine.Material", "HasFloat_20260", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasFloat_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasFloat_20261", [this.ptr, nameID]).val() === 1; }
     HasFloatImpl(name) { return window.ctx.call("UnityEngine.Material", "HasFloatImpl", [this.ptr, name]).val() === 1; }
     static HasFloatImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasFloatImpl_Injected", [_unity_self, name]).val() === 1; }
-    HasInt_name(name) { return window.ctx.call("UnityEngine.Material", "HasInt_20262", [this.ptr, name]).val() === 1; }
+    HasInt_name(name) { return window.ctx.call("UnityEngine.Material", "HasInt_20262", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasInt_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasInt_20263", [this.ptr, nameID]).val() === 1; }
     HasIntImpl(name) { return window.ctx.call("UnityEngine.Material", "HasIntImpl", [this.ptr, name]).val() === 1; }
     static HasIntImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasIntImpl_Injected", [_unity_self, name]).val() === 1; }
-    HasInteger_name(name) { return window.ctx.call("UnityEngine.Material", "HasInteger_20265", [this.ptr, name]).val() === 1; }
+    HasInteger_name(name) { return window.ctx.call("UnityEngine.Material", "HasInteger_20265", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasInteger_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasInteger_20266", [this.ptr, nameID]).val() === 1; }
-    HasMatrix_name(name) { return window.ctx.call("UnityEngine.Material", "HasMatrix_20271", [this.ptr, name]).val() === 1; }
+    HasMatrix_name(name) { return window.ctx.call("UnityEngine.Material", "HasMatrix_20271", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasMatrix_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasMatrix_20272", [this.ptr, nameID]).val() === 1; }
     HasMatrixImpl(name) { return window.ctx.call("UnityEngine.Material", "HasMatrixImpl", [this.ptr, name]).val() === 1; }
     static HasMatrixImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasMatrixImpl_Injected", [_unity_self, name]).val() === 1; }
     HasProperty_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasProperty_20257", [this.ptr, nameID]).val() === 1; }
-    HasProperty_name(name) { return window.ctx.call("UnityEngine.Material", "HasProperty_20258", [this.ptr, name]).val() === 1; }
+    HasProperty_name(name) { return window.ctx.call("UnityEngine.Material", "HasProperty_20258", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     static HasProperty_Injected(_unity_self, nameID) { return window.ctx.call("UnityEngine.Material", "HasProperty_Injected", [_unity_self, nameID]).val() === 1; }
-    HasTexture_name(name) { return window.ctx.call("UnityEngine.Material", "HasTexture_20268", [this.ptr, name]).val() === 1; }
+    HasTexture_name(name) { return window.ctx.call("UnityEngine.Material", "HasTexture_20268", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasTexture_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasTexture_20269", [this.ptr, nameID]).val() === 1; }
     HasTextureImpl(name) { return window.ctx.call("UnityEngine.Material", "HasTextureImpl", [this.ptr, name]).val() === 1; }
     static HasTextureImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasTextureImpl_Injected", [_unity_self, name]).val() === 1; }
-    HasVector_name(name) { return window.ctx.call("UnityEngine.Material", "HasVector_20274", [this.ptr, name]).val() === 1; }
+    HasVector_name(name) { return window.ctx.call("UnityEngine.Material", "HasVector_20274", [this.ptr, window.ctx.createMstr(name)]).val() === 1; }
     HasVector_nameID(nameID) { return window.ctx.call("UnityEngine.Material", "HasVector_20275", [this.ptr, nameID]).val() === 1; }
     HasVectorImpl(name) { return window.ctx.call("UnityEngine.Material", "HasVectorImpl", [this.ptr, name]).val() === 1; }
     static HasVectorImpl_Injected(_unity_self, name) { return window.ctx.call("UnityEngine.Material", "HasVectorImpl_Injected", [_unity_self, name]).val() === 1; }
-    IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Material", "IsKeywordEnabled_20288", [this.ptr, keyword]).val() === 1; }
+    IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Material", "IsKeywordEnabled_20288", [this.ptr, window.ctx.createMstr(keyword)]).val() === 1; }
     IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Material", "IsKeywordEnabled_20296", [this.ptr, keyword]).val() === 1; }
     static IsKeywordEnabled_Injected(_unity_self, keyword) { return window.ctx.call("UnityEngine.Material", "IsKeywordEnabled_Injected", [_unity_self, keyword]).val() === 1; }
     IsLocalKeywordEnabled(keyword) { return window.ctx.call("UnityEngine.Material", "IsLocalKeywordEnabled", [this.ptr, keyword]).val() === 1; }
     static IsLocalKeywordEnabled_Injected(_unity_self, keyword) { return window.ctx.call("UnityEngine.Material", "IsLocalKeywordEnabled_Injected", [_unity_self, keyword]).val() === 1; }
     Lerp(start, end, t) { window.ctx.call("UnityEngine.Material", "Lerp", [this.ptr, start, end, t]); }
     static Lerp_Injected(_unity_self, start, end, t) { window.ctx.call("UnityEngine.Material", "Lerp_Injected", [_unity_self, start, end, t]); }
-    SetBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20393", [this.ptr, name, value]); }
+    SetBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20393", [this.ptr, window.ctx.createMstr(name), value]); }
     SetBuffer_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20394", [this.ptr, nameID, value]); }
-    SetBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20395", [this.ptr, name, value]); }
+    SetBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20395", [this.ptr, window.ctx.createMstr(name), value]); }
     SetBuffer_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetBuffer_20396", [this.ptr, nameID, value]); }
     SetBufferImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetBufferImpl", [this.ptr, name, value]); }
     static SetBufferImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetBufferImpl_Injected", [_unity_self, name, value]); }
-    SetColor_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetColor_20383", [this.ptr, name, value]); }
+    SetColor_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetColor_20383", [this.ptr, window.ctx.createMstr(name), value]); }
     SetColor_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetColor_20384", [this.ptr, nameID, value]); }
     SetColorArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Material", "SetColorArray_20371", [this.ptr, name, values, count]); }
-    SetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20405", [this.ptr, name, values]); }
+    SetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20405", [this.ptr, window.ctx.createMstr(name), values]); }
     SetColorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20406", [this.ptr, nameID, values]); }
-    SetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20407", [this.ptr, name, values]); }
+    SetColorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20407", [this.ptr, window.ctx.createMstr(name), values]); }
     SetColorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetColorArray_20408", [this.ptr, nameID, values]); }
     SetColorArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Material", "SetColorArrayImpl", [this.ptr, name, values, count]); }
     static SetColorArrayImpl_Injected(_unity_self, name, values, count) { window.ctx.call("UnityEngine.Material", "SetColorArrayImpl_Injected", [_unity_self, name, values, count]); }
     SetColorImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetColorImpl", [this.ptr, name, value]); }
     static SetColorImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetColorImpl_Injected", [_unity_self, name, value]); }
-    SetConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20397", [this.ptr, name, value, offset, size]); }
+    SetConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20397", [this.ptr, window.ctx.createMstr(name), value, offset, size]); }
     SetConstantBuffer_nameID_value_offset_size(nameID, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20398", [this.ptr, nameID, value, offset, size]); }
-    SetConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20399", [this.ptr, name, value, offset, size]); }
+    SetConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20399", [this.ptr, window.ctx.createMstr(name), value, offset, size]); }
     SetConstantBuffer_nameID_value_offset_size(nameID, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBuffer_20400", [this.ptr, nameID, value, offset, size]); }
     SetConstantBufferImpl(name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBufferImpl", [this.ptr, name, value, offset, size]); }
     static SetConstantBufferImpl_Injected(_unity_self, name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantBufferImpl_Injected", [_unity_self, name, value, offset, size]); }
@@ -4381,12 +4926,12 @@ export class Material {
     static SetConstantGraphicsBufferImpl_Injected(_unity_self, name, value, offset, size) { window.ctx.call("UnityEngine.Material", "SetConstantGraphicsBufferImpl_Injected", [_unity_self, name, value, offset, size]); }
     SetEnabledKeywords(keywords) { window.ctx.call("UnityEngine.Material", "SetEnabledKeywords", [this.ptr, keywords]); }
     static SetEnabledKeywords_Injected(_unity_self, keywords) { window.ctx.call("UnityEngine.Material", "SetEnabledKeywords_Injected", [_unity_self, keywords]); }
-    SetFloat_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetFloat_20379", [this.ptr, name, value]); }
+    SetFloat_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetFloat_20379", [this.ptr, window.ctx.createMstr(name), value]); }
     SetFloat_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetFloat_20380", [this.ptr, nameID, value]); }
     SetFloatArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20369", [this.ptr, name, values, count]); }
-    SetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20401", [this.ptr, name, values]); }
+    SetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20401", [this.ptr, window.ctx.createMstr(name), values]); }
     SetFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20402", [this.ptr, nameID, values]); }
-    SetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20403", [this.ptr, name, values]); }
+    SetFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20403", [this.ptr, window.ctx.createMstr(name), values]); }
     SetFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetFloatArray_20404", [this.ptr, nameID, values]); }
     SetFloatArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Material", "SetFloatArrayImpl", [this.ptr, name, values, count]); }
     static SetFloatArrayImpl_Injected(_unity_self, name, values, count) { window.ctx.call("UnityEngine.Material", "SetFloatArrayImpl_Injected", [_unity_self, name, values, count]); }
@@ -4394,27 +4939,27 @@ export class Material {
     static SetFloatImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetFloatImpl_Injected", [_unity_self, name, value]); }
     SetGraphicsBufferImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetGraphicsBufferImpl", [this.ptr, name, value]); }
     static SetGraphicsBufferImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetGraphicsBufferImpl_Injected", [_unity_self, name, value]); }
-    SetInt_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetInt_20377", [this.ptr, name, value]); }
+    SetInt_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetInt_20377", [this.ptr, window.ctx.createMstr(name), value]); }
     SetInt_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetInt_20378", [this.ptr, nameID, value]); }
     SetIntImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetIntImpl", [this.ptr, name, value]); }
     static SetIntImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetIntImpl_Injected", [_unity_self, name, value]); }
-    SetInteger_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetInteger_20381", [this.ptr, name, value]); }
+    SetInteger_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetInteger_20381", [this.ptr, window.ctx.createMstr(name), value]); }
     SetInteger_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetInteger_20382", [this.ptr, nameID, value]); }
     SetKeyword(keyword, value) { window.ctx.call("UnityEngine.Material", "SetKeyword", [this.ptr, keyword, value]); }
     SetLocalKeyword(keyword, value) { window.ctx.call("UnityEngine.Material", "SetLocalKeyword", [this.ptr, keyword, value]); }
     static SetLocalKeyword_Injected(_unity_self, keyword, value) { window.ctx.call("UnityEngine.Material", "SetLocalKeyword_Injected", [_unity_self, keyword, value]); }
-    SetMatrix_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetMatrix_20387", [this.ptr, name, value]); }
+    SetMatrix_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetMatrix_20387", [this.ptr, window.ctx.createMstr(name), value]); }
     SetMatrix_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetMatrix_20388", [this.ptr, nameID, value]); }
     SetMatrixArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20372", [this.ptr, name, values, count]); }
-    SetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20413", [this.ptr, name, values]); }
+    SetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20413", [this.ptr, window.ctx.createMstr(name), values]); }
     SetMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20414", [this.ptr, nameID, values]); }
-    SetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20415", [this.ptr, name, values]); }
+    SetMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20415", [this.ptr, window.ctx.createMstr(name), values]); }
     SetMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetMatrixArray_20416", [this.ptr, nameID, values]); }
     SetMatrixArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Material", "SetMatrixArrayImpl", [this.ptr, name, values, count]); }
     static SetMatrixArrayImpl_Injected(_unity_self, name, values, count) { window.ctx.call("UnityEngine.Material", "SetMatrixArrayImpl_Injected", [_unity_self, name, values, count]); }
     SetMatrixImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetMatrixImpl", [this.ptr, name, value]); }
     static SetMatrixImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetMatrixImpl_Injected", [_unity_self, name, value]); }
-    SetOverrideTag(tag, val) { window.ctx.call("UnityEngine.Material", "SetOverrideTag", [this.ptr, tag, val]); }
+    SetOverrideTag(tag, val) { window.ctx.call("UnityEngine.Material", "SetOverrideTag", [this.ptr, window.ctx.createMstr(tag), window.ctx.createMstr(val)]); }
     static SetOverrideTag_Injected(_unity_self, tag, val) { window.ctx.call("UnityEngine.Material", "SetOverrideTag_Injected", [_unity_self, tag, val]); }
     SetPass(pass) { return window.ctx.call("UnityEngine.Material", "SetPass", [this.ptr, pass]).val() === 1; }
     static SetPass_Injected(_unity_self, pass) { return window.ctx.call("UnityEngine.Material", "SetPass_Injected", [_unity_self, pass]).val() === 1; }
@@ -4422,28 +4967,28 @@ export class Material {
     static SetRenderTextureImpl_Injected(_unity_self, name, value, element) { window.ctx.call("UnityEngine.Material", "SetRenderTextureImpl_Injected", [_unity_self, name, value, element]); }
     SetShaderKeywords(names) { window.ctx.call("UnityEngine.Material", "SetShaderKeywords", [this.ptr, names]); }
     static SetShaderKeywords_Injected(_unity_self, names) { window.ctx.call("UnityEngine.Material", "SetShaderKeywords_Injected", [_unity_self, names]); }
-    SetShaderPassEnabled(passName, enabled) { window.ctx.call("UnityEngine.Material", "SetShaderPassEnabled", [this.ptr, passName, enabled]); }
+    SetShaderPassEnabled(passName, enabled) { window.ctx.call("UnityEngine.Material", "SetShaderPassEnabled", [this.ptr, window.ctx.createMstr(passName), enabled]); }
     static SetShaderPassEnabled_Injected(_unity_self, passName, enabled) { window.ctx.call("UnityEngine.Material", "SetShaderPassEnabled_Injected", [_unity_self, passName, enabled]); }
-    SetTexture_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTexture_20389", [this.ptr, name, value]); }
+    SetTexture_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTexture_20389", [this.ptr, window.ctx.createMstr(name), value]); }
     SetTexture_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetTexture_20390", [this.ptr, nameID, value]); }
-    SetTexture_name_value_element(name, value, element) { window.ctx.call("UnityEngine.Material", "SetTexture_20391", [this.ptr, name, value, element]); }
+    SetTexture_name_value_element(name, value, element) { window.ctx.call("UnityEngine.Material", "SetTexture_20391", [this.ptr, window.ctx.createMstr(name), value, element]); }
     SetTexture_nameID_value_element(nameID, value, element) { window.ctx.call("UnityEngine.Material", "SetTexture_20392", [this.ptr, nameID, value, element]); }
     SetTextureImpl(name, value) { window.ctx.call("UnityEngine.Material", "SetTextureImpl", [this.ptr, name, value]); }
     static SetTextureImpl_Injected(_unity_self, name, value) { window.ctx.call("UnityEngine.Material", "SetTextureImpl_Injected", [_unity_self, name, value]); }
-    SetTextureOffset_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTextureOffset_20449", [this.ptr, name, value]); }
+    SetTextureOffset_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTextureOffset_20449", [this.ptr, window.ctx.createMstr(name), value]); }
     SetTextureOffset_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetTextureOffset_20450", [this.ptr, nameID, value]); }
     SetTextureOffsetImpl(name, offset) { window.ctx.call("UnityEngine.Material", "SetTextureOffsetImpl", [this.ptr, name, offset]); }
     static SetTextureOffsetImpl_Injected(_unity_self, name, offset) { window.ctx.call("UnityEngine.Material", "SetTextureOffsetImpl_Injected", [_unity_self, name, offset]); }
-    SetTextureScale_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTextureScale_20451", [this.ptr, name, value]); }
+    SetTextureScale_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetTextureScale_20451", [this.ptr, window.ctx.createMstr(name), value]); }
     SetTextureScale_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetTextureScale_20452", [this.ptr, nameID, value]); }
     SetTextureScaleImpl(name, scale) { window.ctx.call("UnityEngine.Material", "SetTextureScaleImpl", [this.ptr, name, scale]); }
     static SetTextureScaleImpl_Injected(_unity_self, name, scale) { window.ctx.call("UnityEngine.Material", "SetTextureScaleImpl_Injected", [_unity_self, name, scale]); }
-    SetVector_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetVector_20385", [this.ptr, name, value]); }
+    SetVector_name_value(name, value) { window.ctx.call("UnityEngine.Material", "SetVector_20385", [this.ptr, window.ctx.createMstr(name), value]); }
     SetVector_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Material", "SetVector_20386", [this.ptr, nameID, value]); }
     SetVectorArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20370", [this.ptr, name, values, count]); }
-    SetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20409", [this.ptr, name, values]); }
+    SetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20409", [this.ptr, window.ctx.createMstr(name), values]); }
     SetVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20410", [this.ptr, nameID, values]); }
-    SetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20411", [this.ptr, name, values]); }
+    SetVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20411", [this.ptr, window.ctx.createMstr(name), values]); }
     SetVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Material", "SetVectorArray_20412", [this.ptr, nameID, values]); }
     SetVectorArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Material", "SetVectorArrayImpl", [this.ptr, name, values, count]); }
     static SetVectorArrayImpl_Injected(_unity_self, name, values, count) { window.ctx.call("UnityEngine.Material", "SetVectorArrayImpl_Injected", [_unity_self, name, values, count]); }
@@ -4454,9 +4999,9 @@ export class Material {
     static get_rawRenderQueue_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "get_rawRenderQueue_Injected", [_unity_self]).val(); }
     static get_renderQueue_Injected(_unity_self) { return window.ctx.call("UnityEngine.Material", "get_renderQueue_Injected", [_unity_self]).val(); }
     static get_shader_Injected(_unity_self) { return (()=>{
-					let structptr_3062c9 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Material", "get_shader_Injected", [structptr_3062c9, _unity_self]);
-					return structptr_3062c9;
+					let structptr_05388f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Material", "get_shader_Injected", [structptr_05388f, _unity_self]);
+					return structptr_05388f;
 				})(); }
     static set_doubleSidedGI_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Material", "set_doubleSidedGI_Injected", [_unity_self, value]); }
     static set_enableInstancing_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Material", "set_enableInstancing_Injected", [_unity_self, value]); }
@@ -4480,53 +5025,53 @@ export class RotationOrder {
 export class Vector3 {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get back() { return (()=>{
-					let structptr_2f0e45 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_back", [structptr_2f0e45, ]);
-					return structptr_2f0e45;
+					let structptr_ab3c9f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_back", [structptr_ab3c9f, ]);
+					return structptr_ab3c9f;
 				})(); }
     static get down() { return (()=>{
-					let structptr_2e9570 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_down", [structptr_2e9570, ]);
-					return structptr_2e9570;
+					let structptr_1a43c5 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_down", [structptr_1a43c5, ]);
+					return structptr_1a43c5;
 				})(); }
     static get forward() { return (()=>{
-					let structptr_bfd069 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_forward", [structptr_bfd069, ]);
-					return structptr_bfd069;
+					let structptr_28930a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_forward", [structptr_28930a, ]);
+					return structptr_28930a;
 				})(); }
     get Item() { return window.ctx.call("UnityEngine.Vector3", "get_Item", [this.ptr, index]).val(); }
     set Item(v) { window.ctx.call("UnityEngine.Vector3", "set_Item", [this.ptr, index, v]); }
     static get left() { return (()=>{
-					let structptr_1cb335 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_left", [structptr_1cb335, ]);
-					return structptr_1cb335;
+					let structptr_971e6c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_left", [structptr_971e6c, ]);
+					return structptr_971e6c;
 				})(); }
     get magnitude() { return window.ctx.call("UnityEngine.Vector3", "get_magnitude", [this.ptr]).val(); }
     get normalized() { return (()=>{
-					let structptr_aca5bb = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_normalized", [structptr_aca5bb, this.ptr]);
-					return structptr_aca5bb;
+					let structptr_8dee6c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_normalized", [structptr_8dee6c, this.ptr]);
+					return structptr_8dee6c;
 				})(); }
     static get one() { return (()=>{
-					let structptr_b7b976 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_one", [structptr_b7b976, ]);
-					return structptr_b7b976;
+					let structptr_902d6b = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_one", [structptr_902d6b, ]);
+					return structptr_902d6b;
 				})(); }
     static get right() { return (()=>{
-					let structptr_42ffff = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_right", [structptr_42ffff, ]);
-					return structptr_42ffff;
+					let structptr_6494d9 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_right", [structptr_6494d9, ]);
+					return structptr_6494d9;
 				})(); }
     get sqrMagnitude() { return window.ctx.call("UnityEngine.Vector3", "get_sqrMagnitude", [this.ptr]).val(); }
     static get up() { return (()=>{
-					let structptr_be6a7a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_up", [structptr_be6a7a, ]);
-					return structptr_be6a7a;
+					let structptr_a868a4 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_up", [structptr_a868a4, ]);
+					return structptr_a868a4;
 				})(); }
     static get zero() { return (()=>{
-					let structptr_5fabf2 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "get_zero", [structptr_5fabf2, ]);
-					return structptr_5fabf2;
+					let structptr_ec2508 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "get_zero", [structptr_ec2508, ]);
+					return structptr_ec2508;
 				})(); }
     get backVector() { return new Vector3(this.ptr.readField(0x54, 'i32')); }
     set backVector(v) { return this.ptr.writeField(0x54, 'i32', v); }
@@ -4557,14 +5102,14 @@ export class Vector3 {
     static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22097", [from, to]).val(); }
     static Angle_from_to(from, to) { return window.ctx.call("UnityEngine.Vector3", "Angle_22098", [from, to]).val(); }
     static ClampMagnitude(vector, maxLength) { return (()=>{
-					let structptr_9bb5c6 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "ClampMagnitude", [structptr_9bb5c6, vector, maxLength]);
-					return structptr_9bb5c6;
+					let structptr_cce06f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "ClampMagnitude", [structptr_cce06f, vector, maxLength]);
+					return structptr_cce06f;
 				})(); }
     static Cross(lhs, rhs) { return (()=>{
-					let structptr_4be02e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Cross", [structptr_4be02e, lhs, rhs]);
-					return structptr_4be02e;
+					let structptr_0d5d2a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Cross", [structptr_0d5d2a, lhs, rhs]);
+					return structptr_0d5d2a;
 				})(); }
     static Distance(a, b) { return window.ctx.call("UnityEngine.Vector3", "Distance", [a, b]).val(); }
     static Dot_lhs_rhs(lhs, rhs) { return window.ctx.call("UnityEngine.Vector3", "Dot_22093", [lhs, rhs]).val(); }
@@ -4574,75 +5119,214 @@ export class Vector3 {
     Equals_other(other) { return window.ctx.call("UnityEngine.Vector3", "Equals_22088", [this.ptr, other]).val() === 1; }
     GetHashCode() { return window.ctx.call("UnityEngine.Vector3", "GetHashCode", [this.ptr]).val(); }
     static Lerp(a, b, t) { return (()=>{
-					let structptr_bf5795 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Lerp", [structptr_bf5795, a, b, t]);
-					return structptr_bf5795;
+					let structptr_5add96 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Lerp", [structptr_5add96, a, b, t]);
+					return structptr_5add96;
 				})(); }
     static Max_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_64a336 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Max_22106", [structptr_64a336, lhs, rhs]);
-					return structptr_64a336;
+					let structptr_7484ab = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Max_22106", [structptr_7484ab, lhs, rhs]);
+					return structptr_7484ab;
 				})(); }
     static Max_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_bfffea = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Max_22107", [structptr_bfffea, lhs, rhs]);
-					return structptr_bfffea;
+					let structptr_0400b1 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Max_22107", [structptr_0400b1, lhs, rhs]);
+					return structptr_0400b1;
 				})(); }
     static Min_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_089ac2 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Min_22104", [structptr_089ac2, lhs, rhs]);
-					return structptr_089ac2;
+					let structptr_2cb1ac = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Min_22104", [structptr_2cb1ac, lhs, rhs]);
+					return structptr_2cb1ac;
 				})(); }
     static Min_lhs_rhs(lhs, rhs) { return (()=>{
-					let structptr_54db22 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Min_22105", [structptr_54db22, lhs, rhs]);
-					return structptr_54db22;
+					let structptr_405f15 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Min_22105", [structptr_405f15, lhs, rhs]);
+					return structptr_405f15;
 				})(); }
     static MoveTowards(current, target, maxDistanceDelta) { return (()=>{
-					let structptr_8c18a4 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "MoveTowards", [structptr_8c18a4, current, target, maxDistanceDelta]);
-					return structptr_8c18a4;
+					let structptr_431770 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "MoveTowards", [structptr_431770, current, target, maxDistanceDelta]);
+					return structptr_431770;
 				})(); }
     static Normalize_value(value) { return (()=>{
-					let structptr_ae545d = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Normalize_22089", [structptr_ae545d, value]);
-					return structptr_ae545d;
+					let structptr_e1b6f8 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Normalize_22089", [structptr_e1b6f8, value]);
+					return structptr_e1b6f8;
 				})(); }
     static Normalize_value(value) { return (()=>{
-					let structptr_ff4f1b = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Normalize_22090", [structptr_ff4f1b, value]);
-					return structptr_ff4f1b;
+					let structptr_e2d13c = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Normalize_22090", [structptr_e2d13c, value]);
+					return structptr_e2d13c;
 				})(); }
     Normalize_pointer() { window.ctx.call("UnityEngine.Vector3", "Normalize_22091", [this.ptr]); }
     static Project(vector, onNormal) { return (()=>{
-					let structptr_7c116e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Project", [structptr_7c116e, vector, onNormal]);
-					return structptr_7c116e;
+					let structptr_c5c96a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Project", [structptr_c5c96a, vector, onNormal]);
+					return structptr_c5c96a;
 				})(); }
     static ProjectOnPlane(vector, planeNormal) { return (()=>{
-					let structptr_e05023 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "ProjectOnPlane", [structptr_e05023, vector, planeNormal]);
-					return structptr_e05023;
+					let structptr_0421cb = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "ProjectOnPlane", [structptr_0421cb, vector, planeNormal]);
+					return structptr_0421cb;
 				})(); }
     static Scale_a_b(a, b) { return (()=>{
-					let structptr_833b40 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "Scale_22082", [structptr_833b40, a, b]);
-					return structptr_833b40;
+					let structptr_da0b6f = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "Scale_22082", [structptr_da0b6f, a, b]);
+					return structptr_da0b6f;
 				})(); }
     Scale_scale(scale) { window.ctx.call("UnityEngine.Vector3", "Scale_22083", [this.ptr, scale]); }
     static SignedAngle(from, to, axis) { return window.ctx.call("UnityEngine.Vector3", "SignedAngle", [from, to, axis]).val(); }
     static SmoothDamp_current_target_currentVelocity_smoothTime(current, target, currentVelocity, smoothTime) { return (()=>{
-					let structptr_d55f27 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_22076", [structptr_d55f27, current, target, currentVelocity, smoothTime]);
-					return structptr_d55f27;
+					let structptr_e3916d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_22076", [structptr_e3916d, current, target, currentVelocity, smoothTime]);
+					return structptr_e3916d;
 				})(); }
     static SmoothDamp_current_target_currentVelocity_smoothTime_maxSpeed_deltaTime(current, target, currentVelocity, smoothTime, maxSpeed, deltaTime) { return (()=>{
-					let structptr_3d8bf4 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_22077", [structptr_3d8bf4, current, target, currentVelocity, smoothTime, maxSpeed, deltaTime]);
-					return structptr_3d8bf4;
+					let structptr_9598fc = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Vector3", "SmoothDamp_22077", [structptr_9598fc, current, target, currentVelocity, smoothTime, maxSpeed, deltaTime]);
+					return structptr_9598fc;
 				})(); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Vector3", "ToString_22124", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22125", [this.ptr, format, formatProvider]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Vector3", "ToString_22124", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22125", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
+}
+
+export class CTFPoint {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get baseRenderers() { return JSArray(this.ptr.readField(0x24, 'i32')); }
+    set baseRenderers(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get baseWaypointObject() { return new BaseWaypointObject(this.ptr.readField(0x10, 'i32')); }
+    set baseWaypointObject(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get flagChangeUnregisterCallback() { return new Action(this.ptr.readField(0x30, 'i32')); }
+    set flagChangeUnregisterCallback(v) { return this.ptr.writeField(0x30, 'i32', v); }
+    get flagObject() { return new FlagObject(this.ptr.readField(0x2C, 'i32')); }
+    set flagObject(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get flagSpawnPoint() { return new Transform(this.ptr.readField(0x28, 'i32')); }
+    set flagSpawnPoint(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get lastMyFlagAtBase() { return new Boolean(this.ptr.readField(0x38, 'i32')).val() === 1; }
+    set lastMyFlagAtBase(v) { return this.ptr.writeField(0x38, 'i32', v); }
+    get lastMyFlagCarriedBy() { return this.ptr.readField(0x34, 'i32').mstr(); }
+    set lastMyFlagCarriedBy(v) { return this.ptr.writeField(0x34, 'i32', window.ctx.createMstr(v)); }
+    get lastTriggerTime() { return this.ptr.readField(0x18, 'f32').val(); }
+    set lastTriggerTime(v) { return this.ptr.writeField(0x18, 'f32', v); }
+    get materialsPerTeamID() { return JSArray(this.ptr.readField(0x1C, 'i32')); }
+    set materialsPerTeamID(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get myCTFWaypointUI() { return new CTFWaypointUI(this.ptr.readField(0x14, 'i32')); }
+    set myCTFWaypointUI(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get myFlag() { return new Flag(this.ptr.readField(0x20, 'i32')); }
+    set myFlag(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    _SubscribeToFlagChanges_b_12_0() { window.ctx.call("CTFPoint", "<SubscribeToFlagChanges>b__12_0", [this.ptr]); }
+    Initialize(flag) { window.ctx.call("CTFPoint", "Initialize", [this.ptr, flag]); }
+    OnDestroy() { window.ctx.call("CTFPoint", "OnDestroy", [this.ptr]); }
+    OnPlayerTouched(view) { window.ctx.call("CTFPoint", "OnPlayerTouched", [this.ptr, view]); }
+    OnTriggerEnter(other) { window.ctx.call("CTFPoint", "OnTriggerEnter", [this.ptr, other]); }
+    ReinitializeWaypoint() { window.ctx.call("CTFPoint", "ReinitializeWaypoint", [this.ptr]); }
+    SetNullParent(x) { window.ctx.call("CTFPoint", "SetNullParent", [this.ptr, x]); }
+    SubscribeToFlagChanges() { window.ctx.call("CTFPoint", "SubscribeToFlagChanges", [this.ptr]); }
+    TryPickUpFlag() { window.ctx.call("CTFPoint", "TryPickUpFlag", [this.ptr]); }
+    UnsubscribeFromFlagChanges() { window.ctx.call("CTFPoint", "UnsubscribeFromFlagChanges", [this.ptr]); }
+    UpdateFlagState() { window.ctx.call("CTFPoint", "UpdateFlagState", [this.ptr]); }
+}
+
+export class MeshRenderer {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get additionalVertexStreams() { return new Mesh(window.ctx.call("UnityEngine.MeshRenderer", "get_additionalVertexStreams", [this.ptr])); }
+    set additionalVertexStreams(v) { window.ctx.call("UnityEngine.MeshRenderer", "set_additionalVertexStreams", [this.ptr, v]); }
+    get enlightenVertexStream() { return new Mesh(window.ctx.call("UnityEngine.MeshRenderer", "get_enlightenVertexStream", [this.ptr])); }
+    set enlightenVertexStream(v) { window.ctx.call("UnityEngine.MeshRenderer", "set_enlightenVertexStream", [this.ptr, v]); }
+    get subMeshStartIndex() { return window.ctx.call("UnityEngine.MeshRenderer", "get_subMeshStartIndex", [this.ptr]).val(); }
+    DontStripMeshRenderer() { window.ctx.call("UnityEngine.MeshRenderer", "DontStripMeshRenderer", [this.ptr]); }
+    GetShaderUserValue() { return window.ctx.call("UnityEngine.MeshRenderer", "GetShaderUserValue", [this.ptr]).val(); }
+    Internal_GetShaderUserValueUInt() { return window.ctx.call("UnityEngine.MeshRenderer", "Internal_GetShaderUserValueUInt", [this.ptr]).val(); }
+    static Internal_GetShaderUserValueUInt_Injected(_unity_self) { return window.ctx.call("UnityEngine.MeshRenderer", "Internal_GetShaderUserValueUInt_Injected", [_unity_self]).val(); }
+    Internal_SetShaderUserValueUInt(v) { window.ctx.call("UnityEngine.MeshRenderer", "Internal_SetShaderUserValueUInt", [this.ptr, v]); }
+    static Internal_SetShaderUserValueUInt_Injected(_unity_self, v) { window.ctx.call("UnityEngine.MeshRenderer", "Internal_SetShaderUserValueUInt_Injected", [_unity_self, v]); }
+    SetShaderUserValue(v) { window.ctx.call("UnityEngine.MeshRenderer", "SetShaderUserValue", [this.ptr, v]); }
+    static get_additionalVertexStreams_Injected(_unity_self) { return (()=>{
+					let structptr_99cf0a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.MeshRenderer", "get_additionalVertexStreams_Injected", [structptr_99cf0a, _unity_self]);
+					return structptr_99cf0a;
+				})(); }
+    static get_enlightenVertexStream_Injected(_unity_self) { return (()=>{
+					let structptr_bb5d35 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.MeshRenderer", "get_enlightenVertexStream_Injected", [structptr_bb5d35, _unity_self]);
+					return structptr_bb5d35;
+				})(); }
+    static get_subMeshStartIndex_Injected(_unity_self) { return window.ctx.call("UnityEngine.MeshRenderer", "get_subMeshStartIndex_Injected", [_unity_self]).val(); }
+    static set_additionalVertexStreams_Injected(_unity_self, value) { window.ctx.call("UnityEngine.MeshRenderer", "set_additionalVertexStreams_Injected", [_unity_self, value]); }
+    static set_enlightenVertexStream_Injected(_unity_self, value) { window.ctx.call("UnityEngine.MeshRenderer", "set_enlightenVertexStream_Injected", [_unity_self, value]); }
+}
+
+export class Flag {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get basePosition() { return new ColyVector3(this.ptr.readField(0x1C, 'i32')); }
+    set basePosition(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get carriedBy() { return this.ptr.readField(0x14, 'i32').mstr(); }
+    set carriedBy(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
+    get isAtBase() { return this.ptr.readField(0x11, 'i32').val() === 1; }
+    set isAtBase(v) { return this.ptr.writeField(0x11, 'i32', v); }
+    get position() { return new ColyVector3(this.ptr.readField(0x18, 'i32')); }
+    set position(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get teamId() { return this.ptr.readField(0x10, 'i32').val(); }
+    set teamId(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
+export class CanvasGroup {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get alpha() { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha", [this.ptr]).val(); }
+    set alpha(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha", [this.ptr, v]); }
+    get blocksRaycasts() { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts", [this.ptr]).val() === 1; }
+    set blocksRaycasts(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts", [this.ptr, v]); }
+    get ignoreParentGroups() { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups", [this.ptr]).val() === 1; }
+    set ignoreParentGroups(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups", [this.ptr, v]); }
+    get interactable() { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable", [this.ptr]).val() === 1; }
+    set interactable(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable", [this.ptr, v]); }
+    IsRaycastLocationValid(sp, eventCamera) { return window.ctx.call("UnityEngine.CanvasGroup", "IsRaycastLocationValid", [this.ptr, sp, eventCamera]).val() === 1; }
+    static get_alpha_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha_Injected", [_unity_self]).val(); }
+    static get_blocksRaycasts_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts_Injected", [_unity_self]).val() === 1; }
+    static get_ignoreParentGroups_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups_Injected", [_unity_self]).val() === 1; }
+    static get_interactable_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable_Injected", [_unity_self]).val() === 1; }
+    static set_alpha_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha_Injected", [_unity_self, value]); }
+    static set_blocksRaycasts_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts_Injected", [_unity_self, value]); }
+    static set_ignoreParentGroups_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups_Injected", [_unity_self, value]); }
+    static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
+}
+
+export class KillFieldUIManager {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get OnDied() { return this.ptr.readField(0x8, 'i32'); }
+    set OnDied(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get OnKilled() { return this.ptr.readField(0x4, 'i32'); }
+    set OnKilled(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get instance() { return new KillFieldUIManager(this.ptr.readField(0x0, 'i32')); }
+    set instance(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get killFieldMessages() { return JSArray(this.ptr.readField(0x10, 'i32')); }
+    set killFieldMessages(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    AddMessage(message) { window.ctx.call("KillFieldUIManager", "AddMessage", [this.ptr, message]); }
+    Awake() { window.ctx.call("KillFieldUIManager", "Awake", [this.ptr]); }
+    GetAvailableMessage() { return new KillFieldUIMessage(window.ctx.call("KillFieldUIManager", "GetAvailableMessage", [this.ptr])); }
+    HandleSpawn(view, isSpawning) { window.ctx.call("KillFieldUIManager", "HandleSpawn", [this.ptr, view, isSpawning]); }
+    OnDisable() { window.ctx.call("KillFieldUIManager", "OnDisable", [this.ptr]); }
+    OnEnable() { window.ctx.call("KillFieldUIManager", "OnEnable", [this.ptr]); }
+}
+
+export class RawImage {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get mainTexture() { return new Texture(window.ctx.call("UnityEngine.UI.RawImage", "get_mainTexture", [this.ptr])); }
+    get texture() { return new Texture(window.ctx.call("UnityEngine.UI.RawImage", "get_texture", [this.ptr])); }
+    set texture(v) { window.ctx.call("UnityEngine.UI.RawImage", "set_texture", [this.ptr, v]); }
+    get uvRect() { return (()=>{
+					let structptr_cac803 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.UI.RawImage", "get_uvRect", [structptr_cac803, this.ptr]);
+					return structptr_cac803;
+				})(); }
+    set uvRect(v) { window.ctx.call("UnityEngine.UI.RawImage", "set_uvRect", [this.ptr, v]); }
+    get m_Texture() { return new Texture(this.ptr.readField(0x80, 'i32')); }
+    set m_Texture(v) { return this.ptr.writeField(0x80, 'i32', v); }
+    get m_UVRect() { return new Rect(this.ptr.readField(0x84, 'i32')); }
+    set m_UVRect(v) { return this.ptr.writeField(0x84, 'i32', v); }
+    OnDidApplyAnimationProperties() { window.ctx.call("UnityEngine.UI.RawImage", "OnDidApplyAnimationProperties", [this.ptr]); }
+    OnPopulateMesh(vh) { window.ctx.call("UnityEngine.UI.RawImage", "OnPopulateMesh", [this.ptr, vh]); }
+    SetNativeSize() { window.ctx.call("UnityEngine.UI.RawImage", "SetNativeSize", [this.ptr]); }
 }
 
 export class HideFlags {
@@ -4667,6 +5351,7 @@ export class AudioSource {
     get generatorDefinition() { return new IAudioGenerator(window.ctx.call("UnityEngine.AudioSource", "get_generatorDefinition", [this.ptr])); }
     set generatorDefinition(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorDefinition", [this.ptr, v]); }
     get generatorHandle() { return (()=>{
+<<<<<<< HEAD
 					let structptr_1c4074 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioSource", "get_generatorHandle", [structptr_1c4074, this.ptr]);
 					return structptr_1c4074;
@@ -4676,6 +5361,17 @@ export class AudioSource {
 					let structptr_e38590 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioSource", "get_generatorInstance", [structptr_e38590, this.ptr]);
 					return structptr_e38590;
+=======
+					let structptr_6f1108 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorHandle", [structptr_6f1108, this.ptr]);
+					return structptr_6f1108;
+				})(); }
+    get generatorHeader() { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader", [this.ptr]); }
+    get generatorInstance() { return (()=>{
+					let structptr_2e5b5c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorInstance", [structptr_2e5b5c, this.ptr]);
+					return structptr_2e5b5c;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get generatorObject() { return new Object(window.ctx.call("UnityEngine.AudioSource", "get_generatorObject", [this.ptr])); }
     set generatorObject(v) { window.ctx.call("UnityEngine.AudioSource", "set_generatorObject", [this.ptr, v]); }
@@ -4739,9 +5435,15 @@ export class AudioSource {
     GetCustomCurve(type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurve", [this.ptr, type])); }
     static GetCustomCurveHelper(source, type) { return new AnimationCurve(window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper", [source, type])); }
     static GetCustomCurveHelper_Injected(source, type) { return (()=>{
+<<<<<<< HEAD
 					let structptr_9cd925 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper_Injected", [structptr_9cd925, source, type]);
 					return structptr_9cd925;
+=======
+					let structptr_843e4d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "GetCustomCurveHelper_Injected", [structptr_843e4d, source, type]);
+					return structptr_843e4d;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetOutputData_numSamples_channel(numSamples, channel) { return window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18511", [this.ptr, numSamples, channel]); }
     GetOutputData_samples_channel(samples, channel) { window.ctx.call("UnityEngine.AudioSource", "GetOutputData_18512", [this.ptr, samples, channel]); }
@@ -4798,9 +5500,15 @@ export class AudioSource {
     static get_dopplerLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_dopplerLevel_Injected", [_unity_self]).val(); }
     static get_generatorHeader_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_generatorHeader_Injected", [_unity_self]); }
     static get_generatorObject_Injected(_unity_self) { return (()=>{
+<<<<<<< HEAD
 					let structptr_ebf42f = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioSource", "get_generatorObject_Injected", [structptr_ebf42f, _unity_self]);
 					return structptr_ebf42f;
+=======
+					let structptr_c8498e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_generatorObject_Injected", [structptr_c8498e, _unity_self]);
+					return structptr_c8498e;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static get_ignoreListenerPause_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerPause_Injected", [_unity_self]).val() === 1; }
     static get_ignoreListenerVolume_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_ignoreListenerVolume_Injected", [_unity_self]).val() === 1; }
@@ -4812,9 +5520,15 @@ export class AudioSource {
     static get_minDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_minDistance_Injected", [_unity_self]).val(); }
     static get_mute_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_mute_Injected", [_unity_self]).val() === 1; }
     static get_outputAudioMixerGroup_Injected(_unity_self) { return (()=>{
+<<<<<<< HEAD
 					let structptr_5f25c5 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup_Injected", [structptr_5f25c5, _unity_self]);
 					return structptr_5f25c5;
+=======
+					let structptr_908bd9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioSource", "get_outputAudioMixerGroup_Injected", [structptr_908bd9, _unity_self]);
+					return structptr_908bd9;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     static get_panStereo_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_panStereo_Injected", [_unity_self]).val(); }
     static get_playOnAwake_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioSource", "get_playOnAwake_Injected", [_unity_self]).val() === 1; }
@@ -4870,6 +5584,7 @@ export class KinematicCharacterMotor {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get AttachedRigidbody() { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbody", [this.ptr])); }
     get AttachedRigidbodyVelocity() { return (()=>{
+<<<<<<< HEAD
 					let structptr_41fdad = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbodyVelocity", [structptr_41fdad, this.ptr]);
 					return structptr_41fdad;
@@ -4923,11 +5638,67 @@ export class KinematicCharacterMotor {
 					let structptr_f59b01 = window.ctx.malloc(16);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationRotation", [structptr_f59b01, this.ptr]);
 					return structptr_f59b01;
+=======
+					let structptr_a699b5 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_AttachedRigidbodyVelocity", [structptr_a699b5, this.ptr]);
+					return structptr_a699b5;
+				})(); }
+    get CharacterForward() { return (()=>{
+					let structptr_e4193f = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterForward", [structptr_e4193f, this.ptr]);
+					return structptr_e4193f;
+				})(); }
+    get CharacterRight() { return (()=>{
+					let structptr_93a64a = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterRight", [structptr_93a64a, this.ptr]);
+					return structptr_93a64a;
+				})(); }
+    get CharacterTransformToCapsuleBottom() { return (()=>{
+					let structptr_856efd = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottom", [structptr_856efd, this.ptr]);
+					return structptr_856efd;
+				})(); }
+    get CharacterTransformToCapsuleBottomHemi() { return (()=>{
+					let structptr_1c02c5 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleBottomHemi", [structptr_1c02c5, this.ptr]);
+					return structptr_1c02c5;
+				})(); }
+    get CharacterTransformToCapsuleCenter() { return (()=>{
+					let structptr_7cd825 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleCenter", [structptr_7cd825, this.ptr]);
+					return structptr_7cd825;
+				})(); }
+    get CharacterTransformToCapsuleTop() { return (()=>{
+					let structptr_81f4ac = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTop", [structptr_81f4ac, this.ptr]);
+					return structptr_81f4ac;
+				})(); }
+    get CharacterTransformToCapsuleTopHemi() { return (()=>{
+					let structptr_5213ab = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterTransformToCapsuleTopHemi", [structptr_5213ab, this.ptr]);
+					return structptr_5213ab;
+				})(); }
+    get CharacterUp() { return (()=>{
+					let structptr_b2473b = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_CharacterUp", [structptr_b2473b, this.ptr]);
+					return structptr_b2473b;
+				})(); }
+    get InitialSimulationPosition() { return (()=>{
+					let structptr_0f50a8 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationPosition", [structptr_0f50a8, this.ptr]);
+					return structptr_0f50a8;
+				})(); }
+    get InitialSimulationRotation() { return (()=>{
+					let structptr_3a04af = window.ctx.malloc(16);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_InitialSimulationRotation", [structptr_3a04af, this.ptr]);
+					return structptr_3a04af;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get Overlaps() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Overlaps", [this.ptr]); }
     get OverlapsCount() { return window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_OverlapsCount", [this.ptr]).val(); }
     get Transform() { return new Transform(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Transform", [this.ptr])); }
     get TransientPosition() { return (()=>{
+<<<<<<< HEAD
 					let structptr_2bc4c2 = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientPosition", [structptr_2bc4c2, this.ptr]);
 					return structptr_2bc4c2;
@@ -4942,6 +5713,22 @@ export class KinematicCharacterMotor {
 					let structptr_de5587 = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Velocity", [structptr_de5587, this.ptr]);
 					return structptr_de5587;
+=======
+					let structptr_38ffe4 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientPosition", [structptr_38ffe4, this.ptr]);
+					return structptr_38ffe4;
+				})(); }
+    get TransientRotation() { return (()=>{
+					let structptr_8f8f13 = window.ctx.malloc(16);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_TransientRotation", [structptr_8f8f13, this.ptr]);
+					return structptr_8f8f13;
+				})(); }
+    set TransientRotation(v) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "set_TransientRotation", [this.ptr, v]); }
+    get Velocity() { return (()=>{
+					let structptr_50fafe = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "get_Velocity", [structptr_50fafe, this.ptr]);
+					return structptr_50fafe;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get AllowSteppingWithoutStableGrounding() { return this.ptr.readField(0x3C, 'i32').val() === 1; }
     set AllowSteppingWithoutStableGrounding(v) { return this.ptr.writeField(0x3C, 'i32', v); }
@@ -5107,6 +5894,7 @@ export class KinematicCharacterMotor {
     EvaluateHitStability(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "EvaluateHitStability", [this.ptr, hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, withCharacterVelocity, stabilityReport]); }
     ForceUnground(time) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "ForceUnground", [this.ptr, time]); }
     GetDirectionTangentToSurface(direction, surfaceNormal) { return (()=>{
+<<<<<<< HEAD
 					let structptr_c8563a = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetDirectionTangentToSurface", [structptr_c8563a, this.ptr, direction, surfaceNormal]);
 					return structptr_c8563a;
@@ -5131,6 +5919,32 @@ export class KinematicCharacterMotor {
 					let structptr_cab3de = window.ctx.malloc(12);
 					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromMovement", [structptr_cab3de, this.ptr, movement, deltaTime]);
 					return structptr_cab3de;
+=======
+					let structptr_75a39f = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetDirectionTangentToSurface", [structptr_75a39f, this.ptr, direction, surfaceNormal]);
+					return structptr_75a39f;
+				})(); }
+    GetInteractiveRigidbody(onCollider) { return new Rigidbody(window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetInteractiveRigidbody", [this.ptr, onCollider])); }
+    GetObstructionNormal(hitNormal, stableOnHit) { return (()=>{
+					let structptr_437705 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetObstructionNormal", [structptr_437705, this.ptr, hitNormal, stableOnHit]);
+					return structptr_437705;
+				})(); }
+    GetState() { return (()=>{
+					let structptr_eeeac5 = window.ctx.malloc(50);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetState", [structptr_eeeac5, this.ptr]);
+					return structptr_eeeac5;
+				})(); }
+    GetVelocityForMovePosition(fromPosition, toPosition, deltaTime) { return (()=>{
+					let structptr_f03873 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityForMovePosition", [structptr_f03873, this.ptr, fromPosition, toPosition, deltaTime]);
+					return structptr_f03873;
+				})(); }
+    GetVelocityFromMovement(movement, deltaTime) { return (()=>{
+					let structptr_dfbf93 = window.ctx.malloc(12);
+					window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromMovement", [structptr_dfbf93, this.ptr, movement, deltaTime]);
+					return structptr_dfbf93;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetVelocityFromRigidbodyMovement(interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity) { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "GetVelocityFromRigidbodyMovement", [this.ptr, interactiveRigidbody, atPoint, deltaTime, linearVelocity, angularVelocity]); }
     HandleRemoveComponent() { window.ctx.call("KinematicCharacterController.KinematicCharacterMotor", "HandleRemoveComponent", [this.ptr]); }
@@ -5167,15 +5981,15 @@ export class KinematicCharacterMotor {
 export class BoxCollider {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get center() { return (()=>{
-					let structptr_595fc0 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.BoxCollider", "get_center", [structptr_595fc0, this.ptr]);
-					return structptr_595fc0;
+					let structptr_78ba0d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.BoxCollider", "get_center", [structptr_78ba0d, this.ptr]);
+					return structptr_78ba0d;
 				})(); }
     set center(v) { window.ctx.call("UnityEngine.BoxCollider", "set_center", [this.ptr, v]); }
     get size() { return (()=>{
-					let structptr_73e392 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.BoxCollider", "get_size", [structptr_73e392, this.ptr]);
-					return structptr_73e392;
+					let structptr_1d5acd = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.BoxCollider", "get_size", [structptr_1d5acd, this.ptr]);
+					return structptr_1d5acd;
 				})(); }
     set size(v) { window.ctx.call("UnityEngine.BoxCollider", "set_size", [this.ptr, v]); }
     static get_center_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.BoxCollider", "get_center_Injected", [_unity_self, ret]); }
@@ -5186,44 +6000,12 @@ export class BoxCollider {
 
 export class AnimationCurve {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get Item() { return (()=>{
-					let structptr_37c53e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "get_Item", [structptr_37c53e, this.ptr, index]);
-					return structptr_37c53e;
-				})(); }
-    get length() { return window.ctx.call("UnityEngine.AnimationCurve", "get_length", [this.ptr]).val(); }
-    get m_Ptr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
-    set m_Ptr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    get m_RequiresNativeCleanup() { return this.ptr.readField(0xC, 'i32').val() === 1; }
-    set m_RequiresNativeCleanup(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    static EaseInOut(timeStart, valueStart, timeEnd, valueEnd) { return new AnimationCurve(window.ctx.call("UnityEngine.AnimationCurve", "EaseInOut", [timeStart, valueStart, timeEnd, valueEnd])); }
-    Equals_o(o) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18930", [this.ptr, o]).val() === 1; }
-    Equals_other(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Equals_18931", [this.ptr, other]).val() === 1; }
-    Evaluate(time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate", [this.ptr, time]).val(); }
-    static Evaluate_Injected(_unity_self, time) { return window.ctx.call("UnityEngine.AnimationCurve", "Evaluate_Injected", [_unity_self, time]).val(); }
-    Finalize() { window.ctx.call("UnityEngine.AnimationCurve", "Finalize", [this.ptr]); }
-    GetHashCode() { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode", [this.ptr]).val(); }
-    static GetHashCode_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "GetHashCode_Injected", [_unity_self]).val(); }
-    GetKey(index) { return (()=>{
-					let structptr_7107ba = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "GetKey", [structptr_7107ba, this.ptr, index]);
-					return structptr_7107ba;
-				})(); }
-    static GetKey_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.AnimationCurve", "GetKey_Injected", [_unity_self, index, ret]); }
-    static Internal_Create(keys) { return (()=>{
-					let structptr_f047b8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create", [structptr_f047b8, keys]);
-					return structptr_f047b8;
-				})(); }
-    static Internal_Create_Injected(keys) { return (()=>{
-					let structptr_e2bef4 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.AnimationCurve", "Internal_Create_Injected", [structptr_e2bef4, keys]);
-					return structptr_e2bef4;
-				})(); }
-    static Internal_Destroy(ptr) { window.ctx.call("UnityEngine.AnimationCurve", "Internal_Destroy", [ptr]); }
-    Internal_Equals(other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals", [this.ptr, other]).val() === 1; }
-    static Internal_Equals_Injected(_unity_self, other) { return window.ctx.call("UnityEngine.AnimationCurve", "Internal_Equals_Injected", [_unity_self, other]).val() === 1; }
-    static get_length_Injected(_unity_self) { return window.ctx.call("UnityEngine.AnimationCurve", "get_length_Injected", [_unity_self]).val(); }
+<<<<<<< HEAD
+    get s_RuntimeTargetMapping() { return this.ptr.readField(0x0, 'i32'); }
+    set s_RuntimeTargetMapping(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    static GetAddressablesPlatformInternal(platform) { return new AddressablesPlatform(window.ctx.call("UnityEngine.AddressableAssets.PlatformMappingService", "GetAddressablesPlatformInternal", [platform])); }
+    static GetAddressablesPlatformPathInternal(platform) { return window.ctx.call("UnityEngine.AddressableAssets.PlatformMappingService", "GetAddressablesPlatformPathInternal", [platform]); }
+    static GetPlatformPathSubFolder() { return window.ctx.call("UnityEngine.AddressableAssets.PlatformMappingService", "GetPlatformPathSubFolder", []); }
 }
 
 export class NonSelectableSlider {
@@ -5263,7 +6045,7 @@ export class Shot {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get byId() { return this.ptr.readField(0x10, 'i32').mstr(); }
     set byId(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
-    get gunId() { return this.ptr.readField(0x14, 'i32'); }
+    get gunId() { return this.ptr.readField(0x14, 'i32').val(); }
     set gunId(v) { return this.ptr.writeField(0x14, 'i32', v); }
 }
 
@@ -5271,7 +6053,7 @@ export class ColyRigid {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get air() { return this.ptr.readField(0x18, 'i32').val() === 1; }
     set air(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get neck() { return this.ptr.readField(0x19, 'i32'); }
+    get neck() { return this.ptr.readField(0x19, 'i32').val(); }
     set neck(v) { return this.ptr.writeField(0x19, 'i32', v); }
     get position() { return new ColyVector3(this.ptr.readField(0x10, 'i32')); }
     set position(v) { return this.ptr.writeField(0x10, 'i32', v); }
@@ -5341,31 +6123,23 @@ export class ColyAI {
     EvaluateState() { window.ctx.call("ColyAI", "EvaluateState", [this.ptr]); }
     EvaluateTargets() { window.ctx.call("ColyAI", "EvaluateTargets", [this.ptr]); }
     GetParametersForPlaystyle(style) { return (()=>{
+<<<<<<< HEAD
 					let structptr_3b41d9 = window.ctx.malloc(50);
 					window.ctx.call("ColyAI", "GetParametersForPlaystyle", [structptr_3b41d9, this.ptr, style]);
 					return structptr_3b41d9;
+=======
+					let structptr_fed790 = window.ctx.malloc(50);
+					window.ctx.call("ColyAI", "GetParametersForPlaystyle", [structptr_fed790, this.ptr, style]);
+					return structptr_fed790;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     InitAI(_playstyle, ww, current) { window.ctx.call("ColyAI", "InitAI", [this.ptr, _playstyle, ww, current]); }
     OnDrawGizmos() { window.ctx.call("ColyAI", "OnDrawGizmos", [this.ptr]); }
     OnNetworkSpawned(spawnInfo) { window.ctx.call("ColyAI", "OnNetworkSpawned", [this.ptr, spawnInfo]); }
     Patrol() { window.ctx.call("ColyAI", "Patrol", [this.ptr]); }
-    SendChatMessage(body) { window.ctx.call("ColyAI", "SendChatMessage", [this.ptr, body]); }
+    SendChatMessage(body) { window.ctx.call("ColyAI", "SendChatMessage", [this.ptr, window.ctx.createMstr(body)]); }
     SetState(newState) { window.ctx.call("ColyAI", "SetState", [this.ptr, newState]); }
     Update() { window.ctx.call("ColyAI", "Update", [this.ptr]); }
-}
-
-export class Flag {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get basePosition() { return new ColyVector3(this.ptr.readField(0x1C, 'i32')); }
-    set basePosition(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get carriedBy() { return this.ptr.readField(0x14, 'i32').mstr(); }
-    set carriedBy(v) { return this.ptr.writeField(0x14, 'i32', window.ctx.createMstr(v)); }
-    get isAtBase() { return this.ptr.readField(0x11, 'i32').val() === 1; }
-    set isAtBase(v) { return this.ptr.writeField(0x11, 'i32', v); }
-    get position() { return new ColyVector3(this.ptr.readField(0x18, 'i32')); }
-    set position(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get teamId() { return this.ptr.readField(0x10, 'i32'); }
-    set teamId(v) { return this.ptr.writeField(0x10, 'i32', v); }
 }
 
 export class Team {
@@ -5388,17 +6162,17 @@ export class Gradient {
     Equals_o(o) { return window.ctx.call("UnityEngine.Gradient", "Equals_22047", [this.ptr, o]).val() === 1; }
     Equals_other(other) { return window.ctx.call("UnityEngine.Gradient", "Equals_22048", [this.ptr, other]).val() === 1; }
     Evaluate(time) { return (()=>{
-					let structptr_1b82d3 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Gradient", "Evaluate", [structptr_1b82d3, this.ptr, time]);
-					return structptr_1b82d3;
+					let structptr_188f10 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Gradient", "Evaluate", [structptr_188f10, this.ptr, time]);
+					return structptr_188f10;
 				})(); }
     static Evaluate_Injected(_unity_self, time, ret) { window.ctx.call("UnityEngine.Gradient", "Evaluate_Injected", [_unity_self, time, ret]); }
     Finalize() { window.ctx.call("UnityEngine.Gradient", "Finalize", [this.ptr]); }
     GetHashCode() { return window.ctx.call("UnityEngine.Gradient", "GetHashCode", [this.ptr]).val(); }
     static Init() { return (()=>{
-					let structptr_d2b3ef = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Gradient", "Init", [structptr_d2b3ef, ]);
-					return structptr_d2b3ef;
+					let structptr_cc46a4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Gradient", "Init", [structptr_cc46a4, ]);
+					return structptr_cc46a4;
 				})(); }
     Internal_Equals(other) { return window.ctx.call("UnityEngine.Gradient", "Internal_Equals", [this.ptr, other]).val() === 1; }
     static Internal_Equals_Injected(_unity_self, other) { return window.ctx.call("UnityEngine.Gradient", "Internal_Equals_Injected", [_unity_self, other]).val() === 1; }
@@ -5408,65 +6182,65 @@ export class Gradient {
 export class Color {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get black() { return (()=>{
-					let structptr_f6f426 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_black", [structptr_f6f426, ]);
-					return structptr_f6f426;
+					let structptr_1fa39b = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_black", [structptr_1fa39b, ]);
+					return structptr_1fa39b;
 				})(); }
     static get blue() { return (()=>{
-					let structptr_49bf60 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_blue", [structptr_49bf60, ]);
-					return structptr_49bf60;
+					let structptr_7e58f8 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_blue", [structptr_7e58f8, ]);
+					return structptr_7e58f8;
 				})(); }
     static get clear() { return (()=>{
-					let structptr_62de43 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_clear", [structptr_62de43, ]);
-					return structptr_62de43;
+					let structptr_3770d0 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_clear", [structptr_3770d0, ]);
+					return structptr_3770d0;
 				})(); }
     get gamma() { return (()=>{
-					let structptr_5ff0c1 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_gamma", [structptr_5ff0c1, this.ptr]);
-					return structptr_5ff0c1;
+					let structptr_d3b407 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_gamma", [structptr_d3b407, this.ptr]);
+					return structptr_d3b407;
 				})(); }
     static get gray() { return (()=>{
-					let structptr_6d64b0 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_gray", [structptr_6d64b0, ]);
-					return structptr_6d64b0;
+					let structptr_b9021e = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_gray", [structptr_b9021e, ]);
+					return structptr_b9021e;
 				})(); }
     static get gray5() { return (()=>{
-					let structptr_dfbad9 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_gray5", [structptr_dfbad9, ]);
-					return structptr_dfbad9;
+					let structptr_0e58ad = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_gray5", [structptr_0e58ad, ]);
+					return structptr_0e58ad;
 				})(); }
     static get green() { return (()=>{
-					let structptr_306ad8 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_green", [structptr_306ad8, ]);
-					return structptr_306ad8;
+					let structptr_026504 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_green", [structptr_026504, ]);
+					return structptr_026504;
 				})(); }
     get linear() { return (()=>{
-					let structptr_bd7a27 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_linear", [structptr_bd7a27, this.ptr]);
-					return structptr_bd7a27;
+					let structptr_dd718b = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_linear", [structptr_dd718b, this.ptr]);
+					return structptr_dd718b;
 				})(); }
     static get magenta() { return (()=>{
-					let structptr_500f68 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_magenta", [structptr_500f68, ]);
-					return structptr_500f68;
+					let structptr_7e4c45 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_magenta", [structptr_7e4c45, ]);
+					return structptr_7e4c45;
 				})(); }
     get maxColorComponent() { return window.ctx.call("UnityEngine.Color", "get_maxColorComponent", [this.ptr]).val(); }
     static get red() { return (()=>{
-					let structptr_780953 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_red", [structptr_780953, ]);
-					return structptr_780953;
+					let structptr_7e7864 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_red", [structptr_7e7864, ]);
+					return structptr_7e7864;
 				})(); }
     static get white() { return (()=>{
-					let structptr_65bae2 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_white", [structptr_65bae2, ]);
-					return structptr_65bae2;
+					let structptr_78b0d2 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_white", [structptr_78b0d2, ]);
+					return structptr_78b0d2;
 				})(); }
     static get yellow() { return (()=>{
-					let structptr_cd8ea9 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "get_yellow", [structptr_cd8ea9, ]);
-					return structptr_cd8ea9;
+					let structptr_8ef958 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "get_yellow", [structptr_8ef958, ]);
+					return structptr_8ef958;
 				})(); }
     get a() { return this.ptr.readField(0xC, 'f32').val(); }
     set a(v) { return this.ptr.writeField(0xC, 'f32', v); }
@@ -5481,74 +6255,29 @@ export class Color {
     Equals_other(other) { return window.ctx.call("UnityEngine.Color", "Equals_22000", [this.ptr, other]).val() === 1; }
     GetHashCode() { return window.ctx.call("UnityEngine.Color", "GetHashCode", [this.ptr]).val(); }
     static HSVToRGB_H_S_V(H, S, V) { return (()=>{
-					let structptr_d47913 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "HSVToRGB_22015", [structptr_d47913, H, S, V]);
-					return structptr_d47913;
+					let structptr_2a43b9 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "HSVToRGB_22015", [structptr_2a43b9, H, S, V]);
+					return structptr_2a43b9;
 				})(); }
     static HSVToRGB_H_S_V_hdr(H, S, V, hdr) { return (()=>{
-					let structptr_a8919b = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "HSVToRGB_22016", [structptr_a8919b, H, S, V, hdr]);
-					return structptr_a8919b;
+					let structptr_c0c998 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "HSVToRGB_22016", [structptr_c0c998, H, S, V, hdr]);
+					return structptr_c0c998;
 				})(); }
     static Lerp(a, b, t) { return (()=>{
-					let structptr_594c2b = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "Lerp", [structptr_594c2b, a, b, t]);
-					return structptr_594c2b;
+					let structptr_120f9f = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "Lerp", [structptr_120f9f, a, b, t]);
+					return structptr_120f9f;
 				})(); }
     RGBMultiplied(multiplier) { return (()=>{
-					let structptr_fe278e = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Color", "RGBMultiplied", [structptr_fe278e, this.ptr, multiplier]);
-					return structptr_fe278e;
+					let structptr_11dd21 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Color", "RGBMultiplied", [structptr_11dd21, this.ptr, multiplier]);
+					return structptr_11dd21;
 				})(); }
     static RGBToHSV(rgbColor, H, S, V) { window.ctx.call("UnityEngine.Color", "RGBToHSV", [rgbColor, H, S, V]); }
     static RGBToHSVHelper(offset, dominantcolor, colorone, colortwo, H, S, V) { window.ctx.call("UnityEngine.Color", "RGBToHSVHelper", [offset, dominantcolor, colorone, colortwo, H, S, V]); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Color", "ToString_21995", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Color", "ToString_21996", [this.ptr, format, formatProvider]); }
-}
-
-export class Bullet {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get bulletGfx() { return new GameObject(this.ptr.readField(0x54, 'i32')); }
-    set bulletGfx(v) { return this.ptr.writeField(0x54, 'i32', v); }
-    get hitName() { return new HitType(this.ptr.readField(0x5C, 'i32')); }
-    set hitName(v) { return this.ptr.writeField(0x5C, 'i32', v); }
-    get impactPrefab() { return new GameObject(this.ptr.readField(0x1C, 'i32')); }
-    set impactPrefab(v) { return this.ptr.writeField(0x1C, 'i32', v); }
-    get initialSpeed() { return this.ptr.readField(0x24, 'f32').val(); }
-    set initialSpeed(v) { return this.ptr.writeField(0x24, 'f32', v); }
-    get initialized() { return this.ptr.readField(0x10, 'i32').val() === 1; }
-    set initialized(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get isGlobal() { return this.ptr.readField(0x18, 'i32').val() === 1; }
-    set isGlobal(v) { return this.ptr.writeField(0x18, 'i32', v); }
-    get lifeDistance() { return this.ptr.readField(0x3C, 'f32').val(); }
-    set lifeDistance(v) { return this.ptr.writeField(0x3C, 'f32', v); }
-    get lifeEnded() { return this.ptr.readField(0x40, 'i32').val() === 1; }
-    set lifeEnded(v) { return this.ptr.writeField(0x40, 'i32', v); }
-    get mapLayerMask() { return new LayerMask(this.ptr.readField(0x14, 'i32')); }
-    set mapLayerMask(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get moveDir() { return new Vector3(this.ptr.readField(0x30, 'i32')); }
-    set moveDir(v) { return this.ptr.writeField(0x30, 'i32', v); }
-    get myShotId() { return this.ptr.readField(0x6C, 'i32').val(); }
-    set myShotId(v) { return this.ptr.writeField(0x6C, 'i32', v); }
-    get shootAt() { return new Vector3(this.ptr.readField(0x60, 'i32')); }
-    set shootAt(v) { return this.ptr.writeField(0x60, 'i32', v); }
-    get spawnTime() { return this.ptr.readField(0x50, 'f32').val(); }
-    set spawnTime(v) { return this.ptr.writeField(0x50, 'f32', v); }
-    get speed() { return this.ptr.readField(0x28, 'f32').val(); }
-    set speed(v) { return this.ptr.writeField(0x28, 'f32', v); }
-    get speedMultiCurve() { return new AnimationCurve(this.ptr.readField(0x2C, 'i32')); }
-    set speedMultiCurve(v) { return this.ptr.writeField(0x2C, 'i32', v); }
-    get startingPosition() { return new Vector3(this.ptr.readField(0x44, 'i32')); }
-    set startingPosition(v) { return this.ptr.writeField(0x44, 'i32', v); }
-    get stop() { return this.ptr.readField(0x58, 'i32').val() === 1; }
-    set stop(v) { return this.ptr.writeField(0x58, 'i32', v); }
-    get trailRenderer() { return new TrailRenderer(this.ptr.readField(0x20, 'i32')); }
-    set trailRenderer(v) { return this.ptr.writeField(0x20, 'i32', v); }
-    Init(shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward) { window.ctx.call("Bullet", "Init", [this.ptr, shotId, _hitName, _shootAt, from, _isGlobal, expectedVisualForward]); }
-    OnDespawn() { window.ctx.call("Bullet", "OnDespawn", [this.ptr]); }
-    OnSpawn() { window.ctx.call("Bullet", "OnSpawn", [this.ptr]); }
-    TryEndLife(force, isNaturally) { window.ctx.call("Bullet", "TryEndLife", [this.ptr, force, isNaturally]); }
-    Update() { window.ctx.call("Bullet", "Update", [this.ptr]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Color", "ToString_21995", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Color", "ToString_21996", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
 }
 
 export class RecoilData {
@@ -5664,7 +6393,7 @@ export class GunSkin {
     GetDefaultIdTypeBased() { return window.ctx.call("GunSkin", "GetDefaultIdTypeBased", [this.ptr]).val(); }
     IsDefaultItem() { return window.ctx.call("GunSkin", "IsDefaultItem", [this.ptr]).val() === 1; }
     IsSelected() { return window.ctx.call("GunSkin", "IsSelected", [this.ptr]).val() === 1; }
-    ToString() { return window.ctx.call("GunSkin", "ToString", [this.ptr]); }
+    ToString() { return window.ctx.call("GunSkin", "ToString", [this.ptr]).mstr(); }
 }
 
 export class MyTextureLoader {
@@ -5688,7 +6417,7 @@ export class MyTextureLoader {
     OnDestroy() { window.ctx.call("MyTextureLoader", "OnDestroy", [this.ptr]); }
     OnEnable() { window.ctx.call("MyTextureLoader", "OnEnable", [this.ptr]); }
     SetLayerRecursively(obj, layer) { window.ctx.call("MyTextureLoader", "SetLayerRecursively", [this.ptr, obj, layer]); }
-    TryLoadAndSetTexture(addressablePath, materialToUse, isPrefab) { window.ctx.call("MyTextureLoader", "TryLoadAndSetTexture", [this.ptr, addressablePath, materialToUse, isPrefab]); }
+    TryLoadAndSetTexture(addressablePath, materialToUse, isPrefab) { window.ctx.call("MyTextureLoader", "TryLoadAndSetTexture", [this.ptr, window.ctx.createMstr(addressablePath), materialToUse, isPrefab]); }
 }
 
 export class ItemRarity {
@@ -5713,6 +6442,7 @@ export class AudioClip {
     set m_PCMSetPositionCallback(v) { return this.ptr.writeField(0x10, 'i32', v); }
     static Construct_Internal() { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Construct_Internal", [])); }
     static Construct_Internal_Injected() { return (()=>{
+<<<<<<< HEAD
 					let structptr_126a6f = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioClip", "Construct_Internal_Injected", [structptr_126a6f, ]);
 					return structptr_126a6f;
@@ -5724,12 +6454,25 @@ export class AudioClip {
     static Create_name_lengthSamples_channels_frequency_stream_pcmreadercallback(name, lengthSamples, channels, frequency, stream, pcmreadercallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18376", [name, lengthSamples, channels, frequency, stream, pcmreadercallback])); }
     static Create_name_lengthSamples_channels_frequency_stream_pcmreadercallback_pcmsetpositioncallback(name, lengthSamples, channels, frequency, stream, pcmreadercallback, pcmsetpositioncallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18377", [name, lengthSamples, channels, frequency, stream, pcmreadercallback, pcmsetpositioncallback])); }
     CreateUserSound(name, lengthSamples, channels, frequency, stream) { window.ctx.call("UnityEngine.AudioClip", "CreateUserSound", [this.ptr, name, lengthSamples, channels, frequency, stream]); }
+=======
+					let structptr_ed0cb4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioClip", "Construct_Internal_Injected", [structptr_ed0cb4, ]);
+					return structptr_ed0cb4;
+				})(); }
+    static Create_name_lengthSamples_channels_frequency__3D_stream(name, lengthSamples, channels, frequency, _3D, stream) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18372", [window.ctx.createMstr(name), lengthSamples, channels, frequency, _3D, stream])); }
+    static Create_name_lengthSamples_channels_frequency__3D_stream_pcmreadercallback(name, lengthSamples, channels, frequency, _3D, stream, pcmreadercallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18373", [window.ctx.createMstr(name), lengthSamples, channels, frequency, _3D, stream, pcmreadercallback])); }
+    static Create_name_lengthSamples_channels_frequency__3D_stream_pcmreadercallback_pcmsetpositioncallback(name, lengthSamples, channels, frequency, _3D, stream, pcmreadercallback, pcmsetpositioncallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18374", [window.ctx.createMstr(name), lengthSamples, channels, frequency, _3D, stream, pcmreadercallback, pcmsetpositioncallback])); }
+    static Create_name_lengthSamples_channels_frequency_stream(name, lengthSamples, channels, frequency, stream) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18375", [window.ctx.createMstr(name), lengthSamples, channels, frequency, stream])); }
+    static Create_name_lengthSamples_channels_frequency_stream_pcmreadercallback(name, lengthSamples, channels, frequency, stream, pcmreadercallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18376", [window.ctx.createMstr(name), lengthSamples, channels, frequency, stream, pcmreadercallback])); }
+    static Create_name_lengthSamples_channels_frequency_stream_pcmreadercallback_pcmsetpositioncallback(name, lengthSamples, channels, frequency, stream, pcmreadercallback, pcmsetpositioncallback) { return new AudioClip(window.ctx.call("UnityEngine.AudioClip", "Create_18377", [window.ctx.createMstr(name), lengthSamples, channels, frequency, stream, pcmreadercallback, pcmsetpositioncallback])); }
+    CreateUserSound(name, lengthSamples, channels, frequency, stream) { window.ctx.call("UnityEngine.AudioClip", "CreateUserSound", [this.ptr, window.ctx.createMstr(name), lengthSamples, channels, frequency, stream]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     static CreateUserSound_Injected(_unity_self, name, lengthSamples, channels, frequency, stream) { window.ctx.call("UnityEngine.AudioClip", "CreateUserSound_Injected", [_unity_self, name, lengthSamples, channels, frequency, stream]); }
     static GetData_clip_data_samplesOffset(clip, data, samplesOffset) { return window.ctx.call("UnityEngine.AudioClip", "GetData_18351", [clip, data, samplesOffset]).val() === 1; }
     GetData_data_offsetSamples(data, offsetSamples) { return window.ctx.call("UnityEngine.AudioClip", "GetData_18368", [this.ptr, data, offsetSamples]).val() === 1; }
     GetData_data_offsetSamples(data, offsetSamples) { return window.ctx.call("UnityEngine.AudioClip", "GetData_18369", [this.ptr, data, offsetSamples]).val() === 1; }
     static GetData_Injected(clip, data, samplesOffset) { return window.ctx.call("UnityEngine.AudioClip", "GetData_Injected", [clip, data, samplesOffset]).val() === 1; }
-    GetName() { return window.ctx.call("UnityEngine.AudioClip", "GetName", [this.ptr]); }
+    GetName() { return window.ctx.call("UnityEngine.AudioClip", "GetName", [this.ptr]).mstr(); }
     static GetName_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.AudioClip", "GetName_Injected", [_unity_self, ret]); }
     InvokePCMReaderCallback_Internal(data) { window.ctx.call("UnityEngine.AudioClip", "InvokePCMReaderCallback_Internal", [this.ptr, data]); }
     InvokePCMSetPositionCallback_Internal(position) { window.ctx.call("UnityEngine.AudioClip", "InvokePCMSetPositionCallback_Internal", [this.ptr, position]); }
@@ -5740,9 +6483,15 @@ export class AudioClip {
     SetData_data_offsetSamples(data, offsetSamples) { return window.ctx.call("UnityEngine.AudioClip", "SetData_18371", [this.ptr, data, offsetSamples]).val() === 1; }
     static SetData_Injected(clip, data, samplesOffset) { return window.ctx.call("UnityEngine.AudioClip", "SetData_Injected", [clip, data, samplesOffset]).val() === 1; }
     UnityEngine_Audio_IAudioGenerator_CreateInstance(context, nestedFormat, parameters) { return (()=>{
+<<<<<<< HEAD
 					let structptr_22a8f3 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.AudioClip", "UnityEngine.Audio.IAudioGenerator.CreateInstance", [structptr_22a8f3, this.ptr, context, nestedFormat, parameters]);
 					return structptr_22a8f3;
+=======
+					let structptr_e18707 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AudioClip", "UnityEngine.Audio.IAudioGenerator.CreateInstance", [structptr_e18707, this.ptr, context, nestedFormat, parameters]);
+					return structptr_e18707;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     UnloadAudioData() { return window.ctx.call("UnityEngine.AudioClip", "UnloadAudioData", [this.ptr]).val() === 1; }
     static UnloadAudioData_Injected(_unity_self) { return window.ctx.call("UnityEngine.AudioClip", "UnloadAudioData_Injected", [_unity_self]).val() === 1; }
@@ -5907,7 +6656,7 @@ export class ChatUIMessage {
     set showTween(v) { return this.ptr.writeField(0x18, 'i32', v); }
     _ShowMessage_b_5_0() { window.ctx.call("ChatUIMessage", "<ShowMessage>b__5_0", [this.ptr]); }
     _ShowMessage_b_5_1() { window.ctx.call("ChatUIMessage", "<ShowMessage>b__5_1", [this.ptr]); }
-    Init(text) { window.ctx.call("ChatUIMessage", "Init", [this.ptr, text]); }
+    Init(text) { window.ctx.call("ChatUIMessage", "Init", [this.ptr, window.ctx.createMstr(text)]); }
     OnDisable() { window.ctx.call("ChatUIMessage", "OnDisable", [this.ptr]); }
     ResetMessage() { window.ctx.call("ChatUIMessage", "ResetMessage", [this.ptr]); }
     ShowMessage() { window.ctx.call("ChatUIMessage", "ShowMessage", [this.ptr]); }
@@ -5917,41 +6666,41 @@ export class Sprite {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get associatedAlphaSplitTexture() { return new Texture2D(window.ctx.call("UnityEngine.Sprite", "get_associatedAlphaSplitTexture", [this.ptr])); }
     get border() { return (()=>{
-					let structptr_3c1f74 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Sprite", "get_border", [structptr_3c1f74, this.ptr]);
-					return structptr_3c1f74;
+					let structptr_bd99a8 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Sprite", "get_border", [structptr_bd99a8, this.ptr]);
+					return structptr_bd99a8;
 				})(); }
     get bounds() { return (()=>{
-					let structptr_e9049d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "get_bounds", [structptr_e9049d, this.ptr]);
-					return structptr_e9049d;
+					let structptr_a75ffa = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "get_bounds", [structptr_a75ffa, this.ptr]);
+					return structptr_a75ffa;
 				})(); }
     get extrude() { return window.ctx.call("UnityEngine.Sprite", "get_extrude", [this.ptr]).val(); }
     get packed() { return window.ctx.call("UnityEngine.Sprite", "get_packed", [this.ptr]).val() === 1; }
     get packingMode() { return new SpritePackingMode(window.ctx.call("UnityEngine.Sprite", "get_packingMode", [this.ptr])); }
     get packingRotation() { return new SpritePackingRotation(window.ctx.call("UnityEngine.Sprite", "get_packingRotation", [this.ptr])); }
     get pivot() { return (()=>{
-					let structptr_fa0f93 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Sprite", "get_pivot", [structptr_fa0f93, this.ptr]);
-					return structptr_fa0f93;
+					let structptr_757074 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Sprite", "get_pivot", [structptr_757074, this.ptr]);
+					return structptr_757074;
 				})(); }
     get pixelsPerUnit() { return window.ctx.call("UnityEngine.Sprite", "get_pixelsPerUnit", [this.ptr]).val(); }
     get rect() { return (()=>{
-					let structptr_2fe69d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "get_rect", [structptr_2fe69d, this.ptr]);
-					return structptr_2fe69d;
+					let structptr_cd55a2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "get_rect", [structptr_cd55a2, this.ptr]);
+					return structptr_cd55a2;
 				})(); }
     get spriteAtlasTextureScale() { return window.ctx.call("UnityEngine.Sprite", "get_spriteAtlasTextureScale", [this.ptr]).val(); }
     get texture() { return new Texture2D(window.ctx.call("UnityEngine.Sprite", "get_texture", [this.ptr])); }
     get textureRect() { return (()=>{
-					let structptr_e3f004 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "get_textureRect", [structptr_e3f004, this.ptr]);
-					return structptr_e3f004;
+					let structptr_6492bf = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "get_textureRect", [structptr_6492bf, this.ptr]);
+					return structptr_6492bf;
 				})(); }
     get textureRectOffset() { return (()=>{
-					let structptr_d4e842 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Sprite", "get_textureRectOffset", [structptr_d4e842, this.ptr]);
-					return structptr_d4e842;
+					let structptr_96966f = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Sprite", "get_textureRectOffset", [structptr_96966f, this.ptr]);
+					return structptr_96966f;
 				})(); }
     get triangles() { return window.ctx.call("UnityEngine.Sprite", "get_triangles", [this.ptr]); }
     get uv() { return window.ctx.call("UnityEngine.Sprite", "get_uv", [this.ptr]); }
@@ -5970,25 +6719,26 @@ export class Sprite {
     static CreateSprite(texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape, secondaryTexture) { return new Sprite(window.ctx.call("UnityEngine.Sprite", "CreateSprite", [texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape, secondaryTexture])); }
     static CreateSpriteWithoutTextureScripting(rect, pivot, pixelsToUnits, texture) { return new Sprite(window.ctx.call("UnityEngine.Sprite", "CreateSpriteWithoutTextureScripting", [rect, pivot, pixelsToUnits, texture])); }
     static CreateSpriteWithoutTextureScripting_Injected(rect, pivot, pixelsToUnits, texture) { return (()=>{
-					let structptr_3e7cea = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "CreateSpriteWithoutTextureScripting_Injected", [structptr_3e7cea, rect, pivot, pixelsToUnits, texture]);
-					return structptr_3e7cea;
+					let structptr_04ee76 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "CreateSpriteWithoutTextureScripting_Injected", [structptr_04ee76, rect, pivot, pixelsToUnits, texture]);
+					return structptr_04ee76;
 				})(); }
     static CreateSprite_Injected(texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape, secondaryTexture) { return (()=>{
-					let structptr_5122ec = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "CreateSprite_Injected", [structptr_5122ec, texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape, secondaryTexture]);
-					return structptr_5122ec;
+					let structptr_de4553 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "CreateSprite_Injected", [structptr_de4553, texture, rect, pivot, pixelsPerUnit, extrude, meshType, border, generateFallbackPhysicsShape, secondaryTexture]);
+					return structptr_de4553;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     GetInnerUVs() { return (()=>{
-					let structptr_607655 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Sprite", "GetInnerUVs", [structptr_607655, this.ptr]);
-					return structptr_607655;
+					let structptr_83f619 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Sprite", "GetInnerUVs", [structptr_83f619, this.ptr]);
+					return structptr_83f619;
 				})(); }
     static GetInnerUVs_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "GetInnerUVs_Injected", [_unity_self, ret]); }
     GetOuterUVs() { return (()=>{
-					let structptr_c436a8 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Sprite", "GetOuterUVs", [structptr_c436a8, this.ptr]);
-					return structptr_c436a8;
+					let structptr_15456c = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Sprite", "GetOuterUVs", [structptr_15456c, this.ptr]);
+					return structptr_15456c;
 				})(); }
     static GetOuterUVs_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "GetOuterUVs_Injected", [_unity_self, ret]); }
     GetPacked() { return window.ctx.call("UnityEngine.Sprite", "GetPacked", [this.ptr]).val(); }
@@ -5998,16 +6748,16 @@ export class Sprite {
     GetPackingRotation() { return window.ctx.call("UnityEngine.Sprite", "GetPackingRotation", [this.ptr]).val(); }
     static GetPackingRotation_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "GetPackingRotation_Injected", [_unity_self]).val(); }
     GetPadding() { return (()=>{
-					let structptr_c93681 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Sprite", "GetPadding", [structptr_c93681, this.ptr]);
-					return structptr_c93681;
+					let structptr_9b5032 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Sprite", "GetPadding", [structptr_9b5032, this.ptr]);
+					return structptr_9b5032;
 				})(); }
     static GetPadding_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "GetPadding_Injected", [_unity_self, ret]); }
     GetPhysicsShape_shapeIdx_physicsShape(shapeIdx, physicsShape) { return window.ctx.call("UnityEngine.Sprite", "GetPhysicsShape_18860", [this.ptr, shapeIdx, physicsShape]).val(); }
     GetPhysicsShape_shapeIdx(shapeIdx) { return (()=>{
-					let structptr_b2fb52 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Sprite", "GetPhysicsShape_18861", [structptr_b2fb52, this.ptr, shapeIdx]);
-					return structptr_b2fb52;
+					let structptr_55422c = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Sprite", "GetPhysicsShape_18861", [structptr_55422c, this.ptr, shapeIdx]);
+					return structptr_55422c;
 				})(); }
     GetPhysicsShapeCount() { return window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeCount", [this.ptr]).val(); }
     static GetPhysicsShapeCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeCount_Injected", [_unity_self]).val(); }
@@ -6015,9 +6765,9 @@ export class Sprite {
     static GetPhysicsShapeImpl_Injected(sprite, shapeIdx, physicsShape) { window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeImpl_Injected", [sprite, shapeIdx, physicsShape]); }
     GetPhysicsShapePointCount(shapeIdx) { return window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapePointCount", [this.ptr, shapeIdx]).val(); }
     static GetPhysicsShapeSpanImpl(sprite, shapeIdx) { return (()=>{
-					let structptr_4ea731 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeSpanImpl", [structptr_4ea731, sprite, shapeIdx]);
-					return structptr_4ea731;
+					let structptr_a15a57 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeSpanImpl", [structptr_a15a57, sprite, shapeIdx]);
+					return structptr_a15a57;
 				})(); }
     static GetPhysicsShapeSpanImpl_Injected(sprite, shapeIdx, ret) { window.ctx.call("UnityEngine.Sprite", "GetPhysicsShapeSpanImpl_Injected", [sprite, shapeIdx, ret]); }
     GetScriptableObjects(scriptableObjects) { return window.ctx.call("UnityEngine.Sprite", "GetScriptableObjects", [this.ptr, scriptableObjects]).val(); }
@@ -6028,21 +6778,21 @@ export class Sprite {
     GetSecondaryTextureCount() { return window.ctx.call("UnityEngine.Sprite", "GetSecondaryTextureCount", [this.ptr]).val(); }
     static GetSecondaryTextureCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "GetSecondaryTextureCount_Injected", [_unity_self]).val(); }
     static GetSecondaryTexture_Injected(_unity_self, index) { return (()=>{
-					let structptr_08d1ff = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "GetSecondaryTexture_Injected", [structptr_08d1ff, _unity_self, index]);
-					return structptr_08d1ff;
+					let structptr_6ff4a8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "GetSecondaryTexture_Injected", [structptr_6ff4a8, _unity_self, index]);
+					return structptr_6ff4a8;
 				})(); }
     GetSecondaryTextures(secondaryTexture) { return window.ctx.call("UnityEngine.Sprite", "GetSecondaryTextures", [this.ptr, secondaryTexture]).val(); }
     static GetSecondaryTextures_Injected(_unity_self, secondaryTexture) { return window.ctx.call("UnityEngine.Sprite", "GetSecondaryTextures_Injected", [_unity_self, secondaryTexture]).val(); }
     GetTextureRect() { return (()=>{
-					let structptr_d7b62e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "GetTextureRect", [structptr_d7b62e, this.ptr]);
-					return structptr_d7b62e;
+					let structptr_ad7149 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "GetTextureRect", [structptr_ad7149, this.ptr]);
+					return structptr_ad7149;
 				})(); }
     GetTextureRectOffset() { return (()=>{
-					let structptr_d7dc8f = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Sprite", "GetTextureRectOffset", [structptr_d7dc8f, this.ptr]);
-					return structptr_d7dc8f;
+					let structptr_a054ab = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Sprite", "GetTextureRectOffset", [structptr_a054ab, this.ptr]);
+					return structptr_a054ab;
 				})(); }
     static GetTextureRectOffset_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "GetTextureRectOffset_Injected", [_unity_self, ret]); }
     static GetTextureRect_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "GetTextureRect_Injected", [_unity_self, ret]); }
@@ -6060,9 +6810,9 @@ export class Sprite {
     SetScriptableObjectAt(obj, i) { return window.ctx.call("UnityEngine.Sprite", "SetScriptableObjectAt", [this.ptr, obj, i]).val() === 1; }
     static SetScriptableObjectAt_Injected(_unity_self, obj, i) { return window.ctx.call("UnityEngine.Sprite", "SetScriptableObjectAt_Injected", [_unity_self, obj, i]).val() === 1; }
     static get_associatedAlphaSplitTexture_Injected(_unity_self) { return (()=>{
-					let structptr_fec12d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "get_associatedAlphaSplitTexture_Injected", [structptr_fec12d, _unity_self]);
-					return structptr_fec12d;
+					let structptr_9b674e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "get_associatedAlphaSplitTexture_Injected", [structptr_9b674e, _unity_self]);
+					return structptr_9b674e;
 				})(); }
     static get_border_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "get_border_Injected", [_unity_self, ret]); }
     static get_bounds_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "get_bounds_Injected", [_unity_self, ret]); }
@@ -6072,9 +6822,9 @@ export class Sprite {
     static get_rect_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Sprite", "get_rect_Injected", [_unity_self, ret]); }
     static get_spriteAtlasTextureScale_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "get_spriteAtlasTextureScale_Injected", [_unity_self]).val(); }
     static get_texture_Injected(_unity_self) { return (()=>{
-					let structptr_d5c4f7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Sprite", "get_texture_Injected", [structptr_d5c4f7, _unity_self]);
-					return structptr_d5c4f7;
+					let structptr_6e9fc1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Sprite", "get_texture_Injected", [structptr_6e9fc1, _unity_self]);
+					return structptr_6e9fc1;
 				})(); }
     static get_triangles_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "get_triangles_Injected", [_unity_self]); }
     static get_uv_Injected(_unity_self) { return window.ctx.call("UnityEngine.Sprite", "get_uv_Injected", [_unity_self]); }
@@ -6139,18 +6889,30 @@ export class JSONNode {
     get Item() { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "get_Item", [this.ptr, aKey])); }
     set Item(v) { window.ctx.call("SimpleJSON.JSONNode", "set_Item", [this.ptr, aKey, v]); }
     get Keys() { return (()=>{
+<<<<<<< HEAD
 					let structptr_4a0050 = window.ctx.malloc(50);
 					window.ctx.call("SimpleJSON.JSONNode", "get_Keys", [structptr_4a0050, this.ptr]);
 					return structptr_4a0050;
+=======
+					let structptr_5f8fe7 = window.ctx.malloc(50);
+					window.ctx.call("SimpleJSON.JSONNode", "get_Keys", [structptr_5f8fe7, this.ptr]);
+					return structptr_5f8fe7;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get Linq() { return window.ctx.call("SimpleJSON.JSONNode", "get_Linq", [this.ptr]); }
     get Tag() { return new JSONNodeType(window.ctx.call("SimpleJSON.JSONNode", "get_Tag", [this.ptr])); }
-    get Value() { return window.ctx.call("SimpleJSON.JSONNode", "get_Value", [this.ptr]); }
-    set Value(v) { window.ctx.call("SimpleJSON.JSONNode", "set_Value", [this.ptr, v]); }
+    get Value() { return window.ctx.call("SimpleJSON.JSONNode", "get_Value", [this.ptr]).mstr(); }
+    set Value(v) { window.ctx.call("SimpleJSON.JSONNode", "set_Value", [this.ptr, window.ctx.createMstr(v)]); }
     get Values() { return (()=>{
+<<<<<<< HEAD
 					let structptr_5e3f99 = window.ctx.malloc(50);
 					window.ctx.call("SimpleJSON.JSONNode", "get_Values", [structptr_5e3f99, this.ptr]);
 					return structptr_5e3f99;
+=======
+					let structptr_77de4b = window.ctx.malloc(50);
+					window.ctx.call("SimpleJSON.JSONNode", "get_Values", [structptr_77de4b, this.ptr]);
+					return structptr_77de4b;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get allowLineComments() { return this.ptr.readField(0x2, 'i32').val() === 1; }
     set allowLineComments(v) { return this.ptr.writeField(0x2, 'i32', v); }
@@ -6160,13 +6922,18 @@ export class JSONNode {
     set longAsString(v) { return this.ptr.writeField(0x1, 'i32', v); }
     get m_EscapeBuilder() { return new StringBuilder(this.ptr.readField(0x0, 'i32')); }
     set m_EscapeBuilder(v) { return this.ptr.writeField(0x0, 'i32', v); }
+<<<<<<< HEAD
     Add_aKey_aItem(aKey, aItem) { window.ctx.call("SimpleJSON.JSONNode", "Add_9259", [this.ptr, aKey, aItem]); }
+=======
+    Add_aKey_aItem(aKey, aItem) { window.ctx.call("SimpleJSON.JSONNode", "Add_9259", [this.ptr, window.ctx.createMstr(aKey), aItem]); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     Add_aItem(aItem) { window.ctx.call("SimpleJSON.JSONNode", "Add_9260", [this.ptr, aItem]); }
     Clear() { window.ctx.call("SimpleJSON.JSONNode", "Clear", [this.ptr]); }
     Clone() { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Clone", [this.ptr])); }
     Equals(obj) { return window.ctx.call("SimpleJSON.JSONNode", "Equals", [this.ptr, obj]).val() === 1; }
-    static Escape(aText) { return window.ctx.call("SimpleJSON.JSONNode", "Escape", [aText]); }
+    static Escape(aText) { return window.ctx.call("SimpleJSON.JSONNode", "Escape", [window.ctx.createMstr(aText)]).mstr(); }
     GetEnumerator() { return (()=>{
+<<<<<<< HEAD
 					let structptr_cd0321 = window.ctx.malloc(50);
 					window.ctx.call("SimpleJSON.JSONNode", "GetEnumerator", [structptr_cd0321, this.ptr]);
 					return structptr_cd0321;
@@ -6181,28 +6948,173 @@ export class JSONNode {
     Remove_aNode(aNode) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Remove_9263", [this.ptr, aNode])); }
     ToString_pointer() { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9270", [this.ptr]); }
     ToString_aIndent(aIndent) { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9271", [this.ptr, aIndent]); }
+=======
+					let structptr_81aba5 = window.ctx.malloc(50);
+					window.ctx.call("SimpleJSON.JSONNode", "GetEnumerator", [structptr_81aba5, this.ptr]);
+					return structptr_81aba5;
+				})(); }
+    GetHashCode() { return window.ctx.call("SimpleJSON.JSONNode", "GetHashCode", [this.ptr]).val(); }
+    GetValueOrDefault(aKey, aDefault) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "GetValueOrDefault", [this.ptr, window.ctx.createMstr(aKey), aDefault])); }
+    HasKey(aKey) { return window.ctx.call("SimpleJSON.JSONNode", "HasKey", [this.ptr, window.ctx.createMstr(aKey)]).val() === 1; }
+    static Parse(aJSON) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Parse", [window.ctx.createMstr(aJSON)])); }
+    static ParseElement(token, quoted) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "ParseElement", [window.ctx.createMstr(token), quoted])); }
+    Remove_aKey(aKey) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Remove_9261", [this.ptr, window.ctx.createMstr(aKey)])); }
+    Remove_aIndex(aIndex) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Remove_9262", [this.ptr, aIndex])); }
+    Remove_aNode(aNode) { return new JSONNode(window.ctx.call("SimpleJSON.JSONNode", "Remove_9263", [this.ptr, aNode])); }
+    ToString_pointer() { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9270", [this.ptr]).mstr(); }
+    ToString_aIndent(aIndent) { return window.ctx.call("SimpleJSON.JSONNode", "ToString_9271", [this.ptr, aIndent]).mstr(); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     WriteToStringBuilder(aSB, aIndent, aIndentInc, aMode) { window.ctx.call("SimpleJSON.JSONNode", "WriteToStringBuilder", [this.ptr, aSB, aIndent, aIndentInc, aMode]); }
 }
 
-export class CanvasGroup {
+export class TrailRenderer {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get alpha() { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha", [this.ptr]).val(); }
-    set alpha(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha", [this.ptr, v]); }
-    get blocksRaycasts() { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts", [this.ptr]).val() === 1; }
-    set blocksRaycasts(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts", [this.ptr, v]); }
-    get ignoreParentGroups() { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups", [this.ptr]).val() === 1; }
-    set ignoreParentGroups(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups", [this.ptr, v]); }
-    get interactable() { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable", [this.ptr]).val() === 1; }
-    set interactable(v) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable", [this.ptr, v]); }
-    IsRaycastLocationValid(sp, eventCamera) { return window.ctx.call("UnityEngine.CanvasGroup", "IsRaycastLocationValid", [this.ptr, sp, eventCamera]).val() === 1; }
-    static get_alpha_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_alpha_Injected", [_unity_self]).val(); }
-    static get_blocksRaycasts_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_blocksRaycasts_Injected", [_unity_self]).val() === 1; }
-    static get_ignoreParentGroups_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_ignoreParentGroups_Injected", [_unity_self]).val() === 1; }
-    static get_interactable_Injected(_unity_self) { return window.ctx.call("UnityEngine.CanvasGroup", "get_interactable_Injected", [_unity_self]).val() === 1; }
-    static set_alpha_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_alpha_Injected", [_unity_self, value]); }
-    static set_blocksRaycasts_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_blocksRaycasts_Injected", [_unity_self, value]); }
-    static set_ignoreParentGroups_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_ignoreParentGroups_Injected", [_unity_self, value]); }
-    static set_interactable_Injected(_unity_self, value) { window.ctx.call("UnityEngine.CanvasGroup", "set_interactable_Injected", [_unity_self, value]); }
+    get alignment() { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment", [this.ptr])); }
+    set alignment(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment", [this.ptr, v]); }
+    get applyActiveColorSpace() { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace", [this.ptr]).val() === 1; }
+    set applyActiveColorSpace(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace", [this.ptr, v]); }
+    get autodestruct() { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct", [this.ptr]).val() === 1; }
+    set autodestruct(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct", [this.ptr, v]); }
+    get colorGradient() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "get_colorGradient", [this.ptr])); }
+    set colorGradient(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_colorGradient", [this.ptr, v]); }
+    get emitting() { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting", [this.ptr]).val() === 1; }
+    set emitting(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting", [this.ptr, v]); }
+    get endColor() { return (()=>{
+					let structptr_a6e04a = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_endColor", [structptr_a6e04a, this.ptr]);
+					return structptr_a6e04a;
+				})(); }
+    set endColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor", [this.ptr, v]); }
+    get endWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth", [this.ptr]).val(); }
+    set endWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth", [this.ptr, v]); }
+    get generateLightingData() { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData", [this.ptr]).val() === 1; }
+    set generateLightingData(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData", [this.ptr, v]); }
+    get maskInteraction() { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction", [this.ptr])); }
+    set maskInteraction(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction", [this.ptr, v]); }
+    get minVertexDistance() { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance", [this.ptr]).val(); }
+    set minVertexDistance(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance", [this.ptr, v]); }
+    get numCapVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices", [this.ptr]).val(); }
+    set numCapVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices", [this.ptr, v]); }
+    get numCornerVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices", [this.ptr]).val(); }
+    set numCornerVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices", [this.ptr, v]); }
+    get numPositions() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numPositions", [this.ptr]).val(); }
+    get positionCount() { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount", [this.ptr]).val(); }
+    get shadowBias() { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias", [this.ptr]).val(); }
+    set shadowBias(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias", [this.ptr, v]); }
+    get startColor() { return (()=>{
+					let structptr_eb4961 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_startColor", [structptr_eb4961, this.ptr]);
+					return structptr_eb4961;
+				})(); }
+    set startColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor", [this.ptr, v]); }
+    get startWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth", [this.ptr]).val(); }
+    set startWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth", [this.ptr, v]); }
+    get textureMode() { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode", [this.ptr])); }
+    set textureMode(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode", [this.ptr, v]); }
+    get textureScale() { return (()=>{
+					let structptr_abbf19 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale", [structptr_abbf19, this.ptr]);
+					return structptr_abbf19;
+				})(); }
+    set textureScale(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale", [this.ptr, v]); }
+    get time() { return window.ctx.call("UnityEngine.TrailRenderer", "get_time", [this.ptr]).val(); }
+    set time(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_time", [this.ptr, v]); }
+    get widthCurve() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "get_widthCurve", [this.ptr])); }
+    set widthCurve(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthCurve", [this.ptr, v]); }
+    get widthMultiplier() { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier", [this.ptr]).val(); }
+    set widthMultiplier(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier", [this.ptr, v]); }
+    AddPosition(position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition", [this.ptr, position]); }
+    static AddPosition_Injected(_unity_self, position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition_Injected", [_unity_self, position]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19769", [this.ptr, positions]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19776", [this.ptr, positions]); }
+    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19777", [this.ptr, positions]); }
+    AddPositionsWithNativeContainer(positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer", [this.ptr, positions, length]); }
+    static AddPositionsWithNativeContainer_Injected(_unity_self, positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer_Injected", [_unity_self, positions, length]); }
+    static AddPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_Injected", [_unity_self, positions]); }
+    BakeMesh_mesh_useTransform(mesh, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19755", [this.ptr, mesh, useTransform]); }
+    BakeMesh_mesh_camera_useTransform(mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19756", [this.ptr, mesh, camera, useTransform]); }
+    static BakeMesh_Injected(_unity_self, mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_Injected", [_unity_self, mesh, camera, useTransform]); }
+    Clear() { window.ctx.call("UnityEngine.TrailRenderer", "Clear", [this.ptr]); }
+    static Clear_Injected(_unity_self) { window.ctx.call("UnityEngine.TrailRenderer", "Clear_Injected", [_unity_self]); }
+    GetColorGradientCopy() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy", [this.ptr])); }
+    static GetColorGradientCopy_Injected(_unity_self) { return (()=>{
+					let structptr_ef79d6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy_Injected", [structptr_ef79d6, _unity_self]);
+					return structptr_ef79d6;
+				})(); }
+    GetPosition(index) { return (()=>{
+					let structptr_14a945 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetPosition", [structptr_14a945, this.ptr, index]);
+					return structptr_14a945;
+				})(); }
+    static GetPosition_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.TrailRenderer", "GetPosition_Injected", [_unity_self, index, ret]); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19765", [this.ptr, positions]).val(); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19772", [this.ptr, positions]).val(); }
+    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19773", [this.ptr, positions]).val(); }
+    GetPositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
+    static GetPositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
+    static GetPositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_Injected", [_unity_self, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19766", [this.ptr, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19774", [this.ptr, positions]).val(); }
+    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19775", [this.ptr, positions]).val(); }
+    GetVisiblePositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
+    static GetVisiblePositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
+    static GetVisiblePositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_Injected", [_unity_self, positions]).val(); }
+    GetWidthCurveCopy() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy", [this.ptr])); }
+    static GetWidthCurveCopy_Injected(_unity_self) { return (()=>{
+					let structptr_00f0ce = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy_Injected", [structptr_00f0ce, _unity_self]);
+					return structptr_00f0ce;
+				})(); }
+    SetColorGradient(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient", [this.ptr, curve]); }
+    static SetColorGradient_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient_Injected", [_unity_self, curve]); }
+    SetPosition(index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition", [this.ptr, index, position]); }
+    static SetPosition_Injected(_unity_self, index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition_Injected", [_unity_self, index, position]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19767", [this.ptr, positions]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19770", [this.ptr, positions]); }
+    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19771", [this.ptr, positions]); }
+    SetPositionsWithNativeContainer(positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer", [this.ptr, positions, count]); }
+    static SetPositionsWithNativeContainer_Injected(_unity_self, positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer_Injected", [_unity_self, positions, count]); }
+    static SetPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_Injected", [_unity_self, positions]); }
+    SetWidthCurve(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve", [this.ptr, curve]); }
+    static SetWidthCurve_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve_Injected", [_unity_self, curve]); }
+    static get_alignment_Injected(_unity_self) { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment_Injected", [_unity_self])); }
+    static get_applyActiveColorSpace_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace_Injected", [_unity_self]).val() === 1; }
+    static get_autodestruct_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct_Injected", [_unity_self]).val() === 1; }
+    static get_emitting_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting_Injected", [_unity_self]).val() === 1; }
+    static get_endColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_endColor_Injected", [_unity_self, ret]); }
+    static get_endWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth_Injected", [_unity_self]).val(); }
+    static get_generateLightingData_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData_Injected", [_unity_self]).val() === 1; }
+    static get_maskInteraction_Injected(_unity_self) { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction_Injected", [_unity_self])); }
+    static get_minVertexDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance_Injected", [_unity_self]).val(); }
+    static get_numCapVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices_Injected", [_unity_self]).val(); }
+    static get_numCornerVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices_Injected", [_unity_self]).val(); }
+    static get_positionCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount_Injected", [_unity_self]).val(); }
+    static get_shadowBias_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias_Injected", [_unity_self]).val(); }
+    static get_startColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_startColor_Injected", [_unity_self, ret]); }
+    static get_startWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth_Injected", [_unity_self]).val(); }
+    static get_textureMode_Injected(_unity_self) { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode_Injected", [_unity_self])); }
+    static get_textureScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale_Injected", [_unity_self, ret]); }
+    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_time_Injected", [_unity_self]).val(); }
+    static get_widthMultiplier_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier_Injected", [_unity_self]).val(); }
+    static set_alignment_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment_Injected", [_unity_self, value]); }
+    static set_applyActiveColorSpace_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace_Injected", [_unity_self, value]); }
+    static set_autodestruct_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct_Injected", [_unity_self, value]); }
+    static set_emitting_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting_Injected", [_unity_self, value]); }
+    static set_endColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor_Injected", [_unity_self, value]); }
+    static set_endWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth_Injected", [_unity_self, value]); }
+    static set_generateLightingData_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData_Injected", [_unity_self, value]); }
+    static set_maskInteraction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction_Injected", [_unity_self, value]); }
+    static set_minVertexDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance_Injected", [_unity_self, value]); }
+    static set_numCapVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices_Injected", [_unity_self, value]); }
+    static set_numCornerVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices_Injected", [_unity_self, value]); }
+    static set_shadowBias_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias_Injected", [_unity_self, value]); }
+    static set_startColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor_Injected", [_unity_self, value]); }
+    static set_startWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth_Injected", [_unity_self, value]); }
+    static set_textureMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode_Injected", [_unity_self, value]); }
+    static set_textureScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale_Injected", [_unity_self, value]); }
+    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_time_Injected", [_unity_self, value]); }
+    static set_widthMultiplier_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier_Injected", [_unity_self, value]); }
 }
 
 export class Collision {
@@ -6226,9 +7138,9 @@ export class Rigidbody {
     get angularDrag() { return window.ctx.call("UnityEngine.Rigidbody", "get_angularDrag", [this.ptr]).val(); }
     set angularDrag(v) { window.ctx.call("UnityEngine.Rigidbody", "set_angularDrag", [this.ptr, v]); }
     get angularVelocity() { return (()=>{
-					let structptr_3665fa = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_angularVelocity", [structptr_3665fa, this.ptr]);
-					return structptr_3665fa;
+					let structptr_25a7bf = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_angularVelocity", [structptr_25a7bf, this.ptr]);
+					return structptr_25a7bf;
 				})(); }
     set angularVelocity(v) { window.ctx.call("UnityEngine.Rigidbody", "set_angularVelocity", [this.ptr, v]); }
     get automaticCenterOfMass() { return window.ctx.call("UnityEngine.Rigidbody", "get_automaticCenterOfMass", [this.ptr]).val() === 1; }
@@ -6236,9 +7148,9 @@ export class Rigidbody {
     get automaticInertiaTensor() { return window.ctx.call("UnityEngine.Rigidbody", "get_automaticInertiaTensor", [this.ptr]).val() === 1; }
     set automaticInertiaTensor(v) { window.ctx.call("UnityEngine.Rigidbody", "set_automaticInertiaTensor", [this.ptr, v]); }
     get centerOfMass() { return (()=>{
-					let structptr_d747f7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_centerOfMass", [structptr_d747f7, this.ptr]);
-					return structptr_d747f7;
+					let structptr_221f20 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_centerOfMass", [structptr_221f20, this.ptr]);
+					return structptr_221f20;
 				})(); }
     set centerOfMass(v) { window.ctx.call("UnityEngine.Rigidbody", "set_centerOfMass", [this.ptr, v]); }
     get collisionDetectionMode() { return new CollisionDetectionMode(window.ctx.call("UnityEngine.Rigidbody", "get_collisionDetectionMode", [this.ptr])); }
@@ -6250,29 +7162,29 @@ export class Rigidbody {
     get drag() { return window.ctx.call("UnityEngine.Rigidbody", "get_drag", [this.ptr]).val(); }
     set drag(v) { window.ctx.call("UnityEngine.Rigidbody", "set_drag", [this.ptr, v]); }
     get excludeLayers() { return (()=>{
-					let structptr_ac421c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Rigidbody", "get_excludeLayers", [structptr_ac421c, this.ptr]);
-					return structptr_ac421c;
+					let structptr_909ca7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rigidbody", "get_excludeLayers", [structptr_909ca7, this.ptr]);
+					return structptr_909ca7;
 				})(); }
     set excludeLayers(v) { window.ctx.call("UnityEngine.Rigidbody", "set_excludeLayers", [this.ptr, v]); }
     get freezeRotation() { return window.ctx.call("UnityEngine.Rigidbody", "get_freezeRotation", [this.ptr]).val() === 1; }
     set freezeRotation(v) { window.ctx.call("UnityEngine.Rigidbody", "set_freezeRotation", [this.ptr, v]); }
     get includeLayers() { return (()=>{
-					let structptr_5cf9df = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Rigidbody", "get_includeLayers", [structptr_5cf9df, this.ptr]);
-					return structptr_5cf9df;
+					let structptr_c2b690 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rigidbody", "get_includeLayers", [structptr_c2b690, this.ptr]);
+					return structptr_c2b690;
 				})(); }
     set includeLayers(v) { window.ctx.call("UnityEngine.Rigidbody", "set_includeLayers", [this.ptr, v]); }
     get inertiaTensor() { return (()=>{
-					let structptr_655dd1 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_inertiaTensor", [structptr_655dd1, this.ptr]);
-					return structptr_655dd1;
+					let structptr_4cfaf7 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_inertiaTensor", [structptr_4cfaf7, this.ptr]);
+					return structptr_4cfaf7;
 				})(); }
     set inertiaTensor(v) { window.ctx.call("UnityEngine.Rigidbody", "set_inertiaTensor", [this.ptr, v]); }
     get inertiaTensorRotation() { return (()=>{
-					let structptr_8404ee = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Rigidbody", "get_inertiaTensorRotation", [structptr_8404ee, this.ptr]);
-					return structptr_8404ee;
+					let structptr_9b29cd = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Rigidbody", "get_inertiaTensorRotation", [structptr_9b29cd, this.ptr]);
+					return structptr_9b29cd;
 				})(); }
     set inertiaTensorRotation(v) { window.ctx.call("UnityEngine.Rigidbody", "set_inertiaTensorRotation", [this.ptr, v]); }
     get interpolation() { return new RigidbodyInterpolation(window.ctx.call("UnityEngine.Rigidbody", "get_interpolation", [this.ptr])); }
@@ -6282,9 +7194,9 @@ export class Rigidbody {
     get linearDamping() { return window.ctx.call("UnityEngine.Rigidbody", "get_linearDamping", [this.ptr]).val(); }
     set linearDamping(v) { window.ctx.call("UnityEngine.Rigidbody", "set_linearDamping", [this.ptr, v]); }
     get linearVelocity() { return (()=>{
-					let structptr_4c0267 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_linearVelocity", [structptr_4c0267, this.ptr]);
-					return structptr_4c0267;
+					let structptr_4a444a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_linearVelocity", [structptr_4a444a, this.ptr]);
+					return structptr_4a444a;
 				})(); }
     set linearVelocity(v) { window.ctx.call("UnityEngine.Rigidbody", "set_linearVelocity", [this.ptr, v]); }
     get mass() { return window.ctx.call("UnityEngine.Rigidbody", "get_mass", [this.ptr]).val(); }
@@ -6296,15 +7208,15 @@ export class Rigidbody {
     get maxLinearVelocity() { return window.ctx.call("UnityEngine.Rigidbody", "get_maxLinearVelocity", [this.ptr]).val(); }
     set maxLinearVelocity(v) { window.ctx.call("UnityEngine.Rigidbody", "set_maxLinearVelocity", [this.ptr, v]); }
     get position() { return (()=>{
-					let structptr_911481 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_position", [structptr_911481, this.ptr]);
-					return structptr_911481;
+					let structptr_a7136d = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_position", [structptr_a7136d, this.ptr]);
+					return structptr_a7136d;
 				})(); }
     set position(v) { window.ctx.call("UnityEngine.Rigidbody", "set_position", [this.ptr, v]); }
     get rotation() { return (()=>{
-					let structptr_178d71 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Rigidbody", "get_rotation", [structptr_178d71, this.ptr]);
-					return structptr_178d71;
+					let structptr_525d86 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Rigidbody", "get_rotation", [structptr_525d86, this.ptr]);
+					return structptr_525d86;
 				})(); }
     set rotation(v) { window.ctx.call("UnityEngine.Rigidbody", "set_rotation", [this.ptr, v]); }
     get sleepThreshold() { return window.ctx.call("UnityEngine.Rigidbody", "get_sleepThreshold", [this.ptr]).val(); }
@@ -6316,20 +7228,20 @@ export class Rigidbody {
     get useGravity() { return window.ctx.call("UnityEngine.Rigidbody", "get_useGravity", [this.ptr]).val() === 1; }
     set useGravity(v) { window.ctx.call("UnityEngine.Rigidbody", "set_useGravity", [this.ptr, v]); }
     get velocity() { return (()=>{
-					let structptr_90852c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_velocity", [structptr_90852c, this.ptr]);
-					return structptr_90852c;
+					let structptr_235da1 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_velocity", [structptr_235da1, this.ptr]);
+					return structptr_235da1;
 				})(); }
     set velocity(v) { window.ctx.call("UnityEngine.Rigidbody", "set_velocity", [this.ptr, v]); }
     get worldCenterOfMass() { return (()=>{
-					let structptr_866bfc = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "get_worldCenterOfMass", [structptr_866bfc, this.ptr]);
-					return structptr_866bfc;
+					let structptr_2748f8 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "get_worldCenterOfMass", [structptr_2748f8, this.ptr]);
+					return structptr_2748f8;
 				})(); }
     get worldInertiaTensorMatrix() { return (()=>{
-					let structptr_2360f9 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Rigidbody", "get_worldInertiaTensorMatrix", [structptr_2360f9, this.ptr]);
-					return structptr_2360f9;
+					let structptr_cb8638 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Rigidbody", "get_worldInertiaTensorMatrix", [structptr_cb8638, this.ptr]);
+					return structptr_cb8638;
 				})(); }
     AddExplosionForce_explosionForce_explosionPosition_explosionRadius_upwardsModifier_mode(explosionForce, explosionPosition, explosionRadius, upwardsModifier, mode) { window.ctx.call("UnityEngine.Rigidbody", "AddExplosionForce_25319", [this.ptr, explosionForce, explosionPosition, explosionRadius, upwardsModifier, mode]); }
     AddExplosionForce_explosionForce_explosionPosition_explosionRadius_upwardsModifier(explosionForce, explosionPosition, explosionRadius, upwardsModifier) { window.ctx.call("UnityEngine.Rigidbody", "AddExplosionForce_25320", [this.ptr, explosionForce, explosionPosition, explosionRadius, upwardsModifier]); }
@@ -6359,42 +7271,42 @@ export class Rigidbody {
     AddTorque_x_y_z(x, y, z) { window.ctx.call("UnityEngine.Rigidbody", "AddTorque_25312", [this.ptr, x, y, z]); }
     static AddTorque_Injected(_unity_self, torque, mode) { window.ctx.call("UnityEngine.Rigidbody", "AddTorque_Injected", [_unity_self, torque, mode]); }
     ClosestPointOnBounds(position) { return (()=>{
-					let structptr_0fe07d = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "ClosestPointOnBounds", [structptr_0fe07d, this.ptr, position]);
-					return structptr_0fe07d;
+					let structptr_340b1e = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "ClosestPointOnBounds", [structptr_340b1e, this.ptr, position]);
+					return structptr_340b1e;
 				})(); }
     GetAccumulatedForce_step(step) { return (()=>{
-					let structptr_98205a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedForce_25297", [structptr_98205a, this.ptr, step]);
-					return structptr_98205a;
+					let structptr_1511c4 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedForce_25297", [structptr_1511c4, this.ptr, step]);
+					return structptr_1511c4;
 				})(); }
     GetAccumulatedForce_pointer() { return (()=>{
-					let structptr_0fb928 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedForce_25298", [structptr_0fb928, this.ptr]);
-					return structptr_0fb928;
+					let structptr_05aa62 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedForce_25298", [structptr_05aa62, this.ptr]);
+					return structptr_05aa62;
 				})(); }
     static GetAccumulatedForce_Injected(_unity_self, step, ret) { window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedForce_Injected", [_unity_self, step, ret]); }
     GetAccumulatedTorque_step(step) { return (()=>{
-					let structptr_85e55e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedTorque_25299", [structptr_85e55e, this.ptr, step]);
-					return structptr_85e55e;
+					let structptr_20e3d3 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedTorque_25299", [structptr_20e3d3, this.ptr, step]);
+					return structptr_20e3d3;
 				})(); }
     GetAccumulatedTorque_pointer() { return (()=>{
-					let structptr_4fdbf6 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedTorque_25300", [structptr_4fdbf6, this.ptr]);
-					return structptr_4fdbf6;
+					let structptr_4b6960 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedTorque_25300", [structptr_4b6960, this.ptr]);
+					return structptr_4b6960;
 				})(); }
     static GetAccumulatedTorque_Injected(_unity_self, step, ret) { window.ctx.call("UnityEngine.Rigidbody", "GetAccumulatedTorque_Injected", [_unity_self, step, ret]); }
     GetPointVelocity(worldPoint) { return (()=>{
-					let structptr_f37a1c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetPointVelocity", [structptr_f37a1c, this.ptr, worldPoint]);
-					return structptr_f37a1c;
+					let structptr_192821 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetPointVelocity", [structptr_192821, this.ptr, worldPoint]);
+					return structptr_192821;
 				})(); }
     static GetPointVelocity_Injected(_unity_self, worldPoint, ret) { window.ctx.call("UnityEngine.Rigidbody", "GetPointVelocity_Injected", [_unity_self, worldPoint, ret]); }
     GetRelativePointVelocity(relativePoint) { return (()=>{
-					let structptr_ab2aa7 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Rigidbody", "GetRelativePointVelocity", [structptr_ab2aa7, this.ptr, relativePoint]);
-					return structptr_ab2aa7;
+					let structptr_f2f223 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Rigidbody", "GetRelativePointVelocity", [structptr_f2f223, this.ptr, relativePoint]);
+					return structptr_f2f223;
 				})(); }
     static GetRelativePointVelocity_Injected(_unity_self, relativePoint, ret) { window.ctx.call("UnityEngine.Rigidbody", "GetRelativePointVelocity_Injected", [_unity_self, relativePoint, ret]); }
     Internal_ClosestPointOnBounds(point, outPos, distance) { window.ctx.call("UnityEngine.Rigidbody", "Internal_ClosestPointOnBounds", [this.ptr, point, outPos, distance]); }
@@ -6419,9 +7331,9 @@ export class Rigidbody {
     Sleep() { window.ctx.call("UnityEngine.Rigidbody", "Sleep", [this.ptr]); }
     static Sleep_Injected(_unity_self) { window.ctx.call("UnityEngine.Rigidbody", "Sleep_Injected", [_unity_self]); }
     SweepTest_direction_maxDistance_queryTriggerInteraction_hasHit(direction, maxDistance, queryTriggerInteraction, hasHit) { return (()=>{
-					let structptr_e012de = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Rigidbody", "SweepTest_25324", [structptr_e012de, this.ptr, direction, maxDistance, queryTriggerInteraction, hasHit]);
-					return structptr_e012de;
+					let structptr_d05fd1 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rigidbody", "SweepTest_25324", [structptr_d05fd1, this.ptr, direction, maxDistance, queryTriggerInteraction, hasHit]);
+					return structptr_d05fd1;
 				})(); }
     SweepTest_direction_hitInfo_maxDistance_queryTriggerInteraction(direction, hitInfo, maxDistance, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Rigidbody", "SweepTest_25325", [this.ptr, direction, hitInfo, maxDistance, queryTriggerInteraction]).val() === 1; }
     SweepTest_direction_hitInfo_maxDistance(direction, hitInfo, maxDistance) { return window.ctx.call("UnityEngine.Rigidbody", "SweepTest_25326", [this.ptr, direction, hitInfo, maxDistance]).val() === 1; }
@@ -6491,9 +7403,9 @@ export class Rigidbody {
 export class EntityId {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     static get None() { return (()=>{
-					let structptr_903bda = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.EntityId", "get_None", [structptr_903bda, ]);
-					return structptr_903bda;
+					let structptr_c194dd = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.EntityId", "get_None", [structptr_c194dd, ]);
+					return structptr_c194dd;
 				})(); }
     get m_Data() { return this.ptr.readField(0x0, 'i32').val(); }
     set m_Data(v) { return this.ptr.writeField(0x0, 'i32', v); }
@@ -6501,7 +7413,7 @@ export class EntityId {
     Equals_obj(obj) { return window.ctx.call("UnityEngine.EntityId", "Equals_22745", [this.ptr, obj]).val() === 1; }
     Equals_other(other) { return window.ctx.call("UnityEngine.EntityId", "Equals_22746", [this.ptr, other]).val() === 1; }
     GetHashCode() { return window.ctx.call("UnityEngine.EntityId", "GetHashCode", [this.ptr]).val(); }
-    ToString() { return window.ctx.call("UnityEngine.EntityId", "ToString", [this.ptr]); }
+    ToString() { return window.ctx.call("UnityEngine.EntityId", "ToString", [this.ptr]).mstr(); }
 }
 
 export class Vector2 {
@@ -6510,30 +7422,30 @@ export class Vector2 {
     set Item(v) { window.ctx.call("UnityEngine.Vector2", "set_Item", [this.ptr, index, v]); }
     get magnitude() { return window.ctx.call("UnityEngine.Vector2", "get_magnitude", [this.ptr]).val(); }
     get normalized() { return (()=>{
-					let structptr_230813 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "get_normalized", [structptr_230813, this.ptr]);
-					return structptr_230813;
+					let structptr_8da277 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "get_normalized", [structptr_8da277, this.ptr]);
+					return structptr_8da277;
 				})(); }
     static get one() { return (()=>{
-					let structptr_343218 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "get_one", [structptr_343218, ]);
-					return structptr_343218;
+					let structptr_bb9a1d = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "get_one", [structptr_bb9a1d, ]);
+					return structptr_bb9a1d;
 				})(); }
     static get right() { return (()=>{
-					let structptr_1309a8 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "get_right", [structptr_1309a8, ]);
-					return structptr_1309a8;
+					let structptr_4dd523 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "get_right", [structptr_4dd523, ]);
+					return structptr_4dd523;
 				})(); }
     get sqrMagnitude() { return window.ctx.call("UnityEngine.Vector2", "get_sqrMagnitude", [this.ptr]).val(); }
     static get up() { return (()=>{
-					let structptr_30f286 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "get_up", [structptr_30f286, ]);
-					return structptr_30f286;
+					let structptr_0b0889 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "get_up", [structptr_0b0889, ]);
+					return structptr_0b0889;
 				})(); }
     static get zero() { return (()=>{
-					let structptr_cc342c = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "get_zero", [structptr_cc342c, ]);
-					return structptr_cc342c;
+					let structptr_a5dfd0 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "get_zero", [structptr_a5dfd0, ]);
+					return structptr_a5dfd0;
 				})(); }
     get downVector() { return new Vector2(this.ptr.readField(0x18, 'i32')); }
     set downVector(v) { return this.ptr.writeField(0x18, 'i32', v); }
@@ -6564,17 +7476,17 @@ export class Vector2 {
     Equals_other(other) { return window.ctx.call("UnityEngine.Vector2", "Equals_22228", [this.ptr, other]).val() === 1; }
     GetHashCode() { return window.ctx.call("UnityEngine.Vector2", "GetHashCode", [this.ptr]).val(); }
     static Normalize(value) { return (()=>{
-					let structptr_d34c31 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "Normalize", [structptr_d34c31, value]);
-					return structptr_d34c31;
+					let structptr_78f910 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "Normalize", [structptr_78f910, value]);
+					return structptr_78f910;
 				})(); }
     static Scale(a, b) { return (()=>{
-					let structptr_7bbc40 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Vector2", "Scale", [structptr_7bbc40, a, b]);
-					return structptr_7bbc40;
+					let structptr_8d8650 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Vector2", "Scale", [structptr_8d8650, a, b]);
+					return structptr_8d8650;
 				})(); }
-    ToString_pointer() { return window.ctx.call("UnityEngine.Vector2", "ToString_22223", [this.ptr]); }
-    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector2", "ToString_22224", [this.ptr, format, formatProvider]); }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Vector2", "ToString_22223", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector2", "ToString_22224", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
 }
 
 export class DamageCircleUI {
@@ -6618,15 +7530,15 @@ export class ScriptableObject {
     static CreateScriptableObject(self) { window.ctx.call("UnityEngine.ScriptableObject", "CreateScriptableObject", [self]); }
     static CreateScriptableObjectInstanceFromType(type, applyDefaultsAndReset) { return new ScriptableObject(window.ctx.call("UnityEngine.ScriptableObject", "CreateScriptableObjectInstanceFromType", [type, applyDefaultsAndReset])); }
     static CreateScriptableObjectInstanceFromType_Injected(type, applyDefaultsAndReset) { return (()=>{
-					let structptr_25c45f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ScriptableObject", "CreateScriptableObjectInstanceFromType_Injected", [structptr_25c45f, type, applyDefaultsAndReset]);
-					return structptr_25c45f;
+					let structptr_9f1f73 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ScriptableObject", "CreateScriptableObjectInstanceFromType_Injected", [structptr_9f1f73, type, applyDefaultsAndReset]);
+					return structptr_9f1f73;
 				})(); }
 }
 
 export class AnimatorControllerParameter {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get name() { return window.ctx.call("UnityEngine.AnimatorControllerParameter", "get_name", [this.ptr]); }
+    get name() { return window.ctx.call("UnityEngine.AnimatorControllerParameter", "get_name", [this.ptr]).mstr(); }
     get m_DefaultBool() { return this.ptr.readField(0x18, 'i32').val() === 1; }
     set m_DefaultBool(v) { return this.ptr.writeField(0x18, 'i32', v); }
     get m_DefaultFloat() { return this.ptr.readField(0x10, 'f32').val(); }
@@ -6650,9 +7562,9 @@ export class Texture {
     get isReadable() { return window.ctx.call("UnityEngine.Texture", "get_isReadable", [this.ptr]).val() === 1; }
     get mipmapCount() { return window.ctx.call("UnityEngine.Texture", "get_mipmapCount", [this.ptr]).val(); }
     get texelSize() { return (()=>{
-					let structptr_d8e62f = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Texture", "get_texelSize", [structptr_d8e62f, this.ptr]);
-					return structptr_d8e62f;
+					let structptr_a6b47b = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Texture", "get_texelSize", [structptr_a6b47b, this.ptr]);
+					return structptr_a6b47b;
 				})(); }
     get width() { return window.ctx.call("UnityEngine.Texture", "get_width", [this.ptr]).val(); }
     set width(v) { window.ctx.call("UnityEngine.Texture", "set_width", [this.ptr, v]); }
@@ -6741,15 +7653,15 @@ export class Shader {
     static get globalKeywords() { return window.ctx.call("UnityEngine.Shader", "get_globalKeywords", []); }
     static get globalMaximumLOD() { return window.ctx.call("UnityEngine.Shader", "get_globalMaximumLOD", []).val(); }
     static set globalMaximumLOD(v) { window.ctx.call("UnityEngine.Shader", "set_globalMaximumLOD", [v]); }
-    static get globalRenderPipeline() { return window.ctx.call("UnityEngine.Shader", "get_globalRenderPipeline", []); }
-    static set globalRenderPipeline(v) { window.ctx.call("UnityEngine.Shader", "set_globalRenderPipeline", [v]); }
+    static get globalRenderPipeline() { return window.ctx.call("UnityEngine.Shader", "get_globalRenderPipeline", []).mstr(); }
+    static set globalRenderPipeline(v) { window.ctx.call("UnityEngine.Shader", "set_globalRenderPipeline", [window.ctx.createMstr(v)]); }
     static get globalShaderHardwareTier() { return new ShaderHardwareTier(window.ctx.call("UnityEngine.Shader", "get_globalShaderHardwareTier", [])); }
     static set globalShaderHardwareTier(v) { window.ctx.call("UnityEngine.Shader", "set_globalShaderHardwareTier", [v]); }
     get isSupported() { return window.ctx.call("UnityEngine.Shader", "get_isSupported", [this.ptr]).val() === 1; }
     get keywordSpace() { return (()=>{
-					let structptr_d63223 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "get_keywordSpace", [structptr_d63223, this.ptr]);
-					return structptr_d63223;
+					let structptr_fa8f65 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "get_keywordSpace", [structptr_fa8f65, this.ptr]);
+					return structptr_fa8f65;
 				})(); }
     static get maximumChunksOverride() { return window.ctx.call("UnityEngine.Shader", "get_maximumChunksOverride", []).val(); }
     static set maximumChunksOverride(v) { window.ctx.call("UnityEngine.Shader", "set_maximumChunksOverride", [v]); }
@@ -6761,16 +7673,16 @@ export class Shader {
     static CheckPropertyIndex(s, propertyIndex) { window.ctx.call("UnityEngine.Shader", "CheckPropertyIndex", [s, propertyIndex]); }
     static CreateFromCompiledData(compiledData, dependencies) { return new Shader(window.ctx.call("UnityEngine.Shader", "CreateFromCompiledData", [compiledData, dependencies])); }
     static CreateFromCompiledData_Injected(compiledData, dependencies) { return (()=>{
-					let structptr_87146b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "CreateFromCompiledData_Injected", [structptr_87146b, compiledData, dependencies]);
-					return structptr_87146b;
+					let structptr_9b810f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "CreateFromCompiledData_Injected", [structptr_9b810f, compiledData, dependencies]);
+					return structptr_9b810f;
 				})(); }
-    static DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeyword_20019", [keyword]); }
+    static DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeyword_20019", [window.ctx.createMstr(keyword)]); }
     static DisableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeyword_20026", [keyword]); }
     static DisableKeywordFast(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeywordFast", [keyword]); }
     static DisableKeywordFast_Injected(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeywordFast_Injected", [keyword]); }
     static DisableKeyword_Injected(keyword) { window.ctx.call("UnityEngine.Shader", "DisableKeyword_Injected", [keyword]); }
-    static EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "EnableKeyword_20018", [keyword]); }
+    static EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "EnableKeyword_20018", [window.ctx.createMstr(keyword)]); }
     static EnableKeyword_keyword(keyword) { window.ctx.call("UnityEngine.Shader", "EnableKeyword_20025", [keyword]); }
     static EnableKeywordFast(keyword) { window.ctx.call("UnityEngine.Shader", "EnableKeywordFast", [keyword]); }
     static EnableKeywordFast_Injected(keyword) { window.ctx.call("UnityEngine.Shader", "EnableKeywordFast_Injected", [keyword]); }
@@ -6781,128 +7693,128 @@ export class Shader {
     static ExtractGlobalMatrixArray(name, values) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalMatrixArray", [name, values]); }
     static ExtractGlobalMatrixArrayImpl(name, val) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalMatrixArrayImpl", [name, val]); }
     static ExtractGlobalMatrixArrayImpl_Injected(name, val) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalMatrixArrayImpl_Injected", [name, val]); }
-    static ExtractGlobalPropertyNames(type, names) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalPropertyNames", [type, names]); }
+    static ExtractGlobalPropertyNames(type, names) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalPropertyNames", [type, window.ctx.createMstr(names)]); }
     static ExtractGlobalPropertyNamesImpl(propertyType, names) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalPropertyNamesImpl", [propertyType, names]); }
     static ExtractGlobalVectorArray(name, values) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalVectorArray", [name, values]); }
     static ExtractGlobalVectorArrayImpl(name, val) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalVectorArrayImpl", [name, val]); }
     static ExtractGlobalVectorArrayImpl_Injected(name, val) { window.ctx.call("UnityEngine.Shader", "ExtractGlobalVectorArrayImpl_Injected", [name, val]); }
-    static Find(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "Find", [name])); }
-    static FindBuiltin(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "FindBuiltin", [name])); }
+    static Find(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "Find", [window.ctx.createMstr(name)])); }
+    static FindBuiltin(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "FindBuiltin", [window.ctx.createMstr(name)])); }
     static FindBuiltin_Injected(name) { return (()=>{
-					let structptr_e436c1 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "FindBuiltin_Injected", [structptr_e436c1, name]);
-					return structptr_e436c1;
+					let structptr_586823 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "FindBuiltin_Injected", [structptr_586823, name]);
+					return structptr_586823;
 				})(); }
     FindPassTagValue_passIndex_tagName(passIndex, tagName) { return (()=>{
-					let structptr_258103 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "FindPassTagValue_20042", [structptr_258103, this.ptr, passIndex, tagName]);
-					return structptr_258103;
+					let structptr_c6118b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "FindPassTagValue_20042", [structptr_c6118b, this.ptr, passIndex, tagName]);
+					return structptr_c6118b;
 				})(); }
     FindPassTagValue_subshaderIndex_passIndex_tagName(subshaderIndex, passIndex, tagName) { return (()=>{
-					let structptr_790fd8 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "FindPassTagValue_20043", [structptr_790fd8, this.ptr, subshaderIndex, passIndex, tagName]);
-					return structptr_790fd8;
+					let structptr_d286ff = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "FindPassTagValue_20043", [structptr_d286ff, this.ptr, subshaderIndex, passIndex, tagName]);
+					return structptr_d286ff;
 				})(); }
-    FindPropertyIndex(propertyName) { return window.ctx.call("UnityEngine.Shader", "FindPropertyIndex", [this.ptr, propertyName]).val(); }
+    FindPropertyIndex(propertyName) { return window.ctx.call("UnityEngine.Shader", "FindPropertyIndex", [this.ptr, window.ctx.createMstr(propertyName)]).val(); }
     static FindPropertyIndex_Injected(_unity_self, propertyName) { return window.ctx.call("UnityEngine.Shader", "FindPropertyIndex_Injected", [_unity_self, propertyName]).val(); }
     FindSubshaderTagValue(subshaderIndex, tagName) { return (()=>{
-					let structptr_9cd721 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "FindSubshaderTagValue", [structptr_9cd721, this.ptr, subshaderIndex, tagName]);
-					return structptr_9cd721;
+					let structptr_d34400 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "FindSubshaderTagValue", [structptr_d34400, this.ptr, subshaderIndex, tagName]);
+					return structptr_d34400;
 				})(); }
     FindTextureStack(propertyIndex, stackName, layerIndex) { return window.ctx.call("UnityEngine.Shader", "FindTextureStack", [this.ptr, propertyIndex, stackName, layerIndex]).val() === 1; }
     static FindTextureStackImpl(s, propertyIdx, stackName, layerIndex) { return window.ctx.call("UnityEngine.Shader", "FindTextureStackImpl", [s, propertyIdx, stackName, layerIndex]).val() === 1; }
     static FindTextureStackImpl_Injected(s, propertyIdx, stackName, layerIndex) { return window.ctx.call("UnityEngine.Shader", "FindTextureStackImpl_Injected", [s, propertyIdx, stackName, layerIndex]).val() === 1; }
     static GetAllGlobalKeywords() { return window.ctx.call("UnityEngine.Shader", "GetAllGlobalKeywords", []); }
     static GetAllGlobalKeywords_Injected(ret) { window.ctx.call("UnityEngine.Shader", "GetAllGlobalKeywords_Injected", [ret]); }
-    GetDependency(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "GetDependency", [this.ptr, name])); }
+    GetDependency(name) { return new Shader(window.ctx.call("UnityEngine.Shader", "GetDependency", [this.ptr, window.ctx.createMstr(name)])); }
     static GetDependency_Injected(_unity_self, name) { return (()=>{
-					let structptr_6c8580 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "GetDependency_Injected", [structptr_6c8580, _unity_self, name]);
-					return structptr_6c8580;
+					let structptr_a06daf = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "GetDependency_Injected", [structptr_a06daf, _unity_self, name]);
+					return structptr_a06daf;
 				})(); }
     static GetEnabledGlobalKeywords() { return window.ctx.call("UnityEngine.Shader", "GetEnabledGlobalKeywords", []); }
     static GetEnabledGlobalKeywords_Injected(ret) { window.ctx.call("UnityEngine.Shader", "GetEnabledGlobalKeywords_Injected", [ret]); }
     static GetGlobalColor_name(name) { return (()=>{
-					let structptr_c8eba0 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalColor_20129", [structptr_c8eba0, name]);
-					return structptr_c8eba0;
+					let structptr_8538b3 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalColor_20129", [structptr_8538b3, name]);
+					return structptr_8538b3;
 				})(); }
     static GetGlobalColor_nameID(nameID) { return (()=>{
-					let structptr_0ad621 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalColor_20130", [structptr_0ad621, nameID]);
-					return structptr_0ad621;
+					let structptr_aa5e55 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalColor_20130", [structptr_aa5e55, nameID]);
+					return structptr_aa5e55;
 				})(); }
-    static GetGlobalFloat_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloat_20123", [name]).val(); }
+    static GetGlobalFloat_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloat_20123", [window.ctx.createMstr(name)]).val(); }
     static GetGlobalFloat_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloat_20124", [nameID]).val(); }
-    static GetGlobalFloatArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20135", [name]); }
+    static GetGlobalFloatArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20135", [window.ctx.createMstr(name)]); }
     static GetGlobalFloatArray_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20136", [nameID]); }
-    static GetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20141", [name, values]); }
+    static GetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20141", [window.ctx.createMstr(name), values]); }
     static GetGlobalFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArray_20142", [nameID, values]); }
     static GetGlobalFloatArrayCountImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArrayCountImpl", [name]).val(); }
     static GetGlobalFloatArrayImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArrayImpl", [name]); }
     static GetGlobalFloatArrayImpl_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "GetGlobalFloatArrayImpl_Injected", [name, ret]); }
     static GetGlobalFloatImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalFloatImpl", [name]).val(); }
-    static GetGlobalInt_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInt_20121", [name]).val(); }
+    static GetGlobalInt_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInt_20121", [window.ctx.createMstr(name)]).val(); }
     static GetGlobalInt_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInt_20122", [nameID]).val(); }
     static GetGlobalIntImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalIntImpl", [name]).val(); }
-    static GetGlobalInteger_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInteger_20125", [name]).val(); }
+    static GetGlobalInteger_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInteger_20125", [window.ctx.createMstr(name)]).val(); }
     static GetGlobalInteger_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalInteger_20126", [nameID]).val(); }
     static GetGlobalMatrix_name(name) { return (()=>{
-					let structptr_7b82b9 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrix_20131", [structptr_7b82b9, name]);
-					return structptr_7b82b9;
+					let structptr_8c674c = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrix_20131", [structptr_8c674c, name]);
+					return structptr_8c674c;
 				})(); }
     static GetGlobalMatrix_nameID(nameID) { return (()=>{
-					let structptr_a8078c = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrix_20132", [structptr_a8078c, nameID]);
-					return structptr_a8078c;
+					let structptr_bb4713 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrix_20132", [structptr_bb4713, nameID]);
+					return structptr_bb4713;
 				})(); }
-    static GetGlobalMatrixArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20139", [name]); }
+    static GetGlobalMatrixArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20139", [window.ctx.createMstr(name)]); }
     static GetGlobalMatrixArray_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20140", [nameID]); }
-    static GetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20145", [name, values]); }
+    static GetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20145", [window.ctx.createMstr(name), values]); }
     static GetGlobalMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArray_20146", [nameID, values]); }
     static GetGlobalMatrixArrayCountImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArrayCountImpl", [name]).val(); }
     static GetGlobalMatrixArrayImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArrayImpl", [name]); }
     static GetGlobalMatrixArrayImpl_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixArrayImpl_Injected", [name, ret]); }
     static GetGlobalMatrixImpl(name) { return (()=>{
-					let structptr_c08f22 = window.ctx.malloc(64);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixImpl", [structptr_c08f22, name]);
-					return structptr_c08f22;
+					let structptr_65d3d9 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixImpl", [structptr_65d3d9, name]);
+					return structptr_65d3d9;
 				})(); }
     static GetGlobalMatrixImpl_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "GetGlobalMatrixImpl_Injected", [name, ret]); }
     static GetGlobalPropertyCount() { return window.ctx.call("UnityEngine.Shader", "GetGlobalPropertyCount", []).val(); }
     static GetGlobalPropertyCountImpl(propertyType) { return window.ctx.call("UnityEngine.Shader", "GetGlobalPropertyCountImpl", [propertyType]).val(); }
-    static GetGlobalPropertyNames(type, names) { window.ctx.call("UnityEngine.Shader", "GetGlobalPropertyNames", [type, names]); }
-    static GetGlobalTexture_name(name) { return new Texture(window.ctx.call("UnityEngine.Shader", "GetGlobalTexture_20133", [name])); }
+    static GetGlobalPropertyNames(type, names) { window.ctx.call("UnityEngine.Shader", "GetGlobalPropertyNames", [type, window.ctx.createMstr(names)]); }
+    static GetGlobalTexture_name(name) { return new Texture(window.ctx.call("UnityEngine.Shader", "GetGlobalTexture_20133", [window.ctx.createMstr(name)])); }
     static GetGlobalTexture_nameID(nameID) { return new Texture(window.ctx.call("UnityEngine.Shader", "GetGlobalTexture_20134", [nameID])); }
     static GetGlobalTextureImpl(name) { return new Texture(window.ctx.call("UnityEngine.Shader", "GetGlobalTextureImpl", [name])); }
     static GetGlobalTextureImpl_Injected(name) { return (()=>{
-					let structptr_ce3755 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalTextureImpl_Injected", [structptr_ce3755, name]);
-					return structptr_ce3755;
+					let structptr_33fc06 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalTextureImpl_Injected", [structptr_33fc06, name]);
+					return structptr_33fc06;
 				})(); }
     static GetGlobalVector_name(name) { return (()=>{
-					let structptr_90fe2d = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalVector_20127", [structptr_90fe2d, name]);
-					return structptr_90fe2d;
+					let structptr_640a75 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalVector_20127", [structptr_640a75, name]);
+					return structptr_640a75;
 				})(); }
     static GetGlobalVector_nameID(nameID) { return (()=>{
-					let structptr_2b9195 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalVector_20128", [structptr_2b9195, nameID]);
-					return structptr_2b9195;
+					let structptr_5df6ae = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalVector_20128", [structptr_5df6ae, nameID]);
+					return structptr_5df6ae;
 				})(); }
-    static GetGlobalVectorArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20137", [name]); }
+    static GetGlobalVectorArray_name(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20137", [window.ctx.createMstr(name)]); }
     static GetGlobalVectorArray_nameID(nameID) { return window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20138", [nameID]); }
-    static GetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20143", [name, values]); }
+    static GetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20143", [window.ctx.createMstr(name), values]); }
     static GetGlobalVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArray_20144", [nameID, values]); }
     static GetGlobalVectorArrayCountImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArrayCountImpl", [name]).val(); }
     static GetGlobalVectorArrayImpl(name) { return window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArrayImpl", [name]); }
     static GetGlobalVectorArrayImpl_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "GetGlobalVectorArrayImpl_Injected", [name, ret]); }
     static GetGlobalVectorImpl(name) { return (()=>{
-					let structptr_d90388 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetGlobalVectorImpl", [structptr_d90388, name]);
-					return structptr_d90388;
+					let structptr_02cd8c = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetGlobalVectorImpl", [structptr_02cd8c, name]);
+					return structptr_02cd8c;
 				})(); }
     static GetGlobalVectorImpl_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "GetGlobalVectorImpl_Injected", [name, ret]); }
     GetPassCountInSubshader(subshaderIndex) { return window.ctx.call("UnityEngine.Shader", "GetPassCountInSubshader", [this.ptr, subshaderIndex]).val(); }
@@ -6917,35 +7829,35 @@ export class Shader {
     GetPropertyDefaultIntValue_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultIntValue_20172", [this.ptr, propertyIndex]).val(); }
     static GetPropertyDefaultIntValue_Injected(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultIntValue_Injected", [shader, propertyIndex]).val(); }
     static GetPropertyDefaultValue(shader, propertyIndex) { return (()=>{
-					let structptr_c2b4b6 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultValue", [structptr_c2b4b6, shader, propertyIndex]);
-					return structptr_c2b4b6;
+					let structptr_fd2622 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultValue", [structptr_fd2622, shader, propertyIndex]);
+					return structptr_fd2622;
 				})(); }
     static GetPropertyDefaultValue_Injected(shader, propertyIndex, ret) { window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultValue_Injected", [shader, propertyIndex, ret]); }
     GetPropertyDefaultVectorValue(propertyIndex) { return (()=>{
-					let structptr_1d91a5 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultVectorValue", [structptr_1d91a5, this.ptr, propertyIndex]);
-					return structptr_1d91a5;
+					let structptr_4c0952 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Shader", "GetPropertyDefaultVectorValue", [structptr_4c0952, this.ptr, propertyIndex]);
+					return structptr_4c0952;
 				})(); }
-    static GetPropertyDescription_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDescription_20152", [shader, propertyIndex]); }
-    GetPropertyDescription_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDescription_20166", [this.ptr, propertyIndex]); }
+    static GetPropertyDescription_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDescription_20152", [shader, propertyIndex]).mstr(); }
+    GetPropertyDescription_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyDescription_20166", [this.ptr, propertyIndex]).mstr(); }
     static GetPropertyDescription_Injected(shader, propertyIndex, ret) { window.ctx.call("UnityEngine.Shader", "GetPropertyDescription_Injected", [shader, propertyIndex, ret]); }
     static GetPropertyFlags_shader_propertyIndex(shader, propertyIndex) { return new ShaderPropertyFlags(window.ctx.call("UnityEngine.Shader", "GetPropertyFlags_20153", [shader, propertyIndex])); }
     GetPropertyFlags_propertyIndex(propertyIndex) { return new ShaderPropertyFlags(window.ctx.call("UnityEngine.Shader", "GetPropertyFlags_20167", [this.ptr, propertyIndex])); }
     static GetPropertyFlags_Injected(shader, propertyIndex) { return new ShaderPropertyFlags(window.ctx.call("UnityEngine.Shader", "GetPropertyFlags_Injected", [shader, propertyIndex])); }
-    static GetPropertyName_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyName_20149", [shader, propertyIndex]); }
-    GetPropertyName_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyName_20163", [this.ptr, propertyIndex]); }
+    static GetPropertyName_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyName_20149", [shader, propertyIndex]).mstr(); }
+    GetPropertyName_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyName_20163", [this.ptr, propertyIndex]).mstr(); }
     static GetPropertyNameId_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyNameId_20150", [shader, propertyIndex]).val(); }
     GetPropertyNameId_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyNameId_20164", [this.ptr, propertyIndex]).val(); }
     static GetPropertyNameId_Injected(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyNameId_Injected", [shader, propertyIndex]).val(); }
     static GetPropertyName_Injected(shader, propertyIndex, ret) { window.ctx.call("UnityEngine.Shader", "GetPropertyName_Injected", [shader, propertyIndex, ret]); }
     GetPropertyRangeLimits(propertyIndex) { return (()=>{
-					let structptr_b7b821 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.Shader", "GetPropertyRangeLimits", [structptr_b7b821, this.ptr, propertyIndex]);
-					return structptr_b7b821;
+					let structptr_5b30af = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Shader", "GetPropertyRangeLimits", [structptr_5b30af, this.ptr, propertyIndex]);
+					return structptr_5b30af;
 				})(); }
-    static GetPropertyTextureDefaultName_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDefaultName_20158", [shader, propertyIndex]); }
-    GetPropertyTextureDefaultName_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDefaultName_20174", [this.ptr, propertyIndex]); }
+    static GetPropertyTextureDefaultName_shader_propertyIndex(shader, propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDefaultName_20158", [shader, propertyIndex]).mstr(); }
+    GetPropertyTextureDefaultName_propertyIndex(propertyIndex) { return window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDefaultName_20174", [this.ptr, propertyIndex]).mstr(); }
     static GetPropertyTextureDefaultName_Injected(shader, propertyIndex, ret) { window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDefaultName_Injected", [shader, propertyIndex, ret]); }
     static GetPropertyTextureDimension_shader_propertyIndex(shader, propertyIndex) { return new TextureDimension(window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDimension_20157", [shader, propertyIndex])); }
     GetPropertyTextureDimension_propertyIndex(propertyIndex) { return new TextureDimension(window.ctx.call("UnityEngine.Shader", "GetPropertyTextureDimension_20173", [this.ptr, propertyIndex])); }
@@ -6953,7 +7865,7 @@ export class Shader {
     static GetPropertyType_shader_propertyIndex(shader, propertyIndex) { return new ShaderPropertyType(window.ctx.call("UnityEngine.Shader", "GetPropertyType_20151", [shader, propertyIndex])); }
     GetPropertyType_propertyIndex(propertyIndex) { return new ShaderPropertyType(window.ctx.call("UnityEngine.Shader", "GetPropertyType_20165", [this.ptr, propertyIndex])); }
     static GetPropertyType_Injected(shader, propertyIndex) { return new ShaderPropertyType(window.ctx.call("UnityEngine.Shader", "GetPropertyType_Injected", [shader, propertyIndex])); }
-    static IDToTag(name) { return window.ctx.call("UnityEngine.Shader", "IDToTag", [name]); }
+    static IDToTag(name) { return window.ctx.call("UnityEngine.Shader", "IDToTag", [name]).mstr(); }
     static IDToTag_Injected(name, ret) { window.ctx.call("UnityEngine.Shader", "IDToTag_Injected", [name, ret]); }
     Internal_FindPassTagValue(passIndex, tagName) { return window.ctx.call("UnityEngine.Shader", "Internal_FindPassTagValue", [this.ptr, passIndex, tagName]).val(); }
     Internal_FindPassTagValueInSubShader(subShaderIndex, passIndex, tagName) { return window.ctx.call("UnityEngine.Shader", "Internal_FindPassTagValueInSubShader", [this.ptr, subShaderIndex, passIndex, tagName]).val(); }
@@ -6961,75 +7873,75 @@ export class Shader {
     static Internal_FindPassTagValue_Injected(_unity_self, passIndex, tagName) { return window.ctx.call("UnityEngine.Shader", "Internal_FindPassTagValue_Injected", [_unity_self, passIndex, tagName]).val(); }
     Internal_FindSubshaderTagValue(subShaderIndex, tagName) { return window.ctx.call("UnityEngine.Shader", "Internal_FindSubshaderTagValue", [this.ptr, subShaderIndex, tagName]).val(); }
     static Internal_FindSubshaderTagValue_Injected(_unity_self, subShaderIndex, tagName) { return window.ctx.call("UnityEngine.Shader", "Internal_FindSubshaderTagValue_Injected", [_unity_self, subShaderIndex, tagName]).val(); }
-    static IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabled_20020", [keyword]).val() === 1; }
+    static IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabled_20020", [window.ctx.createMstr(keyword)]).val() === 1; }
     static IsKeywordEnabled_keyword(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabled_20028", [keyword]).val() === 1; }
     static IsKeywordEnabledFast(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabledFast", [keyword]).val() === 1; }
     static IsKeywordEnabledFast_Injected(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabledFast_Injected", [keyword]).val() === 1; }
     static IsKeywordEnabled_Injected(keyword) { return window.ctx.call("UnityEngine.Shader", "IsKeywordEnabled_Injected", [keyword]).val() === 1; }
-    static PropertyToID(name) { return window.ctx.call("UnityEngine.Shader", "PropertyToID", [name]).val(); }
+    static PropertyToID(name) { return window.ctx.call("UnityEngine.Shader", "PropertyToID", [window.ctx.createMstr(name)]).val(); }
     static PropertyToID_Injected(name) { return window.ctx.call("UnityEngine.Shader", "PropertyToID_Injected", [name]).val(); }
-    static SetGlobalBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20099", [name, value]); }
+    static SetGlobalBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20099", [window.ctx.createMstr(name), value]); }
     static SetGlobalBuffer_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20100", [nameID, value]); }
-    static SetGlobalBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20101", [name, value]); }
+    static SetGlobalBuffer_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20101", [window.ctx.createMstr(name), value]); }
     static SetGlobalBuffer_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBuffer_20102", [nameID, value]); }
     static SetGlobalBufferImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBufferImpl", [name, value]); }
     static SetGlobalBufferImpl_Injected(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalBufferImpl_Injected", [name, value]); }
-    static SetGlobalColor_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalColor_20091", [name, value]); }
+    static SetGlobalColor_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalColor_20091", [window.ctx.createMstr(name), value]); }
     static SetGlobalColor_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalColor_20092", [nameID, value]); }
-    static SetGlobalConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20103", [name, value, offset, size]); }
+    static SetGlobalConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20103", [window.ctx.createMstr(name), value, offset, size]); }
     static SetGlobalConstantBuffer_nameID_value_offset_size(nameID, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20104", [nameID, value, offset, size]); }
-    static SetGlobalConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20105", [name, value, offset, size]); }
+    static SetGlobalConstantBuffer_name_value_offset_size(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20105", [window.ctx.createMstr(name), value, offset, size]); }
     static SetGlobalConstantBuffer_nameID_value_offset_size(nameID, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBuffer_20106", [nameID, value, offset, size]); }
     static SetGlobalConstantBufferImpl(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBufferImpl", [name, value, offset, size]); }
     static SetGlobalConstantBufferImpl_Injected(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantBufferImpl_Injected", [name, value, offset, size]); }
     static SetGlobalConstantGraphicsBufferImpl(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantGraphicsBufferImpl", [name, value, offset, size]); }
     static SetGlobalConstantGraphicsBufferImpl_Injected(name, value, offset, size) { window.ctx.call("UnityEngine.Shader", "SetGlobalConstantGraphicsBufferImpl_Injected", [name, value, offset, size]); }
-    static SetGlobalFloat_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloat_20085", [name, value]); }
+    static SetGlobalFloat_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloat_20085", [window.ctx.createMstr(name), value]); }
     static SetGlobalFloat_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloat_20086", [nameID, value]); }
     static SetGlobalFloatArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20076", [name, values, count]); }
-    static SetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20109", [name, values]); }
+    static SetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20109", [window.ctx.createMstr(name), values]); }
     static SetGlobalFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20110", [nameID, values]); }
-    static SetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20111", [name, values]); }
+    static SetGlobalFloatArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20111", [window.ctx.createMstr(name), values]); }
     static SetGlobalFloatArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArray_20112", [nameID, values]); }
     static SetGlobalFloatArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArrayImpl", [name, values, count]); }
     static SetGlobalFloatArrayImpl_Injected(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatArrayImpl_Injected", [name, values, count]); }
     static SetGlobalFloatImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalFloatImpl", [name, value]); }
     static SetGlobalGraphicsBufferImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalGraphicsBufferImpl", [name, value]); }
     static SetGlobalGraphicsBufferImpl_Injected(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalGraphicsBufferImpl_Injected", [name, value]); }
-    static SetGlobalInt_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInt_20083", [name, value]); }
+    static SetGlobalInt_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInt_20083", [window.ctx.createMstr(name), value]); }
     static SetGlobalInt_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInt_20084", [nameID, value]); }
     static SetGlobalIntImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalIntImpl", [name, value]); }
-    static SetGlobalInteger_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInteger_20087", [name, value]); }
+    static SetGlobalInteger_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInteger_20087", [window.ctx.createMstr(name), value]); }
     static SetGlobalInteger_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalInteger_20088", [nameID, value]); }
-    static SetGlobalMatrix_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrix_20093", [name, value]); }
+    static SetGlobalMatrix_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrix_20093", [window.ctx.createMstr(name), value]); }
     static SetGlobalMatrix_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrix_20094", [nameID, value]); }
     static SetGlobalMatrixArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20078", [name, values, count]); }
-    static SetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20117", [name, values]); }
+    static SetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20117", [window.ctx.createMstr(name), values]); }
     static SetGlobalMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20118", [nameID, values]); }
-    static SetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20119", [name, values]); }
+    static SetGlobalMatrixArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20119", [window.ctx.createMstr(name), values]); }
     static SetGlobalMatrixArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArray_20120", [nameID, values]); }
     static SetGlobalMatrixArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArrayImpl", [name, values, count]); }
     static SetGlobalMatrixArrayImpl_Injected(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixArrayImpl_Injected", [name, values, count]); }
     static SetGlobalMatrixImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixImpl", [name, value]); }
     static SetGlobalMatrixImpl_Injected(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalMatrixImpl_Injected", [name, value]); }
-    static SetGlobalRayTracingAccelerationStructure_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalRayTracingAccelerationStructure_20107", [name, value]); }
+    static SetGlobalRayTracingAccelerationStructure_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalRayTracingAccelerationStructure_20107", [window.ctx.createMstr(name), value]); }
     static SetGlobalRayTracingAccelerationStructure_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalRayTracingAccelerationStructure_20108", [nameID, value]); }
     static SetGlobalRayTracingAccelerationStructureImpl(name, accelerationStructure) { window.ctx.call("UnityEngine.Shader", "SetGlobalRayTracingAccelerationStructureImpl", [name, accelerationStructure]); }
     static SetGlobalRayTracingAccelerationStructureImpl_Injected(name, accelerationStructure) { window.ctx.call("UnityEngine.Shader", "SetGlobalRayTracingAccelerationStructureImpl_Injected", [name, accelerationStructure]); }
     static SetGlobalRenderTextureImpl(name, value, element) { window.ctx.call("UnityEngine.Shader", "SetGlobalRenderTextureImpl", [name, value, element]); }
     static SetGlobalRenderTextureImpl_Injected(name, value, element) { window.ctx.call("UnityEngine.Shader", "SetGlobalRenderTextureImpl_Injected", [name, value, element]); }
-    static SetGlobalTexture_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20095", [name, value]); }
+    static SetGlobalTexture_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20095", [window.ctx.createMstr(name), value]); }
     static SetGlobalTexture_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20096", [nameID, value]); }
-    static SetGlobalTexture_name_value_element(name, value, element) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20097", [name, value, element]); }
+    static SetGlobalTexture_name_value_element(name, value, element) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20097", [window.ctx.createMstr(name), value, element]); }
     static SetGlobalTexture_nameID_value_element(nameID, value, element) { window.ctx.call("UnityEngine.Shader", "SetGlobalTexture_20098", [nameID, value, element]); }
     static SetGlobalTextureImpl(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalTextureImpl", [name, value]); }
     static SetGlobalTextureImpl_Injected(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalTextureImpl_Injected", [name, value]); }
-    static SetGlobalVector_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalVector_20089", [name, value]); }
+    static SetGlobalVector_name_value(name, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalVector_20089", [window.ctx.createMstr(name), value]); }
     static SetGlobalVector_nameID_value(nameID, value) { window.ctx.call("UnityEngine.Shader", "SetGlobalVector_20090", [nameID, value]); }
     static SetGlobalVectorArray_name_values_count(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20077", [name, values, count]); }
-    static SetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20113", [name, values]); }
+    static SetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20113", [window.ctx.createMstr(name), values]); }
     static SetGlobalVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20114", [nameID, values]); }
-    static SetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20115", [name, values]); }
+    static SetGlobalVectorArray_name_values(name, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20115", [window.ctx.createMstr(name), values]); }
     static SetGlobalVectorArray_nameID_values(nameID, values) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArray_20116", [nameID, values]); }
     static SetGlobalVectorArrayImpl(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArrayImpl", [name, values, count]); }
     static SetGlobalVectorArrayImpl_Injected(name, values, count) { window.ctx.call("UnityEngine.Shader", "SetGlobalVectorArrayImpl_Injected", [name, values, count]); }
@@ -7038,7 +7950,7 @@ export class Shader {
     static SetKeyword(keyword, value) { window.ctx.call("UnityEngine.Shader", "SetKeyword", [keyword, value]); }
     static SetKeywordFast(keyword, value) { window.ctx.call("UnityEngine.Shader", "SetKeywordFast", [keyword, value]); }
     static SetKeywordFast_Injected(keyword, value) { window.ctx.call("UnityEngine.Shader", "SetKeywordFast_Injected", [keyword, value]); }
-    static TagToID(name) { return window.ctx.call("UnityEngine.Shader", "TagToID", [name]).val(); }
+    static TagToID(name) { return window.ctx.call("UnityEngine.Shader", "TagToID", [window.ctx.createMstr(name)]).val(); }
     static TagToID_Injected(name) { return window.ctx.call("UnityEngine.Shader", "TagToID_Injected", [name]).val(); }
     static WarmupAllShaders() { window.ctx.call("UnityEngine.Shader", "WarmupAllShaders", []); }
     static get_disableBatching_Injected(_unity_self) { return new DisableBatchingType(window.ctx.call("UnityEngine.Shader", "get_disableBatching_Injected", [_unity_self])); }
@@ -7053,12 +7965,771 @@ export class Shader {
     static set_maximumLOD_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Shader", "set_maximumLOD_Injected", [_unity_self, value]); }
 }
 
+export class BaseWaypointObject {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get waypointPositioner() { return new Transform(this.ptr.readField(0x14, 'i32')); }
+    set waypointPositioner(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get waypointUIPrefab() { return new WaypointUI(this.ptr.readField(0x10, 'i32')); }
+    set waypointUIPrefab(v) { return this.ptr.writeField(0x10, 'i32', v); }
+}
+
+export class CTFWaypointUI {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get actionText() { return new TMPText(this.ptr.readField(0x1C, 'i32')); }
+    set actionText(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get flagIcon() { return new GameObject(this.ptr.readField(0x24, 'i32')); }
+    set flagIcon(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get frameImage() { return new Image(this.ptr.readField(0x20, 'i32')); }
+    set frameImage(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get glowFx() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set glowFx(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get lastIsCarrier() { return this.ptr.readField(0x2C, 'i32').val() === 1; }
+    set lastIsCarrier(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    static ReverseFlagTeam(team) { return window.ctx.call("CTFWaypointUI", "ReverseFlagTeam", [team]).val(); }
+    Set(flag) { window.ctx.call("CTFWaypointUI", "Set", [this.ptr, flag]); }
+}
+
+export class Mesh {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get bindposeCount() { return window.ctx.call("UnityEngine.Mesh", "get_bindposeCount", [this.ptr]).val(); }
+    get bindposes() { return window.ctx.call("UnityEngine.Mesh", "get_bindposes", [this.ptr]); }
+    set bindposes(v) { window.ctx.call("UnityEngine.Mesh", "set_bindposes", [this.ptr, v]); }
+    get blendShapeCount() { return window.ctx.call("UnityEngine.Mesh", "get_blendShapeCount", [this.ptr]).val(); }
+    get boneWeights() { return window.ctx.call("UnityEngine.Mesh", "get_boneWeights", [this.ptr]); }
+    set boneWeights(v) { window.ctx.call("UnityEngine.Mesh", "set_boneWeights", [this.ptr, v]); }
+    get bounds() { return (()=>{
+					let structptr_39da7c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "get_bounds", [structptr_39da7c, this.ptr]);
+					return structptr_39da7c;
+				})(); }
+    set bounds(v) { window.ctx.call("UnityEngine.Mesh", "set_bounds", [this.ptr, v]); }
+    get canAccess() { return window.ctx.call("UnityEngine.Mesh", "get_canAccess", [this.ptr]).val() === 1; }
+    get colors() { return window.ctx.call("UnityEngine.Mesh", "get_colors", [this.ptr]); }
+    set colors(v) { window.ctx.call("UnityEngine.Mesh", "set_colors", [this.ptr, v]); }
+    get colors32() { return window.ctx.call("UnityEngine.Mesh", "get_colors32", [this.ptr]); }
+    set colors32(v) { window.ctx.call("UnityEngine.Mesh", "set_colors32", [this.ptr, v]); }
+    get indexBufferTarget() { return new Target(window.ctx.call("UnityEngine.Mesh", "get_indexBufferTarget", [this.ptr])); }
+    set indexBufferTarget(v) { window.ctx.call("UnityEngine.Mesh", "set_indexBufferTarget", [this.ptr, v]); }
+    get indexFormat() { return new IndexFormat(window.ctx.call("UnityEngine.Mesh", "get_indexFormat", [this.ptr])); }
+    set indexFormat(v) { window.ctx.call("UnityEngine.Mesh", "set_indexFormat", [this.ptr, v]); }
+    get isLodSelectionActive() { return window.ctx.call("UnityEngine.Mesh", "get_isLodSelectionActive", [this.ptr]).val() === 1; }
+    get isReadable() { return window.ctx.call("UnityEngine.Mesh", "get_isReadable", [this.ptr]).val() === 1; }
+    get lodCount() { return window.ctx.call("UnityEngine.Mesh", "get_lodCount", [this.ptr]).val(); }
+    set lodCount(v) { window.ctx.call("UnityEngine.Mesh", "set_lodCount", [this.ptr, v]); }
+    get lodSelectionCurve() { return (()=>{
+					let structptr_5e48be = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "get_lodSelectionCurve", [structptr_5e48be, this.ptr]);
+					return structptr_5e48be;
+				})(); }
+    set lodSelectionCurve(v) { window.ctx.call("UnityEngine.Mesh", "set_lodSelectionCurve", [this.ptr, v]); }
+    get normals() { return window.ctx.call("UnityEngine.Mesh", "get_normals", [this.ptr]); }
+    set normals(v) { window.ctx.call("UnityEngine.Mesh", "set_normals", [this.ptr, v]); }
+    get skinWeightBufferLayout() { return new SkinWeights(window.ctx.call("UnityEngine.Mesh", "get_skinWeightBufferLayout", [this.ptr])); }
+    get subMeshCount() { return window.ctx.call("UnityEngine.Mesh", "get_subMeshCount", [this.ptr]).val(); }
+    set subMeshCount(v) { window.ctx.call("UnityEngine.Mesh", "set_subMeshCount", [this.ptr, v]); }
+    get tangents() { return window.ctx.call("UnityEngine.Mesh", "get_tangents", [this.ptr]); }
+    set tangents(v) { window.ctx.call("UnityEngine.Mesh", "set_tangents", [this.ptr, v]); }
+    get triangles() { return window.ctx.call("UnityEngine.Mesh", "get_triangles", [this.ptr]); }
+    set triangles(v) { window.ctx.call("UnityEngine.Mesh", "set_triangles", [this.ptr, v]); }
+    get uv() { return window.ctx.call("UnityEngine.Mesh", "get_uv", [this.ptr]); }
+    set uv(v) { window.ctx.call("UnityEngine.Mesh", "set_uv", [this.ptr, v]); }
+    get uv2() { return window.ctx.call("UnityEngine.Mesh", "get_uv2", [this.ptr]); }
+    set uv2(v) { window.ctx.call("UnityEngine.Mesh", "set_uv2", [this.ptr, v]); }
+    get uv3() { return window.ctx.call("UnityEngine.Mesh", "get_uv3", [this.ptr]); }
+    set uv3(v) { window.ctx.call("UnityEngine.Mesh", "set_uv3", [this.ptr, v]); }
+    get uv4() { return window.ctx.call("UnityEngine.Mesh", "get_uv4", [this.ptr]); }
+    set uv4(v) { window.ctx.call("UnityEngine.Mesh", "set_uv4", [this.ptr, v]); }
+    get uv5() { return window.ctx.call("UnityEngine.Mesh", "get_uv5", [this.ptr]); }
+    set uv5(v) { window.ctx.call("UnityEngine.Mesh", "set_uv5", [this.ptr, v]); }
+    get uv6() { return window.ctx.call("UnityEngine.Mesh", "get_uv6", [this.ptr]); }
+    set uv6(v) { window.ctx.call("UnityEngine.Mesh", "set_uv6", [this.ptr, v]); }
+    get uv7() { return window.ctx.call("UnityEngine.Mesh", "get_uv7", [this.ptr]); }
+    set uv7(v) { window.ctx.call("UnityEngine.Mesh", "set_uv7", [this.ptr, v]); }
+    get uv8() { return window.ctx.call("UnityEngine.Mesh", "get_uv8", [this.ptr]); }
+    set uv8(v) { window.ctx.call("UnityEngine.Mesh", "set_uv8", [this.ptr, v]); }
+    get vertexAttributeCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexAttributeCount", [this.ptr]).val(); }
+    get vertexBufferCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexBufferCount", [this.ptr]).val(); }
+    get vertexBufferTarget() { return new Target(window.ctx.call("UnityEngine.Mesh", "get_vertexBufferTarget", [this.ptr])); }
+    set vertexBufferTarget(v) { window.ctx.call("UnityEngine.Mesh", "set_vertexBufferTarget", [this.ptr, v]); }
+    get vertexCount() { return window.ctx.call("UnityEngine.Mesh", "get_vertexCount", [this.ptr]).val(); }
+    get vertices() { return window.ctx.call("UnityEngine.Mesh", "get_vertices", [this.ptr]); }
+    set vertices(v) { window.ctx.call("UnityEngine.Mesh", "set_vertices", [this.ptr, v]); }
+    static AcquireReadOnlyMeshData_mesh(mesh) { return (()=>{
+					let structptr_e27e8c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21044", [structptr_e27e8c, mesh]);
+					return structptr_e27e8c;
+				})(); }
+    static AcquireReadOnlyMeshData_meshes(meshes) { return (()=>{
+					let structptr_e828f8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21045", [structptr_e828f8, meshes]);
+					return structptr_e828f8;
+				})(); }
+    static AcquireReadOnlyMeshData_meshes(meshes) { return (()=>{
+					let structptr_d4fa41 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AcquireReadOnlyMeshData_21046", [structptr_d4fa41, meshes]);
+					return structptr_d4fa41;
+				})(); }
+    AddBlendShapeFrame_shapeName_frameWeight_deltaVertices_deltaNormals_deltaTangents(shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_20887", [this.ptr, window.ctx.createMstr(shapeName), frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    AddBlendShapeFrame_shapeName_frameWeight_deltaVertices_deltaNormals_deltaTangents(shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_20888", [this.ptr, window.ctx.createMstr(shapeName), frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    static AddBlendShapeFrame_Injected(_unity_self, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "AddBlendShapeFrame_Injected", [_unity_self, shapeName, frameWeight, deltaVertices, deltaNormals, deltaTangents]); }
+    static AllocateWritableMeshData_meshCount(meshCount) { return (()=>{
+					let structptr_dcbe8f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21047", [structptr_dcbe8f, meshCount]);
+					return structptr_dcbe8f;
+				})(); }
+    static AllocateWritableMeshData_mesh(mesh) { return (()=>{
+					let structptr_b6e358 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21048", [structptr_b6e358, mesh]);
+					return structptr_b6e358;
+				})(); }
+    static AllocateWritableMeshData_meshes(meshes) { return (()=>{
+					let structptr_585fe2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21049", [structptr_585fe2, meshes]);
+					return structptr_585fe2;
+				})(); }
+    static AllocateWritableMeshData_meshes(meshes) { return (()=>{
+					let structptr_efc9ca = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "AllocateWritableMeshData_21050", [structptr_efc9ca, meshes]);
+					return structptr_efc9ca;
+				})(); }
+    static ApplyAndDisposeWritableMeshData_data_mesh_flags(data, mesh, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21051", [data, mesh, flags]); }
+    static ApplyAndDisposeWritableMeshData_data_meshes_flags(data, meshes, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21052", [data, meshes, flags]); }
+    static ApplyAndDisposeWritableMeshData_data_meshes_flags(data, meshes, flags) { window.ctx.call("UnityEngine.Mesh", "ApplyAndDisposeWritableMeshData_21053", [data, meshes, flags]); }
+    CheckCanAccessSubmesh(submesh, errorAboutTriangles) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmesh", [this.ptr, submesh, errorAboutTriangles]).val() === 1; }
+    CheckCanAccessSubmeshIndices(submesh) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmeshIndices", [this.ptr, submesh]).val() === 1; }
+    CheckCanAccessSubmeshTriangles(submesh) { return window.ctx.call("UnityEngine.Mesh", "CheckCanAccessSubmeshTriangles", [this.ptr, submesh]).val() === 1; }
+    CheckIndicesArrayRange(valuesLength, start, length) { window.ctx.call("UnityEngine.Mesh", "CheckIndicesArrayRange", [this.ptr, valuesLength, start, length]); }
+    Clear_keepVertexLayout(keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "Clear_21148", [this.ptr, keepVertexLayout]); }
+    Clear_pointer() { window.ctx.call("UnityEngine.Mesh", "Clear_21149", [this.ptr]); }
+    ClearBlendShapes() { window.ctx.call("UnityEngine.Mesh", "ClearBlendShapes", [this.ptr]); }
+    static ClearBlendShapes_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "ClearBlendShapes_Injected", [_unity_self]); }
+    ClearImpl(keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "ClearImpl", [this.ptr, keepVertexLayout]); }
+    static ClearImpl_Injected(_unity_self, keepVertexLayout) { window.ctx.call("UnityEngine.Mesh", "ClearImpl_Injected", [_unity_self, keepVertexLayout]); }
+    CombineMeshes_combine_mergeSubMeshes_useMatrices_hasLightmapData(combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21164", [this.ptr, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    CombineMeshes_combine_mergeSubMeshes_useMatrices(combine, mergeSubMeshes, useMatrices) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21165", [this.ptr, combine, mergeSubMeshes, useMatrices]); }
+    CombineMeshes_combine_mergeSubMeshes(combine, mergeSubMeshes) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21166", [this.ptr, combine, mergeSubMeshes]); }
+    CombineMeshes_combine(combine) { window.ctx.call("UnityEngine.Mesh", "CombineMeshes_21167", [this.ptr, combine]); }
+    CombineMeshesImpl(combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshesImpl", [this.ptr, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    static CombineMeshesImpl_Injected(_unity_self, combine, mergeSubMeshes, useMatrices, hasLightmapData) { window.ctx.call("UnityEngine.Mesh", "CombineMeshesImpl_Injected", [_unity_self, combine, mergeSubMeshes, useMatrices, hasLightmapData]); }
+    static DefaultDimensionForChannel(channel) { return window.ctx.call("UnityEngine.Mesh", "DefaultDimensionForChannel", [channel]).val(); }
+    static FromInstanceID(id) { return new Mesh(window.ctx.call("UnityEngine.Mesh", "FromInstanceID", [id])); }
+    static FromInstanceID_Injected(id) { return (()=>{
+					let structptr_c201b8 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "FromInstanceID_Injected", [structptr_c201b8, id]);
+					return structptr_c201b8;
+				})(); }
+    GetAllBoneWeights() { return (()=>{
+					let structptr_eec41d = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeights", [structptr_eec41d, this.ptr]);
+					return structptr_eec41d;
+				})(); }
+    GetAllBoneWeightsArray() { return (()=>{
+					let structptr_f02a50 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArray", [structptr_f02a50, this.ptr]);
+					return structptr_f02a50;
+				})(); }
+    GetAllBoneWeightsArraySize() { return window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArraySize", [this.ptr]).val(); }
+    static GetAllBoneWeightsArraySize_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArraySize_Injected", [_unity_self]).val(); }
+    static GetAllBoneWeightsArray_Injected(_unity_self) { return (()=>{
+					let structptr_1e6912 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetAllBoneWeightsArray_Injected", [structptr_1e6912, _unity_self]);
+					return structptr_1e6912;
+				})(); }
+    GetAllocArrayFromChannel(channel, format, dim) { return window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannel", [this.ptr, channel, format, dim]); }
+    GetAllocArrayFromChannel(channel) { return window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannel", [this.ptr, channel]); }
+    GetAllocArrayFromChannelImpl(channel, format, dim) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannelImpl", [this.ptr, channel, format, dim])); }
+    static GetAllocArrayFromChannelImpl_Injected(_unity_self, channel, format, dim) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetAllocArrayFromChannelImpl_Injected", [_unity_self, channel, format, dim])); }
+    GetArrayFromChannelImpl(channel, format, dim, values) { window.ctx.call("UnityEngine.Mesh", "GetArrayFromChannelImpl", [this.ptr, channel, format, dim, values]); }
+    static GetArrayFromChannelImpl_Injected(_unity_self, channel, format, dim, values) { window.ctx.call("UnityEngine.Mesh", "GetArrayFromChannelImpl_Injected", [_unity_self, channel, format, dim, values]); }
+    GetBaseVertex(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertex", [this.ptr, submesh]).val(); }
+    GetBaseVertexImpl(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertexImpl", [this.ptr, submesh]).val(); }
+    static GetBaseVertexImpl_Injected(_unity_self, submesh) { return window.ctx.call("UnityEngine.Mesh", "GetBaseVertexImpl_Injected", [_unity_self, submesh]).val(); }
+    GetBindposes_pointer() { return (()=>{
+					let structptr_cf8439 = window.ctx.malloc(64);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposes_20904", [structptr_cf8439, this.ptr]);
+					return structptr_cf8439;
+				})(); }
+    GetBindposes_bindposes(bindposes) { window.ctx.call("UnityEngine.Mesh", "GetBindposes_21143", [this.ptr, bindposes]); }
+    GetBindposesArray() { return (()=>{
+					let structptr_1554b3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposesArray", [structptr_1554b3, this.ptr]);
+					return structptr_1554b3;
+				})(); }
+    static GetBindposesArray_Injected(_unity_self) { return (()=>{
+					let structptr_1c2a1b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBindposesArray_Injected", [structptr_1c2a1b, _unity_self]);
+					return structptr_1c2a1b;
+				})(); }
+    GetBindposesNonAllocImpl(values) { window.ctx.call("UnityEngine.Mesh", "GetBindposesNonAllocImpl", [this.ptr, values]); }
+    static GetBindposesNonAllocImpl_Injected(_unity_self, values) { window.ctx.call("UnityEngine.Mesh", "GetBindposesNonAllocImpl_Injected", [_unity_self, values]); }
+    GetBlendShapeBuffer_layout(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBuffer_21057", [this.ptr, layout])); }
+    GetBlendShapeBuffer_pointer() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBuffer_21058", [this.ptr])); }
+    GetBlendShapeBufferImpl(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferImpl", [this.ptr, layout])); }
+    static GetBlendShapeBufferImpl_Injected(_unity_self, layout) { return (()=>{
+					let structptr_7ed9a4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferImpl_Injected", [structptr_7ed9a4, _unity_self, layout]);
+					return structptr_7ed9a4;
+				})(); }
+    GetBlendShapeBufferRange(blendShapeIndex) { return (()=>{
+					let structptr_63ac72 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeBufferRange", [structptr_63ac72, this.ptr, blendShapeIndex]);
+					return structptr_63ac72;
+				})(); }
+    GetBlendShapeFrameCount(shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameCount", [this.ptr, shapeIndex]).val(); }
+    static GetBlendShapeFrameCount_Injected(_unity_self, shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameCount_Injected", [_unity_self, shapeIndex]).val(); }
+    GetBlendShapeFrameVertices(shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameVertices", [this.ptr, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents]); }
+    static GetBlendShapeFrameVertices_Injected(_unity_self, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameVertices_Injected", [_unity_self, shapeIndex, frameIndex, deltaVertices, deltaNormals, deltaTangents]); }
+    GetBlendShapeFrameWeight(shapeIndex, frameIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameWeight", [this.ptr, shapeIndex, frameIndex]).val(); }
+    static GetBlendShapeFrameWeight_Injected(_unity_self, shapeIndex, frameIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeFrameWeight_Injected", [_unity_self, shapeIndex, frameIndex]).val(); }
+    GetBlendShapeIndex(blendShapeName) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeIndex", [this.ptr, window.ctx.createMstr(blendShapeName)]).val(); }
+    static GetBlendShapeIndex_Injected(_unity_self, blendShapeName) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeIndex_Injected", [_unity_self, blendShapeName]).val(); }
+    GetBlendShapeName(shapeIndex) { return window.ctx.call("UnityEngine.Mesh", "GetBlendShapeName", [this.ptr, shapeIndex]).mstr(); }
+    static GetBlendShapeName_Injected(_unity_self, shapeIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeName_Injected", [_unity_self, shapeIndex, ret]); }
+    GetBlendShapeOffsetInternal(index) { return (()=>{
+					let structptr_281e75 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBlendShapeOffsetInternal", [structptr_281e75, this.ptr, index]);
+					return structptr_281e75;
+				})(); }
+    static GetBlendShapeOffsetInternal_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetBlendShapeOffsetInternal_Injected", [_unity_self, index, ret]); }
+    GetBoneWeightBuffer(layout) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBuffer", [this.ptr, layout])); }
+    GetBoneWeightBufferImpl(bonesPerVertex) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferImpl", [this.ptr, bonesPerVertex])); }
+    static GetBoneWeightBufferImpl_Injected(_unity_self, bonesPerVertex) { return (()=>{
+					let structptr_ea7c6c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferImpl_Injected", [structptr_ea7c6c, _unity_self, bonesPerVertex]);
+					return structptr_ea7c6c;
+				})(); }
+    GetBoneWeightBufferLayoutInternal() { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferLayoutInternal", [this.ptr]).val(); }
+    static GetBoneWeightBufferLayoutInternal_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightBufferLayoutInternal_Injected", [_unity_self]).val(); }
+    GetBoneWeights(boneWeights) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeights", [this.ptr, boneWeights]); }
+    GetBoneWeightsImpl() { return window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsImpl", [this.ptr]); }
+    static GetBoneWeightsImpl_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsImpl_Injected", [_unity_self, ret]); }
+    GetBoneWeightsNonAllocImpl(values) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsNonAllocImpl", [this.ptr, values]); }
+    static GetBoneWeightsNonAllocImpl_Injected(_unity_self, values) { window.ctx.call("UnityEngine.Mesh", "GetBoneWeightsNonAllocImpl_Injected", [_unity_self, values]); }
+    GetBonesPerVertex() { return (()=>{
+					let structptr_dc0951 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertex", [structptr_dc0951, this.ptr]);
+					return structptr_dc0951;
+				})(); }
+    GetBonesPerVertexArray() { return (()=>{
+					let structptr_74c0a6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertexArray", [structptr_74c0a6, this.ptr]);
+					return structptr_74c0a6;
+				})(); }
+    static GetBonesPerVertexArray_Injected(_unity_self) { return (()=>{
+					let structptr_ed47f9 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetBonesPerVertexArray_Injected", [structptr_ed47f9, _unity_self]);
+					return structptr_ed47f9;
+				})(); }
+    GetColors_colors(colors) { window.ctx.call("UnityEngine.Mesh", "GetColors_21002", [this.ptr, colors]); }
+    GetColors_colors(colors) { window.ctx.call("UnityEngine.Mesh", "GetColors_21009", [this.ptr, colors]); }
+    GetIndexBuffer() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetIndexBuffer", [this.ptr])); }
+    GetIndexBufferImpl() { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetIndexBufferImpl", [this.ptr])); }
+    static GetIndexBufferImpl_Injected(_unity_self) { return (()=>{
+					let structptr_81836a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetIndexBufferImpl_Injected", [structptr_81836a, _unity_self]);
+					return structptr_81836a;
+				})(); }
+    GetIndexCount_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCount_21084", [this.ptr, submesh]).val(); }
+    GetIndexCount_submesh_meshLod(submesh, meshLod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCount_21085", [this.ptr, submesh, meshLod]).val(); }
+    GetIndexCountImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCountImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetIndexCountImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexCountImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetIndexStart_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStart_21082", [this.ptr, submesh]).val(); }
+    GetIndexStart_submesh_meshLod(submesh, meshLod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStart_21083", [this.ptr, submesh, meshLod]).val(); }
+    GetIndexStartImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStartImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetIndexStartImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndexStartImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetIndices_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21074", [this.ptr, submesh]); }
+    GetIndices_submesh_applyBaseVertex(submesh, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21075", [this.ptr, submesh, applyBaseVertex]); }
+    GetIndices_submesh_meshLod_applyBaseVertex(submesh, meshLod, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetIndices_21076", [this.ptr, submesh, meshLod, applyBaseVertex]); }
+    GetIndices_indices_submesh(indices, submesh) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21077", [this.ptr, indices, submesh]); }
+    GetIndices_indices_submesh_applyBaseVertex(indices, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21078", [this.ptr, indices, submesh, applyBaseVertex]); }
+    GetIndices_indices_submesh_meshLod_applyBaseVertex(indices, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21079", [this.ptr, indices, submesh, meshLod, applyBaseVertex]); }
+    GetIndices_indices_submesh_applyBaseVertex(indices, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21080", [this.ptr, indices, submesh, applyBaseVertex]); }
+    GetIndices_indices_submesh_meshLod_applyBaseVertex(indices, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetIndices_21081", [this.ptr, indices, submesh, meshLod, applyBaseVertex]); }
+    GetIndicesImpl(submesh, applyBaseVertex, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetIndicesImpl", [this.ptr, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesImpl_Injected(_unity_self, submesh, applyBaseVertex, meshlod, ret) { window.ctx.call("UnityEngine.Mesh", "GetIndicesImpl_Injected", [_unity_self, submesh, applyBaseVertex, meshlod, ret]); }
+    GetIndicesNonAllocImpl(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    GetIndicesNonAllocImpl16(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl16", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesNonAllocImpl16_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl16_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetIndicesNonAllocImpl_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetIndicesNonAllocImpl_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    GetListForChannel(buffer, capacity, channel, dim) { window.ctx.call("UnityEngine.Mesh", "GetListForChannel", [this.ptr, buffer, capacity, channel, dim]); }
+    GetListForChannel(buffer, capacity, channel, dim, channelType) { window.ctx.call("UnityEngine.Mesh", "GetListForChannel", [this.ptr, buffer, capacity, channel, dim, channelType]); }
+    GetLod(subMeshIndex, levelIndex) { return (()=>{
+					let structptr_794f1e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetLod", [structptr_794f1e, this.ptr, subMeshIndex, levelIndex]);
+					return structptr_794f1e;
+				})(); }
+    GetLodCount() { return window.ctx.call("UnityEngine.Mesh", "GetLodCount", [this.ptr]).val(); }
+    static GetLodCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetLodCount_Injected", [_unity_self]).val(); }
+    GetLodSelectionCurve() { return (()=>{
+					let structptr_cb4bf6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetLodSelectionCurve", [structptr_cb4bf6, this.ptr]);
+					return structptr_cb4bf6;
+				})(); }
+    static GetLodSelectionCurve_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "GetLodSelectionCurve_Injected", [_unity_self, ret]); }
+    static GetLod_Injected(_unity_self, subMeshIndex, levelIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetLod_Injected", [_unity_self, subMeshIndex, levelIndex, ret]); }
+    GetLods_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetLods_21141", [this.ptr, submesh]); }
+    GetLods_levels_submesh(levels, submesh) { window.ctx.call("UnityEngine.Mesh", "GetLods_21142", [this.ptr, levels, submesh]); }
+    GetLodsAlloc(subMeshIndex) { return window.ctx.call("UnityEngine.Mesh", "GetLodsAlloc", [this.ptr, subMeshIndex]); }
+    static GetLodsAlloc_Injected(_unity_self, subMeshIndex, ret) { window.ctx.call("UnityEngine.Mesh", "GetLodsAlloc_Injected", [_unity_self, subMeshIndex, ret]); }
+    GetLodsNonAlloc(levels, subMeshIndex) { window.ctx.call("UnityEngine.Mesh", "GetLodsNonAlloc", [this.ptr, levels, subMeshIndex]); }
+    static GetLodsNonAlloc_Injected(_unity_self, levels, subMeshIndex) { window.ctx.call("UnityEngine.Mesh", "GetLodsNonAlloc_Injected", [_unity_self, levels, subMeshIndex]); }
+    GetNativeIndexBufferPtr() { return (()=>{
+					let structptr_9277cb = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeIndexBufferPtr", [structptr_9277cb, this.ptr]);
+					return structptr_9277cb;
+				})(); }
+    static GetNativeIndexBufferPtr_Injected(_unity_self) { return (()=>{
+					let structptr_8c3802 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeIndexBufferPtr_Injected", [structptr_8c3802, _unity_self]);
+					return structptr_8c3802;
+				})(); }
+    GetNativeVertexBufferPtr(index) { return (()=>{
+					let structptr_799486 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeVertexBufferPtr", [structptr_799486, this.ptr, index]);
+					return structptr_799486;
+				})(); }
+    static GetNativeVertexBufferPtr_Injected(_unity_self, index) { return (()=>{
+					let structptr_136f29 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetNativeVertexBufferPtr_Injected", [structptr_136f29, _unity_self, index]);
+					return structptr_136f29;
+				})(); }
+    GetNormals(normals) { window.ctx.call("UnityEngine.Mesh", "GetNormals", [this.ptr, normals]); }
+    GetSubMesh(index) { return (()=>{
+					let structptr_dbbd80 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetSubMesh", [structptr_dbbd80, this.ptr, index]);
+					return structptr_dbbd80;
+				})(); }
+    static GetSubMesh_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetSubMesh_Injected", [_unity_self, index, ret]); }
+    GetTangents(tangents) { window.ctx.call("UnityEngine.Mesh", "GetTangents", [this.ptr, tangents]); }
+    GetTopology(submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopology", [this.ptr, submesh])); }
+    GetTopologyImpl(submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopologyImpl", [this.ptr, submesh])); }
+    static GetTopologyImpl_Injected(_unity_self, submesh) { return new MeshTopology(window.ctx.call("UnityEngine.Mesh", "GetTopologyImpl_Injected", [_unity_self, submesh])); }
+    GetTotalIndexCount() { return window.ctx.call("UnityEngine.Mesh", "GetTotalIndexCount", [this.ptr]).val(); }
+    static GetTotalIndexCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetTotalIndexCount_Injected", [_unity_self]).val(); }
+    GetTriangles_submesh(submesh) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21066", [this.ptr, submesh]); }
+    GetTriangles_submesh_applyBaseVertex(submesh, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21067", [this.ptr, submesh, applyBaseVertex]); }
+    GetTriangles_submesh_meshLod_applyBaseVertex(submesh, meshLod, applyBaseVertex) { return window.ctx.call("UnityEngine.Mesh", "GetTriangles_21068", [this.ptr, submesh, meshLod, applyBaseVertex]); }
+    GetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21069", [this.ptr, triangles, submesh]); }
+    GetTriangles_triangles_submesh_applyBaseVertex(triangles, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21070", [this.ptr, triangles, submesh, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_meshLod_applyBaseVertex(triangles, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21071", [this.ptr, triangles, submesh, meshLod, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_applyBaseVertex(triangles, submesh, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21072", [this.ptr, triangles, submesh, applyBaseVertex]); }
+    GetTriangles_triangles_submesh_meshLod_applyBaseVertex(triangles, submesh, meshLod, applyBaseVertex) { window.ctx.call("UnityEngine.Mesh", "GetTriangles_21073", [this.ptr, triangles, submesh, meshLod, applyBaseVertex]); }
+    GetTrianglesCountImpl(submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesCountImpl", [this.ptr, submesh, meshlod]).val(); }
+    static GetTrianglesCountImpl_Injected(_unity_self, submesh, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesCountImpl_Injected", [_unity_self, submesh, meshlod]).val(); }
+    GetTrianglesImpl(submesh, applyBaseVertex, meshlod) { return window.ctx.call("UnityEngine.Mesh", "GetTrianglesImpl", [this.ptr, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesImpl_Injected(_unity_self, submesh, applyBaseVertex, meshlod, ret) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesImpl_Injected", [_unity_self, submesh, applyBaseVertex, meshlod, ret]); }
+    GetTrianglesNonAllocImpl(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    GetTrianglesNonAllocImpl16(values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl16", [this.ptr, values, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesNonAllocImpl16_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl16_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetTrianglesNonAllocImpl_Injected(_unity_self, values, submesh, applyBaseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "GetTrianglesNonAllocImpl_Injected", [_unity_self, values, submesh, applyBaseVertex, meshlod]); }
+    static GetUVChannel(uvIndex) { return new VertexAttribute(window.ctx.call("UnityEngine.Mesh", "GetUVChannel", [uvIndex])); }
+    GetUVDistributionMetric(uvSetIndex) { return window.ctx.call("UnityEngine.Mesh", "GetUVDistributionMetric", [this.ptr, uvSetIndex]).val(); }
+    static GetUVDistributionMetric_Injected(_unity_self, uvSetIndex) { return window.ctx.call("UnityEngine.Mesh", "GetUVDistributionMetric_Injected", [_unity_self, uvSetIndex]).val(); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21035", [this.ptr, channel, uvs]); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21036", [this.ptr, channel, uvs]); }
+    GetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "GetUVs_21037", [this.ptr, channel, uvs]); }
+    GetUVsImpl(uvIndex, uvs, dim) { window.ctx.call("UnityEngine.Mesh", "GetUVsImpl", [this.ptr, uvIndex, uvs, dim]); }
+    GetVertexAttribute(index) { return (()=>{
+					let structptr_73a58e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetVertexAttribute", [structptr_73a58e, this.ptr, index]);
+					return structptr_73a58e;
+				})(); }
+    GetVertexAttributeCountImpl() { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeCountImpl", [this.ptr]).val(); }
+    static GetVertexAttributeCountImpl_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeCountImpl_Injected", [_unity_self]).val(); }
+    GetVertexAttributeDimension(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeDimension", [this.ptr, attr]).val(); }
+    static GetVertexAttributeDimension_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeDimension_Injected", [_unity_self, attr]).val(); }
+    GetVertexAttributeFormat(attr) { return new VertexAttributeFormat(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeFormat", [this.ptr, attr])); }
+    static GetVertexAttributeFormat_Injected(_unity_self, attr) { return new VertexAttributeFormat(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeFormat_Injected", [_unity_self, attr])); }
+    GetVertexAttributeOffset(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeOffset", [this.ptr, attr]).val(); }
+    static GetVertexAttributeOffset_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeOffset_Injected", [_unity_self, attr]).val(); }
+    GetVertexAttributeStream(attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeStream", [this.ptr, attr]).val(); }
+    static GetVertexAttributeStream_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributeStream_Injected", [_unity_self, attr]).val(); }
+    static GetVertexAttribute_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.Mesh", "GetVertexAttribute_Injected", [_unity_self, index, ret]); }
+    GetVertexAttributes_pointer() { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21039", [this.ptr]); }
+    GetVertexAttributes_attributes(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21040", [this.ptr, attributes]).val(); }
+    GetVertexAttributes_attributes(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributes_21041", [this.ptr, attributes]).val(); }
+    GetVertexAttributesAlloc() { return new Array(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesAlloc", [this.ptr])); }
+    static GetVertexAttributesAlloc_Injected(_unity_self) { return new Array(window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesAlloc_Injected", [_unity_self])); }
+    GetVertexAttributesArray(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesArray", [this.ptr, attributes]).val(); }
+    static GetVertexAttributesArray_Injected(_unity_self, attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesArray_Injected", [_unity_self, attributes]).val(); }
+    GetVertexAttributesList(attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesList", [this.ptr, attributes]).val(); }
+    static GetVertexAttributesList_Injected(_unity_self, attributes) { return window.ctx.call("UnityEngine.Mesh", "GetVertexAttributesList_Injected", [_unity_self, attributes]).val(); }
+    GetVertexBuffer(index) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetVertexBuffer", [this.ptr, index])); }
+    GetVertexBufferImpl(index) { return new GraphicsBuffer(window.ctx.call("UnityEngine.Mesh", "GetVertexBufferImpl", [this.ptr, index])); }
+    static GetVertexBufferImpl_Injected(_unity_self, index) { return (()=>{
+					let structptr_7868bc = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Mesh", "GetVertexBufferImpl_Injected", [structptr_7868bc, _unity_self, index]);
+					return structptr_7868bc;
+				})(); }
+    GetVertexBufferStride(stream) { return window.ctx.call("UnityEngine.Mesh", "GetVertexBufferStride", [this.ptr, stream]).val(); }
+    static GetVertexBufferStride_Injected(_unity_self, stream) { return window.ctx.call("UnityEngine.Mesh", "GetVertexBufferStride_Injected", [_unity_self, stream]).val(); }
+    GetVertices(vertices) { window.ctx.call("UnityEngine.Mesh", "GetVertices", [this.ptr, vertices]); }
+    HasBoneWeights() { return window.ctx.call("UnityEngine.Mesh", "HasBoneWeights", [this.ptr]).val() === 1; }
+    static HasBoneWeights_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "HasBoneWeights_Injected", [_unity_self]).val() === 1; }
+    HasVertexAttribute(attr) { return window.ctx.call("UnityEngine.Mesh", "HasVertexAttribute", [this.ptr, attr]).val() === 1; }
+    static HasVertexAttribute_Injected(_unity_self, attr) { return window.ctx.call("UnityEngine.Mesh", "HasVertexAttribute_Injected", [_unity_self, attr]).val() === 1; }
+    InternalSetBoneWeights(bonesPerVertex, bonesPerVertexSize, weights, weightsSize) { window.ctx.call("UnityEngine.Mesh", "InternalSetBoneWeights", [this.ptr, bonesPerVertex, bonesPerVertexSize, weights, weightsSize]); }
+    static InternalSetBoneWeights_Injected(_unity_self, bonesPerVertex, bonesPerVertexSize, weights, weightsSize) { window.ctx.call("UnityEngine.Mesh", "InternalSetBoneWeights_Injected", [_unity_self, bonesPerVertex, bonesPerVertexSize, weights, weightsSize]); }
+    InternalSetIndexBufferData(data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetIndexBufferDataFromArray(data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferDataFromArray", [this.ptr, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetIndexBufferDataFromArray_Injected(_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferDataFromArray_Injected", [_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetIndexBufferData_Injected(_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetIndexBufferData_Injected", [_unity_self, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetVertexBufferData(stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferData", [this.ptr, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    InternalSetVertexBufferDataFromArray(stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferDataFromArray", [this.ptr, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetVertexBufferDataFromArray_Injected(_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferDataFromArray_Injected", [_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static InternalSetVertexBufferData_Injected(_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags) { window.ctx.call("UnityEngine.Mesh", "InternalSetVertexBufferData_Injected", [_unity_self, stream, data, dataStart, meshBufferStart, count, elemSize, flags]); }
+    static Internal_Create(mono) { window.ctx.call("UnityEngine.Mesh", "Internal_Create", [mono]); }
+    MarkDynamic() { window.ctx.call("UnityEngine.Mesh", "MarkDynamic", [this.ptr]); }
+    MarkDynamicImpl() { window.ctx.call("UnityEngine.Mesh", "MarkDynamicImpl", [this.ptr]); }
+    static MarkDynamicImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "MarkDynamicImpl_Injected", [_unity_self]); }
+    MarkModified() { window.ctx.call("UnityEngine.Mesh", "MarkModified", [this.ptr]); }
+    static MarkModified_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "MarkModified_Injected", [_unity_self]); }
+    Optimize() { window.ctx.call("UnityEngine.Mesh", "Optimize", [this.ptr]); }
+    OptimizeImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeImpl", [this.ptr]); }
+    static OptimizeImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeImpl_Injected", [_unity_self]); }
+    OptimizeIndexBuffers() { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffers", [this.ptr]); }
+    OptimizeIndexBuffersImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffersImpl", [this.ptr]); }
+    static OptimizeIndexBuffersImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeIndexBuffersImpl_Injected", [_unity_self]); }
+    OptimizeReorderVertexBuffer() { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBuffer", [this.ptr]); }
+    OptimizeReorderVertexBufferImpl() { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBufferImpl", [this.ptr]); }
+    static OptimizeReorderVertexBufferImpl_Injected(_unity_self) { window.ctx.call("UnityEngine.Mesh", "OptimizeReorderVertexBufferImpl_Injected", [_unity_self]); }
+    PrintErrorCantAccessChannel(ch) { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessChannel", [this.ptr, ch]); }
+    static PrintErrorCantAccessChannel_Injected(_unity_self, ch) { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessChannel_Injected", [_unity_self, ch]); }
+    PrintErrorCantAccessIndices() { window.ctx.call("UnityEngine.Mesh", "PrintErrorCantAccessIndices", [this.ptr]); }
+    RecalculateBounds_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateBounds_21150", [this.ptr]); }
+    RecalculateBounds_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBounds_21153", [this.ptr, flags]); }
+    RecalculateBoundsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBoundsImpl", [this.ptr, flags]); }
+    static RecalculateBoundsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateBoundsImpl_Injected", [_unity_self, flags]); }
+    RecalculateNormals_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateNormals_21151", [this.ptr]); }
+    RecalculateNormals_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormals_21154", [this.ptr, flags]); }
+    RecalculateNormalsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormalsImpl", [this.ptr, flags]); }
+    static RecalculateNormalsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateNormalsImpl_Injected", [_unity_self, flags]); }
+    RecalculateTangents_pointer() { window.ctx.call("UnityEngine.Mesh", "RecalculateTangents_21152", [this.ptr]); }
+    RecalculateTangents_flags(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangents_21155", [this.ptr, flags]); }
+    RecalculateTangentsImpl(flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangentsImpl", [this.ptr, flags]); }
+    static RecalculateTangentsImpl_Injected(_unity_self, flags) { window.ctx.call("UnityEngine.Mesh", "RecalculateTangentsImpl_Injected", [_unity_self, flags]); }
+    RecalculateUVDistributionMetric(uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetric", [this.ptr, uvSetIndex, uvAreaThreshold]); }
+    RecalculateUVDistributionMetricImpl(uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricImpl", [this.ptr, uvSetIndex, uvAreaThreshold]); }
+    static RecalculateUVDistributionMetricImpl_Injected(_unity_self, uvSetIndex, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricImpl_Injected", [_unity_self, uvSetIndex, uvAreaThreshold]); }
+    RecalculateUVDistributionMetrics(uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetrics", [this.ptr, uvAreaThreshold]); }
+    RecalculateUVDistributionMetricsImpl(uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricsImpl", [this.ptr, uvAreaThreshold]); }
+    static RecalculateUVDistributionMetricsImpl_Injected(_unity_self, uvAreaThreshold) { window.ctx.call("UnityEngine.Mesh", "RecalculateUVDistributionMetricsImpl_Injected", [_unity_self, uvAreaThreshold]); }
+    SetAllSubMeshesAtOnceFromArray(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromArray", [this.ptr, desc, start, count, flags]); }
+    static SetAllSubMeshesAtOnceFromArray_Injected(_unity_self, desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromArray_Injected", [_unity_self, desc, start, count, flags]); }
+    SetAllSubMeshesAtOnceFromNativeArray(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromNativeArray", [this.ptr, desc, start, count, flags]); }
+    static SetAllSubMeshesAtOnceFromNativeArray_Injected(_unity_self, desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetAllSubMeshesAtOnceFromNativeArray_Injected", [_unity_self, desc, start, count, flags]); }
+    SetArrayForChannel(channel, format, dim, values, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannel", [this.ptr, channel, format, dim, values, flags]); }
+    SetArrayForChannel(channel, values, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannel", [this.ptr, channel, values, flags]); }
+    SetArrayForChannelImpl(channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannelImpl", [this.ptr, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    static SetArrayForChannelImpl_Injected(_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetArrayForChannelImpl_Injected", [_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    SetBindposes(poses) { window.ctx.call("UnityEngine.Mesh", "SetBindposes", [this.ptr, poses]); }
+    SetBindposesFromScript_NativeArray(posesPtr, posesCount) { window.ctx.call("UnityEngine.Mesh", "SetBindposesFromScript_NativeArray", [this.ptr, posesPtr, posesCount]); }
+    static SetBindposesFromScript_NativeArray_Injected(_unity_self, posesPtr, posesCount) { window.ctx.call("UnityEngine.Mesh", "SetBindposesFromScript_NativeArray_Injected", [_unity_self, posesPtr, posesCount]); }
+    SetBoneWeights(bonesPerVertex, weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeights", [this.ptr, bonesPerVertex, weights]); }
+    SetBoneWeightsImpl(weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeightsImpl", [this.ptr, weights]); }
+    static SetBoneWeightsImpl_Injected(_unity_self, weights) { window.ctx.call("UnityEngine.Mesh", "SetBoneWeightsImpl_Injected", [_unity_self, weights]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21003", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21004", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21005", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21006", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21007", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21008", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21010", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21011", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21012", [this.ptr, inColors, start, length, flags]); }
+    SetColors_inColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors_21013", [this.ptr, inColors]); }
+    SetColors_inColors_start_length(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors_21014", [this.ptr, inColors, start, length]); }
+    SetColors_inColors_start_length_flags(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors_21015", [this.ptr, inColors, start, length, flags]); }
+    SetColors(inColors) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors]); }
+    SetColors(inColors, start, length) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors, start, length]); }
+    SetColors(inColors, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetColors", [this.ptr, inColors, start, length, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferData(data, dataStart, meshBufferStart, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, flags]); }
+    SetIndexBufferParams(indexCount, format) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferParams", [this.ptr, indexCount, format]); }
+    static SetIndexBufferParams_Injected(_unity_self, indexCount, format) { window.ctx.call("UnityEngine.Mesh", "SetIndexBufferParams_Injected", [_unity_self, indexCount, format]); }
+    SetIndices_indices_topology_submesh(indices, topology, submesh) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21109", [this.ptr, indices, topology, submesh]); }
+    SetIndices_indices_topology_submesh_calculateBounds(indices, topology, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21110", [this.ptr, indices, topology, submesh, calculateBounds]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21111", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21112", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21113", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21114", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21115", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21116", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21117", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21118", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21119", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21120", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21121", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21122", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_calculateBounds_baseVertex(indices, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21123", [this.ptr, indices, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_topology_submesh_meshLod_calculateBounds_baseVertex(indices, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21124", [this.ptr, indices, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21125", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, calculateBounds, baseVertex]); }
+    SetIndices_indices_indicesStart_indicesLength_topology_submesh_meshLod_calculateBounds_baseVertex(indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetIndices_21126", [this.ptr, indices, indicesStart, indicesLength, topology, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetIndicesImpl(submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesImpl", [this.ptr, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    static SetIndicesImpl_Injected(_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesImpl_Injected", [_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    SetIndicesNativeArrayImpl(submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesNativeArrayImpl", [this.ptr, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    static SetIndicesNativeArrayImpl_Injected(_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod) { window.ctx.call("UnityEngine.Mesh", "SetIndicesNativeArrayImpl_Injected", [_unity_self, submesh, topology, indicesFormat, indices, arrayStart, arraySize, calculateBounds, baseVertex, meshlod]); }
+    SetListForChannel(channel, format, dim, values, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetListForChannel", [this.ptr, channel, format, dim, values, start, length, flags]); }
+    SetListForChannel(channel, values, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetListForChannel", [this.ptr, channel, values, start, length, flags]); }
+    SetLod(submesh, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLod", [this.ptr, submesh, level, levelRange, flags]); }
+    SetLodCount(numLevels) { window.ctx.call("UnityEngine.Mesh", "SetLodCount", [this.ptr, numLevels]); }
+    static SetLodCount_Injected(_unity_self, numLevels) { window.ctx.call("UnityEngine.Mesh", "SetLodCount_Injected", [_unity_self, numLevels]); }
+    SetLodImpl(subMeshIndex, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodImpl", [this.ptr, subMeshIndex, level, levelRange, flags]); }
+    static SetLodImpl_Injected(_unity_self, subMeshIndex, level, levelRange, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodImpl_Injected", [_unity_self, subMeshIndex, level, levelRange, flags]); }
+    SetLodSelectionCurve(lodSelectionCurve) { window.ctx.call("UnityEngine.Mesh", "SetLodSelectionCurve", [this.ptr, lodSelectionCurve]); }
+    static SetLodSelectionCurve_Injected(_unity_self, lodSelectionCurve) { window.ctx.call("UnityEngine.Mesh", "SetLodSelectionCurve_Injected", [_unity_self, lodSelectionCurve]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21135", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21136", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21137", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21138", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLods_levels_submesh_flags(levels, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21139", [this.ptr, levels, submesh, flags]); }
+    SetLods_levels_start_count_submesh_flags(levels, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLods_21140", [this.ptr, levels, start, count, submesh, flags]); }
+    SetLodsFromArray(levelRanges, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromArray", [this.ptr, levelRanges, start, count, submesh, flags]); }
+    static SetLodsFromArray_Injected(_unity_self, levelRanges, start, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromArray_Injected", [_unity_self, levelRanges, start, count, submesh, flags]); }
+    SetLodsFromNativeArray(lodLevels, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromNativeArray", [this.ptr, lodLevels, count, submesh, flags]); }
+    static SetLodsFromNativeArray_Injected(_unity_self, lodLevels, count, submesh, flags) { window.ctx.call("UnityEngine.Mesh", "SetLodsFromNativeArray_Injected", [_unity_self, lodLevels, count, submesh, flags]); }
+    SetNativeArrayForChannelImpl(channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetNativeArrayForChannelImpl", [this.ptr, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    static SetNativeArrayForChannelImpl_Injected(_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetNativeArrayForChannelImpl_Injected", [_unity_self, channel, format, dim, values, arraySize, valuesStart, valuesCount, flags]); }
+    SetNormals_inNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20989", [this.ptr, inNormals]); }
+    SetNormals_inNormals_start_length(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20990", [this.ptr, inNormals, start, length]); }
+    SetNormals_inNormals_start_length_flags(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20991", [this.ptr, inNormals, start, length, flags]); }
+    SetNormals_inNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20992", [this.ptr, inNormals]); }
+    SetNormals_inNormals_start_length(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20993", [this.ptr, inNormals, start, length]); }
+    SetNormals_inNormals_start_length_flags(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals_20994", [this.ptr, inNormals, start, length, flags]); }
+    SetNormals(inNormals) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals]); }
+    SetNormals(inNormals, start, length) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals, start, length]); }
+    SetNormals(inNormals, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetNormals", [this.ptr, inNormals, start, length, flags]); }
+    SetSizedArrayForChannel(channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetSizedArrayForChannel", [this.ptr, channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags]); }
+    SetSizedNativeArrayForChannel(channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags) { window.ctx.call("UnityEngine.Mesh", "SetSizedNativeArrayForChannel", [this.ptr, channel, format, dim, values, valuesArrayLength, valuesStart, valuesCount, flags]); }
+    SetSubMesh(index, desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMesh", [this.ptr, index, desc, flags]); }
+    static SetSubMesh_Injected(_unity_self, index, desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMesh_Injected", [_unity_self, index, desc, flags]); }
+    SetSubMeshes_desc_start_count_flags(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21127", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes_desc_flags(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21128", [this.ptr, desc, flags]); }
+    SetSubMeshes_desc_start_count_flags(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21129", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes_desc_flags(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes_21130", [this.ptr, desc, flags]); }
+    SetSubMeshes(desc, start, count, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes", [this.ptr, desc, start, count, flags]); }
+    SetSubMeshes(desc, flags) { window.ctx.call("UnityEngine.Mesh", "SetSubMeshes", [this.ptr, desc, flags]); }
+    SetTangents_inTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20996", [this.ptr, inTangents]); }
+    SetTangents_inTangents_start_length(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20997", [this.ptr, inTangents, start, length]); }
+    SetTangents_inTangents_start_length_flags(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20998", [this.ptr, inTangents, start, length, flags]); }
+    SetTangents_inTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents_20999", [this.ptr, inTangents]); }
+    SetTangents_inTangents_start_length(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents_21000", [this.ptr, inTangents, start, length]); }
+    SetTangents_inTangents_start_length_flags(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents_21001", [this.ptr, inTangents, start, length, flags]); }
+    SetTangents(inTangents) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents]); }
+    SetTangents(inTangents, start, length) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents, start, length]); }
+    SetTangents(inTangents, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetTangents", [this.ptr, inTangents, start, length, flags]); }
+    SetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21089", [this.ptr, triangles, submesh]); }
+    SetTriangles_triangles_submesh_calculateBounds(triangles, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21090", [this.ptr, triangles, submesh, calculateBounds]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21091", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21092", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21093", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21094", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21095", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21096", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21097", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21098", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh(triangles, submesh) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21099", [this.ptr, triangles, submesh]); }
+    SetTriangles_triangles_submesh_calculateBounds(triangles, submesh, calculateBounds) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21100", [this.ptr, triangles, submesh, calculateBounds]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21101", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21102", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21103", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21104", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_calculateBounds_baseVertex(triangles, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21105", [this.ptr, triangles, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_submesh_meshLod_calculateBounds_baseVertex(triangles, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21106", [this.ptr, triangles, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21107", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, calculateBounds, baseVertex]); }
+    SetTriangles_triangles_trianglesStart_trianglesLength_submesh_meshLod_calculateBounds_baseVertex(triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex) { window.ctx.call("UnityEngine.Mesh", "SetTriangles_21108", [this.ptr, triangles, trianglesStart, trianglesLength, submesh, meshLod, calculateBounds, baseVertex]); }
+    SetTrianglesImpl(submesh, indicesFormat, triangles, trianglesArrayLength, start, length, calculateBounds, baseVertex, meshLod) { window.ctx.call("UnityEngine.Mesh", "SetTrianglesImpl", [this.ptr, submesh, indicesFormat, triangles, trianglesArrayLength, start, length, calculateBounds, baseVertex, meshLod]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21016", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21017", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21018", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21019", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21020", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21021", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21022", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21023", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21024", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21026", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21027", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21028", [this.ptr, channel, uvs]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21029", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21030", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21031", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21032", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs_channel_uvs_start_length(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21033", [this.ptr, channel, uvs, start, length]); }
+    SetUVs_channel_uvs_start_length_flags(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs_21034", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUVs(channel, uvs) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs]); }
+    SetUVs(channel, uvs, start, length) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs, start, length]); }
+    SetUVs(channel, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUVs", [this.ptr, channel, uvs, start, length, flags]); }
+    SetUvsImpl(uvIndex, dim, uvs, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetUvsImpl", [this.ptr, uvIndex, dim, uvs, start, length, flags]); }
+    SetUvsImpl_uvIndex_dim_uvs_arrayStart_arraySize_flags(uvIndex, dim, uvs, arrayStart, arraySize, flags) { window.ctx.call("UnityEngine.Mesh", "SetUvsImpl_21025", [this.ptr, uvIndex, dim, uvs, arrayStart, arraySize, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferData(data, dataStart, meshBufferStart, count, stream, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferData", [this.ptr, data, dataStart, meshBufferStart, count, stream, flags]); }
+    SetVertexBufferParams_vertexCount_attributes(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParams_21042", [this.ptr, vertexCount, attributes]); }
+    SetVertexBufferParams_vertexCount_attributes(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParams_21043", [this.ptr, vertexCount, attributes]); }
+    SetVertexBufferParamsFromArray(vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromArray", [this.ptr, vertexCount, attributes]); }
+    static SetVertexBufferParamsFromArray_Injected(_unity_self, vertexCount, attributes) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromArray_Injected", [_unity_self, vertexCount, attributes]); }
+    SetVertexBufferParamsFromPtr(vertexCount, attributesPtr, attributesCount) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromPtr", [this.ptr, vertexCount, attributesPtr, attributesCount]); }
+    static SetVertexBufferParamsFromPtr_Injected(_unity_self, vertexCount, attributesPtr, attributesCount) { window.ctx.call("UnityEngine.Mesh", "SetVertexBufferParamsFromPtr_Injected", [_unity_self, vertexCount, attributesPtr, attributesCount]); }
+    SetVertices_inVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20982", [this.ptr, inVertices]); }
+    SetVertices_inVertices_start_length(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20983", [this.ptr, inVertices, start, length]); }
+    SetVertices_inVertices_start_length_flags(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20984", [this.ptr, inVertices, start, length, flags]); }
+    SetVertices_inVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20985", [this.ptr, inVertices]); }
+    SetVertices_inVertices_start_length(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20986", [this.ptr, inVertices, start, length]); }
+    SetVertices_inVertices_start_length_flags(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices_20987", [this.ptr, inVertices, start, length, flags]); }
+    SetVertices(inVertices) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices]); }
+    SetVertices(inVertices, start, length) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices, start, length]); }
+    SetVertices(inVertices, start, length, flags) { window.ctx.call("UnityEngine.Mesh", "SetVertices", [this.ptr, inVertices, start, length, flags]); }
+    UploadMeshData(markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshData", [this.ptr, markNoLongerReadable]); }
+    UploadMeshDataImpl(markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshDataImpl", [this.ptr, markNoLongerReadable]); }
+    static UploadMeshDataImpl_Injected(_unity_self, markNoLongerReadable) { window.ctx.call("UnityEngine.Mesh", "UploadMeshDataImpl_Injected", [_unity_self, markNoLongerReadable]); }
+    ValidateCanWriteToLods() { window.ctx.call("UnityEngine.Mesh", "ValidateCanWriteToLods", [this.ptr]); }
+    ValidateLodIndex(level) { window.ctx.call("UnityEngine.Mesh", "ValidateLodIndex", [this.ptr, level]); }
+    ValidateSubMeshIndex(submesh) { window.ctx.call("UnityEngine.Mesh", "ValidateSubMeshIndex", [this.ptr, submesh]); }
+    static get_bindposeCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_bindposeCount_Injected", [_unity_self]).val(); }
+    static get_bindposes_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "get_bindposes_Injected", [_unity_self, ret]); }
+    static get_blendShapeCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_blendShapeCount_Injected", [_unity_self]).val(); }
+    static get_bounds_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Mesh", "get_bounds_Injected", [_unity_self, ret]); }
+    static get_canAccess_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_canAccess_Injected", [_unity_self]).val() === 1; }
+    static get_indexBufferTarget_Injected(_unity_self) { return new Target(window.ctx.call("UnityEngine.Mesh", "get_indexBufferTarget_Injected", [_unity_self])); }
+    static get_indexFormat_Injected(_unity_self) { return new IndexFormat(window.ctx.call("UnityEngine.Mesh", "get_indexFormat_Injected", [_unity_self])); }
+    static get_isReadable_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_isReadable_Injected", [_unity_self]).val() === 1; }
+    static get_subMeshCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_subMeshCount_Injected", [_unity_self]).val(); }
+    static get_vertexBufferCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_vertexBufferCount_Injected", [_unity_self]).val(); }
+    static get_vertexBufferTarget_Injected(_unity_self) { return new Target(window.ctx.call("UnityEngine.Mesh", "get_vertexBufferTarget_Injected", [_unity_self])); }
+    static get_vertexCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Mesh", "get_vertexCount_Injected", [_unity_self]).val(); }
+    static set_bindposes_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_bindposes_Injected", [_unity_self, value]); }
+    static set_bounds_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_bounds_Injected", [_unity_self, value]); }
+    static set_indexBufferTarget_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_indexBufferTarget_Injected", [_unity_self, value]); }
+    static set_indexFormat_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_indexFormat_Injected", [_unity_self, value]); }
+    static set_subMeshCount_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_subMeshCount_Injected", [_unity_self, value]); }
+    static set_vertexBufferTarget_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Mesh", "set_vertexBufferTarget_Injected", [_unity_self, value]); }
+}
+
+export class KillFieldUIMessage {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get canvasGroup() { return new CanvasGroup(this.ptr.readField(0x20, 'i32')); }
+    set canvasGroup(v) { return this.ptr.writeField(0x20, 'i32', v); }
+    get dierText() { return new TMPText(this.ptr.readField(0x1C, 'i32')); }
+    set dierText(v) { return this.ptr.writeField(0x1C, 'i32', v); }
+    get fallbackIcon() { return new Sprite(this.ptr.readField(0x18, 'i32')); }
+    set fallbackIcon(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    get headshotGO() { return new GameObject(this.ptr.readField(0x28, 'i32')); }
+    set headshotGO(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    get killerText() { return new TMPText(this.ptr.readField(0x10, 'i32')); }
+    set killerText(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get myPlayerFrame() { return new Image(this.ptr.readField(0x24, 'i32')); }
+    set myPlayerFrame(v) { return this.ptr.writeField(0x24, 'i32', v); }
+    get showTween() { return new Tween(this.ptr.readField(0x2C, 'i32')); }
+    set showTween(v) { return this.ptr.writeField(0x2C, 'i32', v); }
+    get weaponRenderImg() { return new Image(this.ptr.readField(0x14, 'i32')); }
+    set weaponRenderImg(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    _ShowMessage_b_10_0() { window.ctx.call("KillFieldUIMessage", "<ShowMessage>b__10_0", [this.ptr]); }
+    _ShowMessage_b_10_1() { window.ctx.call("KillFieldUIMessage", "<ShowMessage>b__10_1", [this.ptr]); }
+    Init(message) { window.ctx.call("KillFieldUIMessage", "Init", [this.ptr, message]); }
+    OnDisable() { window.ctx.call("KillFieldUIMessage", "OnDisable", [this.ptr]); }
+    ResetMessage() { window.ctx.call("KillFieldUIMessage", "ResetMessage", [this.ptr]); }
+    ShowMessage() { window.ctx.call("KillFieldUIMessage", "ShowMessage", [this.ptr]); }
+}
+
+export class Rect {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get center() { return (()=>{
+					let structptr_11d564 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_center", [structptr_11d564, this.ptr]);
+					return structptr_11d564;
+				})(); }
+    get height() { return window.ctx.call("UnityEngine.Rect", "get_height", [this.ptr]).val(); }
+    set height(v) { window.ctx.call("UnityEngine.Rect", "set_height", [this.ptr, v]); }
+    get max() { return (()=>{
+					let structptr_ce5120 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_max", [structptr_ce5120, this.ptr]);
+					return structptr_ce5120;
+				})(); }
+    get min() { return (()=>{
+					let structptr_a53c21 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_min", [structptr_a53c21, this.ptr]);
+					return structptr_a53c21;
+				})(); }
+    get position() { return (()=>{
+					let structptr_1d23fd = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_position", [structptr_1d23fd, this.ptr]);
+					return structptr_1d23fd;
+				})(); }
+    get size() { return (()=>{
+					let structptr_c87ca6 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.Rect", "get_size", [structptr_c87ca6, this.ptr]);
+					return structptr_c87ca6;
+				})(); }
+    get width() { return window.ctx.call("UnityEngine.Rect", "get_width", [this.ptr]).val(); }
+    set width(v) { window.ctx.call("UnityEngine.Rect", "set_width", [this.ptr, v]); }
+    get x() { return window.ctx.call("UnityEngine.Rect", "get_x", [this.ptr]).val(); }
+    set x(v) { window.ctx.call("UnityEngine.Rect", "set_x", [this.ptr, v]); }
+    get xMax() { return window.ctx.call("UnityEngine.Rect", "get_xMax", [this.ptr]).val(); }
+    get xMin() { return window.ctx.call("UnityEngine.Rect", "get_xMin", [this.ptr]).val(); }
+    get y() { return window.ctx.call("UnityEngine.Rect", "get_y", [this.ptr]).val(); }
+    set y(v) { window.ctx.call("UnityEngine.Rect", "set_y", [this.ptr, v]); }
+    get yMax() { return window.ctx.call("UnityEngine.Rect", "get_yMax", [this.ptr]).val(); }
+    get yMin() { return window.ctx.call("UnityEngine.Rect", "get_yMin", [this.ptr]).val(); }
+    static get zero() { return (()=>{
+<<<<<<< HEAD
+					let structptr_c45183 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.TextCore.GlyphRect", "get_zero", [structptr_c45183, ]);
+					return structptr_c45183;
+=======
+					let structptr_eeb590 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "get_zero", [structptr_eeb590, ]);
+					return structptr_eeb590;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
+				})(); }
+    get kZero() { return new Rect(this.ptr.readField(0x0, 'i32')); }
+    set kZero(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_Height() { return this.ptr.readField(0xC, 'f32').val(); }
+    set m_Height(v) { return this.ptr.writeField(0xC, 'f32', v); }
+    get m_Width() { return this.ptr.readField(0x8, 'f32').val(); }
+    set m_Width(v) { return this.ptr.writeField(0x8, 'f32', v); }
+    get m_XMin() { return this.ptr.readField(0x0, 'f32').val(); }
+    set m_XMin(v) { return this.ptr.writeField(0x0, 'f32', v); }
+    get m_YMin() { return this.ptr.readField(0x4, 'f32').val(); }
+    set m_YMin(v) { return this.ptr.writeField(0x4, 'f32', v); }
+    Contains(point) { return window.ctx.call("UnityEngine.Rect", "Contains", [this.ptr, point]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19526", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19527", [this.ptr, other]).val() === 1; }
+    Equals_other(other) { return window.ctx.call("UnityEngine.Rect", "Equals_19528", [this.ptr, other]).val() === 1; }
+    GetHashCode() { return window.ctx.call("UnityEngine.Rect", "GetHashCode", [this.ptr]).val(); }
+    static MinMaxRect(xmin, ymin, xmax, ymax) { return (()=>{
+					let structptr_836753 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "MinMaxRect", [structptr_836753, xmin, ymin, xmax, ymax]);
+					return structptr_836753;
+				})(); }
+    static OrderMinMax(rect) { return (()=>{
+					let structptr_b8d3be = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Rect", "OrderMinMax", [structptr_b8d3be, rect]);
+					return structptr_b8d3be;
+				})(); }
+    Overlaps_other(other) { return window.ctx.call("UnityEngine.Rect", "Overlaps_19521", [this.ptr, other]).val() === 1; }
+    Overlaps_other_allowInverse(other, allowInverse) { return window.ctx.call("UnityEngine.Rect", "Overlaps_19522", [this.ptr, other, allowInverse]).val() === 1; }
+    ToString_pointer() { return window.ctx.call("UnityEngine.Rect", "ToString_19529", [this.ptr]).mstr(); }
+    ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Rect", "ToString_19530", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
+}
+
 export class IAudioGenerator {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     CreateInstance(context, nestedFormat, creationParameters) { return (()=>{
+<<<<<<< HEAD
 					let structptr_9d4820 = window.ctx.malloc(50);
 					window.ctx.call("UnityEngine.Audio.IAudioGenerator", "CreateInstance", [structptr_9d4820, this.ptr, context, nestedFormat, creationParameters]);
 					return structptr_9d4820;
+=======
+					let structptr_f0b170 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Audio.IAudioGenerator", "CreateInstance", [structptr_f0b170, this.ptr, context, nestedFormat, creationParameters]);
+					return structptr_f0b170;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
 }
 
@@ -7073,9 +8744,9 @@ export class AudioVelocityUpdateMode {
 export class CapsuleCollider {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get center() { return (()=>{
-					let structptr_e82d51 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.CapsuleCollider", "get_center", [structptr_e82d51, this.ptr]);
-					return structptr_e82d51;
+					let structptr_1a31de = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.CapsuleCollider", "get_center", [structptr_1a31de, this.ptr]);
+					return structptr_1a31de;
 				})(); }
     set center(v) { window.ctx.call("UnityEngine.CapsuleCollider", "set_center", [this.ptr, v]); }
     get direction() { return window.ctx.call("UnityEngine.CapsuleCollider", "get_direction", [this.ptr]).val(); }
@@ -7096,7 +8767,7 @@ export class CapsuleCollider {
 
 export class PhysicsMaterial {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    static Internal_CreateDynamicsMaterial(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial", [mat, name]); }
+    static Internal_CreateDynamicsMaterial(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial", [mat, window.ctx.createMstr(name)]); }
     static Internal_CreateDynamicsMaterial_Injected(mat, name) { window.ctx.call("UnityEngine.PhysicsMaterial", "Internal_CreateDynamicsMaterial_Injected", [mat, name]); }
 }
 
@@ -7138,30 +8809,37 @@ export class StepHandlingMethod {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
+export class AddressablesPlatform {
+=======
+export class WrapMode {
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class RectTransform {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get anchoredPosition() { return (()=>{
-					let structptr_fb824b = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition", [structptr_fb824b, this.ptr]);
-					return structptr_fb824b;
+					let structptr_d2afdd = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition", [structptr_d2afdd, this.ptr]);
+					return structptr_d2afdd;
 				})(); }
     set anchoredPosition(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition", [this.ptr, v]); }
     get anchoredPosition3D() { return (()=>{
-					let structptr_2f779e = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition3D", [structptr_2f779e, this.ptr]);
-					return structptr_2f779e;
+					let structptr_7e3fd9 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition3D", [structptr_7e3fd9, this.ptr]);
+					return structptr_7e3fd9;
 				})(); }
     set anchoredPosition3D(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchoredPosition3D", [this.ptr, v]); }
     get anchorMax() { return (()=>{
-					let structptr_826eb2 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchorMax", [structptr_826eb2, this.ptr]);
-					return structptr_826eb2;
+					let structptr_fb5125 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchorMax", [structptr_fb5125, this.ptr]);
+					return structptr_fb5125;
 				})(); }
     set anchorMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMax", [this.ptr, v]); }
     get anchorMin() { return (()=>{
-					let structptr_301ec5 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_anchorMin", [structptr_301ec5, this.ptr]);
-					return structptr_301ec5;
+					let structptr_f3115c = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_anchorMin", [structptr_f3115c, this.ptr]);
+					return structptr_f3115c;
 				})(); }
     set anchorMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_anchorMin", [this.ptr, v]); }
     get drivenByObject() { return new Object(window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject", [this.ptr])); }
@@ -7169,34 +8847,34 @@ export class RectTransform {
     get drivenProperties() { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties", [this.ptr])); }
     set drivenProperties(v) { window.ctx.call("UnityEngine.RectTransform", "set_drivenProperties", [this.ptr, v]); }
     get offsetMax() { return (()=>{
-					let structptr_c807aa = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_offsetMax", [structptr_c807aa, this.ptr]);
-					return structptr_c807aa;
+					let structptr_c83965 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_offsetMax", [structptr_c83965, this.ptr]);
+					return structptr_c83965;
 				})(); }
     set offsetMax(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMax", [this.ptr, v]); }
     get offsetMin() { return (()=>{
-					let structptr_6d2c3f = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_offsetMin", [structptr_6d2c3f, this.ptr]);
-					return structptr_6d2c3f;
+					let structptr_abdd78 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_offsetMin", [structptr_abdd78, this.ptr]);
+					return structptr_abdd78;
 				})(); }
     set offsetMin(v) { window.ctx.call("UnityEngine.RectTransform", "set_offsetMin", [this.ptr, v]); }
     get pivot() { return (()=>{
-					let structptr_efe2ed = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_pivot", [structptr_efe2ed, this.ptr]);
-					return structptr_efe2ed;
+					let structptr_2379f7 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_pivot", [structptr_2379f7, this.ptr]);
+					return structptr_2379f7;
 				})(); }
     set pivot(v) { window.ctx.call("UnityEngine.RectTransform", "set_pivot", [this.ptr, v]); }
     get rect() { return (()=>{
-					let structptr_5d026e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "get_rect", [structptr_5d026e, this.ptr]);
-					return structptr_5d026e;
+					let structptr_f4b159 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "get_rect", [structptr_f4b159, this.ptr]);
+					return structptr_f4b159;
 				})(); }
     get sendChildDimensionsChange() { return window.ctx.call("UnityEngine.RectTransform", "get_sendChildDimensionsChange", [this.ptr]).val() === 1; }
     set sendChildDimensionsChange(v) { window.ctx.call("UnityEngine.RectTransform", "set_sendChildDimensionsChange", [this.ptr, v]); }
     get sizeDelta() { return (()=>{
-					let structptr_901d49 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta", [structptr_901d49, this.ptr]);
-					return structptr_901d49;
+					let structptr_424aae = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "get_sizeDelta", [structptr_424aae, this.ptr]);
+					return structptr_424aae;
 				})(); }
     set sizeDelta(v) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta", [this.ptr, v]); }
     get reapplyDrivenProperties() { return new ReapplyDrivenProperties(this.ptr.readField(0x0, 'i32')); }
@@ -7205,14 +8883,14 @@ export class RectTransform {
     static ForceUpdateRectTransforms_Injected(_unity_self) { window.ctx.call("UnityEngine.RectTransform", "ForceUpdateRectTransforms_Injected", [_unity_self]); }
     GetLocalCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetLocalCorners", [this.ptr, fourCornersArray]); }
     GetParentSize() { return (()=>{
-					let structptr_df752b = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.RectTransform", "GetParentSize", [structptr_df752b, this.ptr]);
-					return structptr_df752b;
+					let structptr_b359b9 = window.ctx.malloc(8);
+					window.ctx.call("UnityEngine.RectTransform", "GetParentSize", [structptr_b359b9, this.ptr]);
+					return structptr_b359b9;
 				})(); }
     GetRectInParentSpace() { return (()=>{
-					let structptr_599f59 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "GetRectInParentSpace", [structptr_599f59, this.ptr]);
-					return structptr_599f59;
+					let structptr_2353b2 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "GetRectInParentSpace", [structptr_2353b2, this.ptr]);
+					return structptr_2353b2;
 				})(); }
     GetWorldCorners(fourCornersArray) { window.ctx.call("UnityEngine.RectTransform", "GetWorldCorners", [this.ptr, fourCornersArray]); }
     static SendReapplyDrivenProperties(driven) { window.ctx.call("UnityEngine.RectTransform", "SendReapplyDrivenProperties", [driven]); }
@@ -7222,9 +8900,9 @@ export class RectTransform {
     static get_anchorMin_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchorMin_Injected", [_unity_self, ret]); }
     static get_anchoredPosition_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_anchoredPosition_Injected", [_unity_self, ret]); }
     static get_drivenByObject_Injected(_unity_self) { return (()=>{
-					let structptr_efa088 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject_Injected", [structptr_efa088, _unity_self]);
-					return structptr_efa088;
+					let structptr_cd0423 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.RectTransform", "get_drivenByObject_Injected", [structptr_cd0423, _unity_self]);
+					return structptr_cd0423;
 				})(); }
     static get_drivenProperties_Injected(_unity_self) { return new DrivenTransformProperties(window.ctx.call("UnityEngine.RectTransform", "get_drivenProperties_Injected", [_unity_self])); }
     static get_pivot_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.RectTransform", "get_pivot_Injected", [_unity_self, ret]); }
@@ -7241,156 +8919,6 @@ export class RectTransform {
     static set_sizeDelta_Injected(_unity_self, value) { window.ctx.call("UnityEngine.RectTransform", "set_sizeDelta_Injected", [_unity_self, value]); }
 }
 
-export class TrailRenderer {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get alignment() { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment", [this.ptr])); }
-    set alignment(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment", [this.ptr, v]); }
-    get applyActiveColorSpace() { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace", [this.ptr]).val() === 1; }
-    set applyActiveColorSpace(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace", [this.ptr, v]); }
-    get autodestruct() { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct", [this.ptr]).val() === 1; }
-    set autodestruct(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct", [this.ptr, v]); }
-    get colorGradient() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "get_colorGradient", [this.ptr])); }
-    set colorGradient(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_colorGradient", [this.ptr, v]); }
-    get emitting() { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting", [this.ptr]).val() === 1; }
-    set emitting(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting", [this.ptr, v]); }
-    get endColor() { return (()=>{
-					let structptr_25a286 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_endColor", [structptr_25a286, this.ptr]);
-					return structptr_25a286;
-				})(); }
-    set endColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor", [this.ptr, v]); }
-    get endWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth", [this.ptr]).val(); }
-    set endWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth", [this.ptr, v]); }
-    get generateLightingData() { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData", [this.ptr]).val() === 1; }
-    set generateLightingData(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData", [this.ptr, v]); }
-    get maskInteraction() { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction", [this.ptr])); }
-    set maskInteraction(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction", [this.ptr, v]); }
-    get minVertexDistance() { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance", [this.ptr]).val(); }
-    set minVertexDistance(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance", [this.ptr, v]); }
-    get numCapVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices", [this.ptr]).val(); }
-    set numCapVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices", [this.ptr, v]); }
-    get numCornerVertices() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices", [this.ptr]).val(); }
-    set numCornerVertices(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices", [this.ptr, v]); }
-    get numPositions() { return window.ctx.call("UnityEngine.TrailRenderer", "get_numPositions", [this.ptr]).val(); }
-    get positionCount() { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount", [this.ptr]).val(); }
-    get shadowBias() { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias", [this.ptr]).val(); }
-    set shadowBias(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias", [this.ptr, v]); }
-    get startColor() { return (()=>{
-					let structptr_97394c = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_startColor", [structptr_97394c, this.ptr]);
-					return structptr_97394c;
-				})(); }
-    set startColor(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor", [this.ptr, v]); }
-    get startWidth() { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth", [this.ptr]).val(); }
-    set startWidth(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth", [this.ptr, v]); }
-    get textureMode() { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode", [this.ptr])); }
-    set textureMode(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode", [this.ptr, v]); }
-    get textureScale() { return (()=>{
-					let structptr_365ec9 = window.ctx.malloc(8);
-					window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale", [structptr_365ec9, this.ptr]);
-					return structptr_365ec9;
-				})(); }
-    set textureScale(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale", [this.ptr, v]); }
-    get time() { return window.ctx.call("UnityEngine.TrailRenderer", "get_time", [this.ptr]).val(); }
-    set time(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_time", [this.ptr, v]); }
-    get widthCurve() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "get_widthCurve", [this.ptr])); }
-    set widthCurve(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthCurve", [this.ptr, v]); }
-    get widthMultiplier() { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier", [this.ptr]).val(); }
-    set widthMultiplier(v) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier", [this.ptr, v]); }
-    AddPosition(position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition", [this.ptr, position]); }
-    static AddPosition_Injected(_unity_self, position) { window.ctx.call("UnityEngine.TrailRenderer", "AddPosition_Injected", [_unity_self, position]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19769", [this.ptr, positions]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19776", [this.ptr, positions]); }
-    AddPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_19777", [this.ptr, positions]); }
-    AddPositionsWithNativeContainer(positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer", [this.ptr, positions, length]); }
-    static AddPositionsWithNativeContainer_Injected(_unity_self, positions, length) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositionsWithNativeContainer_Injected", [_unity_self, positions, length]); }
-    static AddPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "AddPositions_Injected", [_unity_self, positions]); }
-    BakeMesh_mesh_useTransform(mesh, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19755", [this.ptr, mesh, useTransform]); }
-    BakeMesh_mesh_camera_useTransform(mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_19756", [this.ptr, mesh, camera, useTransform]); }
-    static BakeMesh_Injected(_unity_self, mesh, camera, useTransform) { window.ctx.call("UnityEngine.TrailRenderer", "BakeMesh_Injected", [_unity_self, mesh, camera, useTransform]); }
-    Clear() { window.ctx.call("UnityEngine.TrailRenderer", "Clear", [this.ptr]); }
-    static Clear_Injected(_unity_self) { window.ctx.call("UnityEngine.TrailRenderer", "Clear_Injected", [_unity_self]); }
-    GetColorGradientCopy() { return new Gradient(window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy", [this.ptr])); }
-    static GetColorGradientCopy_Injected(_unity_self) { return (()=>{
-					let structptr_979f6b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetColorGradientCopy_Injected", [structptr_979f6b, _unity_self]);
-					return structptr_979f6b;
-				})(); }
-    GetPosition(index) { return (()=>{
-					let structptr_7cd691 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetPosition", [structptr_7cd691, this.ptr, index]);
-					return structptr_7cd691;
-				})(); }
-    static GetPosition_Injected(_unity_self, index, ret) { window.ctx.call("UnityEngine.TrailRenderer", "GetPosition_Injected", [_unity_self, index, ret]); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19765", [this.ptr, positions]).val(); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19772", [this.ptr, positions]).val(); }
-    GetPositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_19773", [this.ptr, positions]).val(); }
-    GetPositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
-    static GetPositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
-    static GetPositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetPositions_Injected", [_unity_self, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19766", [this.ptr, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19774", [this.ptr, positions]).val(); }
-    GetVisiblePositions_positions(positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_19775", [this.ptr, positions]).val(); }
-    GetVisiblePositionsWithNativeContainer(positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer", [this.ptr, positions, length]).val(); }
-    static GetVisiblePositionsWithNativeContainer_Injected(_unity_self, positions, length) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositionsWithNativeContainer_Injected", [_unity_self, positions, length]).val(); }
-    static GetVisiblePositions_Injected(_unity_self, positions) { return window.ctx.call("UnityEngine.TrailRenderer", "GetVisiblePositions_Injected", [_unity_self, positions]).val(); }
-    GetWidthCurveCopy() { return new AnimationCurve(window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy", [this.ptr])); }
-    static GetWidthCurveCopy_Injected(_unity_self) { return (()=>{
-					let structptr_ade955 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.TrailRenderer", "GetWidthCurveCopy_Injected", [structptr_ade955, _unity_self]);
-					return structptr_ade955;
-				})(); }
-    SetColorGradient(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient", [this.ptr, curve]); }
-    static SetColorGradient_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetColorGradient_Injected", [_unity_self, curve]); }
-    SetPosition(index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition", [this.ptr, index, position]); }
-    static SetPosition_Injected(_unity_self, index, position) { window.ctx.call("UnityEngine.TrailRenderer", "SetPosition_Injected", [_unity_self, index, position]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19767", [this.ptr, positions]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19770", [this.ptr, positions]); }
-    SetPositions_positions(positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_19771", [this.ptr, positions]); }
-    SetPositionsWithNativeContainer(positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer", [this.ptr, positions, count]); }
-    static SetPositionsWithNativeContainer_Injected(_unity_self, positions, count) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositionsWithNativeContainer_Injected", [_unity_self, positions, count]); }
-    static SetPositions_Injected(_unity_self, positions) { window.ctx.call("UnityEngine.TrailRenderer", "SetPositions_Injected", [_unity_self, positions]); }
-    SetWidthCurve(curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve", [this.ptr, curve]); }
-    static SetWidthCurve_Injected(_unity_self, curve) { window.ctx.call("UnityEngine.TrailRenderer", "SetWidthCurve_Injected", [_unity_self, curve]); }
-    static get_alignment_Injected(_unity_self) { return new LineAlignment(window.ctx.call("UnityEngine.TrailRenderer", "get_alignment_Injected", [_unity_self])); }
-    static get_applyActiveColorSpace_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_applyActiveColorSpace_Injected", [_unity_self]).val() === 1; }
-    static get_autodestruct_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_autodestruct_Injected", [_unity_self]).val() === 1; }
-    static get_emitting_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_emitting_Injected", [_unity_self]).val() === 1; }
-    static get_endColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_endColor_Injected", [_unity_self, ret]); }
-    static get_endWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_endWidth_Injected", [_unity_self]).val(); }
-    static get_generateLightingData_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_generateLightingData_Injected", [_unity_self]).val() === 1; }
-    static get_maskInteraction_Injected(_unity_self) { return new SpriteMaskInteraction(window.ctx.call("UnityEngine.TrailRenderer", "get_maskInteraction_Injected", [_unity_self])); }
-    static get_minVertexDistance_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_minVertexDistance_Injected", [_unity_self]).val(); }
-    static get_numCapVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCapVertices_Injected", [_unity_self]).val(); }
-    static get_numCornerVertices_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_numCornerVertices_Injected", [_unity_self]).val(); }
-    static get_positionCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_positionCount_Injected", [_unity_self]).val(); }
-    static get_shadowBias_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_shadowBias_Injected", [_unity_self]).val(); }
-    static get_startColor_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_startColor_Injected", [_unity_self, ret]); }
-    static get_startWidth_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_startWidth_Injected", [_unity_self]).val(); }
-    static get_textureMode_Injected(_unity_self) { return new LineTextureMode(window.ctx.call("UnityEngine.TrailRenderer", "get_textureMode_Injected", [_unity_self])); }
-    static get_textureScale_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.TrailRenderer", "get_textureScale_Injected", [_unity_self, ret]); }
-    static get_time_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_time_Injected", [_unity_self]).val(); }
-    static get_widthMultiplier_Injected(_unity_self) { return window.ctx.call("UnityEngine.TrailRenderer", "get_widthMultiplier_Injected", [_unity_self]).val(); }
-    static set_alignment_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_alignment_Injected", [_unity_self, value]); }
-    static set_applyActiveColorSpace_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_applyActiveColorSpace_Injected", [_unity_self, value]); }
-    static set_autodestruct_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_autodestruct_Injected", [_unity_self, value]); }
-    static set_emitting_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_emitting_Injected", [_unity_self, value]); }
-    static set_endColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endColor_Injected", [_unity_self, value]); }
-    static set_endWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_endWidth_Injected", [_unity_self, value]); }
-    static set_generateLightingData_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_generateLightingData_Injected", [_unity_self, value]); }
-    static set_maskInteraction_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_maskInteraction_Injected", [_unity_self, value]); }
-    static set_minVertexDistance_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_minVertexDistance_Injected", [_unity_self, value]); }
-    static set_numCapVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCapVertices_Injected", [_unity_self, value]); }
-    static set_numCornerVertices_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_numCornerVertices_Injected", [_unity_self, value]); }
-    static set_shadowBias_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_shadowBias_Injected", [_unity_self, value]); }
-    static set_startColor_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startColor_Injected", [_unity_self, value]); }
-    static set_startWidth_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_startWidth_Injected", [_unity_self, value]); }
-    static set_textureMode_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureMode_Injected", [_unity_self, value]); }
-    static set_textureScale_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_textureScale_Injected", [_unity_self, value]); }
-    static set_time_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_time_Injected", [_unity_self, value]); }
-    static set_widthMultiplier_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier_Injected", [_unity_self, value]); }
-}
-
 export class ShakePreset {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get FadeIn() { return window.ctx.call("MilkShake.ShakePreset", "get_FadeIn", [this.ptr]).val(); }
@@ -7398,6 +8926,7 @@ export class ShakePreset {
     get FadeOut() { return window.ctx.call("MilkShake.ShakePreset", "get_FadeOut", [this.ptr]).val(); }
     set FadeOut(v) { window.ctx.call("MilkShake.ShakePreset", "set_FadeOut", [this.ptr, v]); }
     get PositionInfluence() { return (()=>{
+<<<<<<< HEAD
 					let structptr_791dcb = window.ctx.malloc(12);
 					window.ctx.call("MilkShake.ShakePreset", "get_PositionInfluence", [structptr_791dcb, this.ptr]);
 					return structptr_791dcb;
@@ -7407,6 +8936,17 @@ export class ShakePreset {
 					let structptr_875677 = window.ctx.malloc(12);
 					window.ctx.call("MilkShake.ShakePreset", "get_RotationInfluence", [structptr_875677, this.ptr]);
 					return structptr_875677;
+=======
+					let structptr_36f669 = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakePreset", "get_PositionInfluence", [structptr_36f669, this.ptr]);
+					return structptr_36f669;
+				})(); }
+    set PositionInfluence(v) { window.ctx.call("MilkShake.ShakePreset", "set_PositionInfluence", [this.ptr, v]); }
+    get RotationInfluence() { return (()=>{
+					let structptr_04032d = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakePreset", "get_RotationInfluence", [structptr_04032d, this.ptr]);
+					return structptr_04032d;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     set RotationInfluence(v) { window.ctx.call("MilkShake.ShakePreset", "set_RotationInfluence", [this.ptr, v]); }
     get Roughness() { return window.ctx.call("MilkShake.ShakePreset", "get_Roughness", [this.ptr]).val(); }
@@ -7445,88 +8985,98 @@ export class ParticleSystemExtension {
 
 export class ParticleSystem {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+<<<<<<< HEAD
+    get allAssets() { return window.ctx.call("UnityEngine.AssetBundleRequest", "get_allAssets", [this.ptr]); }
+    get asset() { return new Object(window.ctx.call("UnityEngine.AssetBundleRequest", "get_asset", [this.ptr])); }
+    GetResult() { return new Object(window.ctx.call("UnityEngine.AssetBundleRequest", "GetResult", [this.ptr])); }
+    static GetResult_Injected(_unity_self) { return (()=>{
+					let structptr_a30b41 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.AssetBundleRequest", "GetResult_Injected", [structptr_a30b41, _unity_self]);
+					return structptr_a30b41;
+=======
     get automaticCullingEnabled() { return window.ctx.call("UnityEngine.ParticleSystem", "get_automaticCullingEnabled", [this.ptr]).val() === 1; }
     get collision() { return (()=>{
-					let structptr_252430 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_collision", [structptr_252430, this.ptr]);
-					return structptr_252430;
+					let structptr_1aa2b0 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_collision", [structptr_1aa2b0, this.ptr]);
+					return structptr_1aa2b0;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     get colorBySpeed() { return (()=>{
-					let structptr_a809b3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_colorBySpeed", [structptr_a809b3, this.ptr]);
-					return structptr_a809b3;
+					let structptr_76c133 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_colorBySpeed", [structptr_76c133, this.ptr]);
+					return structptr_76c133;
 				})(); }
     get colorOverLifetime() { return (()=>{
-					let structptr_cf9d0e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_colorOverLifetime", [structptr_cf9d0e, this.ptr]);
-					return structptr_cf9d0e;
+					let structptr_aacca6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_colorOverLifetime", [structptr_aacca6, this.ptr]);
+					return structptr_aacca6;
 				})(); }
     get customData() { return (()=>{
-					let structptr_1f0e90 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_customData", [structptr_1f0e90, this.ptr]);
-					return structptr_1f0e90;
+					let structptr_eab5fa = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_customData", [structptr_eab5fa, this.ptr]);
+					return structptr_eab5fa;
 				})(); }
     get duration() { return window.ctx.call("UnityEngine.ParticleSystem", "get_duration", [this.ptr]).val(); }
     get emission() { return (()=>{
-					let structptr_e53573 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_emission", [structptr_e53573, this.ptr]);
-					return structptr_e53573;
+					let structptr_07af0b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_emission", [structptr_07af0b, this.ptr]);
+					return structptr_07af0b;
 				})(); }
     get emissionRate() { return window.ctx.call("UnityEngine.ParticleSystem", "get_emissionRate", [this.ptr]).val(); }
     set emissionRate(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_emissionRate", [this.ptr, v]); }
     get enableEmission() { return window.ctx.call("UnityEngine.ParticleSystem", "get_enableEmission", [this.ptr]).val() === 1; }
     set enableEmission(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_enableEmission", [this.ptr, v]); }
     get externalForces() { return (()=>{
-					let structptr_0efce5 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_externalForces", [structptr_0efce5, this.ptr]);
-					return structptr_0efce5;
+					let structptr_cea660 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_externalForces", [structptr_cea660, this.ptr]);
+					return structptr_cea660;
 				})(); }
     get forceOverLifetime() { return (()=>{
-					let structptr_d48210 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_forceOverLifetime", [structptr_d48210, this.ptr]);
-					return structptr_d48210;
+					let structptr_f0061f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_forceOverLifetime", [structptr_f0061f, this.ptr]);
+					return structptr_f0061f;
 				})(); }
     get gravityModifier() { return window.ctx.call("UnityEngine.ParticleSystem", "get_gravityModifier", [this.ptr]).val(); }
     set gravityModifier(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_gravityModifier", [this.ptr, v]); }
     get has3DParticleRotations() { return window.ctx.call("UnityEngine.ParticleSystem", "get_has3DParticleRotations", [this.ptr]).val() === 1; }
     get hasNonUniformParticleSizes() { return window.ctx.call("UnityEngine.ParticleSystem", "get_hasNonUniformParticleSizes", [this.ptr]).val() === 1; }
     get inheritVelocity() { return (()=>{
-					let structptr_61164f = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_inheritVelocity", [structptr_61164f, this.ptr]);
-					return structptr_61164f;
+					let structptr_7f1931 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_inheritVelocity", [structptr_7f1931, this.ptr]);
+					return structptr_7f1931;
 				})(); }
     get isEmitting() { return window.ctx.call("UnityEngine.ParticleSystem", "get_isEmitting", [this.ptr]).val() === 1; }
     get isPaused() { return window.ctx.call("UnityEngine.ParticleSystem", "get_isPaused", [this.ptr]).val() === 1; }
     get isPlaying() { return window.ctx.call("UnityEngine.ParticleSystem", "get_isPlaying", [this.ptr]).val() === 1; }
     get isStopped() { return window.ctx.call("UnityEngine.ParticleSystem", "get_isStopped", [this.ptr]).val() === 1; }
     get lifetimeByEmitterSpeed() { return (()=>{
-					let structptr_7cbc6a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_lifetimeByEmitterSpeed", [structptr_7cbc6a, this.ptr]);
-					return structptr_7cbc6a;
+					let structptr_de9fb6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_lifetimeByEmitterSpeed", [structptr_de9fb6, this.ptr]);
+					return structptr_de9fb6;
 				})(); }
     get lights() { return (()=>{
-					let structptr_0b9738 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_lights", [structptr_0b9738, this.ptr]);
-					return structptr_0b9738;
+					let structptr_c798cf = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_lights", [structptr_c798cf, this.ptr]);
+					return structptr_c798cf;
 				})(); }
     get limitVelocityOverLifetime() { return (()=>{
-					let structptr_8b7fd0 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_limitVelocityOverLifetime", [structptr_8b7fd0, this.ptr]);
-					return structptr_8b7fd0;
+					let structptr_d1266f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_limitVelocityOverLifetime", [structptr_d1266f, this.ptr]);
+					return structptr_d1266f;
 				})(); }
     get loop() { return window.ctx.call("UnityEngine.ParticleSystem", "get_loop", [this.ptr]).val() === 1; }
     set loop(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_loop", [this.ptr, v]); }
     get main() { return (()=>{
-					let structptr_61a79e = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_main", [structptr_61a79e, this.ptr]);
-					return structptr_61a79e;
+					let structptr_5a07ce = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_main", [structptr_5a07ce, this.ptr]);
+					return structptr_5a07ce;
 				})(); }
     get maxParticles() { return window.ctx.call("UnityEngine.ParticleSystem", "get_maxParticles", [this.ptr]).val(); }
     set maxParticles(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_maxParticles", [this.ptr, v]); }
     get noise() { return (()=>{
-					let structptr_05d862 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_noise", [structptr_05d862, this.ptr]);
-					return structptr_05d862;
+					let structptr_c66b31 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_noise", [structptr_c66b31, this.ptr]);
+					return structptr_c66b31;
 				})(); }
     get particleCount() { return window.ctx.call("UnityEngine.ParticleSystem", "get_particleCount", [this.ptr]).val(); }
     get playbackSpeed() { return window.ctx.call("UnityEngine.ParticleSystem", "get_playbackSpeed", [this.ptr]).val(); }
@@ -7537,38 +9087,38 @@ export class ParticleSystem {
     get randomSeed() { return window.ctx.call("UnityEngine.ParticleSystem", "get_randomSeed", [this.ptr]).val(); }
     set randomSeed(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_randomSeed", [this.ptr, v]); }
     get rotationBySpeed() { return (()=>{
-					let structptr_94dde1 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_rotationBySpeed", [structptr_94dde1, this.ptr]);
-					return structptr_94dde1;
+					let structptr_d4d465 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_rotationBySpeed", [structptr_d4d465, this.ptr]);
+					return structptr_d4d465;
 				})(); }
     get rotationOverLifetime() { return (()=>{
-					let structptr_263579 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_rotationOverLifetime", [structptr_263579, this.ptr]);
-					return structptr_263579;
+					let structptr_6e710f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_rotationOverLifetime", [structptr_6e710f, this.ptr]);
+					return structptr_6e710f;
 				})(); }
     get scalingMode() { return new ParticleSystemScalingMode(window.ctx.call("UnityEngine.ParticleSystem", "get_scalingMode", [this.ptr])); }
     set scalingMode(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_scalingMode", [this.ptr, v]); }
     get shape() { return (()=>{
-					let structptr_a29245 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_shape", [structptr_a29245, this.ptr]);
-					return structptr_a29245;
+					let structptr_f9fc0c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_shape", [structptr_f9fc0c, this.ptr]);
+					return structptr_f9fc0c;
 				})(); }
     get simulationSpace() { return new ParticleSystemSimulationSpace(window.ctx.call("UnityEngine.ParticleSystem", "get_simulationSpace", [this.ptr])); }
     set simulationSpace(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_simulationSpace", [this.ptr, v]); }
     get sizeBySpeed() { return (()=>{
-					let structptr_ffe8d6 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_sizeBySpeed", [structptr_ffe8d6, this.ptr]);
-					return structptr_ffe8d6;
+					let structptr_a3332b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_sizeBySpeed", [structptr_a3332b, this.ptr]);
+					return structptr_a3332b;
 				})(); }
     get sizeOverLifetime() { return (()=>{
-					let structptr_c4f51a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_sizeOverLifetime", [structptr_c4f51a, this.ptr]);
-					return structptr_c4f51a;
+					let structptr_691617 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_sizeOverLifetime", [structptr_691617, this.ptr]);
+					return structptr_691617;
 				})(); }
     get startColor() { return (()=>{
-					let structptr_0b15b4 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_startColor", [structptr_0b15b4, this.ptr]);
-					return structptr_0b15b4;
+					let structptr_0a7f6e = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_startColor", [structptr_0a7f6e, this.ptr]);
+					return structptr_0a7f6e;
 				})(); }
     set startColor(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_startColor", [this.ptr, v]); }
     get startDelay() { return window.ctx.call("UnityEngine.ParticleSystem", "get_startDelay", [this.ptr]).val(); }
@@ -7578,9 +9128,9 @@ export class ParticleSystem {
     get startRotation() { return window.ctx.call("UnityEngine.ParticleSystem", "get_startRotation", [this.ptr]).val(); }
     set startRotation(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_startRotation", [this.ptr, v]); }
     get startRotation3D() { return (()=>{
-					let structptr_d98f99 = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_startRotation3D", [structptr_d98f99, this.ptr]);
-					return structptr_d98f99;
+					let structptr_f04651 = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_startRotation3D", [structptr_f04651, this.ptr]);
+					return structptr_f04651;
 				})(); }
     set startRotation3D(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_startRotation3D", [this.ptr, v]); }
     get startSize() { return window.ctx.call("UnityEngine.ParticleSystem", "get_startSize", [this.ptr]).val(); }
@@ -7588,34 +9138,34 @@ export class ParticleSystem {
     get startSpeed() { return window.ctx.call("UnityEngine.ParticleSystem", "get_startSpeed", [this.ptr]).val(); }
     set startSpeed(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_startSpeed", [this.ptr, v]); }
     get subEmitters() { return (()=>{
-					let structptr_56ceb1 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_subEmitters", [structptr_56ceb1, this.ptr]);
-					return structptr_56ceb1;
+					let structptr_7aaee6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_subEmitters", [structptr_7aaee6, this.ptr]);
+					return structptr_7aaee6;
 				})(); }
     get textureSheetAnimation() { return (()=>{
-					let structptr_5f98d9 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_textureSheetAnimation", [structptr_5f98d9, this.ptr]);
-					return structptr_5f98d9;
+					let structptr_22bc91 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_textureSheetAnimation", [structptr_22bc91, this.ptr]);
+					return structptr_22bc91;
 				})(); }
     get time() { return window.ctx.call("UnityEngine.ParticleSystem", "get_time", [this.ptr]).val(); }
     set time(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_time", [this.ptr, v]); }
     get totalTime() { return window.ctx.call("UnityEngine.ParticleSystem", "get_totalTime", [this.ptr]).val(); }
     get trails() { return (()=>{
-					let structptr_de3bec = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_trails", [structptr_de3bec, this.ptr]);
-					return structptr_de3bec;
+					let structptr_74b94e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_trails", [structptr_74b94e, this.ptr]);
+					return structptr_74b94e;
 				})(); }
     get trigger() { return (()=>{
-					let structptr_35068c = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_trigger", [structptr_35068c, this.ptr]);
-					return structptr_35068c;
+					let structptr_9933ac = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_trigger", [structptr_9933ac, this.ptr]);
+					return structptr_9933ac;
 				})(); }
     get useAutoRandomSeed() { return window.ctx.call("UnityEngine.ParticleSystem", "get_useAutoRandomSeed", [this.ptr]).val() === 1; }
     set useAutoRandomSeed(v) { window.ctx.call("UnityEngine.ParticleSystem", "set_useAutoRandomSeed", [this.ptr, v]); }
     get velocityOverLifetime() { return (()=>{
-					let structptr_0c527d = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "get_velocityOverLifetime", [structptr_0c527d, this.ptr]);
-					return structptr_0c527d;
+					let structptr_d92ce6 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "get_velocityOverLifetime", [structptr_d92ce6, this.ptr]);
+					return structptr_d92ce6;
 				})(); }
     AllocateAxisOfRotationAttribute() { window.ctx.call("UnityEngine.ParticleSystem", "AllocateAxisOfRotationAttribute", [this.ptr]); }
     static AllocateAxisOfRotationAttribute_Injected(_unity_self) { window.ctx.call("UnityEngine.ParticleSystem", "AllocateAxisOfRotationAttribute_Injected", [_unity_self]); }
@@ -7641,22 +9191,22 @@ export class ParticleSystem {
     GetManagedJobData() { return window.ctx.call("UnityEngine.ParticleSystem", "GetManagedJobData", [this.ptr]); }
     static GetManagedJobData_Injected(_unity_self) { return window.ctx.call("UnityEngine.ParticleSystem", "GetManagedJobData_Injected", [_unity_self]); }
     GetManagedJobHandle() { return (()=>{
-					let structptr_748aff = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "GetManagedJobHandle", [structptr_748aff, this.ptr]);
-					return structptr_748aff;
+					let structptr_dad634 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "GetManagedJobHandle", [structptr_dad634, this.ptr]);
+					return structptr_dad634;
 				})(); }
     static GetManagedJobHandle_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.ParticleSystem", "GetManagedJobHandle_Injected", [_unity_self, ret]); }
     GetParticleCurrentColor(particle) { return (()=>{
-					let structptr_da3e32 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentColor", [structptr_da3e32, this.ptr, particle]);
-					return structptr_da3e32;
+					let structptr_d8b88c = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentColor", [structptr_d8b88c, this.ptr, particle]);
+					return structptr_d8b88c;
 				})(); }
     static GetParticleCurrentColor_Injected(_unity_self, particle, ret) { window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentColor_Injected", [_unity_self, particle, ret]); }
     GetParticleCurrentSize(particle) { return window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentSize", [this.ptr, particle]).val(); }
     GetParticleCurrentSize3D(particle) { return (()=>{
-					let structptr_0c0e1c = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentSize3D", [structptr_0c0e1c, this.ptr, particle]);
-					return structptr_0c0e1c;
+					let structptr_83a3fb = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentSize3D", [structptr_83a3fb, this.ptr, particle]);
+					return structptr_83a3fb;
 				})(); }
     static GetParticleCurrentSize3D_Injected(_unity_self, particle, ret) { window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentSize3D_Injected", [_unity_self, particle, ret]); }
     static GetParticleCurrentSize_Injected(_unity_self, particle) { return window.ctx.call("UnityEngine.ParticleSystem", "GetParticleCurrentSize_Injected", [_unity_self, particle]).val(); }
@@ -7672,17 +9222,17 @@ export class ParticleSystem {
     static GetParticlesWithNativeArray_Injected(_unity_self, particles, particlesLength, size, offset) { return window.ctx.call("UnityEngine.ParticleSystem", "GetParticlesWithNativeArray_Injected", [_unity_self, particles, particlesLength, size, offset]).val(); }
     static GetParticles_Injected(_unity_self, particles, size, offset) { return window.ctx.call("UnityEngine.ParticleSystem", "GetParticles_Injected", [_unity_self, particles, size, offset]).val(); }
     GetPlaybackState() { return (()=>{
-					let structptr_94a0a1 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "GetPlaybackState", [structptr_94a0a1, this.ptr]);
-					return structptr_94a0a1;
+					let structptr_a49fac = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "GetPlaybackState", [structptr_a49fac, this.ptr]);
+					return structptr_a49fac;
 				})(); }
     static GetPlaybackState_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.ParticleSystem", "GetPlaybackState_Injected", [_unity_self, ret]); }
     GetTrailDataInternal(trailData) { window.ctx.call("UnityEngine.ParticleSystem", "GetTrailDataInternal", [this.ptr, trailData]); }
     static GetTrailDataInternal_Injected(_unity_self, trailData) { window.ctx.call("UnityEngine.ParticleSystem", "GetTrailDataInternal_Injected", [_unity_self, trailData]); }
     GetTrails_pointer() { return (()=>{
-					let structptr_97e5e3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "GetTrails_24629", [structptr_97e5e3, this.ptr]);
-					return structptr_97e5e3;
+					let structptr_c4887a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "GetTrails_24629", [structptr_c4887a, this.ptr]);
+					return structptr_c4887a;
 				})(); }
     GetTrails_trailData(trailData) { return window.ctx.call("UnityEngine.ParticleSystem", "GetTrails_24630", [this.ptr, trailData]).val(); }
     IsAlive_withChildren(withChildren) { return window.ctx.call("UnityEngine.ParticleSystem", "IsAlive_24651", [this.ptr, withChildren]).val() === 1; }
@@ -7696,9 +9246,9 @@ export class ParticleSystem {
     static Play_Injected(_unity_self, withChildren) { window.ctx.call("UnityEngine.ParticleSystem", "Play_Injected", [_unity_self, withChildren]); }
     static ResetPreMappedBufferMemory() { window.ctx.call("UnityEngine.ParticleSystem", "ResetPreMappedBufferMemory", []); }
     static ScheduleManagedJob(parameters, additionalData) { return (()=>{
-					let structptr_e0ab29 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.ParticleSystem", "ScheduleManagedJob", [structptr_e0ab29, parameters, additionalData]);
-					return structptr_e0ab29;
+					let structptr_ff49b3 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.ParticleSystem", "ScheduleManagedJob", [structptr_ff49b3, parameters, additionalData]);
+					return structptr_ff49b3;
 				})(); }
     static ScheduleManagedJob_Injected(parameters, additionalData, ret) { window.ctx.call("UnityEngine.ParticleSystem", "ScheduleManagedJob_Injected", [parameters, additionalData, ret]); }
     SetCustomParticleData(customData, streamIndex) { window.ctx.call("UnityEngine.ParticleSystem", "SetCustomParticleData", [this.ptr, customData, streamIndex]); }
@@ -7847,7 +9397,7 @@ export class Texture2D {
     get loadingMipmapLevel() { return window.ctx.call("UnityEngine.Texture2D", "get_loadingMipmapLevel", [this.ptr]).val(); }
     get minimumMipmapLevel() { return window.ctx.call("UnityEngine.Texture2D", "get_minimumMipmapLevel", [this.ptr]).val(); }
     set minimumMipmapLevel(v) { window.ctx.call("UnityEngine.Texture2D", "set_minimumMipmapLevel", [this.ptr, v]); }
-    get mipmapLimitGroup() { return window.ctx.call("UnityEngine.Texture2D", "get_mipmapLimitGroup", [this.ptr]); }
+    get mipmapLimitGroup() { return window.ctx.call("UnityEngine.Texture2D", "get_mipmapLimitGroup", [this.ptr]).mstr(); }
     static get normalTexture() { return new Texture2D(window.ctx.call("UnityEngine.Texture2D", "get_normalTexture", [])); }
     static get redTexture() { return new Texture2D(window.ctx.call("UnityEngine.Texture2D", "get_redTexture", [])); }
     get requestedMipmapLevel() { return window.ctx.call("UnityEngine.Texture2D", "get_requestedMipmapLevel", [this.ptr]).val(); }
@@ -7883,40 +9433,40 @@ export class Texture2D {
     GetImageDataSize() { return window.ctx.call("UnityEngine.Texture2D", "GetImageDataSize", [this.ptr]).val(); }
     static GetImageDataSize_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "GetImageDataSize_Injected", [_unity_self]).val(); }
     GetPixel_x_y(x, y) { return (()=>{
-					let structptr_1c1a16 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixel_21439", [structptr_1c1a16, this.ptr, x, y]);
-					return structptr_1c1a16;
+					let structptr_aca9df = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixel_21439", [structptr_aca9df, this.ptr, x, y]);
+					return structptr_aca9df;
 				})(); }
     GetPixel_x_y_mipLevel(x, y, mipLevel) { return (()=>{
-					let structptr_8980dc = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixel_21440", [structptr_8980dc, this.ptr, x, y, mipLevel]);
-					return structptr_8980dc;
+					let structptr_1274d1 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixel_21440", [structptr_1274d1, this.ptr, x, y, mipLevel]);
+					return structptr_1274d1;
 				})(); }
     GetPixelBilinear_u_v(u, v) { return (()=>{
-					let structptr_c4f17c = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinear_1295", [structptr_c4f17c, this.ptr, u, v]);
-					return structptr_c4f17c;
+					let structptr_2fd8f3 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinear_1295", [structptr_2fd8f3, this.ptr, u, v]);
+					return structptr_2fd8f3;
 				})(); }
     GetPixelBilinear_u_v_mipLevel(u, v, mipLevel) { return (()=>{
-					let structptr_5ad245 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinear_21441", [structptr_5ad245, this.ptr, u, v, mipLevel]);
-					return structptr_5ad245;
+					let structptr_2be601 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinear_21441", [structptr_2be601, this.ptr, u, v, mipLevel]);
+					return structptr_2be601;
 				})(); }
     GetPixelBilinearImpl(image, mip, u, v) { return (()=>{
-					let structptr_001d95 = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinearImpl", [structptr_001d95, this.ptr, image, mip, u, v]);
-					return structptr_001d95;
+					let structptr_45df6e = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinearImpl", [structptr_45df6e, this.ptr, image, mip, u, v]);
+					return structptr_45df6e;
 				})(); }
     static GetPixelBilinearImpl_Injected(_unity_self, image, mip, u, v, ret) { window.ctx.call("UnityEngine.Texture2D", "GetPixelBilinearImpl_Injected", [_unity_self, image, mip, u, v, ret]); }
     GetPixelData(mipLevel) { return (()=>{
-					let structptr_bff351 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixelData", [structptr_bff351, this.ptr, mipLevel]);
-					return structptr_bff351;
+					let structptr_8a81a7 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixelData", [structptr_8a81a7, this.ptr, mipLevel]);
+					return structptr_8a81a7;
 				})(); }
     GetPixelImpl(image, mip, x, y) { return (()=>{
-					let structptr_3e64fc = window.ctx.malloc(16);
-					window.ctx.call("UnityEngine.Texture2D", "GetPixelImpl", [structptr_3e64fc, this.ptr, image, mip, x, y]);
-					return structptr_3e64fc;
+					let structptr_c6f593 = window.ctx.malloc(16);
+					window.ctx.call("UnityEngine.Texture2D", "GetPixelImpl", [structptr_c6f593, this.ptr, image, mip, x, y]);
+					return structptr_c6f593;
 				})(); }
     static GetPixelImpl_Injected(_unity_self, image, mip, x, y, ret) { window.ctx.call("UnityEngine.Texture2D", "GetPixelImpl_Injected", [_unity_self, image, mip, x, y, ret]); }
     GetPixels_x_y_blockWidth_blockHeight_miplevel(x, y, blockWidth, blockHeight, miplevel) { return window.ctx.call("UnityEngine.Texture2D", "GetPixels_21405", [this.ptr, x, y, blockWidth, blockHeight, miplevel]); }
@@ -7929,26 +9479,26 @@ export class Texture2D {
     static GetPixels_Injected(_unity_self, x, y, blockWidth, blockHeight, miplevel) { return window.ctx.call("UnityEngine.Texture2D", "GetPixels_Injected", [_unity_self, x, y, blockWidth, blockHeight, miplevel]); }
     GetRawTextureData_pointer() { return window.ctx.call("UnityEngine.Texture2D", "GetRawTextureData_21404", [this.ptr]); }
     GetRawTextureData() { return (()=>{
-					let structptr_e8d1a3 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "GetRawTextureData", [structptr_e8d1a3, this.ptr]);
-					return structptr_e8d1a3;
+					let structptr_bca455 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "GetRawTextureData", [structptr_bca455, this.ptr]);
+					return structptr_bca455;
 				})(); }
     static GetRawTextureData_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "GetRawTextureData_Injected", [_unity_self]); }
     GetWritableImageData(frame) { return (()=>{
-					let structptr_dddfc2 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "GetWritableImageData", [structptr_dddfc2, this.ptr, frame]);
-					return structptr_dddfc2;
+					let structptr_bdab02 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "GetWritableImageData", [structptr_bdab02, this.ptr, frame]);
+					return structptr_bdab02;
 				})(); }
     static GetWritableImageData_Injected(_unity_self, frame) { return (()=>{
-					let structptr_6d6617 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "GetWritableImageData_Injected", [structptr_6d6617, _unity_self, frame]);
-					return structptr_6d6617;
+					let structptr_88c98e = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "GetWritableImageData_Injected", [structptr_88c98e, _unity_self, frame]);
+					return structptr_88c98e;
 				})(); }
     IgnoreMipmapLimit() { return window.ctx.call("UnityEngine.Texture2D", "IgnoreMipmapLimit", [this.ptr]).val() === 1; }
     static IgnoreMipmapLimit_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "IgnoreMipmapLimit_Injected", [_unity_self]).val() === 1; }
-    static Internal_Create(mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName) { window.ctx.call("UnityEngine.Texture2D", "Internal_Create", [mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName]); }
+    static Internal_Create(mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName) { window.ctx.call("UnityEngine.Texture2D", "Internal_Create", [mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, window.ctx.createMstr(mipmapLimitGroupName)]); }
     static Internal_CreateEmptyImpl(mono) { return window.ctx.call("UnityEngine.Texture2D", "Internal_CreateEmptyImpl", [mono]).val() === 1; }
-    static Internal_CreateImpl(mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName) { return window.ctx.call("UnityEngine.Texture2D", "Internal_CreateImpl", [mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName]).val() === 1; }
+    static Internal_CreateImpl(mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName) { return window.ctx.call("UnityEngine.Texture2D", "Internal_CreateImpl", [mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, window.ctx.createMstr(mipmapLimitGroupName)]).val() === 1; }
     static Internal_CreateImpl_Injected(mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName) { return window.ctx.call("UnityEngine.Texture2D", "Internal_CreateImpl_Injected", [mono, w, h, mipCount, format, colorSpace, flags, nativeTex, ignoreMipmapLimit, mipmapLimitGroupName]).val() === 1; }
     IsRequestedMipmapLevelLoaded() { return window.ctx.call("UnityEngine.Texture2D", "IsRequestedMipmapLevelLoaded", [this.ptr]).val() === 1; }
     static IsRequestedMipmapLevelLoaded_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "IsRequestedMipmapLevelLoaded_Injected", [_unity_self]).val() === 1; }
@@ -8011,24 +9561,24 @@ export class Texture2D {
     ValidateFormat_format_width_height(format, width, height) { return window.ctx.call("UnityEngine.Texture2D", "ValidateFormat_21416", [this.ptr, format, width, height]).val() === 1; }
     static get_activeMipmapLimit_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_activeMipmapLimit_Injected", [_unity_self]).val(); }
     static get_blackTexture_Injected() { return (()=>{
-					let structptr_358b12 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_blackTexture_Injected", [structptr_358b12, ]);
-					return structptr_358b12;
+					let structptr_66a91f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_blackTexture_Injected", [structptr_66a91f, ]);
+					return structptr_66a91f;
 				})(); }
     static get_calculatedMipmapLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_calculatedMipmapLevel_Injected", [_unity_self]).val(); }
     static get_desiredMipmapLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_desiredMipmapLevel_Injected", [_unity_self]).val(); }
     static get_format_Injected(_unity_self) { return new TextureFormat(window.ctx.call("UnityEngine.Texture2D", "get_format_Injected", [_unity_self])); }
     static get_grayTexture_Injected() { return (()=>{
-					let structptr_6f4a28 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_grayTexture_Injected", [structptr_6f4a28, ]);
-					return structptr_6f4a28;
+					let structptr_de8842 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_grayTexture_Injected", [structptr_de8842, ]);
+					return structptr_de8842;
 				})(); }
     static get_isPreProcessed_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_isPreProcessed_Injected", [_unity_self]).val() === 1; }
     static get_isReadable_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_isReadable_Injected", [_unity_self]).val() === 1; }
     static get_linearGrayTexture_Injected() { return (()=>{
-					let structptr_d84322 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_linearGrayTexture_Injected", [structptr_d84322, ]);
-					return structptr_d84322;
+					let structptr_100438 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_linearGrayTexture_Injected", [structptr_100438, ]);
+					return structptr_100438;
 				})(); }
     static get_loadAllMips_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_loadAllMips_Injected", [_unity_self]).val() === 1; }
     static get_loadedMipmapLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_loadedMipmapLevel_Injected", [_unity_self]).val(); }
@@ -8036,23 +9586,23 @@ export class Texture2D {
     static get_minimumMipmapLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_minimumMipmapLevel_Injected", [_unity_self]).val(); }
     static get_mipmapLimitGroup_Injected(_unity_self, ret) { window.ctx.call("UnityEngine.Texture2D", "get_mipmapLimitGroup_Injected", [_unity_self, ret]); }
     static get_normalTexture_Injected() { return (()=>{
-					let structptr_17c6c7 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_normalTexture_Injected", [structptr_17c6c7, ]);
-					return structptr_17c6c7;
+					let structptr_ae48d4 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_normalTexture_Injected", [structptr_ae48d4, ]);
+					return structptr_ae48d4;
 				})(); }
     static get_redTexture_Injected() { return (()=>{
-					let structptr_d27bac = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_redTexture_Injected", [structptr_d27bac, ]);
-					return structptr_d27bac;
+					let structptr_325f07 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_redTexture_Injected", [structptr_325f07, ]);
+					return structptr_325f07;
 				})(); }
     static get_requestedMipmapLevel_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_requestedMipmapLevel_Injected", [_unity_self]).val(); }
     static get_streamingMipmapsPriority_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_streamingMipmapsPriority_Injected", [_unity_self]).val(); }
     static get_streamingMipmaps_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_streamingMipmaps_Injected", [_unity_self]).val() === 1; }
     static get_vtOnly_Injected(_unity_self) { return window.ctx.call("UnityEngine.Texture2D", "get_vtOnly_Injected", [_unity_self]).val() === 1; }
     static get_whiteTexture_Injected() { return (()=>{
-					let structptr_d22907 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Texture2D", "get_whiteTexture_Injected", [structptr_d22907, ]);
-					return structptr_d22907;
+					let structptr_f5948f = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Texture2D", "get_whiteTexture_Injected", [structptr_f5948f, ]);
+					return structptr_f5948f;
 				})(); }
     static set_loadAllMips_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Texture2D", "set_loadAllMips_Injected", [_unity_self, value]); }
     static set_minimumMipmapLevel_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Texture2D", "set_minimumMipmapLevel_Injected", [_unity_self, value]); }
@@ -8168,13 +9718,19 @@ export class JSONArray {
     set inline(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get m_List() { return this.ptr.readField(0x8, 'i32'); }
     set m_List(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    Add(aKey, aItem) { window.ctx.call("SimpleJSON.JSONArray", "Add", [this.ptr, aKey, aItem]); }
+    Add(aKey, aItem) { window.ctx.call("SimpleJSON.JSONArray", "Add", [this.ptr, window.ctx.createMstr(aKey), aItem]); }
     Clear() { window.ctx.call("SimpleJSON.JSONArray", "Clear", [this.ptr]); }
     Clone() { return new JSONNode(window.ctx.call("SimpleJSON.JSONArray", "Clone", [this.ptr])); }
     GetEnumerator() { return (()=>{
+<<<<<<< HEAD
 					let structptr_e1356b = window.ctx.malloc(50);
 					window.ctx.call("SimpleJSON.JSONArray", "GetEnumerator", [structptr_e1356b, this.ptr]);
 					return structptr_e1356b;
+=======
+					let structptr_83d459 = window.ctx.malloc(50);
+					window.ctx.call("SimpleJSON.JSONArray", "GetEnumerator", [structptr_83d459, this.ptr]);
+					return structptr_83d459;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     Remove_aIndex(aIndex) { return new JSONNode(window.ctx.call("SimpleJSON.JSONArray", "Remove_9352", [this.ptr, aIndex])); }
     Remove_aNode(aNode) { return new JSONNode(window.ctx.call("SimpleJSON.JSONArray", "Remove_9353", [this.ptr, aNode])); }
@@ -8195,10 +9751,11 @@ export class JSONObject {
     set inline(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get m_Dict() { return this.ptr.readField(0x8, 'i32'); }
     set m_Dict(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    Add(aKey, aItem) { window.ctx.call("SimpleJSON.JSONObject", "Add", [this.ptr, aKey, aItem]); }
+    Add(aKey, aItem) { window.ctx.call("SimpleJSON.JSONObject", "Add", [this.ptr, window.ctx.createMstr(aKey), aItem]); }
     Clear() { window.ctx.call("SimpleJSON.JSONObject", "Clear", [this.ptr]); }
     Clone() { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "Clone", [this.ptr])); }
     GetEnumerator() { return (()=>{
+<<<<<<< HEAD
 					let structptr_4d560a = window.ctx.malloc(50);
 					window.ctx.call("SimpleJSON.JSONObject", "GetEnumerator", [structptr_4d560a, this.ptr]);
 					return structptr_4d560a;
@@ -8206,12 +9763,33 @@ export class JSONObject {
     GetValueOrDefault(aKey, aDefault) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "GetValueOrDefault", [this.ptr, aKey, aDefault])); }
     HasKey(aKey) { return window.ctx.call("SimpleJSON.JSONObject", "HasKey", [this.ptr, aKey]).val() === 1; }
     Remove_aKey(aKey) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "Remove_9378", [this.ptr, aKey])); }
+=======
+					let structptr_4af39f = window.ctx.malloc(50);
+					window.ctx.call("SimpleJSON.JSONObject", "GetEnumerator", [structptr_4af39f, this.ptr]);
+					return structptr_4af39f;
+				})(); }
+    GetValueOrDefault(aKey, aDefault) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "GetValueOrDefault", [this.ptr, window.ctx.createMstr(aKey), aDefault])); }
+    HasKey(aKey) { return window.ctx.call("SimpleJSON.JSONObject", "HasKey", [this.ptr, window.ctx.createMstr(aKey)]).val() === 1; }
+    Remove_aKey(aKey) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "Remove_9378", [this.ptr, window.ctx.createMstr(aKey)])); }
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
     Remove_aIndex(aIndex) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "Remove_9379", [this.ptr, aIndex])); }
     Remove_aNode(aNode) { return new JSONNode(window.ctx.call("SimpleJSON.JSONObject", "Remove_9380", [this.ptr, aNode])); }
     WriteToStringBuilder(aSB, aIndent, aIndentInc, aMode) { window.ctx.call("SimpleJSON.JSONObject", "WriteToStringBuilder", [this.ptr, aSB, aIndent, aIndentInc, aMode]); }
 }
 
 export class JSONNodeType {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class LineAlignment {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class SpriteMaskInteraction {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class LineTextureMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
@@ -8224,7 +9802,7 @@ export class ContactPairHeader {
     set m_BodyID(v) { return this.ptr.writeField(0x0, 'i32', v); }
     get m_Flags() { return new CollisionPairHeaderFlags(this.ptr.readField(0x10, 'i32')); }
     set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get m_NbPairs() { return this.ptr.readField(0xC, 'i32'); }
+    get m_NbPairs() { return this.ptr.readField(0xC, 'i32').val(); }
     set m_NbPairs(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get m_OtherBodyID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
     set m_OtherBodyID(v) { return this.ptr.writeField(0x4, 'i32', v); }
@@ -8252,7 +9830,7 @@ export class ContactPair {
     set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
     get m_ImpulseSum() { return new Vector3(this.ptr.readField(0x14, 'i32')); }
     set m_ImpulseSum(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get m_NbPoints() { return this.ptr.readField(0xC, 'i32'); }
+    get m_NbPoints() { return this.ptr.readField(0xC, 'i32').val(); }
     set m_NbPoints(v) { return this.ptr.writeField(0xC, 'i32', v); }
     get m_OtherColliderID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
     set m_OtherColliderID(v) { return this.ptr.writeField(0x4, 'i32', v); }
@@ -8336,6 +9914,7 @@ export class ShakeInstance {
     Stop(fadeTime, removeWhenStopped) { window.ctx.call("MilkShake.ShakeInstance", "Stop", [this.ptr, fadeTime, removeWhenStopped]); }
     TogglePaused(fadeTime) { window.ctx.call("MilkShake.ShakeInstance", "TogglePaused", [this.ptr, fadeTime]); }
     UpdateShake(deltaTime) { return (()=>{
+<<<<<<< HEAD
 					let structptr_45d7e3 = window.ctx.malloc(50);
 					window.ctx.call("MilkShake.ShakeInstance", "UpdateShake", [structptr_45d7e3, this.ptr, deltaTime]);
 					return structptr_45d7e3;
@@ -8350,6 +9929,22 @@ export class ShakeInstance {
 					let structptr_58a181 = window.ctx.malloc(12);
 					window.ctx.call("MilkShake.ShakeInstance", "getRotationShake", [structptr_58a181, this.ptr]);
 					return structptr_58a181;
+=======
+					let structptr_3f10e4 = window.ctx.malloc(50);
+					window.ctx.call("MilkShake.ShakeInstance", "UpdateShake", [structptr_3f10e4, this.ptr, deltaTime]);
+					return structptr_3f10e4;
+				})(); }
+    getNoise(x, y) { return window.ctx.call("MilkShake.ShakeInstance", "getNoise", [this.ptr, x, y]).val(); }
+    getPositionShake() { return (()=>{
+					let structptr_05d95a = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakeInstance", "getPositionShake", [structptr_05d95a, this.ptr]);
+					return structptr_05d95a;
+				})(); }
+    getRotationShake() { return (()=>{
+					let structptr_99daca = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakeInstance", "getRotationShake", [structptr_99daca, this.ptr]);
+					return structptr_99daca;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
 }
 
@@ -8369,19 +9964,49 @@ export class ShaderPropertyType {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
+export class WaypointUI {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get hideOnObstacle() { return this.ptr.readField(0x14, 'i32').val() === 1; }
+    set hideOnObstacle(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get internal_id() { return this.ptr.readField(0x10, 'i32').mstr(); }
+    set internal_id(v) { return this.ptr.writeField(0x10, 'i32', window.ctx.createMstr(v)); }
+    get myObject() { return new BaseWaypointObject(this.ptr.readField(0x18, 'i32')); }
+    set myObject(v) { return this.ptr.writeField(0x18, 'i32', v); }
+    Init(_myObject, id) { window.ctx.call("WaypointUI", "Init", [this.ptr, _myObject, window.ctx.createMstr(id)]); }
+}
+
+export class IndexFormat {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class SkinWeights {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class GraphicsBuffer {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get m_Ptr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_Ptr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    static DestroyBuffer(buf) { window.ctx.call("UnityEngine.GraphicsBuffer", "DestroyBuffer", [buf]); }
+    static DestroyBuffer_Injected(buf) { window.ctx.call("UnityEngine.GraphicsBuffer", "DestroyBuffer_Injected", [buf]); }
+    Dispose_pointer() { window.ctx.call("UnityEngine.GraphicsBuffer", "Dispose_20553", [this.ptr]); }
+    Dispose_disposing(disposing) { window.ctx.call("UnityEngine.GraphicsBuffer", "Dispose_20554", [this.ptr, disposing]); }
+    Finalize() { window.ctx.call("UnityEngine.GraphicsBuffer", "Finalize", [this.ptr]); }
+}
+
+export class MeshTopology {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class VertexAttribute {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class VertexAttributeFormat {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class DrivenTransformProperties {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class LineAlignment {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class SpriteMaskInteraction {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class LineTextureMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
@@ -8424,6 +10049,7 @@ export class ShakeParameters {
     get FadeOut() { return window.ctx.call("MilkShake.ShakeParameters", "get_FadeOut", [this.ptr]).val(); }
     set FadeOut(v) { window.ctx.call("MilkShake.ShakeParameters", "set_FadeOut", [this.ptr, v]); }
     get PositionInfluence() { return (()=>{
+<<<<<<< HEAD
 					let structptr_0aa503 = window.ctx.malloc(12);
 					window.ctx.call("MilkShake.ShakeParameters", "get_PositionInfluence", [structptr_0aa503, this.ptr]);
 					return structptr_0aa503;
@@ -8433,6 +10059,17 @@ export class ShakeParameters {
 					let structptr_4cde00 = window.ctx.malloc(12);
 					window.ctx.call("MilkShake.ShakeParameters", "get_RotationInfluence", [structptr_4cde00, this.ptr]);
 					return structptr_4cde00;
+=======
+					let structptr_d2d216 = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakeParameters", "get_PositionInfluence", [structptr_d2d216, this.ptr]);
+					return structptr_d2d216;
+				})(); }
+    set PositionInfluence(v) { window.ctx.call("MilkShake.ShakeParameters", "set_PositionInfluence", [this.ptr, v]); }
+    get RotationInfluence() { return (()=>{
+					let structptr_7b5bc6 = window.ctx.malloc(12);
+					window.ctx.call("MilkShake.ShakeParameters", "get_RotationInfluence", [structptr_7b5bc6, this.ptr]);
+					return structptr_7b5bc6;
+>>>>>>> 7604e493a09d08a73829373925da49bc56c67a3d
 				})(); }
     set RotationInfluence(v) { window.ctx.call("MilkShake.ShakeParameters", "set_RotationInfluence", [this.ptr, v]); }
     get Roughness() { return window.ctx.call("MilkShake.ShakeParameters", "get_Roughness", [this.ptr]).val(); }

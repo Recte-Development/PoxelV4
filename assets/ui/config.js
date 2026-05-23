@@ -35,6 +35,9 @@ export let config = {
         noHands: false,
         noGun: false,
 
+        autoCTF: false,
+        
+
 
     },
     misc: {
@@ -95,6 +98,12 @@ export let config = {
         chickenSkeletons: false,
         chickenSkeletonColor: "#8a2be2",
         chickenSkeletonThickness: 2,
+
+        arrowsize: 1,
+        arrowrainbow: false,
+        offscreenarrows: true,
+        arrowdist: 200,
+        arrowcolor:  "#2600ff",
         
     },
     client: {
