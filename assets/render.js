@@ -165,10 +165,10 @@ export function isTeam(player) {
 	if (modes.includes(currentMode)) return false;
 
 
-	them = player.playerState.team.val();
+	them = player.playerState.team;
 	if (them >= 511) them -= 511;
 	if (them >= 256) them -= 256;
-	me = new ColyBehaviour(lp.ptr).playerState.team.val();
+	me = new ColyBehaviour(lp.ptr).playerState.team;
 	if (me >= 511) me -= 511;
 	if (me >= 256) me -= 256;
 	return me == them;
@@ -176,7 +176,7 @@ export function isTeam(player) {
 export function isTeamNum(flag) {
 	if (flag >= 511) flag -= 511;
 	if (flag >= 256) flag -= 256;
-	me = new ColyBehaviour(localPlayerPtr).playerState.team.val();
+	me = new ColyBehaviour(localPlayerPtr).playerState.team;
 	if (me >= 511) me -= 511;
 	if (me >= 256) me -= 256;
 	return me == flag;
@@ -313,7 +313,7 @@ export function esp() {
 			const espObj = new ESPThings(ctx2d, footScreen, headScreen);
 
 			if (nametags) {
-				const health = playerState.health.val() - 65536;
+				const health = playerState.health - 65536;
 				let text = strip(colyView.Nickname);
 				if (nametagsHealth) text += `\n[${health}hp]`;
 				if (selfPos) {

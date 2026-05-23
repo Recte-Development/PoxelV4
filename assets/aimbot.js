@@ -56,7 +56,7 @@ export function getTargets() {
             const worldDist = Math.hypot(wp.x - localPos.x, wp.y - localPos.y, wp.z - localPos.z);
 
             entries.push({ ptr: player.ptr, screenDist, worldDist });
-        } catch {}
+        } catch(e) { console.log(e)}
     });
 
     if (sortingMode === "Screen") {

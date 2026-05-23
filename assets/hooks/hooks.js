@@ -227,7 +227,7 @@ export function shooterhooks() {
         }, (ptr) => {
             if (!config.rage.autoCTF) return true
             var f = new FlagObject(ptr)
-            if (!isTeamNum(f.myFlag.teamId.val())) {
+            if (!isTeamNum(f.myFlag.teamId)) {
                 new ColyShooter(localPlayerPtr).movementStateManager.colyTransform.SendPositionUpdate(new Component(ptr).transform.position, new Component(ptr).transform.rotation, 0)
                 console.log(f.ctfPoint.lastMyFlagCarriedBy)
                 //if (f.ctfPoint.lastMyFlagAtBase) {
@@ -283,7 +283,7 @@ export function shooterhooks() {
 
             let finalTarget = targetsessionid;
             let finalHitPos = hitpos;
-            let finalDamage = damage.val();
+            let finalDamage = damage;
 
             if (config.rage.randomHit) {
                 if (targetsessionid === "") {
