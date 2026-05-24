@@ -199,7 +199,7 @@ export function shooterhooks() {
             let player = new ColyBehaviour(ptr).colyView; // this no error
             let shooter = new ColyShooter(ptr);
             if (!Players.has(player.sessionId) && !player.isMine) {
-                Players.set(player.sessionId, { 'ptr': ptr, 'timestamp': Date.now() })
+                Players.set(player.sessionId, { 'ptr': ptr, 'timestamp': Date.now(), 'id': new ColyBehaviour(ptr).colyView.ActorNumber })
             }
             if (player.isMine) {
                 localPlayer = new ColyShooter(ptr);

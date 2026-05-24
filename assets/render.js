@@ -349,7 +349,10 @@ export function esp() {
 				}
 			}
 
-		} catch (e) {Players.splice(Players.indexOf(player), 1); console.log(e)  }
+		} catch (e) {
+			let index = Players.findIndex(p => p.id === new ColyBehaviour(player.ptr).colyView.ActorNumber);
+			if (index > -1) Players.splice(index, 1); console.log(e)
+		}
 	});
 
 
@@ -357,31 +360,33 @@ export function esp() {
 		from: from,
 		to: to,
 	})) : null;
-	Chickens.forEach((chicken) => {
-		const comp = new Component(chicken.ptr);
-		const compTransform = comp.transform;
+	if (config.visuals.chickenSkeletons || config.visuals.chickenNametags) {
+		Chickens.forEach((chicken) => {
+			const comp = new Component(chicken.ptr);
+			const compTransform = comp.transform;
 
-		const screen = w2s(canvas, comp.transform.position)
-		if (!onScreen(screen)) return;
+			const screen = w2s(canvas, comp.transform.position)
+			if (!onScreen(screen)) return;
 
-		//if (config.visuals.chickenNametags){
-		//drawtext(ctx2d, config.visuals.chickenNametagColor, screen.x, screen.y, "Chicken")}
+			//if (config.visuals.chickenNametags){
+			//drawtext(ctx2d, config.visuals.chickenNametagColor, screen.x, screen.y, "Chicken")}
 
 
-		const espObj = new ESPThings(ctx2d, screen, screen);
-		if (config.visuals.chickenNametags) {
-			espObj.DrawText("Chicken", screen.x, screen.y - 5, 12, config.visuals.chickenNametagColor);
-		}
-		if (config.visuals.chickenSkeletons && chickenBoneLinkmStrs) {
-			for (const { from, to } of chickenBoneLinkmStrs) {
-				try {
-					const fromPos = w2s(canvas, compTransform.Find(from).position);
-					const toPos = w2s(canvas, compTransform.Find(to).position);
-					if (fromPos && toPos) espObj.DrawLine(fromPos, toPos, config.visuals.chickenSkeletonColor, config.visuals.chickenSkeletonThickness);
-				} catch { }
+			const espObj = new ESPThings(ctx2d, screen, screen);
+			if (config.visuals.chickenNametags) {
+				espObj.DrawText("Chicken", screen.x, screen.y - 5, 12, config.visuals.chickenNametagColor);
 			}
-		}
-	})
+			if (config.visuals.chickenSkeletons && chickenBoneLinkmStrs) {
+				for (const { from, to } of chickenBoneLinkmStrs) {
+					try {
+						const fromPos = w2s(canvas, compTransform.Find(from).position);
+						const toPos = w2s(canvas, compTransform.Find(to).position);
+						if (fromPos && toPos) espObj.DrawLine(fromPos, toPos, config.visuals.chickenSkeletonColor, config.visuals.chickenSkeletonThickness);
+					} catch { }
+				}
+			}
+		})
+	}
 	const now = performance.now();
 	const frameDelta = now - lastTime;
 	lastTime = now;
