@@ -22,6 +22,7 @@ import { humanBonePaths, boneLinks, chickenBoneLinks, chickenBonePaths } from ".
 import { localPlayer, localPlayerPtr, gameModeManager, currentRoom, currentMode, curlock } from "./hooks/hooks";
 import { TransformHierarchy } from "./network"
 import { ScreenNode } from "three/webgpu";
+import { visCheck } from "./aimbot";
 window.offset = 2;
 export let onscreen = [];
 export let closestplayer = null;
@@ -258,7 +259,9 @@ export function esp() {
 	// Lazy-init reusable head position buffer (avoids per-player malloc)
 	if (!_headBuf) _headBuf = window.ctx.malloc(0xc);
 	Players.forEach((player) => {
+		
 		try {
+			// vis check test: if (!visCheck(player.ptr)) return
 			const behaviour = new ColyBehaviour(player.ptr);
 			if (nullCheck(behaviour.colyView)) return;
 
@@ -350,9 +353,8 @@ export function esp() {
 			}
 
 		} catch (e) {
-			let index = Players.findIndex(p => p.id === new ColyBehaviour(player.ptr).colyView.ActorNumber);
-			if (index > -1) Players.splice(index, 1); console.log(e)
-		}
+			 let index = Players.findIndex(p => p.id === new ColyBehaviour(player.ptr).colyView.ActorNumber);
+			 if (index > -1) Players.splice(index, 1); console.log(e)  }
 	});
 
 
@@ -360,7 +362,8 @@ export function esp() {
 		from: from,
 		to: to,
 	})) : null;
-	if (config.visuals.chickenSkeletons || config.visuals.chickenNametags) {
+	if (config.visuals.chickenSkeletons ||  config.visuals.chickenNametags)
+	{
 		Chickens.forEach((chicken) => {
 			const comp = new Component(chicken.ptr);
 			const compTransform = comp.transform;

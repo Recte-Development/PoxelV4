@@ -1,6 +1,6 @@
 import {
     ColyShooter, ColyBehaviour, Component, Camera,
-    Transform, CharacterCamera
+    Transform, CharacterCamera, Physics
 } from "../structs";
 import {Players} from "../main";
 import {localPlayer, weaponCamera, movementcontroller, charcam} from "./hooks/hooks";
@@ -15,6 +15,17 @@ export function centerOfScreen(){
     return new Vector3(canvas.width / 2, canvas.height / 2, 0)
 }
 
+export function visCheck(pcptr) {
+    var campos = new Component(Camera.main.ptr).transform.position
+    var pcpos = Vector3.readFrom(new Component(pcptr).transform.Find(humanBonePaths["Neck"]).position)
+    var direction = pcpos.subtract(Vector3.readFrom(campos)).createPtr();
+    let hitinfo = window.ctx.malloc(0x48)
+    var layermask = 1 << 3 // bitmask (includes map mask and nothing else)
+    var dist = parseFloat(pcpos.distance(Vector3.readFrom(campos)))
+    // if the raycast doesn't hit a part of the map before it reaches the player, the player is visible
+    var hit = Physics.Raycast_origin_direction_hitInfo_maxDistance_layerMask(campos, direction, hitinfo, dist, layermask)
+    return !hit;
+}
 
 export function getTargets() {
     if (!Players || Players.size === 0) return [];
@@ -71,6 +82,9 @@ export function getTargets() {
 let lp = null
 
 export function main(){
+    /*if (window.layerToTest != undefined) {
+        Camera.main.cullingMask = (1 << window.layerToTest)
+    }*/
     if (!config.rage.aimbot) return;
     let keyboardMatch = keysPressed["Key" + config.rage.aimKey] || keysPressed[config.rage.aimKey];
     let mouseMatch = buttonsPressed[config.rage.aimKey];

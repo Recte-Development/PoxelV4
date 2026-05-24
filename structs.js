@@ -1040,6 +1040,101 @@ export class CharacterCamera {
     Update() { window.ctx.call("KinematicCharacterController.Examples.CharacterCamera", "Update", [this.ptr]); }
 }
 
+export class Physics {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    static get defaultPhysicsScene() { return (()=>{
+					let structptr_4c2f62 = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "get_defaultPhysicsScene", [structptr_4c2f62, ]);
+					return structptr_4c2f62;
+				})(); }
+    static get gravity() { return (()=>{
+					let structptr_ffbd1a = window.ctx.malloc(12);
+					window.ctx.call("UnityEngine.Physics", "get_gravity", [structptr_ffbd1a, ]);
+					return structptr_ffbd1a;
+				})(); }
+    static get invokeCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_invokeCollisionCallbacks", []).val() === 1; }
+    static get reuseCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_reuseCollisionCallbacks", []).val() === 1; }
+    get ContactEvent() { return new ContactEventDelegate(this.ptr.readField(0xC, 'i32')); }
+    set ContactEvent(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get ContactModifyEvent() { return this.ptr.readField(0x0, 'i32'); }
+    set ContactModifyEvent(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get ContactModifyEventCCD() { return this.ptr.readField(0x4, 'i32'); }
+    set ContactModifyEventCCD(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get GenericContactModifyEvent() { return this.ptr.readField(0x8, 'i32').val() === 1; }
+    set GenericContactModifyEvent(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get s_ReusableCollision() { return new Collision(this.ptr.readField(0x10, 'i32')); }
+    set s_ReusableCollision(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    static CapsuleCastNonAlloc(point1, point2, radius, direction, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "CapsuleCastNonAlloc", [point1, point2, radius, direction, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
+    static ComputePenetration(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "ComputePenetration", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
+    static GetBodyByInstanceID(entityId) { return new Component(window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID", [entityId])); }
+    static GetBodyByInstanceID_Injected(entityId) { return (()=>{
+					let structptr_749e2b = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID_Injected", [structptr_749e2b, entityId]);
+					return structptr_749e2b;
+				})(); }
+    static GetColliderByInstanceID(entityId) { return new Collider(window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID", [entityId])); }
+    static GetColliderByInstanceID_Injected(entityId) { return (()=>{
+					let structptr_c06f6a = window.ctx.malloc(50);
+					window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID_Injected", [structptr_c06f6a, entityId]);
+					return structptr_c06f6a;
+				})(); }
+    static GetCollisionToReport(header, pair, flipped) { return new Collision(window.ctx.call("UnityEngine.Physics", "GetCollisionToReport", [header, pair, flipped])); }
+    static GetIgnoreLayerCollision(layer1, layer2) { return window.ctx.call("UnityEngine.Physics", "GetIgnoreLayerCollision", [layer1, layer2]).val() === 1; }
+    static Internal_RaycastAll(physicsScene, ray, maxDistance, mask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Internal_RaycastAll", [physicsScene, ray, maxDistance, mask, queryTriggerInteraction]); }
+    static Internal_RaycastAll_Injected(physicsScene, ray, maxDistance, mask, queryTriggerInteraction, ret) { window.ctx.call("UnityEngine.Physics", "Internal_RaycastAll_Injected", [physicsScene, ray, maxDistance, mask, queryTriggerInteraction, ret]); }
+    static Linecast_start_end_hitInfo_layerMask_queryTriggerInteraction(start, end, hitInfo, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Linecast_25119", [start, end, hitInfo, layerMask, queryTriggerInteraction]).val() === 1; }
+    static Linecast_start_end_hitInfo_layerMask(start, end, hitInfo, layerMask) { return window.ctx.call("UnityEngine.Physics", "Linecast_25120", [start, end, hitInfo, layerMask]).val() === 1; }
+    static OnSceneContact(scene, buffer, count) { window.ctx.call("UnityEngine.Physics", "OnSceneContact", [scene, buffer, count]); }
+    static OnSceneContactModify(scene, buffer, count, isCCD) { window.ctx.call("UnityEngine.Physics", "OnSceneContactModify", [scene, buffer, count, isCCD]); }
+    static OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "OverlapCapsuleNonAlloc", [point0, point1, radius, results, layerMask, queryTriggerInteraction]).val(); }
+    static OverlapSphereNonAlloc_position_radius_results_layerMask_queryTriggerInteraction(position, radius, results, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25141", [position, radius, results, layerMask, queryTriggerInteraction]).val(); }
+    static OverlapSphereNonAlloc_position_radius_results_layerMask(position, radius, results, layerMask) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25142", [position, radius, results, layerMask]).val(); }
+    static OverlapSphereNonAlloc_position_radius_results(position, radius, results) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25143", [position, radius, results]).val(); }
+    static PhysXOnSceneContactModify(scene, buffer, count, isCCD) { window.ctx.call("UnityEngine.Physics", "PhysXOnSceneContactModify", [scene, buffer, count, isCCD]); }
+    static Query_ComputePenetration(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "Query_ComputePenetration", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
+    static Query_ComputePenetration_Injected(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "Query_ComputePenetration_Injected", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
+    static Raycast_origin_direction_maxDistance_layerMask_queryTriggerInteraction(origin, direction, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25105", [origin, direction, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
+    static Raycast_origin_direction_maxDistance_layerMask(origin, direction, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_2242", [origin, direction, maxDistance, layerMask]).val() === 1; }
+    static Raycast_origin_direction_maxDistance(origin, direction, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25106", [origin, direction, maxDistance]).val() === 1; }
+    static Raycast_origin_direction(origin, direction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25107", [origin, direction]).val() === 1; }
+    static Raycast_origin_direction_hitInfo_maxDistance_layerMask_queryTriggerInteraction(origin, direction, hitInfo, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25108", [origin, direction, hitInfo, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
+    static Raycast_origin_direction_hitInfo_maxDistance_layerMask(origin, direction, hitInfo, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_2066", [origin, direction, hitInfo, maxDistance, layerMask]).val() === 1; }
+    static Raycast_origin_direction_hitInfo_maxDistance(origin, direction, hitInfo, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25109", [origin, direction, hitInfo, maxDistance]).val() === 1; }
+    static Raycast_origin_direction_hitInfo(origin, direction, hitInfo) { return window.ctx.call("UnityEngine.Physics", "Raycast_25110", [origin, direction, hitInfo]).val() === 1; }
+    static Raycast_ray_maxDistance_layerMask_queryTriggerInteraction(ray, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25111", [ray, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
+    static Raycast_ray_maxDistance_layerMask(ray, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_25112", [ray, maxDistance, layerMask]).val() === 1; }
+    static Raycast_ray_maxDistance(ray, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25113", [ray, maxDistance]).val() === 1; }
+    static Raycast_ray(ray) { return window.ctx.call("UnityEngine.Physics", "Raycast_25114", [ray]).val() === 1; }
+    static Raycast_ray_hitInfo_maxDistance_layerMask_queryTriggerInteraction(ray, hitInfo, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25115", [ray, hitInfo, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
+    static Raycast_ray_hitInfo_maxDistance_layerMask(ray, hitInfo, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_25116", [ray, hitInfo, maxDistance, layerMask]).val() === 1; }
+    static Raycast_ray_hitInfo_maxDistance(ray, hitInfo, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25117", [ray, hitInfo, maxDistance]).val() === 1; }
+    static Raycast_ray_hitInfo(ray, hitInfo) { return window.ctx.call("UnityEngine.Physics", "Raycast_25118", [ray, hitInfo]).val() === 1; }
+    static RaycastAll_origin_direction_maxDistance_layerMask_queryTriggerInteraction(origin, direction, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25122", [origin, direction, maxDistance, layerMask, queryTriggerInteraction]); }
+    static RaycastAll_origin_direction_maxDistance_layerMask(origin, direction, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25123", [origin, direction, maxDistance, layerMask]); }
+    static RaycastAll_origin_direction_maxDistance(origin, direction, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25124", [origin, direction, maxDistance]); }
+    static RaycastAll_origin_direction(origin, direction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25125", [origin, direction]); }
+    static RaycastAll_ray_maxDistance_layerMask_queryTriggerInteraction(ray, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25126", [ray, maxDistance, layerMask, queryTriggerInteraction]); }
+    static RaycastAll_ray_maxDistance_layerMask(ray, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25127", [ray, maxDistance, layerMask]); }
+    static RaycastAll_ray_maxDistance(ray, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25128", [ray, maxDistance]); }
+    static RaycastAll_ray(ray) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25129", [ray]); }
+    static RaycastNonAlloc_ray_results_maxDistance_layerMask_queryTriggerInteraction(ray, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25130", [ray, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
+    static RaycastNonAlloc_ray_results_maxDistance_layerMask(ray, results, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25131", [ray, results, maxDistance, layerMask]).val(); }
+    static RaycastNonAlloc_ray_results_maxDistance(ray, results, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25132", [ray, results, maxDistance]).val(); }
+    static RaycastNonAlloc_ray_results(ray, results) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25133", [ray, results]).val(); }
+    static RaycastNonAlloc_origin_direction_results_maxDistance_layerMask_queryTriggerInteraction(origin, direction, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25134", [origin, direction, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
+    static RaycastNonAlloc_origin_direction_results_maxDistance_layerMask(origin, direction, results, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25135", [origin, direction, results, maxDistance, layerMask]).val(); }
+    static RaycastNonAlloc_origin_direction_results_maxDistance(origin, direction, results, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25136", [origin, direction, results, maxDistance]).val(); }
+    static RaycastNonAlloc_origin_direction_results(origin, direction, results) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25137", [origin, direction, results]).val(); }
+    static ReportContacts(array) { window.ctx.call("UnityEngine.Physics", "ReportContacts", [array]); }
+    static SendOnCollisionEnter(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionEnter", [component, collision]); }
+    static SendOnCollisionEnter_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionEnter_Injected", [component, collision]); }
+    static SendOnCollisionExit(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionExit", [component, collision]); }
+    static SendOnCollisionExit_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionExit_Injected", [component, collision]); }
+    static SendOnCollisionStay(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionStay", [component, collision]); }
+    static SendOnCollisionStay_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionStay_Injected", [component, collision]); }
+    static get_gravity_Injected(ret) { window.ctx.call("UnityEngine.Physics", "get_gravity_Injected", [ret]); }
+}
+
 export class Weapon {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get skinId() { return this.ptr.readField(0x12, 'i32').val(); }
@@ -2876,101 +2971,6 @@ export class Bullet {
     OnSpawn() { window.ctx.call("Bullet", "OnSpawn", [this.ptr]); }
     TryEndLife(force, isNaturally) { window.ctx.call("Bullet", "TryEndLife", [this.ptr, force, isNaturally]); }
     Update() { window.ctx.call("Bullet", "Update", [this.ptr]); }
-}
-
-export class Physics {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    static get defaultPhysicsScene() { return (()=>{
-					let structptr_4c2f62 = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "get_defaultPhysicsScene", [structptr_4c2f62, ]);
-					return structptr_4c2f62;
-				})(); }
-    static get gravity() { return (()=>{
-					let structptr_ffbd1a = window.ctx.malloc(12);
-					window.ctx.call("UnityEngine.Physics", "get_gravity", [structptr_ffbd1a, ]);
-					return structptr_ffbd1a;
-				})(); }
-    static get invokeCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_invokeCollisionCallbacks", []).val() === 1; }
-    static get reuseCollisionCallbacks() { return window.ctx.call("UnityEngine.Physics", "get_reuseCollisionCallbacks", []).val() === 1; }
-    get ContactEvent() { return new ContactEventDelegate(this.ptr.readField(0xC, 'i32')); }
-    set ContactEvent(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    get ContactModifyEvent() { return this.ptr.readField(0x0, 'i32'); }
-    set ContactModifyEvent(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get ContactModifyEventCCD() { return this.ptr.readField(0x4, 'i32'); }
-    set ContactModifyEventCCD(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get GenericContactModifyEvent() { return this.ptr.readField(0x8, 'i32').val() === 1; }
-    set GenericContactModifyEvent(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    get s_ReusableCollision() { return new Collision(this.ptr.readField(0x10, 'i32')); }
-    set s_ReusableCollision(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    static CapsuleCastNonAlloc(point1, point2, radius, direction, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "CapsuleCastNonAlloc", [point1, point2, radius, direction, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
-    static ComputePenetration(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "ComputePenetration", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
-    static GetBodyByInstanceID(entityId) { return new Component(window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID", [entityId])); }
-    static GetBodyByInstanceID_Injected(entityId) { return (()=>{
-					let structptr_749e2b = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "GetBodyByInstanceID_Injected", [structptr_749e2b, entityId]);
-					return structptr_749e2b;
-				})(); }
-    static GetColliderByInstanceID(entityId) { return new Collider(window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID", [entityId])); }
-    static GetColliderByInstanceID_Injected(entityId) { return (()=>{
-					let structptr_c06f6a = window.ctx.malloc(50);
-					window.ctx.call("UnityEngine.Physics", "GetColliderByInstanceID_Injected", [structptr_c06f6a, entityId]);
-					return structptr_c06f6a;
-				})(); }
-    static GetCollisionToReport(header, pair, flipped) { return new Collision(window.ctx.call("UnityEngine.Physics", "GetCollisionToReport", [header, pair, flipped])); }
-    static GetIgnoreLayerCollision(layer1, layer2) { return window.ctx.call("UnityEngine.Physics", "GetIgnoreLayerCollision", [layer1, layer2]).val() === 1; }
-    static Internal_RaycastAll(physicsScene, ray, maxDistance, mask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Internal_RaycastAll", [physicsScene, ray, maxDistance, mask, queryTriggerInteraction]); }
-    static Internal_RaycastAll_Injected(physicsScene, ray, maxDistance, mask, queryTriggerInteraction, ret) { window.ctx.call("UnityEngine.Physics", "Internal_RaycastAll_Injected", [physicsScene, ray, maxDistance, mask, queryTriggerInteraction, ret]); }
-    static Linecast_start_end_hitInfo_layerMask_queryTriggerInteraction(start, end, hitInfo, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Linecast_25119", [start, end, hitInfo, layerMask, queryTriggerInteraction]).val() === 1; }
-    static Linecast_start_end_hitInfo_layerMask(start, end, hitInfo, layerMask) { return window.ctx.call("UnityEngine.Physics", "Linecast_25120", [start, end, hitInfo, layerMask]).val() === 1; }
-    static OnSceneContact(scene, buffer, count) { window.ctx.call("UnityEngine.Physics", "OnSceneContact", [scene, buffer, count]); }
-    static OnSceneContactModify(scene, buffer, count, isCCD) { window.ctx.call("UnityEngine.Physics", "OnSceneContactModify", [scene, buffer, count, isCCD]); }
-    static OverlapCapsuleNonAlloc(point0, point1, radius, results, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "OverlapCapsuleNonAlloc", [point0, point1, radius, results, layerMask, queryTriggerInteraction]).val(); }
-    static OverlapSphereNonAlloc_position_radius_results_layerMask_queryTriggerInteraction(position, radius, results, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25141", [position, radius, results, layerMask, queryTriggerInteraction]).val(); }
-    static OverlapSphereNonAlloc_position_radius_results_layerMask(position, radius, results, layerMask) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25142", [position, radius, results, layerMask]).val(); }
-    static OverlapSphereNonAlloc_position_radius_results(position, radius, results) { return window.ctx.call("UnityEngine.Physics", "OverlapSphereNonAlloc_25143", [position, radius, results]).val(); }
-    static PhysXOnSceneContactModify(scene, buffer, count, isCCD) { window.ctx.call("UnityEngine.Physics", "PhysXOnSceneContactModify", [scene, buffer, count, isCCD]); }
-    static Query_ComputePenetration(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "Query_ComputePenetration", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
-    static Query_ComputePenetration_Injected(colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance) { return window.ctx.call("UnityEngine.Physics", "Query_ComputePenetration_Injected", [colliderA, positionA, rotationA, colliderB, positionB, rotationB, direction, distance]).val() === 1; }
-    static Raycast_origin_direction_maxDistance_layerMask_queryTriggerInteraction(origin, direction, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25105", [origin, direction, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
-    static Raycast_origin_direction_maxDistance_layerMask(origin, direction, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_2242", [origin, direction, maxDistance, layerMask]).val() === 1; }
-    static Raycast_origin_direction_maxDistance(origin, direction, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25106", [origin, direction, maxDistance]).val() === 1; }
-    static Raycast_origin_direction(origin, direction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25107", [origin, direction]).val() === 1; }
-    static Raycast_origin_direction_hitInfo_maxDistance_layerMask_queryTriggerInteraction(origin, direction, hitInfo, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25108", [origin, direction, hitInfo, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
-    static Raycast_origin_direction_hitInfo_maxDistance_layerMask(origin, direction, hitInfo, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_2066", [origin, direction, hitInfo, maxDistance, layerMask]).val() === 1; }
-    static Raycast_origin_direction_hitInfo_maxDistance(origin, direction, hitInfo, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25109", [origin, direction, hitInfo, maxDistance]).val() === 1; }
-    static Raycast_origin_direction_hitInfo(origin, direction, hitInfo) { return window.ctx.call("UnityEngine.Physics", "Raycast_25110", [origin, direction, hitInfo]).val() === 1; }
-    static Raycast_ray_maxDistance_layerMask_queryTriggerInteraction(ray, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25111", [ray, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
-    static Raycast_ray_maxDistance_layerMask(ray, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_25112", [ray, maxDistance, layerMask]).val() === 1; }
-    static Raycast_ray_maxDistance(ray, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25113", [ray, maxDistance]).val() === 1; }
-    static Raycast_ray(ray) { return window.ctx.call("UnityEngine.Physics", "Raycast_25114", [ray]).val() === 1; }
-    static Raycast_ray_hitInfo_maxDistance_layerMask_queryTriggerInteraction(ray, hitInfo, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "Raycast_25115", [ray, hitInfo, maxDistance, layerMask, queryTriggerInteraction]).val() === 1; }
-    static Raycast_ray_hitInfo_maxDistance_layerMask(ray, hitInfo, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "Raycast_25116", [ray, hitInfo, maxDistance, layerMask]).val() === 1; }
-    static Raycast_ray_hitInfo_maxDistance(ray, hitInfo, maxDistance) { return window.ctx.call("UnityEngine.Physics", "Raycast_25117", [ray, hitInfo, maxDistance]).val() === 1; }
-    static Raycast_ray_hitInfo(ray, hitInfo) { return window.ctx.call("UnityEngine.Physics", "Raycast_25118", [ray, hitInfo]).val() === 1; }
-    static RaycastAll_origin_direction_maxDistance_layerMask_queryTriggerInteraction(origin, direction, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25122", [origin, direction, maxDistance, layerMask, queryTriggerInteraction]); }
-    static RaycastAll_origin_direction_maxDistance_layerMask(origin, direction, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25123", [origin, direction, maxDistance, layerMask]); }
-    static RaycastAll_origin_direction_maxDistance(origin, direction, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25124", [origin, direction, maxDistance]); }
-    static RaycastAll_origin_direction(origin, direction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25125", [origin, direction]); }
-    static RaycastAll_ray_maxDistance_layerMask_queryTriggerInteraction(ray, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25126", [ray, maxDistance, layerMask, queryTriggerInteraction]); }
-    static RaycastAll_ray_maxDistance_layerMask(ray, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25127", [ray, maxDistance, layerMask]); }
-    static RaycastAll_ray_maxDistance(ray, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25128", [ray, maxDistance]); }
-    static RaycastAll_ray(ray) { return window.ctx.call("UnityEngine.Physics", "RaycastAll_25129", [ray]); }
-    static RaycastNonAlloc_ray_results_maxDistance_layerMask_queryTriggerInteraction(ray, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25130", [ray, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
-    static RaycastNonAlloc_ray_results_maxDistance_layerMask(ray, results, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25131", [ray, results, maxDistance, layerMask]).val(); }
-    static RaycastNonAlloc_ray_results_maxDistance(ray, results, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25132", [ray, results, maxDistance]).val(); }
-    static RaycastNonAlloc_ray_results(ray, results) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25133", [ray, results]).val(); }
-    static RaycastNonAlloc_origin_direction_results_maxDistance_layerMask_queryTriggerInteraction(origin, direction, results, maxDistance, layerMask, queryTriggerInteraction) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25134", [origin, direction, results, maxDistance, layerMask, queryTriggerInteraction]).val(); }
-    static RaycastNonAlloc_origin_direction_results_maxDistance_layerMask(origin, direction, results, maxDistance, layerMask) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25135", [origin, direction, results, maxDistance, layerMask]).val(); }
-    static RaycastNonAlloc_origin_direction_results_maxDistance(origin, direction, results, maxDistance) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25136", [origin, direction, results, maxDistance]).val(); }
-    static RaycastNonAlloc_origin_direction_results(origin, direction, results) { return window.ctx.call("UnityEngine.Physics", "RaycastNonAlloc_25137", [origin, direction, results]).val(); }
-    static ReportContacts(array) { window.ctx.call("UnityEngine.Physics", "ReportContacts", [array]); }
-    static SendOnCollisionEnter(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionEnter", [component, collision]); }
-    static SendOnCollisionEnter_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionEnter_Injected", [component, collision]); }
-    static SendOnCollisionExit(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionExit", [component, collision]); }
-    static SendOnCollisionExit_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionExit_Injected", [component, collision]); }
-    static SendOnCollisionStay(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionStay", [component, collision]); }
-    static SendOnCollisionStay_Injected(component, collision) { window.ctx.call("UnityEngine.Physics", "SendOnCollisionStay_Injected", [component, collision]); }
-    static get_gravity_Injected(ret) { window.ctx.call("UnityEngine.Physics", "get_gravity_Injected", [ret]); }
 }
 
 export class RaycastHit {
@@ -4853,6 +4853,20 @@ export class Vector3 {
     ToString_format_formatProvider(format, formatProvider) { return window.ctx.call("UnityEngine.Vector3", "ToString_22125", [this.ptr, window.ctx.createMstr(format), formatProvider]).mstr(); }
 }
 
+export class Collision {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    set Flipped(v) { window.ctx.call("UnityEngine.Collision", "set_Flipped", [this.ptr, v]); }
+    get m_Flipped() { return this.ptr.readField(0x48, 'i32').val() === 1; }
+    set m_Flipped(v) { return this.ptr.writeField(0x48, 'i32', v); }
+    get m_Header() { return new ContactPairHeader(this.ptr.readField(0x8, 'i32')); }
+    set m_Header(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    get m_LegacyContacts() { return JSArray(this.ptr.readField(0x4C, 'i32')); }
+    set m_LegacyContacts(v) { return this.ptr.writeField(0x4C, 'i32', v); }
+    get m_Pair() { return new ContactPair(this.ptr.readField(0x28, 'i32')); }
+    set m_Pair(v) { return this.ptr.writeField(0x28, 'i32', v); }
+    Reuse(header, pair) { window.ctx.call("UnityEngine.Collision", "Reuse", [this.ptr, header, pair]); }
+}
+
 export class CTFPoint {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get baseRenderers() { return JSArray(this.ptr.readField(0x24, 'i32')); }
@@ -6622,20 +6636,6 @@ export class TrailRenderer {
     static set_widthMultiplier_Injected(_unity_self, value) { window.ctx.call("UnityEngine.TrailRenderer", "set_widthMultiplier_Injected", [_unity_self, value]); }
 }
 
-export class Collision {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    set Flipped(v) { window.ctx.call("UnityEngine.Collision", "set_Flipped", [this.ptr, v]); }
-    get m_Flipped() { return this.ptr.readField(0x48, 'i32').val() === 1; }
-    set m_Flipped(v) { return this.ptr.writeField(0x48, 'i32', v); }
-    get m_Header() { return new ContactPairHeader(this.ptr.readField(0x8, 'i32')); }
-    set m_Header(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    get m_LegacyContacts() { return JSArray(this.ptr.readField(0x4C, 'i32')); }
-    set m_LegacyContacts(v) { return this.ptr.writeField(0x4C, 'i32', v); }
-    get m_Pair() { return new ContactPair(this.ptr.readField(0x28, 'i32')); }
-    set m_Pair(v) { return this.ptr.writeField(0x28, 'i32', v); }
-    Reuse(header, pair) { window.ctx.call("UnityEngine.Collision", "Reuse", [this.ptr, header, pair]); }
-}
-
 export class Rigidbody {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get angularDamping() { return window.ctx.call("UnityEngine.Rigidbody", "get_angularDamping", [this.ptr]).val(); }
@@ -7468,6 +7468,54 @@ export class Shader {
     static get_subshaderCount_Injected(_unity_self) { return window.ctx.call("UnityEngine.Shader", "get_subshaderCount_Injected", [_unity_self]).val(); }
     static set_globalRenderPipeline_Injected(value) { window.ctx.call("UnityEngine.Shader", "set_globalRenderPipeline_Injected", [value]); }
     static set_maximumLOD_Injected(_unity_self, value) { window.ctx.call("UnityEngine.Shader", "set_maximumLOD_Injected", [_unity_self, value]); }
+}
+
+export class ContactPairHeader {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get body() { return new Component(window.ctx.call("UnityEngine.ContactPairHeader", "get_body", [this.ptr])); }
+    get hasRemovedBody() { return window.ctx.call("UnityEngine.ContactPairHeader", "get_hasRemovedBody", [this.ptr]).val() === 1; }
+    get otherBody() { return new Component(window.ctx.call("UnityEngine.ContactPairHeader", "get_otherBody", [this.ptr])); }
+    get m_BodyID() { return new EntityId(this.ptr.readField(0x0, 'i32')); }
+    set m_BodyID(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_Flags() { return new CollisionPairHeaderFlags(this.ptr.readField(0x10, 'i32')); }
+    set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get m_NbPairs() { return this.ptr.readField(0xC, 'i32').val(); }
+    set m_NbPairs(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get m_OtherBodyID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
+    set m_OtherBodyID(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get m_RelativeVelocity() { return new Vector3(this.ptr.readField(0x14, 'i32')); }
+    set m_RelativeVelocity(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get m_StartPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_StartPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    GetContactPair(index) { return window.ctx.call("UnityEngine.ContactPairHeader", "GetContactPair", [this.ptr, index]); }
+    GetContactPair_Internal(index) { return window.ctx.call("UnityEngine.ContactPairHeader", "GetContactPair_Internal", [this.ptr, index]); }
+}
+
+export class ContactPair {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+    get collider() { return new Collider(window.ctx.call("UnityEngine.ContactPair", "get_collider", [this.ptr])); }
+    get hasRemovedCollider() { return window.ctx.call("UnityEngine.ContactPair", "get_hasRemovedCollider", [this.ptr]).val() === 1; }
+    get isCollisionEnter() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionEnter", [this.ptr]).val() === 1; }
+    get isCollisionExit() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionExit", [this.ptr]).val() === 1; }
+    get isCollisionStay() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionStay", [this.ptr]).val() === 1; }
+    get otherCollider() { return new Collider(window.ctx.call("UnityEngine.ContactPair", "get_otherCollider", [this.ptr])); }
+    get m_ColliderID() { return new EntityId(this.ptr.readField(0x0, 'i32')); }
+    set m_ColliderID(v) { return this.ptr.writeField(0x0, 'i32', v); }
+    get m_Events() { return new CollisionPairEventFlags(this.ptr.readField(0x12, 'i32')); }
+    set m_Events(v) { return this.ptr.writeField(0x12, 'i32', v); }
+    get m_Flags() { return new CollisionPairFlags(this.ptr.readField(0x10, 'i32')); }
+    set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
+    get m_ImpulseSum() { return new Vector3(this.ptr.readField(0x14, 'i32')); }
+    set m_ImpulseSum(v) { return this.ptr.writeField(0x14, 'i32', v); }
+    get m_NbPoints() { return this.ptr.readField(0xC, 'i32').val(); }
+    set m_NbPoints(v) { return this.ptr.writeField(0xC, 'i32', v); }
+    get m_OtherColliderID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
+    set m_OtherColliderID(v) { return this.ptr.writeField(0x4, 'i32', v); }
+    get m_StartPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
+    set m_StartPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
+    ExtractContactsArray(managedContainer, flipped) { return window.ctx.call("UnityEngine.ContactPair", "ExtractContactsArray", [this.ptr, managedContainer, flipped]).val(); }
+    GetContactPoint(index) { return window.ctx.call("UnityEngine.ContactPair", "GetContactPoint", [this.ptr, index]); }
+    GetContactPoint_Internal(index) { return window.ctx.call("UnityEngine.ContactPair", "GetContactPoint_Internal", [this.ptr, index]); }
 }
 
 export class BaseWaypointObject {
@@ -9241,54 +9289,6 @@ export class LineTextureMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
-export class ContactPairHeader {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get body() { return new Component(window.ctx.call("UnityEngine.ContactPairHeader", "get_body", [this.ptr])); }
-    get hasRemovedBody() { return window.ctx.call("UnityEngine.ContactPairHeader", "get_hasRemovedBody", [this.ptr]).val() === 1; }
-    get otherBody() { return new Component(window.ctx.call("UnityEngine.ContactPairHeader", "get_otherBody", [this.ptr])); }
-    get m_BodyID() { return new EntityId(this.ptr.readField(0x0, 'i32')); }
-    set m_BodyID(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get m_Flags() { return new CollisionPairHeaderFlags(this.ptr.readField(0x10, 'i32')); }
-    set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get m_NbPairs() { return this.ptr.readField(0xC, 'i32').val(); }
-    set m_NbPairs(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    get m_OtherBodyID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
-    set m_OtherBodyID(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get m_RelativeVelocity() { return new Vector3(this.ptr.readField(0x14, 'i32')); }
-    set m_RelativeVelocity(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get m_StartPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
-    set m_StartPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    GetContactPair(index) { return window.ctx.call("UnityEngine.ContactPairHeader", "GetContactPair", [this.ptr, index]); }
-    GetContactPair_Internal(index) { return window.ctx.call("UnityEngine.ContactPairHeader", "GetContactPair_Internal", [this.ptr, index]); }
-}
-
-export class ContactPair {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-    get collider() { return new Collider(window.ctx.call("UnityEngine.ContactPair", "get_collider", [this.ptr])); }
-    get hasRemovedCollider() { return window.ctx.call("UnityEngine.ContactPair", "get_hasRemovedCollider", [this.ptr]).val() === 1; }
-    get isCollisionEnter() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionEnter", [this.ptr]).val() === 1; }
-    get isCollisionExit() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionExit", [this.ptr]).val() === 1; }
-    get isCollisionStay() { return window.ctx.call("UnityEngine.ContactPair", "get_isCollisionStay", [this.ptr]).val() === 1; }
-    get otherCollider() { return new Collider(window.ctx.call("UnityEngine.ContactPair", "get_otherCollider", [this.ptr])); }
-    get m_ColliderID() { return new EntityId(this.ptr.readField(0x0, 'i32')); }
-    set m_ColliderID(v) { return this.ptr.writeField(0x0, 'i32', v); }
-    get m_Events() { return new CollisionPairEventFlags(this.ptr.readField(0x12, 'i32')); }
-    set m_Events(v) { return this.ptr.writeField(0x12, 'i32', v); }
-    get m_Flags() { return new CollisionPairFlags(this.ptr.readField(0x10, 'i32')); }
-    set m_Flags(v) { return this.ptr.writeField(0x10, 'i32', v); }
-    get m_ImpulseSum() { return new Vector3(this.ptr.readField(0x14, 'i32')); }
-    set m_ImpulseSum(v) { return this.ptr.writeField(0x14, 'i32', v); }
-    get m_NbPoints() { return this.ptr.readField(0xC, 'i32').val(); }
-    set m_NbPoints(v) { return this.ptr.writeField(0xC, 'i32', v); }
-    get m_OtherColliderID() { return new EntityId(this.ptr.readField(0x4, 'i32')); }
-    set m_OtherColliderID(v) { return this.ptr.writeField(0x4, 'i32', v); }
-    get m_StartPtr() { return new IntPtr(this.ptr.readField(0x8, 'i32')); }
-    set m_StartPtr(v) { return this.ptr.writeField(0x8, 'i32', v); }
-    ExtractContactsArray(managedContainer, flipped) { return window.ctx.call("UnityEngine.ContactPair", "ExtractContactsArray", [this.ptr, managedContainer, flipped]).val(); }
-    GetContactPoint(index) { return window.ctx.call("UnityEngine.ContactPair", "GetContactPoint", [this.ptr, index]); }
-    GetContactPoint_Internal(index) { return window.ctx.call("UnityEngine.ContactPair", "GetContactPoint_Internal", [this.ptr, index]); }
-}
-
 export class CollisionDetectionMode {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
@@ -9395,6 +9395,18 @@ export class ShaderPropertyType {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 
+export class CollisionPairHeaderFlags {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class CollisionPairEventFlags {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
+export class CollisionPairFlags {
+    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
+}
+
 export class WaypointUI {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
     get hideOnObstacle() { return this.ptr.readField(0x14, 'i32').val() === 1; }
@@ -9454,18 +9466,6 @@ export class ParticleSystemSimulationSpace {
 }
 
 export class TextureFormat {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class CollisionPairHeaderFlags {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class CollisionPairEventFlags {
-    constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
-}
-
-export class CollisionPairFlags {
     constructor(ptr) { this.ptr = ptr; this.ptrRef = v => v?.ptr ?? v; }
 }
 

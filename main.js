@@ -264,7 +264,7 @@ function mainloop(timestamp) {
 		//esp();
 		main();
 		//new CTFManager(ctfmanager).ShowPopupUI(ctx.createMstr("yay"))
-
+		
 		if (!init) {
 			console.log("Recte Loaded & Shit"
 			);
